@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EBM Lens - Evidence Discovery</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="header-row">
+      <div>
+        <h1>EBM Lens</h1>
+        <p class="tagline">Evidence discovery across twelve public biomedical databases.</p>
+      </div>
+      <div class="header-actions">
+        <div class="legend-dropdown">
+          <button type="button" class="legend-toggle" id="legendToggle" aria-haspopup="true" aria-expanded="false" title="Guide to badges and symbols">
+            <svg class="legend-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            Legend
+          </button>
+          <div class="legend-popover" id="legendPopover" role="tooltip">
+            <h3>Guide to Badges & Symbols</h3>
+
+            <div class="legend-sec">
+              <div class="legend-sec-title">Source Reliability (Tier)</div>
+              <div class="legend-item">
+                <span class="tag t1">institutional</span>
+                <div class="legend-desc">Regulatory agencies and official databases (EMA, FDA, WHO, DailyMed, RxNav, ChEMBL).</div>
+              </div>
+              <div class="legend-item">
+                <span class="tag t2">curated</span>
+                <div class="legend-desc">Peer-reviewed literature and clinical registries (PubMed, Europe PMC, ClinicalTrials.gov, Open Targets).</div>
+              </div>
+              <div class="legend-item">
+                <span class="tag t3">general</span>
+                <div class="legend-desc">Preprints and open non-peer-reviewed sources (bioRxiv, medRxiv, Wikipedia).</div>
+              </div>
+            </div>
+
+            <div class="legend-sec">
+              <div class="legend-sec-title">Matching & Relevance</div>
+              <div class="legend-item">
+                <span class="tag extrapolated">extrapolated</span>
+                <div class="legend-desc">Topically relevant source, but on a related population, condition, or formulation rather than the exact query (adjacent PICO).</div>
+              </div>
+              <div class="legend-item">
+                <div class="relevance" style="margin:0;"><div class="relevance-track"><div class="relevance-fill r-high" style="width:75%"></div></div> <span class="relevance-num">75%</span></div>
+                <div class="legend-desc">Direct topical relevance assessed against the clinical question.</div>
+              </div>
+            </div>
+
+            <div class="legend-sec">
+              <div class="legend-sec-title">Study Design (Evidence Hierarchy)</div>
+              <div class="legend-item">
+                <span class="tag design d-high">systematic_review / rct</span>
+                <div class="legend-desc">Highest hierarchy: systematic reviews, meta-analyses, randomized controlled trials, guidelines.</div>
+              </div>
+              <div class="legend-item">
+                <span class="tag design d-mid">cohort / observational</span>
+                <div class="legend-desc">Intermediate hierarchy: observational, cohort, or case-control studies.</div>
+              </div>
+              <div class="legend-item">
+                <span class="tag design">in_vitro / case_report</span>
+                <div class="legend-desc">Preclinical evidence, case series, or experimental models.</div>
+              </div>
+            </div>
+
+            <div class="legend-sec">
+              <div class="legend-sec-title">Claim Strength (Overview)</div>
+              <div class="legend-item">
+                <span class="strength strong">strong</span>
+                <div class="legend-desc">Direct, consistent, high-tier evidence.</div>
+              </div>
+              <div class="legend-item">
+                <span class="strength moderate">moderate</span>
+                <div class="legend-desc">Observational evidence or moderate consensus.</div>
+              </div>
+              <div class="legend-item">
+                <span class="strength weak">weak</span>
+                <div class="legend-desc">Preliminary or conflicting evidence, or based solely on <i>extrapolated</i> sources.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="history-toggle" id="historyToggle" aria-expanded="false" aria-controls="historyPanel">
+          History<span class="history-count" id="historyCount"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="panel">
+    <textarea id="topic" rows="2" placeholder="Ask a biomedical research question (e.g. GLP-1 agonists and cardiovascular risk reduction)"></textarea>
+    <div class="controls">
+      <label class="field">Language
+        <select id="language">
+          <option value="it" selected>Italiano</option>
+          <option value="en">English</option>
+        </select>
+      </label>
+      <label class="field">Sources</label>
+      <div class="segmented" role="group" aria-label="Number of sources" id="sourcesPreset">
+        <button type="button" class="small" data-value="5">5</button>
+        <button type="button" class="small" data-value="10" aria-pressed="true">10</button>
+        <button type="button" class="small" data-value="20">20</button>
+        <button type="button" class="small" data-value="30">30</button>
+      </div>
+      <span class="spacer"></span>
+      <button type="button" class="btn-primary" id="searchBtn">Search</button>
+    </div>
+  </div>
+
+  <p class="discovery-note" id="discoveryNote">A research brief, several query rounds that adapt to what earlier ones found, and a relevance floor: this takes 30-90s, and may return fewer sources than requested when that is all that is genuinely on-topic.</p>
+  <p class="hint"><kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>Enter</kbd> to search. Summaries are generated; always check the linked source.</p>
+
+  <div class="progress" id="progress" hidden>
+    <div class="progress-bar"><span></span></div>
+    <div class="progress-text">
+      <span id="progressStage"><span class="live-dot"></span>Connecting…</span>
+      <span class="elapsed" id="elapsed">0.0s</span>
+    </div>
+    <ul class="progress-log" id="progressLog" aria-live="polite"></ul>
+  </div>
+
+  <div class="error" id="error" hidden></div>
+  <div class="results" id="results"></div>
+
+  <footer>
+    Free public sources only: PubMed, Europe PMC, ClinicalTrials.gov, OpenFDA, DailyMed,
+    RxNav, Open Targets, ChEMBL, WHO GHO, EMA, bioRxiv/medRxiv, Wikipedia.
+  </footer>
+
+</div>
+
+<div class="history-backdrop" id="historyBackdrop" hidden></div>
+<aside class="history-drawer" id="historyPanel" hidden aria-hidden="true" aria-label="Search history">
+  <div class="history-drawer-head">
+    <h2>Search history<span class="history-count" id="historyCountDrawer"></span></h2>
+    <button type="button" class="history-close" id="historyCloseBtn" aria-label="Close history">×</button>
+  </div>
+  <div class="history-filter-row">
+    <input type="search" id="historyFilter" class="history-filter" placeholder="Filter past searches…" autocomplete="off">
+  </div>
+  <div class="history-list" id="historyList"></div>
+  <div class="history-drawer-foot">
+    <button type="button" class="history-clear" id="clearHistoryBtn">Clear all history</button>
+  </div>
+</aside>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
