@@ -1,0 +1,23 @@
+__pycache__/
+*.pyc
+*.egg-info/
+.env
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.DS_Store
+.claude/
+
+# Personal study notes, not part of the project.
+docs/
+
+# Not decided yet whether this ships publicly.
+REFERENCES.md
+
+# Third-party eval datasets: license/redistribution terms vary (BioASQ
+# requires a registered account), so raw downloads stay local only.
+eval/data/
+# Eval run outputs logs, not fixtures.
+eval/results/
