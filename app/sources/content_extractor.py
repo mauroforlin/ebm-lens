@@ -29,6 +29,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 if TYPE_CHECKING:
     from app.config import Settings
 
+from app.core.sections import BIOMED_PRIORITY, BIOMED_SKIP, trim_by_priority
 from app.sources.base import SourceResult, build_headers
 
 logger = logging.getLogger(__name__)
@@ -86,6 +87,37 @@ def _is_fetchable_url(url: str) -> bool:
         return False
 
 
+_HEADING_TAGS = ("h1", "h2", "h3", "h4", "h5", "h6")
+
+# A null byte cannot occur in real page text, so it survives get_text's
+# whitespace collapse untouched - the marker is reinstated as a `## Heading`
+# line afterwards, once collapsing can no longer flatten it away.
+_HEADING_SENTINEL = "\x00"
+_HEADING_MARKER_RE = re.compile(
+    re.escape(_HEADING_SENTINEL) + r"(.*?)" + re.escape(_HEADING_SENTINEL)
+)
+
+
+def _mark_headings(soup) -> None:
+    """Replace each heading tag with a sentinel-wrapped copy of its text.
+
+    Gives HTML sources the same ``## Heading`` convention
+    :func:`app.sources.pubmed._fetch_pmc_fulltext` uses for JATS section
+    titles, so :func:`app.core.sections.trim_by_priority` can rank Cochrane,
+    NICE and EMA pages by section the same way it ranks PMC full text.
+    """
+    for tag in soup.find_all(_HEADING_TAGS):
+        heading_text = tag.get_text(" ", strip=True)
+        if heading_text:
+            tag.replace_with(f"{_HEADING_SENTINEL}{heading_text}{_HEADING_SENTINEL}")
+        else:
+            tag.decompose()
+
+
+def _restore_heading_markers(text: str) -> str:
+    return _HEADING_MARKER_RE.sub(r"\n## \1\n", text)
+
+
 def _extract_text_from_html(html: str, url: str = "") -> str:
     """Extract readable text from HTML, preferring BeautifulSoup4."""
     try:
@@ -93,24 +125,34 @@ def _extract_text_from_html(html: str, url: str = "") -> str:
         soup = BeautifulSoup(html, "html.parser")
         for tag in soup(["script", "style", "nav", "header", "footer"]):
             tag.decompose()
+        _mark_headings(soup)
         text = soup.get_text(separator=" ", strip=True)
-        text = re.sub(r"\s+", " ", text).strip()
+        text = _restore_heading_markers(re.sub(r"\s+", " ", text)).strip()
         if text and len(text) >= _MIN_USEFUL_CONTENT:
-            return text[:_MAX_CONTENT_CHARS]
+            return trim_by_priority(
+                text, _MAX_CONTENT_CHARS,
+                priority=BIOMED_PRIORITY, skip=BIOMED_SKIP,
+            )
     except ImportError:
         pass
     except Exception as exc:
         logger.debug("bs4 extraction failed for %s: %s", url[:60], exc)
 
-    # Fallback: basic HTML tag stripping
+    # Fallback: basic HTML tag stripping, headings marked before the generic
+    # strip removes the tags that would otherwise identify them.
     text = re.sub(r"<script[^>]*>.*?</script>", " ", html, flags=re.DOTALL | re.IGNORECASE)
     text = re.sub(r"<style[^>]*>.*?</style>", " ", html, flags=re.DOTALL | re.IGNORECASE)
+    text = re.sub(
+        r"<(h[1-6])[^>]*>(.*?)</\1>",
+        lambda m: f"{_HEADING_SENTINEL}{re.sub(r'<[^>]+>', '', m.group(2))}{_HEADING_SENTINEL}",
+        text, flags=re.DOTALL | re.IGNORECASE,
+    )
     text = re.sub(r"<[^>]+>", " ", text)
-    text = re.sub(r"\s+", " ", text).strip()
+    text = _restore_heading_markers(re.sub(r"\s+", " ", text)).strip()
 
     if len(text) < _MIN_USEFUL_CONTENT:
         return ""
-    return text[:_MAX_CONTENT_CHARS]
+    return trim_by_priority(text, _MAX_CONTENT_CHARS, priority=BIOMED_PRIORITY, skip=BIOMED_SKIP)
 
 
 @retry(wait=wait_exponential(multiplier=1, min=1, max=4), stop=stop_after_attempt(3), reraise=True)

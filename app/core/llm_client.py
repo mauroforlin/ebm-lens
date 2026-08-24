@@ -89,6 +89,12 @@ _PURPOSE_MODEL_FIELD: dict[str, str] = {
     "related_articles_summarize": "llm_heavy_model",
     "related_articles_synthesis": "llm_heavy_model",
     "related_articles_rerank": "llm_heavy_model",
+    # Quality-critical despite being short-form: getting a source's stance
+    # backwards is the pipeline's worst possible error (see synthesis.py's
+    # module docstring), so this earns the heavy model despite each call
+    # being a small, narrow judgment - an unmapped purpose would otherwise
+    # fall back to the cheap default here.
+    "related_articles_stance": "llm_heavy_model",
 }
 
 

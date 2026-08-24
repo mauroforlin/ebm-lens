@@ -136,7 +136,14 @@ def _is_retryable_status(exc: BaseException) -> bool:
 # ── Shared HTTP client (connection pooling) ───────────────────
 _http_client: httpx.Client | None = None
 _client_lock = threading.Lock()
-_MAX_CONTENT_LEN = 8000  # chars for full-text content
+_MAX_CONTENT_LEN = 8000  # chars for search-result content (abstract + metadata prefix)
+
+# Safety ceiling on a PMC full-text fetch, well above what synthesis.py's own
+# trimming ever keeps - it exists to bound one pathological article's memory
+# and network cost, not to shape what a model sees. Covers the large majority
+# of open-access RCT/systematic-review full text; the rare article past it
+# still gets the abstract plus whatever of the body arrives first.
+_MAX_RAW_FULLTEXT_CHARS = 60000
 
 
 def _get_client() -> httpx.Client:
@@ -419,15 +426,30 @@ def _fetch_pmc_fulltext(pmc_id: str) -> str:
                 parts.append(f"## Abstract\n{abstract_text}\n")
         for sec in body.iter("sec"):
             title_el = sec.find("title")
-            if title_el is not None and title_el.text:
-                parts.append(f"\n## {title_el.text.strip()}\n")
+            # itertext() picks up a title wrapped in inline markup (e.g.
+            # "<title><italic>In vivo</italic> results</title>") that
+            # title_el.text alone would miss entirely, leaving the section's
+            # paragraphs unmarked and silently folded into whichever section
+            # precedes it.
+            if title_el is not None:
+                title = re.sub(r"\s+", " ", "".join(title_el.itertext())).strip()
+                if title:
+                    parts.append(f"\n## {title}\n")
             for p in sec.findall("p"):
                 text = "".join(p.itertext()).strip()
                 if text:
                     parts.append(text)
         fulltext = "\n".join(parts)
+        if not fulltext:
+            return ""
         _record_success()
-        return fulltext[:_MAX_CONTENT_LEN] if fulltext else ""
+        # Returned with its `## Section` markers intact and only a generous
+        # safety ceiling applied, not the tight budget a model's context
+        # window needs - synthesis.py reads sections out of this by name
+        # (read_section) or asks for a priority-filled excerpt of it
+        # (read_full_text); trimming here would throw away the material
+        # either of those needs before it ever reaches that decision.
+        return fulltext[:_MAX_RAW_FULLTEXT_CHARS]
     except Exception as exc:
         logger.debug("PMC full-text fetch failed for %s: %s", pmc_id, exc)
         return ""

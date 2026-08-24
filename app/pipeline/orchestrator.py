@@ -15,7 +15,8 @@ The shape of the run:
    overlap, rank fusion, study design - and keep a shortlist. This is the cost
    gate: summarisation is the expensive step, so only the shortlist gets one.
 4. **Read** the shortlist - fetch full text, then summarise and appraise each
-   source in one LLM call.
+   source, and separately judge whether each source's own finding supports
+   or contradicts the topic.
 5. **Select** the final set under the ranking policy.
 6. **Synthesise** an overview from the sources that cleared the relevance bar,
    as claims that each cite the articles they rest on.
@@ -49,6 +50,7 @@ from app.pipeline.selection import SignalMaps
 from app.pipeline.synthesis import (
     appraise_design,
     clamp_relevance,
+    judge_directions,
     read_direction,
     read_directness,
     summarise_sources,
@@ -266,6 +268,11 @@ def _summarise_shortlist(
             summary_language=summary_language, job_stats=stats, pico=pico,
         )
 
+    with _stage(stats, "stance"):
+        directions = judge_directions(
+            topic, shortlist, summaries, settings, job_stats=stats,
+        )
+
     articles = []
     for index, result in enumerate(shortlist):
         summary = summaries.get(index, {})
@@ -294,7 +301,7 @@ def _summarise_shortlist(
             study_design=design,
             evidence_level=level,
             key_finding=_text_field(summary, "key_finding"),
-            finding_direction=read_direction(summary.get("finding_direction")),
+            finding_direction=read_direction(directions.get(index)),
             population=_text_field(summary, "population"),
             directness=read_directness(summary.get("directness")),
         ))

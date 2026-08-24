@@ -1,16 +1,27 @@
-"""Reading the evidence: per-source appraisal and the grounded synthesis.
+"""Reading the evidence: per-source appraisal, stance judgment, and the
+grounded synthesis.
 
-Two LLM passes turn a ranked list of papers into something a person can act
-on. Both are written to fail safe, because a wrong summary of medical
+Three LLM passes turn a ranked list of papers into something a person can act
+on. All three are written to fail safe, because a wrong summary of medical
 evidence is worse than no summary:
 
 * :func:`summarise_sources` reads each shortlisted source and returns a short
   summary, a relevance score, and an appraisal - what design the study used,
-  who it studied, what it found and which way that cuts for the topic. The
-  relevance score is the pipeline's only judgement made after actually reading
-  the content, and the final ranking leans on it; the design is a reading of
-  the full text, so it overrides the pool-wide heuristic in
-  :mod:`app.pipeline.evidence_grade`.
+  who it studied, and the specific finding (if any) that bears on the topic,
+  quoted verbatim as ``evidence_quote``. The relevance score is the
+  pipeline's only judgement made after actually reading the content, and the
+  final ranking leans on it; the design is a reading of the full text, so it
+  overrides the pool-wide heuristic in :mod:`app.pipeline.evidence_grade`.
+* :func:`judge_directions` decides, separately and per source, whether that
+  finding supports or contradicts the topic's claim - graded
+  ``strongly_contradicts`` through ``strongly_supports``, plus ``mixed`` and
+  a deterministic ``no_evidence`` for sources with nothing to judge. Splitting
+  this out of ``summarise_sources`` and grading it on a scale rather than a
+  flat supports/contradicts/neutral label follows paper-qa's ``contracrow``
+  setting (github.com/Future-House/paper-qa): evidence-gathering and verdict
+  are different tasks, and "the source doesn't address this" deserves its own
+  bucket rather than being folded into whichever label a forced choice
+  reaches for.
 * :func:`synthesise` writes the overview, using **only** sources that cleared
   the relevance bar. Feeding it everything retrieved would let marginal
   sources contribute claims to a text the user reads as a conclusion.
@@ -26,15 +37,16 @@ biomedical papers disagree with something else in their own literature, and an
 overview that averages two opposing findings reads exactly like settled
 science. When the sources disagree, the disagreement is the finding.
 
-When too little relevant evidence exists, both passes say so plainly rather
-than producing confident prose out of weak input. Relevance is not the same
-test as directness, though: a source can be topically on-topic - same drug,
-same organ, same disease family - while studying a different population or
-intervention than the one actually asked about. The summariser judges each
-source's ``directness`` against the topic's PICO for exactly this, and the
-synthesiser is not trusted to honour it unassisted: a claim resting only on
-non-direct sources is clamped to "weak" in code, and the overview is
-prefixed with an explicit flag when nothing cited is a direct match.
+When too little relevant evidence exists, all three passes say so plainly
+rather than producing confident prose out of weak input. Relevance is not the
+same test as directness, though: a source can be topically on-topic - same
+drug, same organ, same disease family - while studying a different
+population or intervention than the one actually asked about. The summariser
+judges each source's ``directness`` against the topic's PICO for exactly
+this, and the synthesiser is not trusted to honour it unassisted: a claim
+resting only on non-direct sources is clamped to "weak" in code, and the
+overview is prefixed with an explicit flag when nothing cited is a direct
+match.
 
 Validated claim-level attribution follows the attribution-evaluation
 literature (arXiv:2605.06635, arXiv:2408.04568); refusing over answering from
@@ -45,11 +57,12 @@ from __future__ import annotations
 
 import json
 import logging
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from app.config import Settings
 from app.core.job_stats import JobStats
 from app.core.llm_client import generate_json, generate_with_tools
+from app.core.parallel import run_parallel
+from app.core.sections import BIOMED_PRIORITY, BIOMED_SKIP, split_sections, trim_by_priority
 from app.pipeline import evidence_grade
 from app.schemas import PICO, ArticleSummary, Claim, Disagreement
 from app.sources.base import SourceResult
@@ -68,18 +81,31 @@ MIN_SYNTHESIS_RELEVANCE = 0.65
 # read_full_text call.
 _MAX_SOURCE_CHARS = 4000
 
-# Upper bound on read_full_text calls within one appraisal batch. Generous -
-# there is no per-call cost pressure here - but still a bound, because the
-# upstream sources this hits (NCBI, EMA, ...) have their own rate limits.
-# Never actually binds today since a batch has at most _SUMMARISE_BATCH_SIZE
-# sources to read, but stays as the real ceiling should that constant grow.
+# Chars returned by a read_full_text call, once the model has decided the
+# excerpt above isn't enough. Larger than _MAX_SOURCE_CHARS because this is
+# meant to actually reach the sections the excerpt couldn't, and capped at
+# 6000 to match generate_with_tools' own _MAX_TOOL_RESULT_CHARS backstop in
+# llm_client.py - going higher would just have that backstop re-truncate it
+# blindly. Filled by section priority (see trim_by_priority) rather than a
+# raw prefix, so the budget goes to Results/Discussion instead of whichever
+# section the source happens to put first.
+_MAX_FULL_TEXT_CHARS = 6000
+
+# Upper bound on distinct sources actually fetched (network I/O) within one
+# appraisal batch - read_full_text and read_section share this budget and
+# its cache, so asking for a section of an already-fetched source never
+# counts against it a second time. Generous - there is no per-call cost
+# pressure here - but still a bound, because the upstream sources this hits
+# (NCBI, EMA, ...) have their own rate limits. Never actually binds today
+# since a batch has at most _SUMMARISE_BATCH_SIZE sources to read, but stays
+# as the real ceiling should that constant grow.
 _MAX_FULL_TEXT_READS = 12
 
 _MAX_APPRAISAL_TOOL_ROUNDS = 6
 
 # Sources appraised per summarise_sources call, and how many such calls run
-# at once. Smaller batches mean each finding_direction/directness judgment -
-# see _SUMMARISE_SYSTEM's rules on both - competes with fewer other sources'
+# at once. Smaller batches mean each evidence_quote/directness judgment - see
+# _SUMMARISE_SYSTEM's rules on both - competes with fewer other sources'
 # content for the model's attention than one call covering the whole
 # shortlist would; running batches concurrently keeps wall-clock latency
 # close to the single-call version despite the extra round trips.
@@ -88,9 +114,25 @@ _SUMMARISE_MAX_WORKERS = 6
 
 _TIER_LABELS = {1: "institutional", 2: "curated", 3: "general"}
 
-# Directions a source's finding can take on the topic. Anything else the model
-# returns is read as "neutral" rather than trusted.
-_DIRECTIONS = frozenset({"supports", "contradicts", "mixed", "neutral"})
+# Sources per judge_directions call, run concurrently.
+_STANCE_MAX_WORKERS = 8
+
+# The graded labels judge_directions' stance call is allowed to choose
+# between - three grades of strength on each side, plus "mixed" for a source
+# that itself reports opposite effects across subgroups or analyses.
+# "no_evidence" is deliberately not in this set: it is assigned
+# deterministically before the call ever happens (see judge_directions), not
+# guessed by the model.
+_STANCE_LABELS = frozenset({
+    "strongly_contradicts", "contradicts", "weakly_contradicts",
+    "weakly_supports", "supports", "strongly_supports",
+    "mixed",
+})
+
+# The full vocabulary a source's finding_direction can carry once
+# judge_directions has run. Anything else the model returns is read as
+# "no_evidence" rather than trusted.
+_DIRECTIONS = _STANCE_LABELS | {"no_evidence"}
 
 _STRENGTHS = frozenset({"strong", "moderate", "weak"})
 
@@ -151,19 +193,25 @@ def _no_direct_evidence_prefix(summary_language: str = "it") -> str:
 _SUMMARISE_SYSTEM = """\
 You are a research assistant appraising source articles for a user \
 investigating a specific medical/clinical topic. For each source you produce \
-a concise summary, a relevance score, and a short critical appraisal.
+a concise summary, a relevance score, and a short critical appraisal, and \
+where the source reports a result bearing on the topic, the exact sentence \
+that reports it. You do NOT decide whether that result supports or \
+contradicts the topic's claim - a separate pass does that from the quote you \
+give it, so your job is to find and quote the evidence precisely, not to \
+render a verdict on it.
 
 Each source starts with an excerpt - an abstract, a label section, a search \
-snippet. That is enough for most sources. When it is not - the excerpt is \
-too thin to tell what the study actually did, or you need the methods or \
-results to judge study_design or directness with confidence rather than \
-guessing - call read_full_text with that source's index before appraising \
-it. A working human reviewer does not open every paper's PDF, only the ones \
-whose abstract does not answer the question; appraise the same way. Do not \
-call it reflexively for every source, and do not call it for a source whose \
-excerpt already gives you what you need. When you are done reading whatever \
-you needed to read, call submit_appraisals once with every source's \
-appraisal.
+snippet. That is enough for most sources. When it is not, two tools can read \
+further: read_section fetches one or more named sections in full - use it \
+directly when you already know you need the numbers in Results, or the \
+authors' own interpretation in Discussion; read_full_text fetches a broad, \
+automatically-prioritised excerpt instead, for when the source needs a closer \
+look but you don't yet know which section has it. A working human reviewer \
+does not open every paper's PDF, only the ones whose abstract does not \
+answer the question; appraise the same way - do not call either tool \
+reflexively for every source, and do not call one for a source whose excerpt \
+already gives you what you need. When you are done reading whatever you \
+needed to read, call submit_appraisals once with every source's appraisal.
 
 Each item in the appraisals array has:
 {{
@@ -182,10 +230,9 @@ empty string if the source does not say>",
 for, in {language}, one sentence; empty string if the source reports nothing \
 that bears on the topic - discussing the same drug, disease or general \
 subject is not enough on its own, see rules below>",
-  "finding_direction": "<one of: supports, contradicts, mixed, neutral - \
-compare what the TOPIC specifically claims (its direction, its asserted \
-effect) against what the source's own result actually shows, then label the \
-comparison - see rules below for what counts as which>",
+  "evidence_quote": "<the exact sentence(s) from the source's own text that \
+report key_finding, copied VERBATIM - not paraphrased, not translated, not \
+summarised. Empty string whenever key_finding is empty.>",
   "directness": "<one of: direct, adjacent, unclear - judged against the \
 PICO given below, when one is given>"
 }}
@@ -194,9 +241,10 @@ Rules:
 - Prioritise readability and speed: this is a quick-glance summary, not a review.
 - Keep only the core idea; omit secondary details and long context.
 - Mention at most one concrete detail (number/date/entity) only if critical.
-- ALL prose fields MUST be written in {language}. study_design, \
-finding_direction and directness are ids: return them in English, exactly as \
-listed.
+- ALL prose fields MUST be written in {language}, EXCEPT evidence_quote, \
+which stays in the source's own original language and wording since it must \
+be checkable against the source text. study_design and directness are ids: \
+return them in English, exactly as listed.
 - relevance_score should reflect how DIRECTLY USEFUL this source is for \
 understanding the topic, not just whether it mentions related terms. A source \
 can share the same drug, disease or general subject as the topic while \
@@ -211,22 +259,18 @@ Use "unknown" when the source does not make its design clear - do not guess.
 result it actually reports - not an inference from the source merely \
 discussing the same drug, disease or subject area. When a source is topically \
 on-topic but never tests or reports anything that speaks to the topic, leave \
-key_finding EMPTY and finding_direction "neutral" - do not fill it in just \
-because the source is relevant reading. Only mark it non-empty when you could \
-point to the specific sentence or data point in the source that makes the claim.
-- finding_direction: a null result, "no significant difference", or an effect \
-running the OPPOSITE way from what the topic claims is "contradicts" - never \
-"supports", and not "neutral" either, since the source did address the claim \
-and its answer was no. Reserve "neutral" for a source that does not test or \
-speak to the topic's specific claim at all (see key_finding above). Do not \
-judge direction from the source's overall tone or from it being about a \
-generally beneficial/harmful topic - a study of a beneficial drug can still \
-report a null or negative result for the ONE claim being asked about, and \
-that is "contradicts". Getting this backwards - reading a source's "no" as \
-"yes" - is the single worst error possible here, worse than an empty or \
-"unclear" answer; when genuinely torn between "supports" and "contradicts", \
-re-read the specific result sentence before deciding, do not guess toward \
-"supports".
+BOTH key_finding and evidence_quote EMPTY - do not fill them in just because \
+the source is relevant reading. Only mark key_finding non-empty when you can \
+point evidence_quote at the specific sentence that makes the claim; a \
+key_finding without a matching evidence_quote is treated downstream as if \
+neither had been given, so an approximate quote is worse than an empty one.
+- evidence_quote is read by a separate pass with no access to the source \
+itself, only to what you copy here - if you paraphrase, summarise, or \
+translate it instead of quoting exactly, that pass is judging words the \
+source never wrote. When you are unsure whether a sentence counts as \
+"the" result, quote it anyway rather than smoothing it into key_finding's \
+paraphrase; a slightly-too-generous quote costs nothing, a missing one \
+means the source's own result never gets judged at all.
 - directness is about the SAME facts as key_finding, judged more strictly: a \
 source that treats a different population, a different disease mechanism, or \
 a different formulation than the one asked about is "adjacent" even when it \
@@ -264,9 +308,13 @@ _READ_FULL_TEXT_TOOL = {
     "function": {
         "name": "read_full_text",
         "description": (
-            "Fetch the full page text for one source, when its excerpt is too "
-            "thin to judge study design, directness or the key finding with "
-            "confidence. Only works for sources on a trusted allowlist of "
+            "Fetch a broad excerpt of one source's full page text, when its "
+            "starting excerpt is too thin to judge study design, directness "
+            "or the key finding with confidence but you aren't yet sure which "
+            "section has what you need. Automatically weighted toward the "
+            "sections most likely to matter (Results, Discussion) - use "
+            "read_section instead once you know exactly which section to "
+            "read in full. Only works for sources on a trusted allowlist of "
             "regulator/publisher domains - returns a message saying so "
             "otherwise, in which case appraise from the excerpt you already have."
         ),
@@ -279,6 +327,47 @@ _READ_FULL_TEXT_TOOL = {
                 },
             },
             "required": ["index"],
+        },
+    },
+}
+
+_READ_SECTION_TOOL = {
+    "type": "function",
+    "function": {
+        "name": "read_section",
+        "description": (
+            "Fetch the complete, untrimmed text of one or more named "
+            "sections from a source (e.g. \"results\", \"discussion\", "
+            "\"methods\") - matched case-insensitively as a substring of the "
+            "source's own section headings, so \"results\" also matches "
+            "\"Results and Discussion\". Use this instead of read_full_text "
+            "when you already know exactly what you need: the precise "
+            "numbers, subgroup results or stated direction of an effect "
+            "usually live entirely in Results or Discussion, and this "
+            "returns that section whole rather than a budget-limited excerpt "
+            "of the whole paper. Asking for more than one or two sections at "
+            "once risks the same length limit read_full_text has, so prefer "
+            "the fewest sections that answer what you need. Same allowlist "
+            "as read_full_text; a miss returns the source's actual section "
+            "headings so you can retry with the right name."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "index": {
+                    "type": "integer",
+                    "description": "The source's [index] as given in the prompt.",
+                },
+                "sections": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": (
+                        "One or more section names to fetch in full, e.g. "
+                        "[\"results\"] or [\"results\", \"discussion\"]."
+                    ),
+                },
+            },
+            "required": ["index", "sections"],
         },
     },
 }
@@ -308,7 +397,7 @@ _SUBMIT_APPRAISALS_TOOL = {
                             "study_design": {"type": "string"},
                             "population": {"type": "string"},
                             "key_finding": {"type": "string"},
-                            "finding_direction": {"type": "string"},
+                            "evidence_quote": {"type": "string"},
                             "directness": {"type": "string"},
                         },
                         "required": ["index", "summary", "relevance_score"],
@@ -336,18 +425,18 @@ def summarise_sources(
     whose call failed outright, since one batch's failure must not cost the
     others theirs.
 
-    The old version put every source in one call: with a 20-30 source
-    shortlist, that meant the model was judging source 12's
-    ``finding_direction`` - the single highest-stakes field here, and the
-    one call that reads "the source found nothing" as "the source agrees"
-    is the worst error this pipeline can make - with the content of the
-    other 19 still in view. Splitting the shortlist into batches of
-    ``_SUMMARISE_BATCH_SIZE`` gives each judgment a narrower, less
-    distracting context; running the batches concurrently keeps the wall-clock
-    cost close to the single big call this replaces rather than multiplying
-    it by the batch count. See :func:`_summarise_batch` for the per-batch
-    mechanics, which are otherwise unchanged from the single-call version -
-    same excerpt-first reading, same bounded ``read_full_text`` tool.
+    Batching keeps each judgment's context narrow: with
+    ``_SUMMARISE_BATCH_SIZE`` sources per call rather than the whole
+    shortlist, reading source 12 doesn't compete against nineteen others'
+    content for the model's attention. Running batches concurrently keeps
+    wall-clock latency close to a single call covering the whole shortlist
+    despite the extra round trips. See :func:`_summarise_batch` for the
+    per-batch mechanics - excerpt-first reading, the bounded
+    ``read_full_text``/``read_section`` tools.
+
+    This appraises each source's own evidence but does not judge whether it
+    supports or contradicts the topic - see :func:`judge_directions` for
+    that, run separately once every batch here has returned.
 
     Passing *pico* gives the model a concrete population/intervention to
     judge each source's ``directness`` against, rather than leaving it to
@@ -362,26 +451,13 @@ def summarise_sources(
     ]
 
     summaries: dict[int, dict] = {}
-    # Manual lifecycle, not `with ThreadPoolExecutor(...)`: as elsewhere in
-    # the pipeline (see app.pipeline.agentic), a bare `with` calls
-    # shutdown(wait=True) on exit, which would block on every batch even
-    # after some have already failed.
-    pool = ThreadPoolExecutor(max_workers=min(_SUMMARISE_MAX_WORKERS, len(batches)))
-    try:
-        futures = {
-            pool.submit(
-                _summarise_batch, topic, results, batch, settings,
-                summary_language, job_stats, pico,
-            ): batch
-            for batch in batches
-        }
-        for future in as_completed(futures):
-            try:
-                summaries.update(future.result())
-            except Exception as exc:
-                logger.warning("Source appraisal batch failed: %s", exc)
-    finally:
-        pool.shutdown(wait=False, cancel_futures=True)
+    for batch_result in run_parallel(
+        lambda batch: _summarise_batch(
+            topic, results, batch, settings, summary_language, job_stats, pico,
+        ),
+        batches, _SUMMARISE_MAX_WORKERS,
+    ):
+        summaries.update(batch_result)
     return summaries
 
 
@@ -433,19 +509,19 @@ def _summarise_batch(
     )
 
     reads_used = 0
-    already_read: set[int] = set()
+    # None means "fetched and came back empty" (allowlist miss or failed
+    # fetch) - cached too, so a second tool call on the same index doesn't
+    # retry a fetch already known to fail, and doesn't count against
+    # _MAX_FULL_TEXT_READS twice.
+    fetched: dict[int, str | None] = {}
 
-    def _read_full_text(args: dict) -> str:
+    def _ensure_fetched(index: int) -> str | None:
         nonlocal reads_used
-        index = args.get("index")
-        if not isinstance(index, int) or index not in allowed:
-            return "invalid index"
-        if index in already_read:
-            return "already fetched - appraise from the full text already given to you"
+        if index in fetched:
+            return fetched[index]
         if reads_used >= _MAX_FULL_TEXT_READS:
-            return "read budget exhausted for this run - appraise from the excerpt"
+            return None
         reads_used += 1
-        already_read.add(index)
         result = results[index]
         # PubMed's abstract page cannot be scraped (cookie-challenge on a
         # plain GET) - its full text, when it has any, lives in PMC instead.
@@ -454,16 +530,64 @@ def _summarise_batch(
             text = fetch_full_text_by_url(result.url)
         else:
             text = fetch_full_text(result)
-        if not text:
+        fetched[index] = text or None
+        if text:
+            results[index].content = text
+        return fetched[index]
+
+    def _read_full_text(args: dict) -> str:
+        index = args.get("index")
+        if not isinstance(index, int) or index not in allowed:
+            return "invalid index"
+        text = _ensure_fetched(index)
+        if text is None:
+            if index in fetched:
+                return (
+                    "not available - this source is not on the fetchable "
+                    "allowlist, or the fetch failed. Appraise from the "
+                    "excerpt you already have."
+                )
+            return "read budget exhausted for this run - appraise from the excerpt"
+        return trim_by_priority(
+            text, _MAX_FULL_TEXT_CHARS,
+            priority=BIOMED_PRIORITY, skip=BIOMED_SKIP,
+        )
+
+    def _read_section(args: dict) -> str:
+        index = args.get("index")
+        if not isinstance(index, int) or index not in allowed:
+            return "invalid index"
+        wanted = [
+            name.strip().lower() for name in (args.get("sections") or [])
+            if isinstance(name, str) and name.strip()
+        ]
+        if not wanted:
+            return "sections must be a non-empty list of section names"
+        text = _ensure_fetched(index)
+        if text is None:
+            if index in fetched:
+                return (
+                    "not available - this source is not on the fetchable "
+                    "allowlist, or the fetch failed. Appraise from the "
+                    "excerpt you already have."
+                )
+            return "read budget exhausted for this run - appraise from the excerpt"
+        sections = split_sections(text)
+        matched = [
+            (title, body) for title, body in sections
+            if any(name in title.lower() for name in wanted)
+        ]
+        if not matched:
+            headings = ", ".join(title for title, _body in sections if title)
             return (
-                "not available - this source is not on the fetchable allowlist, "
-                "or the fetch failed. Appraise from the excerpt you already have."
+                f"no section matching {wanted} found. This source's actual "
+                f"section headings: {headings or '(none detected)'}"
             )
-        results[index].content = text
-        return text[:_MAX_SOURCE_CHARS]
+        return "".join(body for _title, body in matched)
 
     handlers = {
         "read_full_text": _read_full_text,
+        "read_section": _read_section,
         _SUBMIT_APPRAISALS_TOOL_NAME: lambda args: json.dumps(
             {"accepted": True, "count": len(args.get("appraisals") or [])}
         ),
@@ -476,7 +600,7 @@ def _summarise_batch(
             system_instruction=_SUMMARISE_SYSTEM.format(
                 language=_language_instruction(summary_language),
             ),
-            tools=[_READ_FULL_TEXT_TOOL, _SUBMIT_APPRAISALS_TOOL],
+            tools=[_READ_FULL_TEXT_TOOL, _READ_SECTION_TOOL, _SUBMIT_APPRAISALS_TOOL],
             tool_handlers=handlers,
             temperature=0.15,
             purpose="related_articles_summarize",
@@ -518,9 +642,27 @@ def clamp_relevance(value: object) -> float:
 
 
 def read_direction(value: object) -> str:
-    """Coerce a finding direction to a known value, defaulting to neutral."""
+    """Coerce a finding direction to a known value, defaulting to no_evidence."""
     candidate = value.strip().lower() if isinstance(value, str) else ""
-    return candidate if candidate in _DIRECTIONS else "neutral"
+    return candidate if candidate in _DIRECTIONS else "no_evidence"
+
+
+def collapse_direction(direction: str) -> str:
+    """Collapse the graded scale to SciFact's SUPPORT/CONTRADICT/NOINFO.
+
+    SciFact's annotators never graded strength, so every ``*_supports``
+    label maps to SUPPORT and every ``*_contradicts`` label to CONTRADICT
+    regardless of grade; ``mixed`` has no SciFact counterpart (no claim in
+    the corpus has both SUPPORT and CONTRADICT evidence within one document)
+    and collapses to NOINFO alongside ``no_evidence`` and anything
+    unrecognised. The canonical collapse, so eval/stance_eval.py grades
+    against the same rule production actually uses instead of re-deriving it.
+    """
+    if direction.endswith("supports"):
+        return "SUPPORT"
+    if direction.endswith("contradicts"):
+        return "CONTRADICT"
+    return "NOINFO"
 
 
 def read_directness(value: object) -> str:
@@ -544,6 +686,135 @@ def appraise_design(
     if design_id is None or design_id == "unknown":
         return fallback_design, fallback_score
     return evidence_grade.design_label(design_id), evidence_grade.evidence_score(design_id)
+
+
+# ══════════════════════════════════════════════════════════════
+#  Stance judgment
+# ══════════════════════════════════════════════════════════════
+
+_STANCE_SYSTEM = """\
+You are judging whether ONE source's own finding supports or contradicts a \
+specific topic claim. You are given the topic, the source's key finding, and \
+the exact sentence(s) it reports that finding in (its evidence quote) - \
+decide how the source's own result relates to what the topic specifically \
+claims, based only on the quote.
+
+Return a JSON object:
+{
+  "reasoning": "<one or two sentences: what does the evidence quote actually \
+say, and how does that compare to what the topic claims? Write this BEFORE \
+choosing the direction below - it is where the comparison happens, not a \
+summary written after the fact.>",
+  "direction": "<one of: strongly_contradicts, contradicts, weakly_contradicts, \
+weakly_supports, supports, strongly_supports, mixed - never anything else>"
+}
+
+Rules:
+- A null result, "no significant difference", or an effect running the \
+OPPOSITE way from what the topic claims belongs on the CONTRADICTS side, \
+never the supports side - the source addressed the claim and its answer \
+leaned no.
+- The three grades on each side are about STRENGTH, not confidence: \
+"strongly_*" is a large, consistent effect, or one backed by a higher-tier \
+design (meta-analysis, large RCT); "weakly_*" is a real but small, \
+borderline, or single-subgroup effect. Use the plain "contradicts"/"supports" \
+grade when nothing pushes toward either extreme.
+- Use "mixed" only when the evidence quote ITSELF reports opposite effects \
+across different subgroups or analyses within the same source - not merely \
+because you are unsure which side it falls on. When unsure, re-read the \
+quote and pick a side; "mixed" is for evidence that is genuinely two-sided, \
+not for your own uncertainty.
+- Getting the SIDE backwards - reading a source's "no" as "yes" - is the \
+single worst error possible here, worse than picking the wrong strength. \
+When torn between contradicts and supports, reread the evidence quote once \
+more before deciding; do not guess toward supports.
+- Judge only what the evidence quote itself states, never the source's \
+overall tone or whether it is generally about a beneficial/harmful subject - \
+a study of a beneficial drug can still report a contradicting result for the \
+ONE claim being asked about.
+"""
+
+
+def judge_directions(
+    topic: str,
+    results: list[SourceResult],
+    appraisals: dict[int, dict],
+    settings: Settings,
+    job_stats: JobStats | None = None,
+) -> dict[int, str]:
+    """Judge each appraised source's finding_direction, one call per source.
+
+    Split out of :func:`summarise_sources` and graded on the scale
+    :data:`_STANCE_LABELS` rather than a flat supports/contradicts/neutral
+    label, following paper-qa's ``contracrow`` setting (github.com/Future-
+    House/paper-qa): evidence-gathering and the support/contradict verdict
+    are different tasks, and grading strength gives "the source found
+    nothing" its own place on the scale instead of forcing it into whichever
+    of three labels a forced choice reaches for.
+
+    Two gates skip the LLM call entirely and assign ``"no_evidence"``
+    directly, judge-free:
+
+    - An empty ``key_finding`` - ``_SUMMARISE_SYSTEM`` already declines to
+      fill one in when the source doesn't test the topic's claim, so there is
+      nothing here to judge a direction on.
+    - A quote that doesn't check out: ``evidence_quote`` not appearing
+      (loosely - whitespace/case folded) in the source's own fetched content,
+      or missing outright. ``_SUMMARISE_SYSTEM`` asks for it verbatim so it
+      can be verified; a quote that fails that check might as well not have
+      been given, since trusting it would mean judging words the source may
+      never have written.
+    - A ``relevance_score`` at or below ``MIN_SYNTHESIS_RELEVANCE`` - such a
+      source never reaches :func:`synthesise` anyway.
+
+    Every source that clears both gates gets its own call, run in parallel.
+    """
+    content_by_index = {index: result.content or "" for index, result in enumerate(results)}
+
+    def _is_grounded(quote: str, content: str) -> bool:
+        if not quote or not content:
+            return False
+        norm = lambda s: " ".join(s.lower().split())  # noqa: E731
+        return norm(quote) in norm(content)
+
+    to_judge: dict[int, dict] = {}
+    directions: dict[int, str] = {}
+    for index, appraisal in appraisals.items():
+        quote = appraisal.get("evidence_quote")
+        quote = quote.strip() if isinstance(quote, str) else ""
+        if (
+            appraisal.get("key_finding")
+            and clamp_relevance(appraisal.get("relevance_score")) > MIN_SYNTHESIS_RELEVANCE
+            and _is_grounded(quote, content_by_index.get(index, ""))
+        ):
+            to_judge[index] = appraisal
+        else:
+            directions[index] = "no_evidence"
+
+    if not to_judge:
+        return directions
+
+    def _judge_one(index: int) -> tuple[int, str]:
+        appraisal = to_judge[index]
+        prompt = (
+            f"TOPIC: {topic}\n\n"
+            f"SOURCE'S KEY FINDING: {appraisal.get('key_finding', '')}\n"
+            f"EVIDENCE QUOTE: {appraisal.get('evidence_quote', '')}\n"
+        )
+        try:
+            raw = generate_json(
+                settings=settings, prompt=prompt, system_instruction=_STANCE_SYSTEM,
+                temperature=0.1, purpose="related_articles_stance", job_stats=job_stats,
+            )
+        except Exception as exc:
+            logger.warning("Stance judgment failed for source %d: %s", index, exc)
+            return index, "no_evidence"
+        direction = raw.get("direction") if isinstance(raw, dict) else None
+        return index, direction if direction in _STANCE_LABELS else "no_evidence"
+
+    for index, direction in run_parallel(_judge_one, list(to_judge), _STANCE_MAX_WORKERS):
+        directions[index] = direction
+    return directions
 
 
 # ══════════════════════════════════════════════════════════════
@@ -683,7 +954,7 @@ def _source_lines(
             attributes.append(article.study_design)
         if article.publication_date:
             attributes.append(article.publication_date[:7])
-        if article.finding_direction and article.finding_direction != "neutral":
+        if article.finding_direction and article.finding_direction != "no_evidence":
             attributes.append(f"direction: {article.finding_direction}")
         if article.directness in ("direct", "adjacent"):
             attributes.append(article.directness)

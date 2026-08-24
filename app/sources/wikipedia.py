@@ -13,9 +13,23 @@ import re
 import httpx
 from tenacity import retry, stop_after_attempt, wait_exponential
 
+from app.core.sections import trim_by_priority
 from app.sources.base import SourceProvider, SourceResult, user_agent
 
 logger = logging.getLogger(__name__)
+
+# Matches a level-2 "== Section ==" header from the Action API's
+# explaintext extract. Deeper levels ("=== Subsection ===") start with a
+# third "=" right where this pattern requires whitespace, so they fall
+# through and stay attached to their parent section's body rather than
+# splitting it further.
+_SECTION_HEADING_RE = re.compile(r"(?m)^==\s+(.+?)\s*=+\s*$")
+
+_SKIP_SECTIONS = (
+    "voci correlate", "see also", "note",
+    "references", "bibliography", "bibliografia",
+    "collegamenti esterni", "external links", "altri progetti",
+)
 
 
 class WikipediaProvider(SourceProvider):
@@ -252,48 +266,22 @@ class WikipediaProvider(SourceProvider):
 
     @staticmethod
     def _smart_trim(text: str, max_chars: int = 4000) -> str:
-        """Keep intro + most informative sections, trimmed to max_chars.
+        """Keep the intro and the most informative sections, within max_chars.
 
-        Splits on Wikipedia-style section headers (== Section ==) and
-        keeps the intro plus sections that contain numbers, dates, or
-        key factual indicators.
+        Splits on the Action API's plain-text section headers and scores each
+        surviving section by factual density - number, date and length
+        signals - since an encyclopedia article's most citation-worthy
+        content isn't reliably first in reading order the way an abstract is.
         """
-        if len(text) <= max_chars:
-            return text
+        def _density(section: str) -> float:
+            num_count = len(re.findall(r"\d+", section))
+            date_count = len(re.findall(r"\d{4}", section))  # years are high-value
+            length_bonus = min(len(section) / 500, 3.0)  # reward substantial sections
+            return num_count * 0.5 + date_count * 1.5 + length_bonus + (1.0 if len(section) > 200 else 0.3)
 
-        sections = re.split(r"\n(?===\s)", text)
-
-        # Always keep the intro (first section)
-        parts: list[str] = [sections[0]] if sections else []
-        current_len = len(parts[0]) if parts else 0
-
-        # Score remaining sections by factual density
-        scored: list[tuple[float, str]] = []
-        for sec in sections[1:]:
-            header_lower = sec[:60].lower()
-            skip_headers = ["== voci correlate", "== see also", "== note",
-                           "== references", "== bibliography", "== bibliografia",
-                           "== collegamenti esterni", "== external links",
-                           "== altri progetti"]
-            if any(header_lower.startswith(sk) for sk in skip_headers):
-                continue
-
-            # Score by factual density - balanced: numbers + length + date patterns
-            num_count = len(re.findall(r"\d+", sec))
-            date_count = len(re.findall(r"\d{4}", sec))  # years are high-value
-            length_bonus = min(len(sec) / 500, 3.0)  # reward substantial sections
-            score = num_count * 0.5 + date_count * 1.5 + length_bonus + (1.0 if len(sec) > 200 else 0.3)
-            scored.append((score, sec))
-
-        scored.sort(key=lambda x: x[0], reverse=True)
-        for _score, sec in scored:
-            if current_len + len(sec) > max_chars:
-                # Only worth a partial slice if there's meaningful room left
-                remaining = max_chars - current_len
-                if remaining > 200:
-                    parts.append(sec[:remaining])
-                break
-            parts.append(sec)
-            current_len += len(sec)
-
-        return "\n".join(parts)
+        return trim_by_priority(
+            text, max_chars,
+            marker=_SECTION_HEADING_RE,
+            skip=_SKIP_SECTIONS,
+            score_fn=_density,
+        )

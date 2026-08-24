@@ -157,7 +157,10 @@ class ArticleSummary(BaseModel):
     )
     finding_direction: str = Field(
         "",
-        description="Direction of the finding for the topic: supports, contradicts, mixed, neutral",
+        description="Graded direction of the finding against the topic's claim: "
+                    "strongly_contradicts, contradicts, weakly_contradicts, "
+                    "no_evidence, weakly_supports, supports, strongly_supports, "
+                    "or mixed",
     )
     population: str = Field("", description="Who the source studied, if stated")
     directness: str = Field(
