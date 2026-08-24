@@ -174,7 +174,7 @@ class ClinicalTrialsProvider(SourceProvider):
             snippet=" ".join(snippet_parts)[:300],
             content="\n".join(content_parts)[:4000],
             source_type=self.source_type,
-            reliability_tier=1,
+            reliability_tier=2,
             publication_date=pub_date,
             language="en",
         )

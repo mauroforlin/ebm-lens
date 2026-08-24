@@ -299,7 +299,7 @@ class EuropePMCProvider(SourceProvider):
             snippet=snippet[:300],
             content=content[:4000],
             source_type=self.source_type,
-            reliability_tier=1,
+            reliability_tier=2,
             publication_date=pub_date,
             citation_count=int(cited_by or 0),
             language="en",

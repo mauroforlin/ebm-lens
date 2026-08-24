@@ -209,7 +209,7 @@ class ChEMBLProvider(SourceProvider):
             snippet=snippet[:300],
             content="\n".join(content_parts)[:4000],
             source_type=self.source_type,
-            reliability_tier=2,
+            reliability_tier=1,
             language="en",
         )
 
