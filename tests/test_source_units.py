@@ -39,7 +39,7 @@ def test_extract_doi(url, expected):
 def test_user_agent_carries_a_contact_address():
     """NCBI, Crossref and OpenAlex route identified clients through the polite pool."""
     ua = user_agent()
-    assert ua.startswith("EBM Lens/")
+    assert ua.startswith("EBM-Lens/")
     assert "mailto:" in ua
 
 
