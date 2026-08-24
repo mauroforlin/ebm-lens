@@ -539,7 +539,10 @@ kbd {
   color: var(--accent);
   margin: 0 0 10px;
 }
-.overview p { margin: 0; white-space: pre-wrap; font-size: 0.96rem; }
+.overview-text p { margin: 0; white-space: pre-wrap; font-size: 0.96rem; line-height: 1.55; }
+.overview-text p + p { margin-top: 12px; }
+.overview-text strong { font-weight: 700; }
+.overview-text em { font-style: italic; color: var(--text-soft); }
 
 .filters { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 2px 12px; }
 .filter-chip { font: inherit; cursor: pointer; border: 1px solid transparent; }

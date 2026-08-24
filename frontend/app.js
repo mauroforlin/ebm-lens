@@ -508,7 +508,7 @@ function render(data) {
         <h2>Overview</h2>
         ${flagged ? `<p class="no-direct-flag">No source directly addresses this exact question
           — the summary below is extrapolated from related evidence.</p>` : ""}
-        <p>${linkCitations(esc(rest))}</p>
+        <div class="overview-text">${renderOverviewMarkdown(esc(rest))}</div>
         ${renderFindings(data.key_findings)}
         ${renderProfile(data.evidence_profile)}
         ${renderConflicts(data.disagreements)}
@@ -545,6 +545,25 @@ function stripInlineCitations(text) {
 function linkCitations(escaped) {
   return escaped.replace(/\[(\d+)\]/g, (match, index) =>
     `<a class="cite" href="#src-${index}">[${index}]</a>`);
+}
+
+/* The overview is allowed a small, closed Markdown subset - bold, italic,
+   blank-line paragraphs - see the synthesis prompt's formatting rule. Runs
+   on already-escaped text, same as linkCitations, so it only ever introduces
+   the two tags below; nothing else in the input can produce markup. */
+function renderOverviewMarkdown(escaped) {
+  const paragraphs = escaped
+    .split(/\n{2,}/)
+    .map((block) => block.trim())
+    .filter(Boolean);
+  return paragraphs
+    .map((block) => {
+      let html = block
+        .replace(/\*\*([^*\n]+?)\*\*/g, "<strong>$1</strong>")
+        .replace(/(^|[^*])\*([^*\n]+?)\*(?!\*)/g, "$1<em>$2</em>");
+      return `<p>${linkCitations(html)}</p>`;
+    })
+    .join("");
 }
 
 function citeLinks(indices) {
