@@ -730,3 +730,24 @@ footer {
 footer code { font-family: var(--mono); font-size: 0.75rem; }
 
 [hidden] { display: none !important; }
+
+.medical-disclaimer {
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 5px 10px;
+  cursor: help;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.medical-disclaimer:hover {
+  border-color: var(--border-strong);
+  color: var(--text);
+}
