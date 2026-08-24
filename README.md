@@ -6,7 +6,7 @@ citation graph, ranks what it found by relevance and by study design, and
 returns appraised sources plus an overview whose every claim cites the
 sources under it.
 
-![EBM Lens UI](assets/screenshot.png)
+![EBM Lens UI](assets/demo.gif)
 
 ```
 "GLP-1 agonists and cardiovascular risk reduction"
