@@ -1,7 +1,5 @@
 # EBM Lens
 
-*Named after Rabelais' giant: an appetite too large for any single source.*
-
 Evidence discovery for biomedical questions. Give it a topic and it searches
 twelve public biomedical databases, expands the result set through the
 citation graph, ranks what it found by relevance and by study design, and
