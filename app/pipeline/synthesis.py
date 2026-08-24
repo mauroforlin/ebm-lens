@@ -45,6 +45,7 @@ from __future__ import annotations
 
 import json
 import logging
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from app.config import Settings
 from app.core.job_stats import JobStats
@@ -67,12 +68,23 @@ MIN_SYNTHESIS_RELEVANCE = 0.65
 # read_full_text call.
 _MAX_SOURCE_CHARS = 4000
 
-# Upper bound on read_full_text calls per summarise_sources run. Generous -
+# Upper bound on read_full_text calls within one appraisal batch. Generous -
 # there is no per-call cost pressure here - but still a bound, because the
 # upstream sources this hits (NCBI, EMA, ...) have their own rate limits.
+# Never actually binds today since a batch has at most _SUMMARISE_BATCH_SIZE
+# sources to read, but stays as the real ceiling should that constant grow.
 _MAX_FULL_TEXT_READS = 12
 
 _MAX_APPRAISAL_TOOL_ROUNDS = 6
+
+# Sources appraised per summarise_sources call, and how many such calls run
+# at once. Smaller batches mean each finding_direction/directness judgment -
+# see _SUMMARISE_SYSTEM's rules on both - competes with fewer other sources'
+# content for the model's attention than one call covering the whole
+# shortlist would; running batches concurrently keeps wall-clock latency
+# close to the single-call version despite the extra round trips.
+_SUMMARISE_BATCH_SIZE = 5
+_SUMMARISE_MAX_WORKERS = 6
 
 _TIER_LABELS = {1: "institutional", 2: "curated", 3: "general"}
 
@@ -317,18 +329,25 @@ def summarise_sources(
     job_stats: JobStats | None = None,
     pico: PICO | None = None,
 ) -> dict[int, dict]:
-    """Summarise and appraise every shortlisted source in one tool-call loop.
+    """Summarise and appraise every shortlisted source, in parallel batches.
 
-    Returns ``{source_index: {...}}``. A source missing from the result simply
-    gets no summary. Every source starts with whatever excerpt it already
-    carries; the model reads that first and only calls ``read_full_text`` on
-    the sources where it is not enough to judge design or directness with
-    confidence - so cost tracks how much the shortlist actually needed read,
-    not its size.
+    Returns ``{source_index: {...}}``. A source missing from the result
+    simply gets no summary - the same is true of every source in a batch
+    whose call failed outright, since one batch's failure must not cost the
+    others theirs.
 
-    A source upgraded via ``read_full_text`` has its ``content`` replaced in
-    place, so later stages (evidence profiling, citation display) see the
-    fuller text too, the same way the blind pre-fetch pass already does.
+    The old version put every source in one call: with a 20-30 source
+    shortlist, that meant the model was judging source 12's
+    ``finding_direction`` - the single highest-stakes field here, and the
+    one call that reads "the source found nothing" as "the source agrees"
+    is the worst error this pipeline can make - with the content of the
+    other 19 still in view. Splitting the shortlist into batches of
+    ``_SUMMARISE_BATCH_SIZE`` gives each judgment a narrower, less
+    distracting context; running the batches concurrently keeps the wall-clock
+    cost close to the single big call this replaces rather than multiplying
+    it by the batch count. See :func:`_summarise_batch` for the per-batch
+    mechanics, which are otherwise unchanged from the single-call version -
+    same excerpt-first reading, same bounded ``read_full_text`` tool.
 
     Passing *pico* gives the model a concrete population/intervention to
     judge each source's ``directness`` against, rather than leaving it to
@@ -336,6 +355,56 @@ def summarise_sources(
     """
     if not results:
         return {}
+
+    batches = [
+        list(range(start, min(start + _SUMMARISE_BATCH_SIZE, len(results))))
+        for start in range(0, len(results), _SUMMARISE_BATCH_SIZE)
+    ]
+
+    summaries: dict[int, dict] = {}
+    # Manual lifecycle, not `with ThreadPoolExecutor(...)`: as elsewhere in
+    # the pipeline (see app.pipeline.agentic), a bare `with` calls
+    # shutdown(wait=True) on exit, which would block on every batch even
+    # after some have already failed.
+    pool = ThreadPoolExecutor(max_workers=min(_SUMMARISE_MAX_WORKERS, len(batches)))
+    try:
+        futures = {
+            pool.submit(
+                _summarise_batch, topic, results, batch, settings,
+                summary_language, job_stats, pico,
+            ): batch
+            for batch in batches
+        }
+        for future in as_completed(futures):
+            try:
+                summaries.update(future.result())
+            except Exception as exc:
+                logger.warning("Source appraisal batch failed: %s", exc)
+    finally:
+        pool.shutdown(wait=False, cancel_futures=True)
+    return summaries
+
+
+def _summarise_batch(
+    topic: str,
+    results: list[SourceResult],
+    batch_indices: list[int],
+    settings: Settings,
+    summary_language: str,
+    job_stats: JobStats | None,
+    pico: PICO | None,
+) -> dict[int, dict]:
+    """Appraise one batch of sources in a single tool-call loop.
+
+    *results* is the full shortlist; *batch_indices* is the subset this call
+    is responsible for. Indices in the prompt and in ``submit_appraisals``
+    are the real (global) positions in *results*, not batch-local ones - so a
+    claim later citing ``[7]`` means the same source no matter which batch
+    appraised it, and ``read_full_text``'s in-place mutation of
+    ``results[index].content`` lands on the one list every batch and the
+    caller share, safely, since concurrent batches never touch the same index.
+    """
+    allowed = set(batch_indices)
 
     def _block(index: int, result: SourceResult) -> str:
         content = (result.content or result.snippet or "")[:_MAX_SOURCE_CHARS]
@@ -357,8 +426,10 @@ def summarise_sources(
     prompt = (
         f"TOPIC: {topic}\n\n"
         + _pico_block(pico)
-        + f"SOURCES TO APPRAISE ({len(results)} total):\n\n"
-        + "\n".join(_block(i, r) for i, r in enumerate(results))
+        + f"SOURCES TO APPRAISE ({len(batch_indices)} of {len(results)} total "
+        "in this run - the indices below are not necessarily contiguous "
+        "from 0, use them exactly as given):\n\n"
+        + "\n".join(_block(i, results[i]) for i in batch_indices)
     )
 
     reads_used = 0
@@ -367,7 +438,7 @@ def summarise_sources(
     def _read_full_text(args: dict) -> str:
         nonlocal reads_used
         index = args.get("index")
-        if not isinstance(index, int) or not (0 <= index < len(results)):
+        if not isinstance(index, int) or index not in allowed:
             return "invalid index"
         if index in already_read:
             return "already fetched - appraise from the full text already given to you"
@@ -414,7 +485,7 @@ def summarise_sources(
             final_tool=_SUBMIT_APPRAISALS_TOOL_NAME,
         )
     except Exception as exc:
-        logger.warning("Source summarisation failed: %s", exc)
+        logger.warning("Source appraisal batch failed: %s", exc)
         return {}
 
     submission = next(
@@ -433,7 +504,7 @@ def summarise_sources(
         if not isinstance(item, dict):
             continue
         index = item.get("index")
-        if isinstance(index, int) and 0 <= index < len(results):
+        if isinstance(index, int) and index in allowed:
             summaries[index] = item
     return summaries
 
@@ -480,17 +551,49 @@ def appraise_design(
 # ══════════════════════════════════════════════════════════════
 
 _SYNTHESIS_SYSTEM = """\
-You are a clarity-first synthesis writer working from a set of numbered
-sources. Every statement you make must be traceable to them.
+You are an evidence synthesis writer working from a set of numbered,
+titled sources. Every statement you make must be traceable to them.
 
-Given a topic and the appraised sources, produce ONE short, easy-to-scan
+Given a topic and the appraised sources, produce ONE thorough, well-organized
 overview plus the claims and conflicts behind it.
 
 Return a JSON object:
 {{
-  "global_summary": "<standalone quick-glance overview in {language}. Cite \
-sources inline with their bracketed index, e.g. [0] or [1][3], for every \
-substantive statement.>",
+  "global_summary": "<standalone overview in {language}. Cite sources inline \
+with their bracketed index, e.g. [0] or [1][3], for every substantive \
+statement - this is mandatory and never optional. Where it helps the reader \
+follow the argument, you may ALSO name the source in prose (its trial name, \
+if the TITLE given to you shows a distinctive one, e.g. 'the STEP-1 trial \
+[2]', or otherwise a short paraphrase of its title/design+population, e.g. \
+'a 2021 cohort study of adolescents with X [4]') - the bracketed index stays \
+mandatory either way, since that is what gets verified; the name is a \
+readability aid on top of it, never a replacement. Never invent an author, \
+trial acronym or name that is not evident in the TITLE or content you were \
+given. Formatting: this is meant to be scanned, not just read start to \
+finish, so use light Markdown to help the eye - blank lines between \
+paragraphs that cover different sub-points, and *italics* sparingly for a \
+study/trial name or an explicit caveat. \
+**Bold is for two things only: (1) a concrete, neutral anchor - the \
+statistic itself (the OR/RR/HR/CI/p-value) or a distinguishing fact (an \
+unusual sample size, a specific subgroup, a dosing detail); (2) a neutral \
+observation about the SHAPE of the evidence - that it is mixed, that it \
+depends on a subgroup, dose, or population, that one design disagrees with \
+another - never which side is right, only that the picture is not uniform \
+(e.g. "**contrasting results**", "**effect only with daily dosing**", \
+"**no effect in older adults, but present in younger ones**"). Bold is \
+NEVER for a clause that states which way a finding points on its own** \
+("has shown a significant reduction", "found no significant effect", \
+"supports the treatment", and equivalents are NEVER bold, even when they \
+are the sentence's main point - stating a direction is fine in plain text, \
+just never emphasised). This is not a style preference: bolding a verdict \
+clause makes it look like the answer, and when the topic's sources \
+disagree that is exactly the false impression of settled science this \
+synthesiser exists to avoid; bolding that the picture is mixed does the \
+opposite; a number is always safe. If nothing in a paragraph fits either \
+of the two allowed uses, leave it unbolded rather than bolding the \
+interpretation instead. Most sentences should carry no markup at all. No \
+headings, no bullet lists, no markdown tables - those break the plain \
+overview this renders into.>",
   "key_findings": [
     {{
       "text": "<one claim, in {language}, one sentence>",
@@ -509,13 +612,35 @@ substantive statement.>",
 }}
 
 Output requirements:
-1. The overview must be a quick-glance synthesis, not a mini-article and not
-   a review. Keep it compact and quick to scan.
-2. Focus on: what is happening, why it matters, and where the evidence points.
-3. Keep language simple and direct; avoid jargon unless unavoidable.
-4. Include concrete details (numbers, dates, entities) only if essential and
-   supported by the provided sources.
+1. The overview should give the reader real context, not just a verdict: for
+   each major point, say what was actually studied - design, population,
+   rough size or duration when the sources state it - and what it found,
+   before or alongside the takeaway. Several short paragraphs are expected
+   when the sources support them. Length must come ONLY from more grounded
+   detail already present in the sources, never from restating the same
+   point, hedging boilerplate, or generic framing sentences that carry no
+   citation. If a sentence could be deleted without losing anything a source
+   actually said, delete it. When several sources report a closely similar
+   result (same direction, similar magnitude), report them TOGETHER in one
+   sentence carrying all their indices, rather than one near-identical
+   sentence per source - a wall of "meta-analysis X found Y (stat)" repeated
+   for every source is not depth, it is noise. Give a sentence of its own
+   only to a source that adds something the others do not: a different
+   population, a notably larger/smaller effect, a subgroup or dosing finding.
+2. Focus on: what is happening, why it matters, where the evidence points,
+   and - since this is a synthesis, not a list of abstracts - how the
+   sources relate to each other (agreement, disagreement, one study's design
+   being stronger than another's, one population differing from another).
+3. Keep language precise and direct; avoid jargon unless unavoidable, and
+   briefly gloss a technical term the first time it appears if doing so aids
+   a non-specialist reader.
+4. Include concrete details (numbers, dates, entities, study names) whenever
+   the sources actually state them - these are what make the overview
+   substantive rather than vague, so include them rather than paraphrasing
+   them away. Never state a number, date or name the sources do not give you.
 5. Do NOT invent facts and do NOT introduce information absent from the input.
+   A longer overview must not mean a less careful one: every added sentence
+   still needs its own citation.
 6. Write all prose in {language}.
 7. EVERY key_finding must carry at least one source index, and every index
    must be one of the indices listed in the input. Never cite an index that
@@ -564,7 +689,9 @@ def _source_lines(
             attributes.append(article.directness)
 
         body = article.key_finding or article.full_summary
-        lines.append(f"[{index}] ({', '.join(attributes)}) {body}")
+        title = article.title.strip() if article.title else ""
+        title_part = f' "{title}"' if title else ""
+        lines.append(f"[{index}]{title_part} ({', '.join(attributes)}) {body}")
         if article.population:
             lines.append(f"      population: {article.population}")
     return "\n".join(lines)
