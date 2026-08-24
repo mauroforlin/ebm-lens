@@ -5,8 +5,9 @@ cited, each doc labelled SUPPORT, CONTRADICT, or - critically - cited but
 carrying no evidence for the claim at all (NOINFO). That last case is a hard
 negative no synthetic distractor set could match: it's a document the claim's
 own authors thought worth citing, on the record as containing no evidence for
-it. `stance_eval.py` uses exactly this to grade `summarise_sources`'s
-`finding_direction` and its relevance gate.
+it. `stance_eval.py` uses exactly this to grade `judge_directions`'s
+`finding_direction` (collapsed to this same three-way vocabulary via
+`synthesis.collapse_direction`) and `summarise_sources`'s relevance gate.
 
 No claim in the training set mixes SUPPORT and CONTRADICT evidence across its
 cited docs (verified: 332 pure-SUPPORT / 173 pure-CONTRADICT / 304 NOINFO / 0

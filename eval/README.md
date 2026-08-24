@@ -16,7 +16,7 @@ subsets actually used by the eval scripts, and those *are* committed.
 |---|---|---|
 | **BioASQ** (Task B training set) | Retrieval + rerank (`searcher.py`, `ranking.py`, `selection.py`) — questions paired with PubMed articles a human assessor judged relevant. | [bioasq.org](http://www.bioasq.org/) / [participants-area.bioasq.org](https://participants-area.bioasq.org/) (registration required). Tsatsaronis et al., *An overview of the BIOASQ large-scale biomedical semantic indexing and question answering competition*, BMC Bioinformatics 2015 — [DOI](https://doi.org/10.1186/s12859-015-0564-6). |
 | **EBM-NLP** | PICO extraction (`topic_analysis.py`) — RCT abstracts with crowd-annotated Population/Intervention/Comparison/Outcome spans. | [github.com/bepnye/EBM-NLP](https://github.com/bepnye/EBM-NLP). Nye et al., *A Corpus with Multi-Level Annotations of Patients, Interventions and Outcomes to Support Language Processing for Medical Literature*, ACL 2018 — [arXiv:1806.04185](https://arxiv.org/abs/1806.04185). |
-| **SciFact** | Stance + grounding (`synthesis.py`'s `summarise_sources`) — expert-written claims paired with PubMed-style abstracts labelled SUPPORT/CONTRADICT, plus documents the claim's own authors cited but that carry no evidence for it (NOINFO). | [github.com/allenai/scifact](https://github.com/allenai/scifact). Wadden et al., *Fact or Fiction: Verifying Scientific Claims*, EMNLP 2020 — [arXiv:2004.14974](https://arxiv.org/abs/2004.14974). |
+| **SciFact** | Stance + grounding (`synthesis.py`'s `summarise_sources` and `judge_directions`) — expert-written claims paired with PubMed-style abstracts labelled SUPPORT/CONTRADICT, plus documents the claim's own authors cited but that carry no evidence for it (NOINFO). | [github.com/allenai/scifact](https://github.com/allenai/scifact). Wadden et al., *Fact or Fiction: Verifying Scientific Claims*, EMNLP 2020 — [arXiv:2004.14974](https://arxiv.org/abs/2004.14974). |
 
 ## Provenance and licensing
 
@@ -116,7 +116,7 @@ Two caveats worth reading before trusting a number here:
   different corpus split - see `curate_ebm_nlp.py`'s docstring), so its `n`
   is reported alongside it rather than silently averaged over all 191.
 
-### SciFact — grounding measured at `summarise_sources`, not `synthesise`
+### SciFact — grounding measured at the appraisal stage, not `synthesise`
 
 A citation-grounding eval built against `synthesise` directly - mix a claim's
 true cited abstracts with distractors, run synthesis, check whether the
@@ -132,12 +132,16 @@ the full reasoning.
 Grounding is measured one stage upstream instead, where it's judge-free:
 `hallucinated_finding_rate` is the share of NOINFO pairs - a document the
 claim's own authors cited, that SciFact's annotators found no evidence for -
-where the appraiser (`summarise_sources`) nonetheless returns a non-empty
-`key_finding`, a non-neutral `finding_direction`, and a `relevance_score`
-above the synthesis gate. What *is* directly verifiable about `synthesise`
-(bounds-checked citations, the strength clamp, the low-evidence fallback) is
-covered in `tests/test_synthesis_grounding.py` instead - pure-function tests,
-no network.
+where `summarise_sources` nonetheless returns a non-empty `key_finding` and a
+`relevance_score` above the synthesis gate, *and* the separate
+`judge_directions` call - graded `strongly_contradicts` through
+`strongly_supports`, plus `mixed` and a deterministic `no_evidence` - returns
+anything other than `no_evidence`. `strong_hallucination_rate` narrows that to
+non-`weakly_*` assertions, isolating the cases the graded scale can't excuse
+as "a real but small effect". What *is* directly verifiable about
+`synthesise` (bounds-checked citations, the strength clamp, the low-evidence
+fallback) is covered in `tests/test_synthesis_grounding.py` instead -
+pure-function tests, no network.
 
 ### Weight calibration — a hypothesis generator, not an auto-tuner
 
