@@ -1,14 +1,17 @@
 """Domain blocklist - the source-quality gate applied to every result.
 
-Evidence-based medicine is only as good as what feeds it. Several providers
-(and the citation graph in particular) surface URLs that are technically
-"about" the topic but worthless as clinical evidence: SEO health magazines,
-user-generated Q&A, paywalled abstract mirrors, social media. This module is
-the single place that decides what never reaches the ranker.
+Every current provider is a curated biomedical/scientific API (PubMed,
+Europe PMC, ClinicalTrials.gov, ChEMBL, DailyMed, EMA, OpenFDA, RxNav,
+WHO GHO, bioRxiv, Wikipedia) or the citation-graph expansion (Semantic
+Scholar / OpenAlex), which resolves to DOI landing pages and abstract
+mirrors rather than the open web. None of them can surface a social-media
+or SEO-content-farm URL, so this list only needs to cover what the
+citation graph actually produces: aggregators that mirror an abstract
+without adding retrievable full-text content.
 
-Kept deliberately as a static list rather than a heuristic: the set of
-low-quality health publishers is small, stable and easy to audit, and a
-reviewer can see exactly what the pipeline refuses to cite.
+Kept deliberately as a static list rather than a heuristic: the set is
+small, stable and easy to audit, and a reviewer can see exactly what the
+pipeline refuses to cite.
 """
 from __future__ import annotations
 
@@ -23,57 +26,6 @@ BLOCKED_DOMAINS: frozenset[str] = frozenset({
     "academia.edu",
     "scribd.com",
     "slideshare.net",
-    # Social media / user-generated
-    "instagram.com",
-    "facebook.com",
-    "twitter.com",
-    "x.com",
-    "tiktok.com",
-    "reddit.com",
-    "pinterest.com",
-    "linkedin.com",
-    "threads.net",
-    "tumblr.com",
-    "quora.com",
-    "youtube.com",
-    "medium.com",
-    # Q&A / how-to farms
-    "answers.yahoo.com",
-    "answers.com",
-    "wikihow.com",
-    # Consumer health/wellness publishers (IT)
-    "mypersonaltrainer.it",
-    "my-personaltrainer.it",
-    "medicitalia.it",
-    "doctissimo.it",
-    "donnamoderna.com",
-    "starbene.it",
-    "riza.it",
-    "cure-naturali.it",
-    "greenstyle.it",
-    "benessereblog.it",
-    "tantasalute.it",
-    "viverepiusani.it",
-    "ohga.it",
-    "salutarmente.it",
-    "greenme.it",
-    "dilei.it",
-    "alfemminile.com",
-    "cosmopolitan.com",
-    # Consumer health/wellness publishers (EN)
-    "healthline.com",
-    "webmd.com",
-    "verywellhealth.com",
-    "medicalnewstoday.com",
-    "livestrong.com",
-    "mindbodygreen.com",
-    "self.com",
-    "prevention.com",
-    "health.com",
-    "everydayhealth.com",
-    # News aggregators - prefer the primary source
-    "msn.com",
-    "huffpost.com",
 })
 
 

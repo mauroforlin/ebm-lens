@@ -211,10 +211,10 @@ def test_ema_score_penalises_a_non_authorised_status():
 @pytest.mark.parametrize(
     "url",
     [
-        "https://www.healthline.com/nutrition/x",
         "https://researchgate.net/publication/1",
-        "https://sub.webmd.com/a",
-        "https://www.mypersonaltrainer.it/salute/x.html",
+        "https://sub.researchgate.net/a",
+        "https://www.academia.edu/12345",
+        "https://core.ac.uk/download/1.pdf",
     ],
 )
 def test_blocked_domains_are_rejected(url):
@@ -227,7 +227,7 @@ def test_blocked_domains_are_rejected(url):
         "https://pubmed.ncbi.nlm.nih.gov/31422062/",
         "https://www.who.int/data/gho",
         "https://clinicaltrials.gov/study/NCT01720446",
-        "https://notwebmd.com/a",  # substring, not a subdomain
+        "https://notresearchgate.net/a",  # substring, not a subdomain
     ],
 )
 def test_legitimate_domains_pass(url):
@@ -241,7 +241,7 @@ def test_blocklist_does_not_mangle_hosts_when_stripping_www():
 
 def test_filter_blocked_drops_only_the_blocked_ones():
     keep = SourceResult(title="a", url="https://pubmed.ncbi.nlm.nih.gov/1/", snippet="", content="")
-    drop = SourceResult(title="b", url="https://www.healthline.com/x", snippet="", content="")
+    drop = SourceResult(title="b", url="https://www.researchgate.net/x", snippet="", content="")
     assert filter_blocked([keep, drop]) == [keep]
 
 
