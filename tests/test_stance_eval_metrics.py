@@ -12,8 +12,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from eval.stance_eval import _summarise
 from app.pipeline.synthesis import collapse_direction
+from eval.stance_eval import _summarise
 
 
 def _pair(gold: str, predicted: str, *, relevance: float = 0.9, key_finding: str = "x") -> dict:

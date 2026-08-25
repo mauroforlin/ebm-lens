@@ -1,5 +1,7 @@
 # EBM Lens
 
+[![CI](https://github.com/mauroforlin/ebm-lens/actions/workflows/ci.yml/badge.svg)](https://github.com/mauroforlin/ebm-lens/actions/workflows/ci.yml)
+
 Evidence discovery for biomedical questions. Give it a topic and it searches
 twelve public biomedical databases, expands the result set through the
 citation graph, ranks what it found by relevance and by study design, and
@@ -22,6 +24,39 @@ an overview, as claims that cite [0][3], plus the conflicts and the gaps
 
 Every evidence source is a free public API. The only account you need is for
 the LLM.
+
+## Example output
+
+One real run against the pipeline's own example topic above.
+
+```
+Topic: "GLP-1 agonists and cardiovascular risk reduction"
+
+Ranked sources (3 of 10)
+[1] Effect of GLP-1 RAs on MACE in T2DM + established ASCVD
+    systematic review & meta-analysis · Europe PMC
+    MACE ↓11% (HR 0.89, 95% CI 0.83-0.96); all-cause mortality ↓11% (HR 0.89)
+
+[2] GLP-1 RA in MI and ASCVD risk reduction: NNT, efficacy and safety
+    meta-analysis · PubMed
+    MACE RR 0.87 (NNTB 67); CV mortality RR 0.87 (NNTB 170); stroke RR 0.88 (NNTB 335)
+
+[3] GLP-1 RAs and CV outcomes across MI-defined populations
+    systematic review · Europe PMC
+    all-cause mortality HR 0.67 (95% CI 0.49-0.90) - flagged exploratory:
+    high heterogeneity, loses significance under sensitivity analysis
+
+Synthesis (2 of 7 claims)
+"GLP-1 receptor agonists significantly reduce major adverse cardiovascular
+events (MACE) in adults with type 2 diabetes and high-risk patients." [1][2][3][4][7][9][10]
+
+"GLP-1 receptor agonists are associated with a reduction in all-cause
+mortality and cardiovascular mortality." [1][2][3][4][7][10]
+```
+
+The full response ranks 10 sources, and also carries any disagreements
+between them, the evidence gaps left unaddressed, and a `job_stats` block
+with real cost and timing.
 
 EBM Lens started as a feature inside [Sbobby](https://www.sbobby.com), a
 lecture-transcription product I built. That feature, "Approfondimenti",

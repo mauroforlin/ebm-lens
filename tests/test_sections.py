@@ -1,7 +1,6 @@
 """Pure-function tests for app.core.sections - no network, no LLM cost."""
 from app.core.sections import split_sections, trim_by_priority
 
-
 # ── split_sections ────────────────────────────────────────────
 
 

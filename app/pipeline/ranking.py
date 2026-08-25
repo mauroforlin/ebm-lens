@@ -36,7 +36,6 @@ from datetime import datetime, timezone
 
 from app.sources.base import SourceResult
 
-
 _RRF_K = 60                 # RRF constant from Cormack et al., SIGIR 2009
 _CITATION_CAP = 1000        # citations at/above this saturate the signal to 1.0
 _RECENCY_HALF_LIFE = 8.0    # years; a paper this old scores 0.5 on recency

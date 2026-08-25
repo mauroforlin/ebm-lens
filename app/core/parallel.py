@@ -6,7 +6,8 @@ from __future__ import annotations
 
 import logging
 from collections.abc import Callable, Iterable
-from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError, as_completed
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import TimeoutError as FutureTimeoutError
 from typing import TypeVar
 
 logger = logging.getLogger(__name__)
