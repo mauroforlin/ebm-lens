@@ -37,15 +37,7 @@ class ClinicalTrialsProvider(SourceProvider):
         stop=stop_after_attempt(3),
     )
     def search(self, query: str, max_results: int = 3) -> list[SourceResult]:
-        """Search ClinicalTrials.gov API v2.
-
-        Prioritises completed trials with results. Extracts:
-        - Study title & brief summary
-        - Study type (interventional, observational)
-        - Phase (1-4)
-        - Enrollment count
-        - Primary outcomes (if results posted)
-        """
+        """Prioritises completed trials with results over merely-matching ones."""
         if not query or len(query) < 3:
             return []
 
@@ -89,7 +81,6 @@ class ClinicalTrialsProvider(SourceProvider):
         return results[:max_results]
 
     def _clean_query(self, query: str) -> str:
-        """Clean and optimise query for ClinicalTrials.gov."""
         # Remove overly specific syntax
         query = re.sub(r'["\[\]()]', ' ', query)
         query = re.sub(r'\s+', ' ', query).strip()
@@ -98,7 +89,6 @@ class ClinicalTrialsProvider(SourceProvider):
         return " ".join(tokens)
 
     def _parse_study(self, study: dict) -> SourceResult | None:
-        """Parse a study JSON object into a SourceResult."""
         proto = study.get("protocolSection", {})
         if not proto:
             return None

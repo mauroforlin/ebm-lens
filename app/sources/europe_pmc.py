@@ -67,7 +67,6 @@ def _strip_html(text: str) -> str:
 
 
 def _simplify_query(query: str) -> str:
-    """Strip stopwords and keep max 8 biomedical keywords."""
     clean = re.sub(r"[\"'()[\]{}<>]", " ", query)
     tokens = clean.split()
     keywords = [t for t in tokens if t.lower() not in _STOPWORDS and len(t) > 2]
@@ -190,11 +189,6 @@ class EuropePMCProvider(SourceProvider):
         return merged
 
     def search_guidelines(self, topic: str, max_results: int = 5) -> list[SourceResult]:
-        """Search Europe PMC for clinical practice guidelines on *topic*.
-
-        Reuses the shared request/parse path (``_search_core``) with a
-        guideline publication-type filter.
-        """
         topic = (topic or "").strip()
         if not topic:
             return []

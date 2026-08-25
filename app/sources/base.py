@@ -42,7 +42,6 @@ def build_headers(
     accept_language: str | None = None,
     extra: Mapping[str, str] | None = None,
 ) -> dict[str, str]:
-    """Build standard outbound HTTP headers for external requests."""
     headers = {"User-Agent": user_agent()}
     if accept:
         headers["Accept"] = accept
@@ -83,5 +82,4 @@ class SourceProvider(ABC):
 
     @abstractmethod
     def search(self, query: str, max_results: int = 3) -> list[SourceResult]:
-        """Run a search and return evidence items."""
         ...

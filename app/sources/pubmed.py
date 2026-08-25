@@ -36,14 +36,14 @@ from app.sources.base import SourceProvider, SourceResult, user_agent
 
 logger = logging.getLogger(__name__)
 
-# ── NCBI E-utilities endpoints ────────────────────────────────
+
 _EUTILS_BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 _ESEARCH = f"{_EUTILS_BASE}/esearch.fcgi"
 _EFETCH = f"{_EUTILS_BASE}/efetch.fcgi"
 _ELINK = f"{_EUTILS_BASE}/elink.fcgi"
 _PMC_FETCH = f"{_EUTILS_BASE}/efetch.fcgi"
 
-# ── API key & rate-limiting ───────────────────────────────────
+
 # Read lazily via get_settings() rather than os.environ - pydantic-settings
 # parses .env into Settings' own fields, it never injects them into
 # os.environ, so a key set only in .env would otherwise go unnoticed.
@@ -64,7 +64,6 @@ _last_request_time = 0.0
 _rate_lock = threading.Lock()
 
 
-# ── Circuit breaker state ─────────────────────────────────────
 _consecutive_failures = 0
 _circuit_open_until = 0.0
 _CIRCUIT_THRESHOLD = 5        # open after 5 consecutive failures
@@ -73,7 +72,6 @@ _circuit_lock = threading.Lock()
 
 
 def _rate_limit() -> None:
-    """Adaptive rate limiter - respects NCBI limits and backs off on errors."""
     global _last_request_time
     with _rate_lock:
         now = time.monotonic()
@@ -133,7 +131,6 @@ def _is_retryable_status(exc: BaseException) -> bool:
     )
 
 
-# ── Shared HTTP client (connection pooling) ───────────────────
 _http_client: httpx.Client | None = None
 _client_lock = threading.Lock()
 _MAX_CONTENT_LEN = 8000  # chars for search-result content (abstract + metadata prefix)
@@ -147,7 +144,6 @@ _MAX_RAW_FULLTEXT_CHARS = 60000
 
 
 def _get_client() -> httpx.Client:
-    """Lazily create a module-level httpx.Client for connection reuse."""
     global _http_client
     if _http_client is None or _http_client.is_closed:
         with _client_lock:
@@ -165,7 +161,6 @@ def _get_client() -> httpx.Client:
 
 
 def _api_params(extra: dict | None = None) -> dict:
-    """Base params that include the API key when available."""
     params: dict = {}
     key = _ncbi_api_key()
     if key:
@@ -174,8 +169,6 @@ def _api_params(extra: dict | None = None) -> dict:
         params.update(extra)
     return params
 
-
-# ── Stopwords ─────────────────────────────────────────────────
 
 _STOPWORDS = frozenset({
     "a", "an", "the", "is", "are", "was", "were", "be", "been", "being",
@@ -191,7 +184,6 @@ _STOPWORDS = frozenset({
     "it", "its", "they", "their", "them", "he", "she", "his", "her",
 })
 
-# ── Publication-type filters (PubMed [pt] field) ─────────────
 
 _PT_FILTERS: dict[str, str] = {
     "systematic_review": "(systematic review[pt] OR meta-analysis[pt])",
@@ -203,13 +195,7 @@ _PT_FILTERS: dict[str, str] = {
 }
 
 
-# ══════════════════════════════════════════════════════════════
-#  Query construction helpers
-# ══════════════════════════════════════════════════════════════
-
-
 def _strip_stopwords(text: str, max_tokens: int = 8) -> str:
-    """Extract keywords from text, removing stopwords."""
     clean = re.sub(r"[\"'()[\]{}<>:;,./\\]", " ", text)
     tokens = clean.split()
     keywords = [t for t in tokens if t.lower() not in _STOPWORDS and len(t) > 2]
@@ -217,7 +203,6 @@ def _strip_stopwords(text: str, max_tokens: int = 8) -> str:
 
 
 def _has_field_tags(query: str) -> bool:
-    """Check if the query already contains PubMed field tags like [MeSH Terms]."""
     return bool(re.search(r"\[(?:MeSH|tiab|pt|au|Title|Abstract)", query, re.I))
 
 
@@ -231,23 +216,10 @@ def build_pubmed_query(
 ) -> str:
     """Build a well-structured PubMed Boolean query.
 
-    Constructs queries using PubMed field tags:
-    - ``"term"[MeSH Terms]`` for controlled vocabulary
-    - ``term[tiab]`` for title/abstract free-text
-    - ``type[pt]`` for publication type filters
-
-    Parameters
-    ----------
-    query : str
-        Base query (may already contain field tags).
-    mesh_terms : list[str], optional
-        Pre-resolved MeSH descriptors to use as primary search terms.
-    drug_names : list[str], optional
-        INN drug names to include with [tiab] tags.
-    diseases : list[str], optional
-        Disease/condition names to include.
-    evidence_type : str, optional
-        Desired evidence level ('systematic_review', 'rct', 'guideline', etc.).
+    Field tags: ``"term"[MeSH Terms]`` for controlled vocabulary,
+    ``term[tiab]`` for title/abstract free-text, ``type[pt]`` for
+    publication-type filters. A query that already carries field tags is
+    left as-is; the publication-type filter is still appended on top of it.
     """
     # A query with field tags is left as-is; the publication-type filter
     # below still gets appended on top of it.
@@ -324,11 +296,6 @@ def _broaden_query(query: str) -> str:
     return " ".join(keywords[:4])
 
 
-# ══════════════════════════════════════════════════════════════
-#  PMC full-text retrieval
-# ══════════════════════════════════════════════════════════════
-
-
 # ELink returns several dbto=="pmc" linksetdbs per PMID: "pubmed_pmc" and
 # "pubmed_pmc_local" point at the paper's own copy when it's open-access in
 # PMC, while "pubmed_pmc_refs" points at unrelated PMC articles that cite the
@@ -337,7 +304,6 @@ _PMC_OWN_COPY_LINKNAMES = ("pubmed_pmc", "pubmed_pmc_local")
 
 
 def _pmids_to_pmcids(pmids: list[str]) -> dict[str, str]:
-    """Use ELink to find PMC IDs for a list of PMIDs (batch, single call)."""
     if not pmids:
         return {}
     try:
@@ -395,7 +361,6 @@ def fetch_full_text_by_url(url: str) -> str:
 
 
 def _fetch_pmc_fulltext(pmc_id: str) -> str:
-    """Fetch full-text body from PMC for an open-access article."""
     try:
         _rate_limit()
         resp = _get_client().get(
@@ -455,13 +420,7 @@ def _fetch_pmc_fulltext(pmc_id: str) -> str:
         return ""
 
 
-# ══════════════════════════════════════════════════════════════
-#  Rich metadata extraction from PubMed XML
-# ══════════════════════════════════════════════════════════════
-
-
 def _extract_article_metadata(article: ElementTree.Element) -> dict:
-    """Extract comprehensive metadata from a PubmedArticle XML element."""
     # Mixed content (sub/sup/italic tags inside the title) needs itertext(),
     # not .text, to pick up everything.
     title_el = article.find(".//ArticleTitle")
@@ -540,24 +499,7 @@ def _extract_article_metadata(article: ElementTree.Element) -> dict:
     }
 
 
-# ══════════════════════════════════════════════════════════════
-#  Main provider
-# ══════════════════════════════════════════════════════════════
-
-
 class PubMedProvider(SourceProvider):
-    """Fetch biomedical evidence from PubMed with smart, resilient queries.
-
-    Features
-    --------
-    * **Multi-stage query strategy**: structured Boolean → simplified → broadened
-    * **MeSH-tagged queries** when mesh_terms/drug_names/diseases are provided
-    * **Publication type filters** (systematic reviews, RCTs, guidelines)
-    * **Rich metadata**: authors, journal, DOI, publication types, MeSH headings
-    * **Circuit breaker**: stops hitting NCBI after 5 consecutive failures
-    * **Adaptive rate limiting** with NCBI API key support (10 req/s)
-    * **Connection pooling** via persistent httpx.Client
-    """
 
     source_type = "pubmed"
 
@@ -602,7 +544,6 @@ class PubMedProvider(SourceProvider):
                 "maxdate": str(_today.year),
             }
 
-        # ── Stage -1: Cochrane Reviews first (gold standard) ──
         # Cochrane systematic reviews are the highest-quality evidence
         # source. Search specifically in the Cochrane Database of
         # Systematic Reviews journal before broader SR search.
@@ -620,7 +561,6 @@ class PubMedProvider(SourceProvider):
             cochrane_pmids = self._esearch(cochrane_q, max_results, extra_params=date_range)
             all_pmids.extend(cochrane_pmids)
 
-        # ── Stage 0: systematic reviews & meta-analyses ──
         # Top of the evidence hierarchy: a systematic review aggregates the
         # primary studies, so retrieving one is worth more than retrieving
         # several of the studies it already summarises.
@@ -642,7 +582,6 @@ class PubMedProvider(SourceProvider):
                     if pid not in all_pmids:
                         all_pmids.append(pid)
 
-        # ── Stage 0b: Reviews (broader than systematic reviews) ──
         if self._prefer_reviews and len(all_pmids) < max_results:
             review_q = build_pubmed_query(
                 query,
@@ -657,7 +596,6 @@ class PubMedProvider(SourceProvider):
                 if pid not in all_pmids:
                     all_pmids.append(pid)
 
-        # ── Stage 1: Structured Boolean query ──
         if not all_pmids:
             structured_q = build_pubmed_query(
                 query,
@@ -669,7 +607,6 @@ class PubMedProvider(SourceProvider):
             logger.debug("PubMed query (structured): %s", structured_q[:200])
             all_pmids = self._esearch(structured_q, max_results * 2, extra_params=date_range)
 
-        # ── Stage 2: Simplified keywords (no field tags) ──
         # Extends rather than replaces: a structured query that matched only
         # a couple of PMIDs was almost certainly over-constrained by its AND
         # clauses, and the papers a looser query would add are as real as the
@@ -683,7 +620,6 @@ class PubMedProvider(SourceProvider):
                     if pid not in all_pmids:
                         all_pmids.append(pid)
 
-        # ── Stage 3: Broadened (very few core terms) ──
         if len(all_pmids) < max(3, max_results // 2):
             broadened = _broaden_query(query)
             if broadened and broadened != query:
@@ -699,7 +635,6 @@ class PubMedProvider(SourceProvider):
         if not articles:
             return []
 
-        # ── Prioritize systematic reviews and meta-analyses in results ──
         articles = self._sort_by_evidence_quality(articles)
 
         return articles
@@ -721,8 +656,6 @@ class PubMedProvider(SourceProvider):
                 return 4
             return 5
         return sorted(results, key=_quality_score)
-
-    # ── E-utilities calls ─────────────────────────────────────
 
     @staticmethod
     @retry(

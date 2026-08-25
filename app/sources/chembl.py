@@ -44,7 +44,6 @@ def _rate_limit() -> None:
 
 
 def _clean_drug_name(query: str) -> str:
-    """Extract drug name from a natural-language query."""
     clean = re.sub(
         r"\b(what|is|the|drug|for|of|and|with|mechanism|action|"
         r"side|effects?|warning|withdrawal|indication|"
@@ -124,7 +123,6 @@ class ChEMBLProvider(SourceProvider):
         return results
 
     def _search_molecules(self, name: str) -> list[dict]:
-        """Search for molecules by name."""
         _rate_limit()
         try:
             resp = httpx.get(
@@ -142,7 +140,6 @@ class ChEMBLProvider(SourceProvider):
         return data.get("molecules", [])
 
     def _build_molecule_result(self, mol: dict) -> SourceResult | None:
-        """Build a SourceResult from a molecule record + extra lookups."""
         chembl_id = mol.get("molecule_chembl_id", "")
         pref_name = mol.get("pref_name", "") or ""
         if not chembl_id:
@@ -214,7 +211,6 @@ class ChEMBLProvider(SourceProvider):
         )
 
     def _fetch_mechanisms(self, chembl_id: str) -> list[str]:
-        """Fetch mechanism of action for a molecule."""
         _rate_limit()
         try:
             resp = httpx.get(
@@ -244,7 +240,6 @@ class ChEMBLProvider(SourceProvider):
         return parts
 
     def _fetch_indications(self, chembl_id: str) -> list[str]:
-        """Fetch drug indications."""
         _rate_limit()
         try:
             resp = httpx.get(
@@ -270,7 +265,6 @@ class ChEMBLProvider(SourceProvider):
         return parts
 
     def _fetch_warnings(self, chembl_id: str) -> list[str]:
-        """Fetch drug warnings and withdrawals."""
         _rate_limit()
         try:
             resp = httpx.get(

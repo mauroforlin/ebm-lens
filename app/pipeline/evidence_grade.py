@@ -58,7 +58,7 @@ from app.sources.base import SourceResult
 
 logger = logging.getLogger(__name__)
 
-# ── The hierarchy ─────────────────────────────────────────────
+
 #
 # Scores are relative positions in [0, 1], not probabilities. The gaps encode
 # the judgements that matter: synthesised evidence sits clearly above any one
@@ -160,7 +160,6 @@ _PUB_TYPE_DESIGNS: dict[str, str] = {
 
 
 def _design_from_publication_types(publication_types: Sequence[str]) -> str | None:
-    """Best design named by the provider's own publication types, if any."""
     matched = []
     for raw in publication_types or []:
         if not isinstance(raw, str):
@@ -252,13 +251,11 @@ def detect_design(result: SourceResult) -> tuple[str, bool]:
 
 
 def evidence_score(design: str, is_preprint: bool = False) -> float:
-    """Position of *design* on the hierarchy, discounted if it is a preprint."""
     score = DESIGN_SCORES.get(design, DESIGN_SCORES["unknown"])
     return score * _PREPRINT_FACTOR if is_preprint else score
 
 
 def design_label(design: str, is_preprint: bool = False) -> str:
-    """Human-readable design name, marked as a preprint where that applies."""
     label = DESIGN_LABELS.get(design, "")
     if is_preprint:
         return f"{label} (preprint)" if label else "preprint"
@@ -405,8 +402,6 @@ def grade_results(
         labels[key] = design_label(design[key], is_preprint[key])
     return scores, labels
 
-
-# ── Evidence profile (reported, not ranked) ───────────────────
 
 # Designs strong enough that a body of evidence containing them is worth
 # calling strong, rather than merely large.

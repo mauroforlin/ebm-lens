@@ -68,7 +68,7 @@ from app.sources.content_extractor import enrich_with_full_content
 
 logger = logging.getLogger(__name__)
 
-# ── Tunables ───────────────────────────────────────────────────
+
 _MAX_CONTENT_FETCHES = 8       # full-text fetches per run
 _SHORTLIST_BUFFER = 6          # extra candidates summarised beyond max_sources
 _RERANK_CANDIDATE_CAP = 60     # wider rerank pool for the discovery loop's larger candidate set
@@ -88,17 +88,11 @@ class _Discovery:
 
 @contextmanager
 def _stage(stats: JobStats, name: str) -> Iterator[None]:
-    """Time a pipeline stage into *stats*."""
     started = time.monotonic()
     try:
         yield
     finally:
         stats.record_stage(name, (time.monotonic() - started) * 1000)
-
-
-# ══════════════════════════════════════════════════════════════
-#  Stage 2: discovery
-# ══════════════════════════════════════════════════════════════
 
 
 def _discover(
@@ -109,7 +103,6 @@ def _discover(
     stats: JobStats,
     emitter: Emitter = NULL_EMITTER,
 ) -> _Discovery:
-    """Run the agentic multi-round discovery loop."""
     from app.pipeline.agentic import run_agentic_discovery
 
     evidence, brief = run_agentic_discovery(
@@ -125,11 +118,6 @@ def _discover(
         must_include=_terms("must_include_concepts"),
         negative_terms=_terms("negative_terms"),
     )
-
-
-# ══════════════════════════════════════════════════════════════
-#  Stage 3: signals and shortlist
-# ══════════════════════════════════════════════════════════════
 
 
 def _authority_order(result: SourceResult) -> float:
@@ -241,11 +229,6 @@ def _build_signals(
     return signals
 
 
-# ══════════════════════════════════════════════════════════════
-#  Stage 4: read the shortlist
-# ══════════════════════════════════════════════════════════════
-
-
 def _summarise_shortlist(
     topic: str,
     shortlist: list[SourceResult],
@@ -256,7 +239,6 @@ def _summarise_shortlist(
     summary_language: str,
     pico: PICO | None,
 ) -> list[ArticleSummary]:
-    """Fetch full text for the shortlist, then summarise and score it."""
     with _stage(stats, "content_enrichment"):
         enrich_with_full_content(
             shortlist, settings=settings, max_fetches=_MAX_CONTENT_FETCHES,
@@ -309,7 +291,6 @@ def _summarise_shortlist(
 
 
 def _text_field(summary: dict, key: str, limit: int = 400) -> str:
-    """Read one optional prose field out of an appraisal, defensively."""
     value = summary.get(key)
     return value.strip()[:limit] if isinstance(value, str) else ""
 
@@ -336,11 +317,6 @@ def _as_results(articles: list[ArticleSummary]) -> list[SourceResult]:
         )
         for a in articles
     ]
-
-
-# ══════════════════════════════════════════════════════════════
-#  Entry point
-# ══════════════════════════════════════════════════════════════
 
 
 def run_related_articles(

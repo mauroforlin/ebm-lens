@@ -37,7 +37,6 @@ from collections.abc import Iterable, Sequence
 from app.pipeline.dedup import dedup_key
 from app.sources.base import SourceResult
 
-# ── Tunables ──────────────────────────────────────────────────
 
 _K1 = 1.2    # term-frequency saturation; the standard BM25 default
 _B = 0.75    # length normalisation; the standard BM25 default

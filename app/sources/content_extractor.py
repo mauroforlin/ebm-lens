@@ -34,7 +34,6 @@ from app.sources.base import SourceResult, build_headers
 
 logger = logging.getLogger(__name__)
 
-# ── Tunables ──────────────────────────────────────────────────
 
 _MAX_FETCHES_PER_RUN = 3       # max URLs the blind pre-pass fetches per run
 _MAX_CONTENT_CHARS = 6000      # max chars extracted per page
@@ -71,11 +70,8 @@ _FETCHABLE_DOMAINS: frozenset[str] = frozenset({
     "msdmanuals.com",
 })
 
-# ── Content extraction ────────────────────────────────────────
-
 
 def _is_fetchable_url(url: str) -> bool:
-    """Check if URL belongs to a trusted domain we should fetch."""
     try:
         host = urlparse(url).hostname or ""
         # Exact host or any subdomain of an allowed one.
@@ -157,10 +153,7 @@ def _extract_text_from_html(html: str, url: str = "") -> str:
 
 @retry(wait=wait_exponential(multiplier=1, min=1, max=4), stop=stop_after_attempt(3), reraise=True)
 def _fetch_one(url: str) -> tuple[str, str]:
-    """Fetch a single URL and extract text content.
-
-    Returns (extracted_text, content_hash).
-    """
+    """Returns (extracted_text, content_hash)."""
     try:
         with httpx.Client(
             timeout=_FETCH_TIMEOUT,
@@ -217,13 +210,7 @@ def enrich_with_full_content(
     settings: Settings | None = None,
     max_fetches: int = _MAX_FETCHES_PER_RUN,
 ) -> int:
-    """Enrich thin SourceResults with full page content.
-
-    Modifies results in-place. Returns the number of results enriched.
-
-    Only fetches URLs from trusted domains, and only when the existing
-    content is shorter than ``_MIN_USEFUL_CONTENT``.
-    """
+    """Modifies *results* in-place; only fetches URLs still under ``_MIN_USEFUL_CONTENT``."""
     # Filter to results that need enrichment
     candidates = [
         r for r in results

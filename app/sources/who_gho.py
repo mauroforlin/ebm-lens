@@ -64,7 +64,6 @@ _QUERY_STOPWORDS = frozenset({
 
 
 def _extract_search_terms(query: str) -> str:
-    """Extract key terms for GHO indicator search."""
     clean = re.sub(r"[\"'()[\]{}<>?!.,;:]", " ", query)
     clean = re.sub(r"\s+", " ", clean).strip()
     tokens = [t for t in clean.split() if t.lower() not in _QUERY_STOPWORDS]
@@ -115,7 +114,6 @@ class WHOGHOProvider(SourceProvider):
         return results
 
     def _search_indicators(self, terms: str, *, operator: str = "and") -> list[dict]:
-        """Search for GHO indicators matching the given terms."""
         _rate_limit()
 
         # Use OData $filter with contains() for each term
@@ -176,7 +174,6 @@ class WHOGHOProvider(SourceProvider):
     def _fetch_indicator_data(
         self, indicator: dict, original_query: str
     ) -> SourceResult | None:
-        """Fetch actual data points for an indicator."""
         code = indicator.get("IndicatorCode", "")
         name = indicator.get("IndicatorName", "")
         if not code or not name:
@@ -261,7 +258,6 @@ class WHOGHOProvider(SourceProvider):
         )
 
     def _detect_country(self, query: str) -> str:
-        """Try to detect a country ISO code from the query."""
         query_lower = query.lower()
         # Common country mappings (expand as needed)
         country_map = {

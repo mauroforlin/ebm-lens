@@ -65,7 +65,6 @@ class WikipediaProvider(SourceProvider):
         has_it = "it" in self.languages
         has_en = "en" in self.languages
 
-        # ── Phase 1: Search IT Wikipedia with the (Italian) query ──
         if has_it:
             it_titles = self._search_titles(query, "it", limit=max_results)
             # Fallback: full-text search when opensearch misses
@@ -96,7 +95,6 @@ class WikipediaProvider(SourceProvider):
                             if en_article:
                                 results.append(en_article)
 
-        # ── Phase 2: Direct EN wiki search for remaining slots ──
         if has_en and len(results) < max_results:
             remaining = max_results - len(results)
             en_titles = self._search_titles(query, "en", limit=remaining)
@@ -117,10 +115,7 @@ class WikipediaProvider(SourceProvider):
 
         return results
 
-    # ── internal ──────────────────────────────────────
-
     def _get_langlink(self, title: str, from_lang: str, to_lang: str) -> str | None:
-        """Get the interlanguage link from one wiki edition to another."""
         url = f"https://{from_lang}.wikipedia.org/w/api.php"
         params = {
             "action": "query",
@@ -151,7 +146,6 @@ class WikipediaProvider(SourceProvider):
             return None
 
     def _search_titles(self, query: str, lang: str, limit: int = 3) -> list[str]:
-        """Use the MediaWiki Action API opensearch to find page titles."""
         url = f"https://{lang}.wikipedia.org/w/api.php"
         params = {
             "action": "opensearch",
@@ -198,11 +192,6 @@ class WikipediaProvider(SourceProvider):
             return []
 
     def _get_extract(self, title: str, lang: str) -> SourceResult | None:
-        """Fetch a full Wikipedia page extract via the Action API.
-
-        Retrieves the full article text (not just intro) for richer
-        evidence, then selects the most relevant sections.
-        """
         url = f"https://{lang}.wikipedia.org/w/api.php"
         params = {
             "action": "query",
@@ -253,7 +242,6 @@ class WikipediaProvider(SourceProvider):
 
     @staticmethod
     def _is_disambiguation(text: str) -> bool:
-        """Detect if a page is a disambiguation page."""
         patterns = [
             "può riferirsi a:",
             "può indicare:",

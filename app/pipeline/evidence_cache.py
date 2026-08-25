@@ -26,14 +26,15 @@ logger = logging.getLogger(__name__)
 
 
 def _topic_hash(topic: str) -> str:
-    """Stable hash of a topic, normalised for word order and punctuation."""
+    # TODO: exact-hash matching, so two different phrasings of the same
+    # question miss each other. Lifting this needs embedding similarity over
+    # a vector store instead of a normalised hash.
     normalised = re.sub(r"[^\w\s]", "", topic.lower().strip())
     normalised = " ".join(sorted(normalised.split()))
     return hashlib.sha256(normalised.encode()).hexdigest()
 
 
 def get_topic_evidence(topic: str) -> list[SourceResult] | None:
-    """Return cached evidence for *topic*, or None on a miss."""
     cached = topic_evidence_cache.get(_topic_hash(topic))
     if cached is None:
         return None

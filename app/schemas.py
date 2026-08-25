@@ -13,8 +13,6 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
-# ── Internal search models ────────────────────────────────────
-
 
 class DomainContext(BaseModel):
     """Domain framing used to steer queries towards the right literature.
@@ -94,7 +92,6 @@ class TopicSpec(BaseModel):
     subject: str = Field("", description="The main entity the topic is about")
     value: str | None = Field(None, description="Specific value involved (e.g. '500 mg')")
 
-    # ── Query variants ──
     search_query: str | None = Field(None, description="Optimised English search query")
     search_query_it: str | None = Field(None, description="Italian search query for IT providers")
     alternative_queries: list[str] = Field(default_factory=list, description="Backup English queries")
@@ -106,14 +103,10 @@ class TopicSpec(BaseModel):
     )
     conceptual_query_it: str | None = Field(None, description="Italian equivalent of conceptual_query")
 
-    # ── Clinical framing ──
     pico: PICO | None = Field(
         None,
         description="The topic's PICO decomposition, when it is a clinical question",
     )
-
-
-# ── Wire models ───────────────────────────────────────────────
 
 
 class RelatedArticlesRequest(BaseModel):
@@ -142,7 +135,6 @@ class ArticleSummary(BaseModel):
     citation_count: int = Field(0, description="Times-cited count if available (academic authority)")
     domain: str = Field("generic", description="Domain of the source content")
 
-    # ── Evidence appraisal ──
     study_design: str = Field(
         "",
         description="Detected study design (meta-analysis, RCT, cohort, case report, ...)",
@@ -223,7 +215,6 @@ class RelatedArticlesResponse(BaseModel):
     job_stats: dict[str, Any] = Field(default_factory=dict, description="Cost/usage statistics for this request")
     error: str | None = None
 
-    # ── Grounded answer ──
     key_findings: list[Claim] = Field(
         default_factory=list,
         description="The overview as individual claims, each citing the articles supporting it",

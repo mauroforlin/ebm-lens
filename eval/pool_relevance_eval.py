@@ -80,7 +80,6 @@ def _get_pool(question: str, settings, stats: JobStats) -> list:
 
 
 def _judge_pool(question: str, pool: list, settings, stats: JobStats) -> list[bool]:
-    """One LLM call classifying every candidate in *pool* at once."""
     lines = [
         f"{i}. [{r.source_type}] {r.title} — {(r.content or r.snippet or '')[:_MAX_SNIPPET_CHARS]}"
         for i, r in enumerate(pool)

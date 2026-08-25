@@ -22,13 +22,11 @@ _MIN_TITLE_KEY_LENGTH = 15
 
 
 def normalize_title(title: str) -> str:
-    """Lowercase, strip non-alphanumerics and collapse whitespace."""
     cleaned = re.sub(r"[^\w\s]", " ", (title or "").lower())
     return " ".join(cleaned.split())
 
 
 def identity_key(url: str, title: str) -> str:
-    """The single best identity for a source: DOI, else title, else URL."""
     doi = extract_doi(url)
     if doi:
         return f"doi:{doi}"
@@ -39,7 +37,6 @@ def identity_key(url: str, title: str) -> str:
 
 
 def dedup_key(result: SourceResult) -> str:
-    """Identity of *result*, guaranteed non-empty (used as a map key)."""
     return identity_key(result.url, result.title) or f"id:{id(result)}"
 
 

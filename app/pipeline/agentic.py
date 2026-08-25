@@ -55,7 +55,7 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
-# ── Tunables ───────────────────────
+
 _QUERY_VARIANTS = 5         # round-1 query variants kept from the brief
 _MAX_PER_PROVIDER = 14      # per-provider results kept, wide enough for real recall
 _ROUND_QUERIES = 3          # refined queries per reformulation round
@@ -103,10 +103,6 @@ def _providers_for_topic(domain: str, spec: TopicSpec, brief: dict) -> list[str]
 
     return select_providers(spec, domain, brief_providers=chosen)
 
-
-# ══════════════════════════════════════════════════════════════
-#  1. Research brief
-# ══════════════════════════════════════════════════════════════
 
 _BRIEF_SYSTEM = """\
 You are a senior research librarian planning a literature discovery for a
@@ -260,18 +256,12 @@ def _build_brief(
     return raw
 
 
-# ══════════════════════════════════════════════════════════════
-#  2. Query fan-out
-# ══════════════════════════════════════════════════════════════
-
-
 def _spec_for_query(
     query: str,
     query_it: str | None,
     template: TopicSpec,
     keywords: list[str],
 ) -> TopicSpec:
-    """Build a search spec for one discovery query, inheriting topic framing."""
     return TopicSpec(
         text=query,
         topic_type=template.topic_type,
@@ -291,7 +281,6 @@ def _parallel_search(
     stats: JobStats,
     providers: list[str],
 ) -> list[SourceResult]:
-    """Run every query's provider fan-out concurrently."""
     if not specs:
         return []
 
@@ -326,10 +315,6 @@ def _parallel_search(
         pool.shutdown(wait=False, cancel_futures=True)
     return merged
 
-
-# ══════════════════════════════════════════════════════════════
-#  3. Reformulation
-# ══════════════════════════════════════════════════════════════
 
 _REFORMULATE_SYSTEM = """\
 You refine a medical/biomedical literature search.  You are shown the TOPIC
@@ -441,13 +426,6 @@ def _reformulate(
         logger.info("[pro] reformulation rationale: %s", rationale.strip()[:160])
 
     return [q.strip() for q in queries if isinstance(q, str) and q.strip()][:_ROUND_QUERIES]
-
-
-
-
-# ══════════════════════════════════════════════════════════════
-#  Orchestrator
-# ══════════════════════════════════════════════════════════════
 
 
 def _fold_in_decomposition(

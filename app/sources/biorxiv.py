@@ -44,7 +44,6 @@ def _headers() -> dict[str, str]:
 
 
 def _server_name(item: dict) -> str:
-    """The preprint server that hosts *item*, as Crossref reports it."""
     institutions = item.get("institution") or []
     if institutions and isinstance(institutions[0], dict):
         return institutions[0].get("name") or ""

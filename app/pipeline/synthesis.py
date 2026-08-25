@@ -150,7 +150,6 @@ def _language_instruction(summary_language: str) -> str:
 
 
 def low_evidence_message(summary_language: str = "it") -> str:
-    """Say that the evidence was too weak, instead of synthesising anyway."""
     if summary_language == "it":
         return (
             "Le fonti trovate sono poco rilevanti per questo tema, quindi il quadro "
@@ -185,10 +184,6 @@ def _no_direct_evidence_prefix(summary_language: str = "it") -> str:
         "conditions. "
     )
 
-
-# ══════════════════════════════════════════════════════════════
-#  Per-source appraisal
-# ══════════════════════════════════════════════════════════════
 
 _SUMMARISE_SYSTEM = """\
 You are a research assistant appraising source articles for a user \
@@ -634,7 +629,6 @@ def _summarise_batch(
 
 
 def clamp_relevance(value: object) -> float:
-    """Coerce an LLM-supplied relevance score into 0.0-1.0, defaulting to 0.0."""
     try:
         return min(1.0, max(0.0, float(value)))  # type: ignore[arg-type]
     except (TypeError, ValueError):
@@ -642,7 +636,6 @@ def clamp_relevance(value: object) -> float:
 
 
 def read_direction(value: object) -> str:
-    """Coerce a finding direction to a known value, defaulting to no_evidence."""
     candidate = value.strip().lower() if isinstance(value, str) else ""
     return candidate if candidate in _DIRECTIONS else "no_evidence"
 
@@ -666,7 +659,6 @@ def collapse_direction(direction: str) -> str:
 
 
 def read_directness(value: object) -> str:
-    """Coerce a directness verdict to a known value, defaulting to unclear."""
     candidate = value.strip().lower() if isinstance(value, str) else ""
     return candidate if candidate in _DIRECTNESS else "unclear"
 
@@ -687,10 +679,6 @@ def appraise_design(
         return fallback_design, fallback_score
     return evidence_grade.design_label(design_id), evidence_grade.evidence_score(design_id)
 
-
-# ══════════════════════════════════════════════════════════════
-#  Stance judgment
-# ══════════════════════════════════════════════════════════════
 
 _STANCE_SYSTEM = """\
 You are judging whether ONE source's own finding supports or contradicts a \
@@ -816,10 +804,6 @@ def judge_directions(
         directions[index] = direction
     return directions
 
-
-# ══════════════════════════════════════════════════════════════
-#  Global synthesis
-# ══════════════════════════════════════════════════════════════
 
 _SYNTHESIS_SYSTEM = """\
 You are an evidence synthesis writer working from a set of numbered,
@@ -969,7 +953,10 @@ def _source_lines(
 
 
 def _valid_indices(raw: object, allowed: set[int]) -> list[int]:
-    """Keep only the source indices that name a source actually in the answer."""
+    # TODO: this only checks that a cited index exists among the shortlisted
+    # sources, not that the cited source actually supports the claim citing
+    # it. Verifying that would need a separate entailment check between claim
+    # text and source content, not just index membership.
     if not isinstance(raw, list):
         return []
     seen: list[int] = []
@@ -1020,7 +1007,6 @@ def _read_claims(
 
 
 def _read_disagreements(raw: object, allowed: set[int]) -> list[Disagreement]:
-    """Parse reported conflicts, keeping only those pointing at real sources."""
     if not isinstance(raw, list):
         return []
 

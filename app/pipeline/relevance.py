@@ -59,11 +59,6 @@ _RERANK_INPUT_CAP = 60
 _RERANK_TEXT_CHARS = 4000
 
 
-# ══════════════════════════════════════════════════════════════
-#  Embedding signals
-# ══════════════════════════════════════════════════════════════
-
-
 def _candidate_text(result: SourceResult) -> str:
     body = result.content or result.snippet or ""
     return f"{result.title}. {body}"[:_EMBED_CHARS]
@@ -112,7 +107,6 @@ def cosine_map(
     job_stats: JobStats | None = None,
     model_override: str | None = None,
 ) -> dict[str, float]:
-    """Cosine similarity of every candidate to *topic*, keyed by dedup key."""
     topic_vector, vectors = embed_topic_and_candidates(
         topic, results, settings, job_stats=job_stats, model_override=model_override,
     )
@@ -122,11 +116,6 @@ def cosine_map(
         key: ranking.cosine_similarity(topic_vector, vector)
         for key, vector in vectors.items()
     }
-
-
-# ══════════════════════════════════════════════════════════════
-#  Vocabulary signals
-# ══════════════════════════════════════════════════════════════
 
 
 def concept_and_offtopic_maps(
@@ -156,10 +145,6 @@ def concept_and_offtopic_maps(
 
     return concepts, offtopic
 
-
-# ══════════════════════════════════════════════════════════════
-#  LLM rerank
-# ══════════════════════════════════════════════════════════════
 
 _RERANK_SYSTEM = """\
 You are a precise relevance grader for a medical/biomedical literature search.
@@ -208,6 +193,13 @@ def llm_rerank_map(
     chunking a pointwise scorer, not something splitting the calls fixes on
     its own. One chunk failing loses only that chunk's scores.
     """
+    # FIXME: no anchoring between chunks - nothing verifies that the absolute
+    # rubric actually scores the same paper the same way in two different
+    # calls. Lifting this means replacing independent-chunk pointwise scoring
+    # with sliding-window listwise reranking (RankGPT/RankVicuna-style:
+    # overlapping windows, the model reorders each window instead of scoring
+    # items in isolation, and top candidates propagate forward across
+    # windows), trading the current parallelism for cross-item comparability.
     if not results:
         return {}
 

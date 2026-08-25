@@ -84,7 +84,6 @@ class OpenFDAProvider(SourceProvider):
         return results[:max_results]
 
     def _search_labels(self, query: str, max_results: int) -> list[SourceResult]:
-        """Search drug labeling (SPL - Structured Product Labeling)."""
         _rate_limit()
 
         # Build search query - match on any of the identifiers a drug could
@@ -163,7 +162,6 @@ class OpenFDAProvider(SourceProvider):
         return results
 
     def _search_adverse_events(self, query: str, max_results: int) -> list[SourceResult]:
-        """Search FDA Adverse Event Reporting System (FAERS)."""
         _rate_limit()
 
         clean = self._clean_drug_name(query)
@@ -215,7 +213,6 @@ class OpenFDAProvider(SourceProvider):
         )]
 
     def _parse_label(self, item: dict) -> SourceResult | None:
-        """Parse a drug label result into SourceResult with rich content."""
         openfda = item.get("openfda", {})
         generic_names = openfda.get("generic_name", [])
         brand_names = openfda.get("brand_name", [])
@@ -289,7 +286,6 @@ class OpenFDAProvider(SourceProvider):
 
     @staticmethod
     def _clean_drug_name(query: str) -> str:
-        """Extract the core drug name from a query string."""
         # Remove common query suffixes
         query = re.sub(
             r"\b(dosage|dose|mechanism|interaction|side effect|adverse|"

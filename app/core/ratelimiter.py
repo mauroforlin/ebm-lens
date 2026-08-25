@@ -51,6 +51,9 @@ class InMemoryRateLimiter:
 
 _limiters: dict[str, InMemoryRateLimiter] = {}
 _limiters_lock = threading.Lock()
+# TODO: per-process state, so limiters aren't shared across workers and the
+# real quota is only enforced per-process. Scaling horizontally needs a
+# shared backend (Redis or similar) behind this same acquire() interface.
 
 
 def get_limiter(key_prefix: str, rpm: int, tpm: int) -> InMemoryRateLimiter:

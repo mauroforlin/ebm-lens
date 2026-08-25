@@ -57,8 +57,6 @@ def _headers() -> dict[str, str]:
     return build_headers(accept="application/json")
 
 
-# ── Query and record matching ─────────────────────────────────
-
 # Words that carry no discriminating power in a query against a drug
 # register, in the two languages this tool is asked questions in.
 _STOPWORDS = frozenset({
@@ -98,7 +96,6 @@ class _Term:
 
 
 def _terms(text: str) -> list[_Term]:
-    """Split a query into the terms worth matching a drug register on."""
     tokens = re.findall(r"[a-z0-9]+", text.lower())
     return [
         _Term(t, re.compile(rf"\b{re.escape(t)}"), bool(_ATC_PATTERN.match(t)))
@@ -181,8 +178,6 @@ class _Medicine:
         return total
 
 
-# ── Index ─────────────────────────────────────────────────────
-
 _index_lock = threading.Lock()
 _index: list[_Medicine] | None = None
 _index_expires_at = 0.0
@@ -190,7 +185,6 @@ _retry_after = 0.0
 
 
 def _build_record(row: dict) -> _Medicine | None:
-    """Turn one dataset row into an indexed record, or None if unusable."""
     name = (row.get("name_of_medicine") or "").strip()
     url = (row.get("medicine_url") or "").strip()
     if not name or not url:
@@ -256,7 +250,6 @@ def _build_record(row: dict) -> _Medicine | None:
 
 
 def build_index(payload: dict) -> list[_Medicine]:
-    """Build the searchable index from a parsed dataset payload."""
     rows = payload.get("data") if isinstance(payload, dict) else None
     if not isinstance(rows, list):
         return []
@@ -265,7 +258,6 @@ def build_index(payload: dict) -> list[_Medicine]:
 
 
 def _fetch_index() -> list[_Medicine] | None:
-    """Return the medicines index, downloading and building it if stale."""
     global _index, _index_expires_at, _retry_after
 
     now = time.monotonic()
@@ -311,11 +303,7 @@ def reset_index() -> None:
         _retry_after = 0.0
 
 
-# ── Rendering ─────────────────────────────────────────────────
-
-
 def _render_content(record: _Medicine) -> str:
-    """Format one EPAR record as the text the summariser will read."""
     parts = [f"EMA European public assessment report (EPAR): {record.name}"]
 
     def add(label: str, value: str) -> None:
@@ -341,7 +329,6 @@ def _render_content(record: _Medicine) -> str:
 
 
 def _to_result(record: _Medicine, source_type: str) -> SourceResult:
-    """Convert an indexed record into a SourceResult."""
     substance = record.inn or record.active_substance
     title_bits = [f"EMA EPAR - {record.name}"]
     if substance and substance.lower() != record.name.lower():

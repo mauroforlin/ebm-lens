@@ -41,10 +41,6 @@ SUBMIT_BRIEF_TOOL = "submit_brief"
 SUBMIT_QUERIES_TOOL = "submit_queries"
 
 
-# ══════════════════════════════════════════════════════════════
-#  Exploration tools
-# ══════════════════════════════════════════════════════════════
-
 RESOLVE_DRUG_TOOL = {
     "type": "function",
     "function": {
@@ -143,11 +139,6 @@ _EXPLORATION: dict[str, tuple[dict, Callable[[dict], str]]] = {
 }
 
 
-# ══════════════════════════════════════════════════════════════
-#  Terminal tools
-# ══════════════════════════════════════════════════════════════
-
-
 def _submit_brief_tool(provider_ids: list[str]) -> dict:
     """Build the brief-submission schema, constrained to real provider ids.
 
@@ -242,11 +233,6 @@ SUBMIT_QUERIES_SCHEMA = {
 
 def _accepted(args: dict, key: str) -> str:
     return json.dumps({"accepted": True, "count": len(args.get(key) or [])})
-
-
-# ══════════════════════════════════════════════════════════════
-#  Tool sets
-# ══════════════════════════════════════════════════════════════
 
 
 def brief_tools(medical: bool = True) -> tuple[list[dict], dict[str, Callable]]:

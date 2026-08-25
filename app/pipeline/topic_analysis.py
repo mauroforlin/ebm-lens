@@ -33,10 +33,6 @@ logger = logging.getLogger(__name__)
 _MAX_FACETS = 5
 
 
-# ══════════════════════════════════════════════════════════════
-#  Domain detection
-# ══════════════════════════════════════════════════════════════
-
 _DOMAIN_SYSTEM = """\
 You are a medical/clinical domain classifier and search query optimizer.
 Given a topic or claim, analyse it and return a JSON object:
@@ -177,10 +173,6 @@ def _build_pico(raw: object) -> PICO | None:
     return pico if pico.is_specified() else None
 
 
-# ══════════════════════════════════════════════════════════════
-#  Composite-topic decomposition
-# ══════════════════════════════════════════════════════════════
-
 _DECOMPOSE_SYSTEM = """\
 You are a research decomposition engine for a medical/biomedical search
 pipeline. Given a complex research topic, determine whether it contains
@@ -272,7 +264,6 @@ def decompose_topic(
 
 
 def is_composite(decomposition: dict | None) -> bool:
-    """True when *decomposition* describes a genuinely multi-axis topic."""
     return (
         decomposition is not None
         and bool(decomposition.get("is_composite"))

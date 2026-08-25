@@ -85,11 +85,6 @@ _RESTARTS = 6
 _FOLDS = 5
 
 
-# ══════════════════════════════════════════════════════════════
-#  Phase 1: dump per-candidate signals (costs API calls, resumable)
-# ══════════════════════════════════════════════════════════════
-
-
 def _dump_row(row: dict) -> dict:
     settings = get_settings()
     stats = JobStats()
@@ -151,11 +146,6 @@ def _run_dump(args: argparse.Namespace) -> None:
         evaluate=_dump_row, summarise=_dump_summarise, describe=_dump_describe,
         fixture_name=args.fixture.name,
     )
-
-
-# ══════════════════════════════════════════════════════════════
-#  Phase 2: search over cached signals (no network calls)
-# ══════════════════════════════════════════════════════════════
 
 
 def _row_metrics(row: dict, weights: dict[str, float]) -> dict[str, float]:

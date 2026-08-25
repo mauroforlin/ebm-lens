@@ -13,8 +13,6 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    """Central application configuration."""
-
     app_name: str = Field("EBM Lens", alias="APP_NAME")
 
     # Optional API-key auth. If unset, the API is open (no auth required) -
@@ -87,5 +85,4 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings() -> Settings:
-    """Return the cached settings instance."""
     return Settings()

@@ -42,13 +42,10 @@ def _rate_limit() -> None:
 
 
 def _extract_keywords(query: str) -> str:
-    """Clean query for Open Targets search."""
     clean = re.sub(r"[\"'()[\]{}<>?!.,;:]", " ", query)
     clean = re.sub(r"\s+", " ", clean).strip()
     return clean[:200]
 
-
-# ── GraphQL queries ──────────────────────────────────────────
 
 _SEARCH_QUERY = """
 query Search($q: String!, $size: Int!) {
@@ -157,7 +154,6 @@ class OpenTargetsProvider(SourceProvider):
         return results[:max_results]
 
     def _gql(self, query: str, variables: dict) -> dict | None:
-        """Execute a GraphQL query."""
         _rate_limit()
         try:
             resp = httpx.post(
@@ -180,7 +176,6 @@ class OpenTargetsProvider(SourceProvider):
         return data.get("search", {}).get("hits", [])
 
     def _fetch_drug_details(self, hit: dict) -> SourceResult | None:
-        """Fetch full drug info via GraphQL."""
         chembl_id = hit.get("id", "")
         name = hit.get("name", "")
         if not chembl_id:
@@ -266,7 +261,6 @@ class OpenTargetsProvider(SourceProvider):
         )
 
     def _hit_to_result(self, hit: dict) -> SourceResult | None:
-        """Convert a search hit to a SourceResult."""
         entity_id = hit.get("id", "")
         name = hit.get("name", "")
         entity = hit.get("entity", "")

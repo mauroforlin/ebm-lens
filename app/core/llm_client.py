@@ -36,8 +36,6 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-# ── Shared OpenRouter client singleton ────────────────────────
-
 _client = None
 _client_lock = threading.Lock()
 
@@ -60,14 +58,9 @@ def get_openrouter_client(settings: Settings):
     return _client
 
 
-# ── Cost extraction (shared) ─────────────────────────────────
-
 def extract_cost(usage: Any) -> float:
-    """Extract USD cost from an OpenRouter response usage object.
-
-    OpenRouter returns usage.cost; the SDK may not surface it as an attribute,
-    so fall back to model_extra.
-    """
+    """OpenRouter returns usage.cost; the SDK may not surface it as an
+    attribute, so fall back to model_extra."""
     if usage is None:
         return 0.0
     if hasattr(usage, "cost") and usage.cost is not None:
@@ -76,8 +69,6 @@ def extract_cost(usage: Any) -> float:
         return float(usage.model_extra.get("cost", 0.0) or 0.0)
     return 0.0
 
-
-# ── Model routing policy (centralised) ────────────────────────
 
 # Maps a call ``purpose`` to the :class:`Settings` field that selects its
 # model. Any purpose not listed here falls back to the default ``llm_model``.
@@ -99,30 +90,22 @@ _PURPOSE_MODEL_FIELD: dict[str, str] = {
 
 
 def resolve_model(settings: Settings, purpose: str, model_override: str | None) -> str:
-    """Pick the model for a call.
-
-    Precedence: explicit ``model_override`` → central purpose mapping →
-    default ``llm_model``.
-    """
+    """Precedence: explicit ``model_override`` → central purpose mapping →
+    default ``llm_model``."""
     if model_override:
         return model_override
     field = _PURPOSE_MODEL_FIELD.get(purpose or "")
     return getattr(settings, field) if field else settings.llm_model
 
 
-# ── LLM usage metadata ───────────────────────────────────────
-
 @dataclass
 class LLMUsage:
-    """Token counts + cost from a single LLM call."""
     input_tokens: int = 0
     output_tokens: int = 0
     total_tokens: int = 0
     model: str = ""
     cost_usd: float = 0.0
 
-
-# ── Retry semantics ───────────────────────────────────────────
 
 def _is_retryable(exc: BaseException) -> bool:
     import openai
@@ -192,8 +175,6 @@ def _chat_completion(
     return response.choices[0].message, usage
 
 
-# ── JSON repair ──────────────────────────────────────────────
-
 def parse_json(raw: str) -> Any:
     """Parse JSON with repair fallback."""
     try:
@@ -204,8 +185,6 @@ def parse_json(raw: str) -> Any:
         end = max((raw.rfind(c) for c in "]}" if raw.rfind(c) != -1), default=len(raw) - 1)
         return json.loads(raw[start : end + 1])
 
-
-# ── Public API ────────────────────────────────────────────────
 
 def generate_json(
     *, settings: Settings, prompt: str, system_instruction: str = "",
@@ -239,8 +218,6 @@ def generate_json(
     return parse_json((msg.content or "").strip())
 
 
-# ── Tool calling (function calling) ───────────────────────────
-
 @dataclass
 class ToolInvocation:
     """One tool call the model issued during a tool loop."""
@@ -261,7 +238,6 @@ _TOOL_WORKERS = 4
 
 
 def _safe_loads_args(raw: str) -> dict:
-    """Parse a tool's JSON arguments string defensively."""
     try:
         data = json.loads(raw or "{}")
         return data if isinstance(data, dict) else {}

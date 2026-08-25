@@ -90,13 +90,7 @@ def provider_ranked_lists(results: list[SourceResult]) -> list[list[str]]:
     return list(lists.values())
 
 
-# ══════════════════════════════════════════════════════════════
-#  Prior ranking (pre-summarisation)
-# ══════════════════════════════════════════════════════════════
-
-
 def candidate_prior(result: SourceResult, signals: SignalMaps) -> float:
-    """Retrieval-only score, used to pick which candidates get summarised."""
     key = dedup_key(result)
     built = ranking.build_signals(
         result,
@@ -116,14 +110,8 @@ def shortlist(
     signals: SignalMaps,
     limit: int,
 ) -> list[SourceResult]:
-    """Return the *limit* best candidates by prior score, best first."""
     ordered = sorted(results, key=lambda r: candidate_prior(r, signals), reverse=True)
     return ordered[:limit]
-
-
-# ══════════════════════════════════════════════════════════════
-#  Final ranking (post-summarisation)
-# ══════════════════════════════════════════════════════════════
 
 
 def final_score(
@@ -132,7 +120,6 @@ def final_score(
     *,
     medical_domain: bool,
 ) -> float:
-    """Rank a summarised article on relevance, semantics and authority."""
     key = identity_key(article.url, article.title)
     built = signals._signals_for(key)
     built.update({

@@ -46,7 +46,6 @@ def _rate_limit() -> None:
 
 
 def _extract_drug_name(query: str) -> str:
-    """Extract likely drug name from a natural-language query."""
     # Remove common filler
     clean = re.sub(
         r"\b(what|is|the|drug|interaction|between|of|and|with|for|"
@@ -82,7 +81,6 @@ class RxNavProvider(SourceProvider):
         return self._search_drug(drug_name)[:max_results]
 
     def _resolve_rxcui(self, name: str) -> str | None:
-        """Resolve drug name to RxCUI."""
         _rate_limit()
         try:
             resp = httpx.get(
@@ -152,7 +150,6 @@ class RxNavProvider(SourceProvider):
         }
 
     def _search_drug(self, drug_name: str) -> list[SourceResult]:
-        """Get drug information via /drugs endpoint."""
         _rate_limit()
         try:
             resp = httpx.get(
@@ -211,7 +208,6 @@ class RxNavProvider(SourceProvider):
         return results
 
     def _search_approximate(self, name: str) -> list[SourceResult]:
-        """Fuzzy match via /approximateTerm."""
         _rate_limit()
         try:
             resp = httpx.get(
@@ -244,7 +240,6 @@ class RxNavProvider(SourceProvider):
         return results
 
     def _get_drug_properties(self, rxcui: str) -> list[str]:
-        """Fetch additional properties for a drug RxCUI."""
         if not rxcui:
             return []
         _rate_limit()

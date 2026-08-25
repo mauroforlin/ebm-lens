@@ -36,7 +36,6 @@ from datetime import datetime, timezone
 
 from app.sources.base import SourceResult
 
-# ── Tunables ──────────────────────────────────────────────────
 
 _RRF_K = 60                 # RRF constant from Cormack et al., SIGIR 2009
 _CITATION_CAP = 1000        # citations at/above this saturate the signal to 1.0
@@ -81,9 +80,6 @@ FINAL_WEIGHTS: dict[str, float] = {
 }
 
 
-# ── Reciprocal Rank Fusion ─────────────────────────────────────
-
-
 def reciprocal_rank_fusion(
     ranked_lists: Sequence[Sequence[str]],
     k: int = _RRF_K,
@@ -100,9 +96,6 @@ def reciprocal_rank_fusion(
             if key:
                 scores[key] = scores.get(key, 0.0) + 1.0 / (k + rank)
     return scores
-
-
-# ── Signal helpers ─────────────────────────────────────────────
 
 
 def cosine_similarity(a: Sequence[float], b: Sequence[float]) -> float:
@@ -123,7 +116,6 @@ def cosine_similarity(a: Sequence[float], b: Sequence[float]) -> float:
 
 
 def citation_score(count: int) -> float:
-    """Log-scaled citation authority in [0, 1] (saturates at ``_CITATION_CAP``)."""
     if count <= 0:
         return 0.0
     return min(1.0, math.log1p(count) / math.log1p(_CITATION_CAP))
@@ -135,7 +127,6 @@ def _extract_year(date_str: str) -> int | None:
 
 
 def recency_score(date_str: str) -> float:
-    """Exponential-decay recency in [0, 1]; neutral when the date is unknown."""
     year = _extract_year(date_str)
     if year is None:
         return _RECENCY_UNKNOWN
@@ -144,7 +135,6 @@ def recency_score(date_str: str) -> float:
 
 
 def tier_score(tier: int) -> float:
-    """Map a reliability tier to a [0, 1] score."""
     return _TIER_SCORES.get(tier, 0.2)
 
 
@@ -201,9 +191,6 @@ def normalize_minmax(values: dict[str, float]) -> dict[str, float]:
     return {k: (v - lo) / span for k, v in values.items()}
 
 
-# ── Composite scoring ──────────────────────────────────────────
-
-
 def build_signals(
     result: SourceResult,
     *,
@@ -238,5 +225,4 @@ def build_signals(
 
 
 def weighted_score(signals: dict[str, float], weights: dict[str, float]) -> float:
-    """Dot-product of signal values with their weights."""
     return sum(weight * signals.get(key, 0.0) for key, weight in weights.items())

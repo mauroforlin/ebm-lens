@@ -61,7 +61,6 @@ ITALIAN_TOPIC = "diabete di tipo 2"
 
 
 def assert_wellformed(results: list, *, source_type: str, min_results: int = 1) -> None:
-    """Every provider must return usable, correctly-labelled evidence."""
     assert len(results) >= min_results, (
         f"{source_type}: expected >= {min_results} results, got {len(results)}"
     )
@@ -86,7 +85,6 @@ def assert_substantive(results: list, *, min_chars: int, source_type: str) -> No
 
 
 def assert_mentions(results: list, term: str, *, source_type: str) -> None:
-    """At least one result must actually be about the thing we asked for."""
     term = term.lower()
     hit = any(term in (r.title + " " + r.content).lower() for r in results)
     assert hit, (
@@ -105,7 +103,6 @@ THROTTLE_STATUSES = frozenset({406, 429, 503})
 
 
 def skip_if_throttled(response, who: str) -> None:
-    """Turn an explicit throttling response into a skip."""
     if response.status_code in THROTTLE_STATUSES:
         pytest.skip(f"{who} throttled this client (HTTP {response.status_code})")
 

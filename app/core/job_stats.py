@@ -26,7 +26,6 @@ from typing import Any
 
 @dataclass
 class _LLMCallRecord:
-    """A single LLM call record."""
     purpose: str          # e.g. "related_articles_domain", "related_articles_summarize", ...
     model: str
     input_tokens: int
@@ -73,8 +72,6 @@ class JobStats:
         self._evidence_after_relevance: int = 0
         self._retries: int = 0
 
-    # ── LLM tracking ─────────────────────────────────────────
-
     def record_llm_call(
         self,
         purpose: str,
@@ -85,12 +82,8 @@ class JobStats:
         cost_usd: float = 0.0,
         latency_ms: float = 0.0,
     ) -> None:
-        """Record a single LLM call.
-
-        *cost_usd* should be the real cost returned by OpenRouter
-
-        When unavailable (e.g. the provider doesn't return it), pass 0.0.
-        """
+        """*cost_usd* should be the real cost returned by OpenRouter; pass 0.0
+        when unavailable (e.g. the provider doesn't return it)."""
         record = _LLMCallRecord(
             purpose=purpose,
             model=model,
@@ -105,8 +98,6 @@ class JobStats:
             self._total_output_tokens += output_tokens
             self._total_llm_cost_usd += cost_usd
 
-    # ── Embedding tracking ─────────────────────────────────────
-
     def record_embedding_call(
         self,
         model: str = "",
@@ -114,10 +105,6 @@ class JobStats:
         num_texts: int = 1,
         cost_usd: float = 0.0,
     ) -> None:
-        """Record an embedding API call.
-
-        *cost_usd* should be the real cost returned by OpenRouter.
-        """
         with self._lock:
             self._embedding_calls += num_texts
             self._embedding_tokens += tokens
@@ -129,8 +116,6 @@ class JobStats:
             entry["calls"] += num_texts
             entry["tokens"] += tokens
             entry["cost_usd"] += cost_usd
-
-    # ── Provider tracking (sources) ───────────────────────────
 
     def record_provider_call(
         self,
@@ -146,10 +131,7 @@ class JobStats:
             if error:
                 self._provider_errors[provider_id] = self._provider_errors.get(provider_id, 0) + 1
 
-    # ── Stage timing ──────────────────────────────────────────
-
     def record_tool_call(self, name: str) -> None:
-        """Record one tool invocation the model chose to make."""
         with self._lock:
             self._tool_calls[name] = self._tool_calls.get(name, 0) + 1
 
@@ -159,8 +141,6 @@ class JobStats:
                 self._stage_timings.get(name, 0.0) + elapsed_ms
             )
 
-    # ── Misc counters ─────────────────────────────────────────
-
     def add_evidence(self, total: int, after_filter: int) -> None:
         with self._lock:
             self._evidence_total += total
@@ -169,8 +149,6 @@ class JobStats:
     def add_retry(self) -> None:
         with self._lock:
             self._retries += 1
-
-    # ── Export ─────────────────────────────────────────────────
 
     def to_dict(self) -> dict[str, Any]:
         """Produce a JSON-serialisable summary of all collected stats."""

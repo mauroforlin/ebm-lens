@@ -43,8 +43,6 @@ class TTLCache(Generic[T]):
         self._store: OrderedDict[str, _Entry[T]] = OrderedDict()
         self._max_entries = max(1, max_entries)
 
-    # ── public API ────────────────────────────────────────────
-
     def get(self, key: str) -> T | None:
         with self._lock:
             entry = self._store.get(key)
@@ -76,8 +74,6 @@ class TTLCache(Generic[T]):
         with self._lock:
             return len(self._store)
 
-    # ── internals ─────────────────────────────────────────────
-
     def _evict_locked(self) -> None:
         """Drop expired entries, then LRU-evict until within capacity.
 
@@ -93,7 +89,10 @@ class TTLCache(Generic[T]):
             self._store.popitem(last=False)  # least recently used
 
 
-# ── Shared, module-level cache instances ────────────────────────
+# TODO: source_cache and topic_evidence_cache live in this process's memory
+# (module-level dict), so they cannot be shared across workers. Scaling this
+# service horizontally needs a shared backend (Redis or similar) behind the
+# same get/set interface.
 
 source_cache: TTLCache[list[dict[str, Any]]] = TTLCache()
 """Per-(provider, query) raw search-result cache. Keyed by a hash of
@@ -105,6 +104,9 @@ topic_evidence_cache: TTLCache[list[dict[str, Any]]] = TTLCache(max_entries=500)
 Exact-hash lookups only. Two phrasings of the same question miss each other
 unless they normalise identically. This is a speed and cost loss on repeat queries
 and the price of having no vector store to search."""
+# TODO: exact-hash matching means two different phrasings of the same
+# question miss each other. Lifting this needs embedding similarity over a
+# vector store instead of a hash lookup.
 
 
 def configure_caches(
@@ -112,6 +114,5 @@ def configure_caches(
     source_max_entries: int,
     topic_max_entries: int,
 ) -> None:
-    """Apply configured capacity bounds to the shared caches (called at startup)."""
     source_cache.set_max_entries(source_max_entries)
     topic_evidence_cache.set_max_entries(topic_max_entries)

@@ -84,7 +84,6 @@ def _rate_limit() -> None:
 
 
 def _clean_drug_name(query: str) -> str:
-    """Extract drug name from query."""
     clean = re.sub(
         r"\b(what|is|the|drug|for|of|and|with|side|effects?|dose|dosage|"
         r"indication|contraindication|interaction|mechanism|action|"
@@ -143,7 +142,6 @@ class DailyMedProvider(SourceProvider):
         return results
 
     def _search_spls(self, drug_name: str) -> list[dict]:
-        """Search for SPLs by drug name."""
         _rate_limit()
         try:
             resp = httpx.get(
@@ -161,7 +159,6 @@ class DailyMedProvider(SourceProvider):
         return data.get("data", [])
 
     def _fetch_spl_details(self, spl: dict) -> SourceResult | None:
-        """Fetch detailed SPL content for a given label."""
         set_id = spl.get("setid", "")
         title = spl.get("title", "") or spl.get("spl_name", "")
         if not set_id or not title:
@@ -197,7 +194,6 @@ class DailyMedProvider(SourceProvider):
         )
 
     def _fetch_spl_content(self, set_id: str, title: str) -> str:
-        """Fetch and format key sections from the SPL document."""
         _rate_limit()
         try:
             # The XML detail route 406s on `Accept: application/xml` - it only

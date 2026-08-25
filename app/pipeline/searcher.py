@@ -52,7 +52,6 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
-# ── Tunables ──────────────────────────────────────────────────
 
 _MIN_EVIDENCE = 3       # below this, the next retry tier is worth its latency
 _MAX_PER_PROVIDER = 8   # results requested per provider per query
@@ -77,8 +76,6 @@ _MEDICAL_DOMAINS = frozenset({"medicine", "veterinary_medicine"})
 def _is_medical(domain: str, spec: TopicSpec) -> bool:
     return domain in _MEDICAL_DOMAINS or spec.topic_type in _MEDICAL_TOPIC_TYPES
 
-
-# ── Provider registry ─────────────────────────────────────────
 
 _PROVIDER_CONSTRUCTORS: dict[str, type] = {
     "wikipedia": WikipediaProvider,
@@ -118,10 +115,6 @@ def _get_provider(
     cls = _PROVIDER_CONSTRUCTORS.get(pid)
     return cls() if cls else None
 
-
-# ══════════════════════════════════════════════════════════════
-#  1. PROVIDER SELECTION
-# ══════════════════════════════════════════════════════════════
 
 # The literature engines: on for every medical topic, unconditionally - the
 # actual primary sources a medical question is answered from, not a floor to
@@ -208,6 +201,11 @@ def _drop_ungated(spec: TopicSpec, providers: set[str] | list[str]) -> set[str]:
     status" - on exactly as loose a bar as topic_type itself, so a gate that
     only covered the deterministic list would leave that route wide open.
     """
+    # FIXME: the keyword lists below can miss a legitimate phrasing they
+    # weren't written to expect, dropping a provider that should have stayed
+    # (false negative). Not cleanly measurable - there's no dataset labelling
+    # which topics genuinely needed who_gho/ema/openfda/rxnav - so this is
+    # accepted rather than tuned against a metric.
     chosen = set(providers)
     text = spec.text or ""
     subject = spec.subject.strip()
@@ -225,7 +223,6 @@ def _drop_ungated(spec: TopicSpec, providers: set[str] | list[str]) -> set[str]:
 
 
 def _gated_type_providers(spec: TopicSpec) -> list[str]:
-    """`_TYPE_PROVIDERS` for *spec*'s topic_type, gated through `_drop_ungated`."""
     providers = _TYPE_PROVIDERS.get((spec.topic_type or "").strip().lower(), [])
     return list(_drop_ungated(spec, providers))
 
@@ -286,10 +283,6 @@ def _select_providers_fallback(
     return base, supp
 
 
-# ══════════════════════════════════════════════════════════════
-#  2. PER-PROVIDER QUERY CONSTRUCTION
-# ══════════════════════════════════════════════════════════════
-
 # Topic types whose answer lives in a review or a textbook, not in the latest
 # primary study - PubMed/Europe PMC are told to prefer review articles.
 _FOUNDATIONAL_TYPES = frozenset({
@@ -313,7 +306,6 @@ _TYPE_TO_EVIDENCE = {
 
 
 def _pubmed_kwargs(spec: TopicSpec) -> dict:
-    """Build PubMed constructor kwargs from the topic spec."""
     kwargs: dict = {}
 
     mesh_terms: list[str] = []
@@ -366,7 +358,6 @@ def _english_query(spec: TopicSpec) -> str:
 
 
 def _italian_query(spec: TopicSpec) -> str:
-    """The Italian query for *spec*, or a deterministic reconstruction of one."""
     if spec.search_query_it:
         return spec.search_query_it.strip()
 
@@ -420,7 +411,6 @@ def _build_query_for_provider(
     provider: SourceProvider,
     context: DomainContext | None = None,
 ) -> str:
-    """Generate a query in the language and style *provider* expects."""
     if provider.source_type == "wikipedia":
         return _with_keywords(
             _italian_query(spec), context.keywords_it if context else [],
@@ -432,11 +422,6 @@ def _build_query_for_provider(
         if mesh_query:
             query = mesh_query
     return _with_keywords(query, context.keywords_en if context else [])
-
-
-# ══════════════════════════════════════════════════════════════
-#  3. CACHE LAYER (in-process, see app.cache)
-# ══════════════════════════════════════════════════════════════
 
 
 def _cache_key(query: str, source_type: str) -> str:
@@ -451,7 +436,6 @@ def _cache_key(query: str, source_type: str) -> str:
 
 
 def _serialise(result: SourceResult) -> dict:
-    """Flatten a result for the cache, capping stored page content."""
     return {
         "title": result.title,
         "url": result.url,
@@ -473,7 +457,6 @@ def _run_search(
     job_stats: JobStats | None = None,
     max_results: int = _MAX_PER_PROVIDER,
 ) -> list[SourceResult]:
-    """Search one provider, serving from cache when possible."""
     key = _cache_key(query, provider.source_type)
     cached = source_cache.get(key)
     if cached is not None:
@@ -489,11 +472,6 @@ def _run_search(
 
     source_cache.set(key, [_serialise(r) for r in results], ttl_days * 86400)
     return results
-
-
-# ══════════════════════════════════════════════════════════════
-#  4. MAIN ENTRY POINT
-# ══════════════════════════════════════════════════════════════
 
 
 class _Collector:
@@ -551,7 +529,6 @@ def search_evidence(
     per_provider = max_per_provider or _MAX_PER_PROVIDER
     collector = _Collector()
 
-    # ── Tier 0: whole-topic cache ──
     cached_evidence = get_topic_evidence(spec.text)
     if cached_evidence is not None:
         return [r for r in cached_evidence if not is_blocked_url(r.url)]
@@ -639,7 +616,6 @@ def search_evidence(
         literature = sum(1 for r in collector.results if r.source_type in _LITERATURE_PROVIDERS)
         return literature < _MIN_EVIDENCE
 
-    # ── Tier 1: the given provider list ──
     # The discovery loop supplies one, grounded once per topic in its own
     # research brief. A caller with no list of its own skips straight to the
     # retry/rule-based tiers below, the same degrade path an LLM outage takes.
@@ -667,7 +643,6 @@ def search_evidence(
         if providers_override is not None:
             return collector.results
 
-    # ── Tier 2: alternative queries ──
     retry_queries = spec.alternative_queries_it or spec.alternative_queries
     if _needs_more(collector) and retry_queries:
         logger.debug(
@@ -683,7 +658,6 @@ def search_evidence(
             alt_tasks.extend(_tasks(retry_pids, query))
         _run_parallel(alt_tasks, max_workers=4)
 
-    # ── Tier 3: broader conceptual query ──
     if _needs_more(collector) and (spec.conceptual_query or spec.conceptual_query_it):
         conceptual_en = spec.conceptual_query
         conceptual_it = spec.conceptual_query_it or spec.conceptual_query
@@ -701,7 +675,6 @@ def search_evidence(
             ))
         _run_parallel(concept_tasks, max_workers=3)
 
-    # ── Tier 4: rule-based routing ──
     if _needs_more(collector):
         logger.debug(
             "Planned search yielded only %d results - supplementing with rules",

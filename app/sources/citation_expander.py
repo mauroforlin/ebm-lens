@@ -46,11 +46,7 @@ _S2_GRAPH_FIELDS = (
 )
 
 
-# ── Seed-id derivation ─────────────────────────────────────────
-
-
 def _seed_paper_id(result: SourceResult) -> str | None:
-    """Derive a Semantic Scholar-compatible paper id from a result URL."""
     url = (result.url or "").lower()
     if not url:
         return None
@@ -75,13 +71,9 @@ def _seed_paper_id(result: SourceResult) -> str | None:
 
 
 def _is_paper(result: SourceResult) -> bool:
-    """True when a result looks like an academic paper we can expand from."""
     return result.source_type in {
         "pubmed", "europe_pmc", "biorxiv",
     }
-
-
-# ── External calls (best-effort) ───────────────────────────────
 
 
 def _s2_recommendations(paper_id: str, limit: int) -> list[SourceResult]:
@@ -166,9 +158,6 @@ def _openalex_related(doi: str, limit: int) -> list[SourceResult]:
     return [r for r in (_work_to_result(w) for w in works) if r is not None]
 
 
-# ── Result builders ────────────────────────────────────────────
-
-
 def _paper_to_result(paper: dict) -> SourceResult | None:
     title = paper.get("title") or ""
     if not title:
@@ -227,9 +216,6 @@ def _work_to_result(work: dict) -> SourceResult | None:
         publication_date=str(year) if year else "",
         citation_count=cited,
     )
-
-
-# ── Public entry point ─────────────────────────────────────────
 
 
 def expand_with_citation_graph(
