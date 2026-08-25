@@ -279,6 +279,11 @@ frontend/  index.html, app.js, style.css - plain files, no build step
   imprecision and indirectness, none of which this pipeline can see. What the
   ranker produces is the design tier, GRADE's first and largest input,
   reported by name so the rest of the appraisal can be applied by hand.
+- **Fetched source text is untrusted input.** The pipeline pulls full page
+  text from allowlisted hosts, including a user-editable one (Wikipedia), and
+  passes it to an LLM that has tools available. The domain allowlist is the
+  only control; nothing sanitises page content. Hardening that path is open
+  work.
 > [!IMPORTANT]
 > **Citation checking stops at existence (Working on it)**
 > A claim citing an article that is not in the response gets dropped before the response is built. Whether a cited article actually supports the sentence citing it is left to the reader; the response links straight to the source for that check.

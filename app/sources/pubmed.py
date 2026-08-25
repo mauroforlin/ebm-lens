@@ -296,10 +296,11 @@ def _broaden_query(query: str) -> str:
     return " ".join(keywords[:4])
 
 
-# ELink returns several dbto=="pmc" linksetdbs per PMID: "pubmed_pmc" and
-# "pubmed_pmc_local" point at the paper's own copy when it's open-access in
-# PMC, while "pubmed_pmc_refs" points at unrelated PMC articles that cite the
-# paper. Only the former identify the paper's own full text.
+# BUG-01 workaround: ELink returns several dbto=="pmc" linksetdbs per PMID -
+# "pubmed_pmc" and "pubmed_pmc_local" point at the paper's own copy when it's
+# open-access in PMC, while "pubmed_pmc_refs" points at unrelated PMC articles
+# that cite the paper. Taking the first linkset without filtering by name
+# attaches a citing stranger's full text to the wrong paper.
 _PMC_OWN_COPY_LINKNAMES = ("pubmed_pmc", "pubmed_pmc_local")
 
 

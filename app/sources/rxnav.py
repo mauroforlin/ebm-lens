@@ -3,10 +3,11 @@
 Official NIH/NLM drug naming authority.  Resolves drug names (generic ↔
 brand) and provides drug classes.
 
-Does not provide drug-drug interactions: NLM retired the interaction API on
-2 Jan 2024 when its DrugBank data license lapsed, and it now 404s
-unconditionally. Interaction/contraindication text instead comes from the
-FDA label sections that openfda and dailymed already carry.
+Does not provide drug-drug interactions (BUG-04): NLM retired the interaction
+API on 2 Jan 2024 when its DrugBank data license lapsed, and it now 404s
+unconditionally - there is no workaround, the data source is gone.
+Interaction/contraindication text instead comes from the FDA label sections
+that openfda and dailymed already carry.
 
 API docs: https://lhncbc.nlm.nih.gov/RxNav/APIs/
 Rate limit: 20 requests/second.

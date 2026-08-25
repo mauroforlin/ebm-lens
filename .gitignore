@@ -10,10 +10,8 @@ venv/
 .DS_Store
 .claude/
 
-# Personal study notes, not part of the project.
 docs/
 
-# Not decided yet whether this ships publicly.
 REFERENCES.md
 
 # Third-party eval datasets: license/redistribution terms vary (BioASQ

@@ -18,8 +18,16 @@ from app.config import get_settings
 from app.core.cache import configure_caches
 
 logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 settings = get_settings()
+
+if not settings.contact_email:
+    logger.warning(
+        "CONTACT_EMAIL is unset - requests to NCBI, Crossref and OpenAlex "
+        "go out without a mailto: identifier and may be throttled sooner "
+        "under load. Set CONTACT_EMAIL in .env to your own address."
+    )
 
 app = FastAPI(
     title=settings.app_name,

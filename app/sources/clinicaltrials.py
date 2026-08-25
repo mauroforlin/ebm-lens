@@ -44,10 +44,11 @@ class ClinicalTrialsProvider(SourceProvider):
         # Clean query for API
         clean_q = self._clean_query(query)
 
-        # Explicit relevance sort - the API's default order (no sort param)
-        # is not relevance, it just happens to look plausible. Sorting by
-        # edit recency instead would surface whatever trial was last touched
-        # in the registry, regardless of how well it matches the query.
+        # BUG-06 workaround: explicit relevance sort. The API's default order
+        # (no sort param) is not relevance, it just happens to look
+        # plausible - it's actually last-edit recency, which would surface
+        # whatever trial was last touched in the registry, regardless of how
+        # well it matches the query.
         params = {
             "query.term": clean_q,
             "pageSize": min(max_results * 2, 10),  # over-fetch to filter

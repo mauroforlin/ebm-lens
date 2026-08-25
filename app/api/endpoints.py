@@ -76,6 +76,11 @@ async def related_articles_stream(payload: RelatedArticlesRequest) -> StreamingR
         finally:
             emitter.close()
 
+    # TODO: a client that disconnects here leaves this run to completion with
+    # nobody reading the result - a real cost (LLM calls) spent for nothing,
+    # and unbounded for any public deployment. Fixing it needs a cancellation
+    # token threaded through and checked between pipeline stages; the
+    # pipeline is synchronous today and has no such checkpoint.
     threading.Thread(target=_run, daemon=True).start()
 
     async def _frames() -> AsyncIterator[str]:

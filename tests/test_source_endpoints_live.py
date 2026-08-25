@@ -84,8 +84,9 @@ def test_elink_still_distinguishes_pmc_linknames():
     r.raise_for_status()
     try:
         # NCBI's elink JSON sometimes carries raw control characters, which
-        # strict json.loads rejects. The provider swallows that and returns {},
-        # so full-text enrichment silently no-ops - see the audit's OBS-3.
+        # strict json.loads rejects. app/sources/pubmed.py::_pmids_to_pmcids
+        # catches that broadly and returns {}, so full-text enrichment
+        # silently no-ops for the affected PMIDs instead of raising.
         payload = json.loads(r.text, strict=False)
     except json.JSONDecodeError as exc:
         pytest.skip(f"ELink returned malformed JSON ({exc}) - known NCBI flakiness")

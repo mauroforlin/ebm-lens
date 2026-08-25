@@ -47,9 +47,12 @@ class Settings(BaseSettings):
     # Sent as the mailto: in the User-Agent of every external request. NCBI,
     # Crossref and OpenAlex ask for a real contact address and route
     # identified clients through a faster "polite pool"; anonymous traffic
-    # gets throttled first when a service is under load. Set it to your own
-    # address if you run this against the public APIs regularly.
-    contact_email: str = Field("anonymous@example.com", alias="CONTACT_EMAIL")
+    # gets throttled first when a service is under load. Defaults to empty
+    # rather than a placeholder address - see app/sources/base.py::user_agent,
+    # which omits the mailto: entirely when this is unset instead of sending
+    # a fake one. Set it to your own address if you run this against the
+    # public APIs regularly.
+    contact_email: str = Field("", alias="CONTACT_EMAIL")
 
     # ── NCBI (PubMed) ──
     # Optional. Without it PubMed calls are limited to 3 req/s (fine for

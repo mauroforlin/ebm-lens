@@ -13,6 +13,13 @@ is deliberately fenced in:
 - **Size cap** - ``_MAX_CONTENT_CHARS`` per page, so one enormous page cannot
   dominate the summariser's context window.
 - **Timeout** - ``_FETCH_TIMEOUT`` seconds per request, fetched in parallel.
+
+None of this makes the fetched text trustworthy. It is untrusted input: the
+domain allowlist bounds who can supply it, not what it says - and for a
+user-editable host like Wikipedia, "who" still means anyone with an edit
+button. Nothing here sanitises the page's content, and this extracted text
+goes on to reach the model as ordinary content in a pipeline where the model
+has tools available (see synthesis.py).
 """
 from __future__ import annotations
 

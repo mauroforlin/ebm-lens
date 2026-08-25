@@ -14,11 +14,17 @@ Both layers are marked ``live`` because they need the network.
     pytest                       # everything, including live calls
     pytest -m "not live"         # offline unit tests only (fast, CI-safe)
     pytest -m live -x -q         # the periodic health check
-    pytest -m live -rxX          # ...and show which known bugs are still open
 
-Known defects are recorded as ``xfail`` with a ``BUG-nn`` reason. They keep
-the suite green today and flip to XPASS the moment one is fixed or an
-upstream API starts behaving again - so ``-rxX`` is the report you want.
+Known upstream defects (``BUG-nn``, referenced by id at the fix or workaround
+in the matching ``app/sources/*.py`` provider) are covered two ways, not by
+``xfail``:
+
+* where our adapter can fix or work around the defect, the *fixed* behaviour
+  is what the test asserts - a regression back to the bug fails the suite.
+* where the defect is upstream-only, the test asserts the bug's current
+  symptom (e.g. an endpoint 404ing) and ``pytest.fail``s with a note like
+  "BUG-nn may be moot" if that symptom goes away, so a live fix gets noticed
+  instead of silently doing nothing.
 """
 from __future__ import annotations
 

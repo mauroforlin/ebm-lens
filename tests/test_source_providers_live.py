@@ -9,9 +9,9 @@ Each provider gets three kinds of assertion, in increasing strictness:
 2. *substantive*   - the content is long enough to summarise from
 3. *on topic*      - the result is actually about what we asked for
 
-Known-broken behaviour carries ``xfail(strict=False)`` with a ``BUG-nn``
-reason, so the suite is green today and reports XPASS the moment a bug is
-fixed. Run ``pytest -m live -rxX`` to see that report.
+Known upstream defects are tracked as ``BUG-nn`` ids, cited at the fix or
+workaround in the matching ``app/sources/*.py`` provider - see
+``tests/conftest.py`` for how those tests are structured.
 """
 from __future__ import annotations
 

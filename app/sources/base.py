@@ -27,13 +27,19 @@ def contact_email() -> str:
 
 
 def user_agent() -> str:
-    """Identify this client to external APIs, with a contact address.
+    """Identify this client to external APIs, with a contact address if we have one.
 
     NCBI, Crossref and OpenAlex all ask callers to identify themselves and
     give identified traffic a more generous rate limit ("polite pool"); the
     address comes from ``CONTACT_EMAIL`` so a deployment can supply its own.
+    Unset is left unset - a made-up address would satisfy the mailto: syntax
+    but not what these services actually want, a way to reach a real
+    operator.
     """
-    return f"EBM-Lens/1.0 (mailto:{get_settings().contact_email})"
+    email = get_settings().contact_email
+    if not email:
+        return "EBM-Lens/1.0"
+    return f"EBM-Lens/1.0 (mailto:{email})"
 
 
 def build_headers(

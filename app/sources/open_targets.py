@@ -61,6 +61,10 @@ query Search($q: String!, $size: Int!) {
 }
 """
 
+# BUG-05 workaround: this query's field names were updated to match a schema
+# migration - the old names (maximumClinicalTrialPhase, hasBeenWithdrawn,
+# maxPhaseForIndication, indications.rows.references) were dropped from the
+# GraphQL schema and now error instead of returning null.
 _DRUG_QUERY = """
 query DrugInfo($chemblId: String!) {
   drug(chemblId: $chemblId) {

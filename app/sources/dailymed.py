@@ -196,7 +196,9 @@ class DailyMedProvider(SourceProvider):
     def _fetch_spl_content(self, set_id: str, title: str) -> str:
         _rate_limit()
         try:
-            # The XML detail route 406s on `Accept: application/xml` - it only
+            # BUG-03 workaround: the JSON detail route (`/spls/{setid}.json`)
+            # 415s, so the label body has to come from XML instead. The XML
+            # route in turn 406s on `Accept: application/xml` - it only
             # accepts a wildcard Accept, unlike every other DailyMed endpoint.
             resp = httpx.get(
                 f"{_API_BASE}/spls/{set_id}.xml",

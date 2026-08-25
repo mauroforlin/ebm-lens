@@ -511,6 +511,9 @@ def _summarise_batch(
     fetched: dict[int, str | None] = {}
 
     def _ensure_fetched(index: int) -> str | None:
+        # Untrusted page text (see content_extractor.py) enters the tool loop
+        # right here - it becomes results[index].content, returned below as
+        # an ordinary tool result the model reads.
         nonlocal reads_used
         if index in fetched:
             return fetched[index]

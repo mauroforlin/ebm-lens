@@ -87,11 +87,11 @@ class ChEMBLProvider(SourceProvider):
         if not molecules:
             return []
 
-        # ChEMBL's search ranking often puts unnamed research compounds
-        # (no pref_name, no max_phase) ahead of the approved drug being
-        # looked up, so re-rank before truncating to max_results: named
-        # molecules first, exact name matches first among those, then by
-        # clinical phase (approved/later-phase drugs first).
+        # BUG-07 workaround: ChEMBL's search ranking often puts unnamed
+        # research compounds (no pref_name, no max_phase) ahead of the
+        # approved drug being looked up, so re-rank before truncating to
+        # max_results: named molecules first, exact name matches first among
+        # those, then by clinical phase (approved/later-phase drugs first).
         def _phase(m: dict) -> float:
             try:
                 return float(m.get("max_phase"))

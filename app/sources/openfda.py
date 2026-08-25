@@ -86,11 +86,12 @@ class OpenFDAProvider(SourceProvider):
     def _search_labels(self, query: str, max_results: int) -> list[SourceResult]:
         _rate_limit()
 
-        # Build search query - match on any of the identifiers a drug could
-        # be searched by. openFDA's Lucene parser treats "+" between clauses
-        # as "this clause is required", not as a joiner, so a plain space
-        # (Lucene's default OR) is what actually broadens the match instead
-        # of narrowing it to labels where generic and brand name are equal.
+        # BUG-02 workaround: match on any of the identifiers a drug could be
+        # searched by. openFDA's Lucene parser treats "+" between clauses as
+        # "this clause is required", not as a joiner, so joining with "+"
+        # would silently make the brand-name clause mandatory and drop
+        # generic-only hits. A plain space (Lucene's default OR) is what
+        # actually broadens the match.
         clean = self._clean_drug_name(query)
         search_q = (
             f'openfda.generic_name:"{clean}" '
