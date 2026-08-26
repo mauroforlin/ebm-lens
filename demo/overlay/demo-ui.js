@@ -13,7 +13,7 @@
 
   const STRINGS = {
     bannerLabel: "Read-only demo",
-    bannerBody: "15 pre-recorded searches, loading sped up - every source, "
+    bannerBody: "15 pre-recorded searches. Loading is sped up, but every source, "
       + "summary, cost and timing shown is real.",
     bannerCta: "Clone the repo",
     bannerCtaSuffix: "to run your own searches.",
