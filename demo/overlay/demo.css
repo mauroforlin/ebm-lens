@@ -27,14 +27,19 @@
 
 /* The mechanism, stated once, before the picker below asks the visitor to
    choose among fifteen medical topics without knowing what choosing one
-   does. Plain list, no card chrome - it's a sentence split in three, not
-   another panel. */
+   does. Same bordered-block treatment as .demo-banner above it (surface,
+   border, accent left edge) so the two read as one continuous intro
+   instead of a box followed by loose text. */
 .demo-steps {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 20px;
   margin: 0 0 18px;
-  padding: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 12px 15px;
   list-style: none;
 }
 .demo-steps li {
@@ -69,6 +74,7 @@ details.demo-picker {
   margin: 18px 0;
   background: var(--surface);
   border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
   border-radius: var(--radius);
 }
 details.demo-picker > summary {
