@@ -1,12 +1,12 @@
 "use strict";
 
 /* Loads after app.js. Everything here talks to app.js only through the DOM
-   it already exposes (#topic, #searchBtn, #sourcesPreset, #language,
-   #discoveryNote) plus the one global app.js leaves behind as a plain
-   top-level function declaration in a classic script - window.setMaxSources -
-   used instead of clicking the (disabled) preset buttons directly. Nothing
-   here reaches into app.js's closures or module state, because there isn't
-   any to reach into. */
+   it already exposes (#topic, #searchBtn, #language, .panel, .hint,
+   #discoveryNote, #results) plus the one global app.js leaves behind as a
+   plain top-level function declaration in a classic script -
+   window.setMaxSources - used instead of clicking the (hidden) preset
+   buttons directly. Nothing here reaches into app.js's closures or module
+   state, because there isn't any to reach into. */
 
 (function () {
   const LANG_KEY = "ebmlens-demo-lang";
@@ -25,9 +25,6 @@
       discoveryNote: "This is a replay of a real search. The loading time is sped up, "
         + "but all the sources, summaries, and numbers below are exactly what the app "
         + "generated.",
-      topicPlaceholder: "Pick a question below",
-      langDisabledTitle: "Demo results are only available in English.",
-      sourcesDisabledTitle: "The number of sources is fixed for these examples.",
     },
     it: {
       bannerLabel: "Demo in sola lettura",
@@ -41,9 +38,6 @@
       discoveryNote: "Questo è il replay di una ricerca reale. L'attesa è accelerata, "
         + "ma tutte le fonti, i riassunti e i numeri qui sotto sono esattamente quelli "
         + "generati dall'app.",
-      topicPlaceholder: "Scegli una domanda qui sotto",
-      langDisabledTitle: "I risultati della demo sono disponibili solo in inglese.",
-      sourcesDisabledTitle: "Il numero di fonti è fisso per questi esempi.",
     },
   };
 
@@ -63,18 +57,18 @@
     return res.json();
   }
 
-  function lockRealSearchControls() {
-    const topic = document.getElementById("topic");
-    const language = document.getElementById("language");
-    const presetButtons = document.querySelectorAll("#sourcesPreset button");
-
-    topic.readOnly = true;
-    topic.value = "";
-
-    language.value = "en";
-    language.disabled = true;
-
-    presetButtons.forEach((btn) => { btn.disabled = true; });
+  /* The real search bar (topic box, language/source controls, Search button)
+     has nothing for a demo visitor to do - every value it could show is
+     already decided by the fixture. Hiding it outright, rather than greying
+     it out in place, is what actually removes the visual weight; app.js
+     still drives it by setting #topic.value and calling #searchBtn.click(),
+     neither of which needs the element to be visible. */
+  function hideRealSearchBar() {
+    document.querySelector(".panel").hidden = true;
+    document.getElementById("language").value = "en";
+    // "Ctrl+Enter to search" refers to the textarea just hidden above.
+    const hint = document.querySelector(".hint");
+    if (hint) hint.hidden = true;
   }
 
   function renderBanner(lang) {
@@ -112,17 +106,27 @@
       </button>`;
   }
 
-  function renderPicker(lang, queries, activeId, onPick) {
+  /* A <details> disclosure, not a plain section: fifteen full cards are fine
+     as a first choice but too heavy to leave standing once one is picked, so
+     picking one collapses it to a single summary line (title + the active
+     topic) - reopen it the same way the Run Statistics panel below opens,
+     to change the question. */
+  function renderPicker(lang, queries, activeId, onPick, openByDefault) {
     const t = STRINGS[lang];
-    const section = document.createElement("section");
-    section.className = "demo-picker";
-    section.innerHTML = `
-      <h2 class="demo-picker-title">${esc(t.pickerTitle)}</h2>
+    const active = queries.find((q) => q.id === activeId);
+    const details = document.createElement("details");
+    details.className = "demo-picker";
+    details.open = openByDefault;
+    details.innerHTML = `
+      <summary>
+        <span class="demo-picker-summary-label">${esc(t.pickerTitle)}</span>
+        ${active ? `<span class="demo-picker-summary-active">${esc(active.topic)}</span>` : ""}
+      </summary>
       <div class="demo-picker-grid">${queries.map((q) => cardHtml(q, lang, q.id === activeId)).join("")}</div>`;
-    section.querySelectorAll(".demo-picker-card").forEach((card) => {
+    details.querySelectorAll(".demo-picker-card").forEach((card) => {
       card.addEventListener("click", () => onPick(card.dataset.id));
     });
-    return section;
+    return details;
   }
 
   let queriesCache = null;
@@ -137,6 +141,9 @@
     window.setMaxSources(query.max_sources);
     refresh();
 
+    const picker = document.querySelector(".demo-picker");
+    if (picker) picker.open = false;
+
     document.getElementById("searchBtn").click();
     document.getElementById("results").scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
@@ -146,10 +153,6 @@
     document.documentElement.lang = lang;
     const t = STRINGS[lang];
 
-    document.getElementById("topic").placeholder = t.topicPlaceholder;
-    document.getElementById("language").title = t.langDisabledTitle;
-    document.querySelectorAll("#sourcesPreset button").forEach((btn) => { btn.title = t.sourcesDisabledTitle; });
-
     const note = document.getElementById("discoveryNote");
     if (note) note.textContent = t.discoveryNote;
 
@@ -158,14 +161,18 @@
     if (oldBanner) oldBanner.replaceWith(banner);
     else document.querySelector("header").insertAdjacentElement("afterend", banner);
 
+    // A language toggle re-renders the picker too (card text is bilingual),
+    // so its open/closed state has to survive the rebuild - only pickQuery
+    // forces it shut, by setting .open on the element this returns.
     const oldPicker = document.querySelector(".demo-picker");
-    const picker = renderPicker(lang, queriesCache, activeId, pickQuery);
+    const openByDefault = oldPicker ? oldPicker.open : true;
+    const picker = renderPicker(lang, queriesCache, activeId, pickQuery, openByDefault);
     if (oldPicker) oldPicker.replaceWith(picker);
     else document.querySelector(".panel").insertAdjacentElement("afterend", picker);
   }
 
   async function init() {
-    lockRealSearchControls();
+    hideRealSearchBar();
     queriesCache = await loadQueries();
     refresh();
   }
