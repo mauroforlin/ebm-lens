@@ -18,9 +18,9 @@
     bannerCta: "Clone the repo",
     bannerCtaSuffix: "to run your own searches.",
     steps: [
-      "Pick a question below",
+      "Pick a question",
       "Watch it search 12 medical databases",
-      "Read an answer where every claim links back to a source",
+      "Read a fully sourced answer",
     ],
     pickerTitle: "Pick a question",
     pickerHint: "sources",
