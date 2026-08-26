@@ -13,9 +13,8 @@
 
   const STRINGS = {
     bannerLabel: "Read-only demo",
-    bannerBody: "Explore 15 pre-recorded searches. The loading animation is sped up, "
-      + "but the sources, summaries, costs, and timings are exactly what the app "
-      + "generated in real time.",
+    bannerBody: "15 pre-recorded searches, loading sped up - every source, "
+      + "summary, cost and timing shown is real.",
     bannerCta: "Clone the repo",
     bannerCtaSuffix: "to run your own searches.",
     steps: [
@@ -75,17 +74,19 @@
     const banner = document.createElement("div");
     banner.className = "demo-banner";
     banner.innerHTML = `
-      <div class="demo-banner-text">
-        <strong>${esc(STRINGS.bannerLabel)}.</strong> ${esc(STRINGS.bannerBody)}
+      <p class="demo-banner-text"><strong>${esc(STRINGS.bannerLabel)}.</strong> ${esc(STRINGS.bannerBody)}</p>
+      <p class="demo-banner-cta">
         <a href="${esc(REPO_URL)}" target="_blank" rel="noopener noreferrer">${esc(STRINGS.bannerCta)}</a>
         ${esc(STRINGS.bannerCtaSuffix)}
-      </div>`;
+      </p>`;
     return banner;
   }
 
-  /* Three short steps, always visible (no disclosure): what the picker
-     below actually does, stated once, before the visitor has to guess it
-     from fifteen cards of medical topics. */
+  /* Three short steps: what the picker below actually does, stated once,
+     before the visitor has to guess it from fifteen cards of medical
+     topics. Along with the banner above it, hidden after the first pick -
+     see hasPicked below - since a returning-to-the-picker visitor already
+     knows how this works. */
   function renderSteps() {
     const steps = document.createElement("ol");
     steps.className = "demo-steps";
@@ -142,11 +143,13 @@
   let queriesCache = null;
   let activeId = null;
   let showAllCards = false;
+  let hasPicked = false;
 
   function pickQuery(id) {
     const query = queriesCache.find((q) => q.id === id);
     if (!query) return;
     activeId = id;
+    hasPicked = true;
 
     document.getElementById("topic").value = query.topic;
     window.setMaxSources(query.max_sources);
@@ -165,11 +168,13 @@
 
     const oldBanner = document.querySelector(".demo-banner");
     const banner = renderBanner();
+    banner.hidden = hasPicked;
     if (oldBanner) oldBanner.replaceWith(banner);
     else document.querySelector("header").insertAdjacentElement("afterend", banner);
 
     const oldSteps = document.querySelector(".demo-steps");
     const steps = renderSteps();
+    steps.hidden = hasPicked;
     if (oldSteps) oldSteps.replaceWith(steps);
     else banner.insertAdjacentElement("afterend", steps);
 

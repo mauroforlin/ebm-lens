@@ -3,27 +3,21 @@
    so the demo reads as part of the same product rather than a skin over it. */
 
 .demo-banner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 14px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-left: 3px solid var(--accent);
   border-radius: var(--radius);
   padding: 13px 15px;
   margin-bottom: 20px;
-}
-.demo-banner-text {
-  flex: 1 1 320px;
   font-size: 0.86rem;
   line-height: 1.55;
   color: var(--text-soft);
 }
-.demo-banner-text strong { color: var(--text); }
-.demo-banner-text a { color: var(--accent); font-weight: 600; text-decoration: none; }
-.demo-banner-text a:hover { text-decoration: underline; }
+.demo-banner p { margin: 0; }
+.demo-banner-cta { margin-top: 6px; }
+.demo-banner strong { color: var(--text); }
+.demo-banner a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.demo-banner a:hover { text-decoration: underline; }
 
 /* The mechanism, stated once, before the picker below asks the visitor to
    choose among fifteen medical topics without knowing what choosing one

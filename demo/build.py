@@ -53,6 +53,13 @@ def _rewrite_static_paths(html: str) -> str:
     return html
 
 
+def _set_demo_title(html: str) -> str:
+    return html.replace(
+        "<title>EBM Lens - Evidence Discovery</title>",
+        "<title>EBM Lens - Demo</title>",
+    )
+
+
 def _inject_overlay(html: str) -> str:
     html = html.replace(
         '<link rel="stylesheet" href="static/style.css">',
@@ -81,6 +88,7 @@ def build() -> None:
     shutil.copy2(_FRONTEND / "style.css", _SITE / "static" / "style.css")
 
     html = _rewrite_static_paths(html_src)
+    html = _set_demo_title(html)
     html = _inject_overlay(html)
     (_SITE / "index.html").write_text(html, encoding="utf-8")
 
