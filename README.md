@@ -16,25 +16,11 @@ sources under it.
 ![EBM Lens UI](assets/demo.gif)
 
 ```mermaid
-flowchart TD
-    Topic(["Input topic<br/>GLP-1 agonists and cardiovascular risk reduction"])
-
-    Planner{"LLM agentic loop<br/>(query planner)"}
-    Tools[["Available tools<br/>probe_pubmed, resolve_drug, search_guidelines"]]
-    Databases[("12 public databases<br/>PubMed, Europe PMC, ClinicalTrials.gov, OpenFDA, DailyMed, RxNav,<br/>Open Targets, ChEMBL, WHO GHO, EMA, bioRxiv/medRxiv, Wikipedia")]
-    Graph[("Citation graph<br/>Semantic Scholar & OpenAlex")]
-    Scoring["Evidence scoring & reranking<br/>Semantic similarity, BM25, rank fusion, study design"]
-    Synthesis[/"Grounded synthesis<br/>Overview as checkable claims [0][3], conflicts, and gaps"/]
-
-    Topic --> Planner
-    Planner -- "Probes & refines" --> Tools
-    Tools -. "Returns context" .-> Planner
-    Planner -- "Dispatches tailored queries" --> Databases
-    Databases -- "On-topic hits seed" --> Graph
-    Graph -. "Loop repeats with new findings" .-> Planner
-    
-    Graph ===>|"Final candidate pool"| Scoring
-    Scoring -- "Top N ranked sources" --> Synthesis
+flowchart LR
+    Topic["Topic"] --> Planner["LLM planner<br/>+ tools"]
+    Planner --> Databases["12 databases<br/>+ citation graph"]
+    Databases --> Scoring["Scoring & ranking<br/>relevance, study design"]
+    Scoring --> Synthesis["Grounded synthesis<br/>claims [0][3], conflicts, gaps"]
 ```
 
 Every evidence source is a free public API. The only account you need is for
