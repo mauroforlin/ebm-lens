@@ -1,0 +1,710 @@
+{
+  "id": "metformin-cancer",
+  "topic": "Metformin and cancer incidence in type 2 diabetes: immortal time bias",
+  "max_sources": 20,
+  "summary_language": "en",
+  "recorded_at": "2026-08-26",
+  "events": [
+    {
+      "stage": "domain",
+      "message": "Analysing the topic…",
+      "at_ms": 0
+    },
+    {
+      "stage": "domain",
+      "message": "Domain detected: medicine",
+      "at_ms": 1070
+    },
+    {
+      "stage": "brief",
+      "message": "Research brief ready: 5 query variants, providers: pubmed, clinicaltrials, europe_pmc",
+      "at_ms": 6818
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 1: 50 candidates from 7 queries",
+      "at_ms": 15240
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: refining queries…",
+      "at_ms": 18372
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: 18 candidates from 3 queries (14 new relevant)",
+      "at_ms": 29168
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: refining queries…",
+      "at_ms": 29168
+    },
+    {
+      "stage": "discovery",
+      "message": "Citation graph expansion: +52 candidates from 4 seeds",
+      "at_ms": 30365
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: 18 candidates from 3 queries (11 new relevant)",
+      "at_ms": 39837
+    },
+    {
+      "stage": "discovery",
+      "message": "Discovery complete: 123 unique candidates after dedup",
+      "at_ms": 39839
+    },
+    {
+      "stage": "rerank",
+      "message": "Scoring and reranking 123 candidates…",
+      "at_ms": 39839
+    },
+    {
+      "stage": "rerank",
+      "message": "Shortlisted 46 sources to read in full",
+      "at_ms": 52195
+    },
+    {
+      "stage": "read",
+      "message": "Fetching and summarising 46 sources…",
+      "at_ms": 52195
+    },
+    {
+      "stage": "read",
+      "message": "Summarised 46 sources",
+      "at_ms": 78034
+    },
+    {
+      "stage": "select",
+      "message": "Selecting the final set…",
+      "at_ms": 78034
+    },
+    {
+      "stage": "select",
+      "message": "20 articles selected",
+      "at_ms": 82448
+    },
+    {
+      "stage": "synthesis",
+      "message": "Writing the synthesis…",
+      "at_ms": 82448
+    },
+    {
+      "stage": "synthesis",
+      "message": "Synthesis complete: 5 findings, 1 conflicts",
+      "at_ms": 91562
+    }
+  ],
+  "response": {
+    "status": "completed",
+    "topic": "Metformin and cancer incidence in type 2 diabetes: immortal time bias",
+    "domain_detected": "medicine",
+    "articles": [
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/31025306/",
+        "title": "Metformin and Reduced Risk of Cancer in the Hong Kong Diabetes Registry: Real Effect or Immortal Time Bias?",
+        "source_type": "pubmed",
+        "snippet": "Zhang ZJ | Journal of general internal medicine | 2019-Jul | Journal Article; Research Support, Non-U.S. Gov't",
+        "full_summary": "This study investigates whether immortal time bias accounts for the observed beneficial effect of metformin on cancer risk in type 2 diabetes patients.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2019-Jul",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "The change in the association between metformin and cancer is small compared with the changes in the proportion of immortal time, suggesting that immortal time bias does not account for the observed beneficial effect of metformin on cancer risk.",
+        "finding_direction": "strongly_contradicts",
+        "population": "3485 patients with type 2 diabetes who started metformin before or at enrollment, 1226 patients who initiated metformin after enrollment, and 1392 patients who never used metformin",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/28031313/",
+        "title": "Metformin and cancer in type 2 diabetes: a systematic review and comprehensive bias evaluation.",
+        "source_type": "pubmed",
+        "snippet": "Farmer RE, Ford D, Forbes HJ, Chaturvedi N, Kaplan R, Smeeth L et al. | International journal of epidemiology | 2017-Apr-01 | Journal Article; Meta-Analysis; Systematic Review",
+        "full_summary": "This systematic review and meta-analysis evaluated observational studies on metformin and cancer risk in type 2 diabetes, concluding that most studies were at high risk of bias, including immortal time bias, and those least affected by bias did not support a causal effect of metformin on cancer risk.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2017-Apr-01",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "The studies least likely to be affected by bias did not support a causal effect of metformin on cancer risk.",
+        "finding_direction": "strongly_contradicts",
+        "population": "patients with type-2 diabetes",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/23173135/",
+        "title": "Metformin and the risk of cancer: time-related biases in observational studies.",
+        "source_type": "pubmed",
+        "snippet": "Suissa S, Azoulay L | Diabetes care | 2012-Dec | Journal Article; Review",
+        "full_summary": "This review discusses time-related biases in observational studies of metformin and cancer, concluding that many studies have exaggerated metformin's benefits due to these biases.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2012-Dec",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "We found that 13 observational studies suffered from immortal time bias; 9 studies had not considered time-window bias, whereas other studies did not consider inherent time-lagging issues when comparing the first-line treatment metformin with second- or third-line treatments.",
+        "finding_direction": "strongly_supports",
+        "population": "Humans with type 2 diabetes",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/35831458/",
+        "title": "Metformin use is not associated with colorectal cancer incidence in type-2 diabetes patients: evidence from methods that avoid immortal time bias.",
+        "source_type": "pubmed",
+        "snippet": "Zhang HS, Yang Y, Lee S, Park S, Nam CM, Jee SH | International journal of colorectal disease | 2022-Aug | Journal Article",
+        "full_summary": "This study investigates the association between metformin use and colorectal cancer incidence in type 2 diabetes patients, using methods that avoid immortal time bias.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2022-Aug",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Neither metformin ever-use nor average metformin prescription days/year was associated with incident CRC hazard in time-dependent Cox, landmark, and nested case-control analyses with HR (95% CI) of 0.88 (0.68-1.13), 0.86 (0.65-1.12), and 1.10 (0.86-1.40) for metformin ever-use, and 0.97 (0.90-1.04), 0.95 (0.88-1.04), and 1.02 (0.95-1.10) for average metformin prescription days/year, respectively.",
+        "finding_direction": "strongly_contradicts",
+        "population": "41,533 Korean subjects with newly diagnosed type-2 diabetes",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/30848544/",
+        "title": "Metformin and pancreatic cancer survival: Real effect or immortal time bias?",
+        "source_type": "pubmed",
+        "snippet": "Wei M, Liu Y, Bi Y, Zhang ZJ | International journal of cancer | 2019-Oct-01 | Journal Article; Research Support, Non-U.S. Gov't",
+        "full_summary": "This meta-analysis examines the impact of immortal time bias on the association between metformin and pancreatic cancer survival.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2019-Oct-01",
+        "citation_count": 28,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "Pooled RR from the six studies without immortal time bias showed no association between metformin and mortality in pancreatic cancer patients (RR 0.93, 95% CI 0.82, 1.05; p\t=\t0.22 and I2 = 75%).",
+        "finding_direction": "contradicts",
+        "population": "pancreatic cancer patients",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40578405/",
+        "title": "Metformin to treat breast cancer: an application of the prevalent new-user design for observational studies with no active comparator.",
+        "source_type": "pubmed",
+        "snippet": "Khouri C, Dell'Aniello S, Yin H, Azoulay L, Suissa S | Journal of clinical epidemiology | 2025-Sep | Journal Article; Observational Study",
+        "full_summary": "This observational study investigated the association between metformin use and mortality in women with breast cancer and type 2 diabetes, demonstrating that while a flawed approach (not accounting for immortal time bias) showed a significant benefit, a correct time-matched approach found no association with reduced mortality.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-Sep",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Using the flawed approach not accounting for immortal time bias, we confirmed the implausible beneficial effects of metformin on breast cancer and all-cause mortality reported in previous studies. Using the correct time-matched approach, we found that the use of metformin was not associated with these beneficial effects, confirming the impact of the flaw.",
+        "finding_direction": "no_evidence",
+        "population": "women with breast cancer and type 2 diabetes",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37185680/",
+        "title": "Metformin and Cancer: Solutions to a Real-World Evidence Failure.",
+        "source_type": "pubmed",
+        "snippet": "Yu OHY, Suissa S | Diabetes care | 2023-May-01 | Journal Article; Research Support, Non-U.S. Gov't; Review",
+        "full_summary": "This review discusses how observational studies initially reported a reduction in cancer incidence with metformin use, but these findings were later attributed to time-related biases, including immortal time bias. Subsequent randomized trials and observational studies that accounted for bias did not find such an association.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2023-May-01",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Observational studies that avoided time-related biases, such as immortal time bias, did not find an association between metformin use and reduced cancer incidence or outcomes.",
+        "finding_direction": "strongly_contradicts",
+        "population": "humans with type 2 diabetes",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/33453371/",
+        "title": "Immortal time bias exaggerates the effect of metformin on the risk of gastric cancer: A meta-analysis.",
+        "source_type": "pubmed",
+        "snippet": "Wang YB, Tan LM, Luo L, Yan S, Huang Q, Wang Y et al. | Pharmacological research | 2021-Mar | Journal Article; Meta-Analysis; Systematic Review",
+        "full_summary": "This meta-analysis assesses whether immortal time bias exaggerates the effect of metformin on the risk of gastric cancer.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2021-Mar",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "Pooled RR from 6 cohort studies with immortal time bias found a clear 33% reduced risk associated with metformin use (RR = 0.67, 95% CI = 0.59, 0.77; P < 0.001; I2 = 48.5%).",
+        "finding_direction": "mixed",
+        "population": "Humans",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42399205/",
+        "title": "Effectiveness of Metformin in Preventing Colorectal Cancer Among Japanese Patients With Type 2 Diabetes: A Target Trial Emulation.",
+        "source_type": "pubmed",
+        "snippet": "Hiroki S, Fukasawa T, Honda M, Kawakami K | Pharmacoepidemiology and drug safety | 2026-Jul | Journal Article",
+        "full_summary": "This study emulated a target trial to assess metformin’s effect on colorectal cancer risk in Japanese patients with type 2 diabetes, finding no reduction in risk compared to DPP-4 inhibitors.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026-Jul",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Metformin use did not reduce the 5-year risk of CRC compared with DPP-4is.",
+        "finding_direction": "contradicts",
+        "population": "Japanese patients with type 2 diabetes",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37437786/",
+        "title": "Reverse causation biases weighted cumulative exposure model estimates, but can be investigated in sensitivity analyses.",
+        "source_type": "pubmed",
+        "snippet": "Agay N, Dankner R, Murad H, Olmer L, Freedman LS | Journal of clinical epidemiology | 2023-Sep | Journal Article",
+        "full_summary": "This study investigated reverse causation bias in the weighted cumulative exposure model for metformin and pancreatic cancer in diabetic patients, demonstrating that sensitivity analyses can reveal and adjust for such biases.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2023-Sep",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "After applying sensitivity analysis, assuming reverse causation operated up to 4 years before cancer diagnosis, the association between metformin and PC was no longer apparent.",
+        "finding_direction": "supports",
+        "population": "patients with diabetes",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39236411/",
+        "title": "Too good to be true: Are GLP-1 receptor agonists the new metformin?",
+        "source_type": "pubmed",
+        "snippet": "Kowall B, Maier G, Rathmann W | Journal of diabetes and its complications | 2024-Oct | Journal Article",
+        "full_summary": "This article discusses how spectacular risk reductions reported in health-care database studies, such as those for GLP-1 receptor agonists and metformin in relation to cancer, are often reminiscent of time-related biases, particularly immortal time bias, and advises skepticism.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2024-Oct",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "",
+        "evidence_level": 0.4,
+        "key_finding": "The strong effects observed in the metformin studies were explained by time-related biases, in particular, immortal time bias.",
+        "finding_direction": "strongly_supports",
+        "population": "persons with type 2 diabetes",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/d62876c89cddc84629c4707a71153233302bd097",
+        "title": "The Use of Metformin and the Incidence of Lung Cancer in Patients With Type 2 Diabetes",
+        "source_type": "semantic_scholar",
+        "snippet": "OBJECTIVE Observational studies have associated metformin use with a decreased risk of lung cancer incidence in patients with type 2 diabetes, but the studies had important methodological shortcomings. The objective of this study was to determine whether metformin use is associated with a decreased ",
+        "full_summary": "This nested case-control study in patients with type 2 diabetes found no association between metformin use and a decreased risk of lung cancer, suggesting that previously reported decreased risks were likely due to methodological biases.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2012",
+        "citation_count": 96,
+        "domain": "medicine",
+        "study_design": "case-control study",
+        "evidence_level": 0.52,
+        "key_finding": "Metformin use was not associated with a decreased rate of lung cancer (rate ratio 0.94 [95% CI 0.76–1.17]).",
+        "finding_direction": "contradicts",
+        "population": "patients with type 2 diabetes",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/31269196/",
+        "title": "Metformin Treatment and Cancer Risk: Cox Regression Analysis, With Time-Dependent Covariates, of 320,000 Persons With Incident Diabetes Mellitus.",
+        "source_type": "pubmed",
+        "snippet": "Dankner R, Agay N, Olmer L, Murad H, Keinan Boker L, Balicer RD et al. | American journal of epidemiology | 2019-Oct-01 | Journal Article; Research Support, Non-U.S. Gov't",
+        "full_summary": "This cohort study found no association between metformin treatment and the incidence of major cancers (excluding prostate and pancreas) in patients with incident diabetes, using a time-dependent covariate Cox model to account for metformin exposure.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2019-Oct-01",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Our results do not support an association between metformin treatment and the incidence of major cancers (excluding prostate and pancreas).",
+        "finding_direction": "strongly_contradicts",
+        "population": "315,890 persons aged 21-87 years with incident diabetes",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/24857149/",
+        "title": "Hype versus hope: metformin and vitamin D as anticancer agents.",
+        "source_type": "pubmed",
+        "snippet": "Lohmann AE, Goodwin PJ | American Society of Clinical Oncology educational book. American Society of Clinical Oncology. Annual Meeting | 2014 | Journal Article; Review",
+        "full_summary": "This review discusses the limitations of observational studies on metformin and cancer risk, including time-related survival biases, and emphasizes the need for properly designed randomized trials.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2014",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "This is because of the recognized limitations of observational studies, such as time-related survival biases, selection and referral biases, short follow-up, and the presence of confounding factors that can lead to spurious or inaccurate findings.",
+        "finding_direction": "contradicts",
+        "population": "humans",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/26733059/",
+        "title": "Does Metformin Reduce Cancer Risks? Methodologic Considerations.",
+        "source_type": "pubmed",
+        "snippet": "Golozar A, Liu S, Lin JA, Peairs K, Yeh HC | Current diabetes reports | 2016-Jan | Journal Article; Research Support, N.I.H., Extramural; Review",
+        "full_summary": "This review discusses methodological flaws, including time-related biases, in observational studies investigating metformin’s effect on cancer risk in diabetic individuals, suggesting these flaws may inflate reported benefits.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2016-Jan",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "The majority of the observational studies assessing the association between metformin and cancer risk suffer from methodological shortcomings and efforts to address these issues have been incomplete.",
+        "finding_direction": "no_evidence",
+        "population": "diabetic individuals",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/29716927/",
+        "title": "A Cohort Study of Metformin and Colorectal Cancer Risk among Patients with Diabetes Mellitus.",
+        "source_type": "pubmed",
+        "snippet": "Bradley MC, Ferrara A, Achacoso N, Ehrlich SF, Quesenberry CP, Habel LA | Cancer epidemiology, biomarkers & prevention : a publication of the American Association for Cancer Research, cosponsored by the American Society of Preventive Oncology | 2018-May | Journal Article; Research Support, N.I.H., E",
+        "full_summary": "This cohort study investigated the association between metformin use and colorectal cancer risk in patients with diabetes, using methods to minimize time-related biases. It found an inverse association between long-term metformin use and colorectal cancer risk, particularly in men.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2018-May",
+        "citation_count": 61,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Our findings showed an inverse association between long-term use of metformin and colorectal cancer risk.",
+        "finding_direction": "weakly_supports",
+        "population": "47,351 members of Kaiser Permanente Northern California with diabetes and no history of cancer or metformin use",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/38972207/",
+        "title": "Metformin use and survival in people with ovarian cancer: A population-based cohort study from British Columbia, Canada.",
+        "source_type": "pubmed",
+        "snippet": "Kaur P, Berchuck A, Chase A, Grout B, Deurloo CM, Pearce LC et al. | Neoplasia (New York, N.Y.) | 2024-Oct | Journal Article; Research Support, N.I.H., Extramural; Research Support, U.S. Gov't, P.H.S.",
+        "full_summary": "This population-based cohort study investigated the association between metformin use and survival in people with ovarian cancer, using methods designed to avoid immortal time bias. It found a statistically significant protective effect of metformin on ovarian cancer survival when restricted to the diabetic cohort.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2024-Oct",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Metformin use was associated with a 17 % better ovarian cancer survival in the full cohort (adjusted hazard ratio (aHR) = 0.83 (95 %CI 0.67, 1.02)), and a 16 % better ovarian cancer survival for serous cancers patient's cohort (aHR = 0.84 (95 %CI 0.66, 1.07)), although both were not significant. However, a statistically significant protective effect was observed when restricting to the diabetic co",
+        "finding_direction": "contradicts",
+        "population": "patients diagnosed with ovarian cancer",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41856872/",
+        "title": "A Systematic Review and Meta-Analysis of the Significance of Diabetes on Kidney Cancer Outcomes and the Role of Metformin.",
+        "source_type": "pubmed",
+        "snippet": "Kim LH, Tai JY, Li T, Hayler R, Wang H, Lau HM et al. | Clinical genitourinary cancer | 2026-Jun | Journal Article; Systematic Review; Meta-Analysis",
+        "full_summary": "This systematic review and meta-analysis found that while metformin use was associated with more favorable survival outcomes in kidney cancer patients with diabetes, this association is likely affected by time-related biases, including immortal time bias.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2026-Jun",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "Although metformin use was associated with improved outcomes, this association is likely substantially affected by time-related biases, including immortal time bias.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with renal cell carcinoma (RCC) and diabetes",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/7a1d4bce66c488370feb11ea046c9ecac96063ac",
+        "title": "Metformin use reduced the overall risk of cancer in diabetic patients: A study based on the Korean NHIS-HEALS cohort.",
+        "source_type": "semantic_scholar",
+        "snippet": "BACKGROUND AND AIM\nSeveral studies have reported the preventive effect of metformin on cancer development. This study aimed to investigate the relationship between use of metformin and risk of cancer in Koreans.\n\n\nMETHODS AND RESULTS\nThis study was designed retrospectively using the National Health ",
+        "full_summary": "This Korean cohort study found that diabetic patients treated with metformin had a lower overall risk of cancer compared to diabetic patients not on metformin.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2020",
+        "citation_count": 15,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Compared to metformin non-users, the fully adjusted HRs (95% CIs) of metformin users and No DM for overall cancer incidence were 0.73 (0.66-0.81) and 0.75 (0.64-0.88), respectively, in men and 0.83 (0.78-0.89) and 0.81 (0.72-0.92) in women.",
+        "finding_direction": "contradicts",
+        "population": "diabetic patients in Korea",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/30950925/",
+        "title": "Effect of metformin on the risk of prostate cancer in patients with type 2 diabetes by considering different confounding factors: a meta-analysis of observational studies.",
+        "source_type": "pubmed",
+        "snippet": "Wang Y, Liu X, Yan P, Tang J, Chen T, Sun Y et al. | European journal of cancer prevention : the official journal of the European Cancer Prevention Organisation (ECP) | 2020-Jan | Comparative Study; Journal Article; Meta-Analysis",
+        "full_summary": "This meta-analysis of observational studies found no overall association between metformin therapy and the risk of prostate cancer in patients with type 2 diabetes.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2020-Jan",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "Metformin therapy was not associated with the risk of prostate cancer in patients with type 2 diabetes mellitus.",
+        "finding_direction": "strongly_contradicts",
+        "population": "male patients with type 2 diabetes mellitus",
+        "directness": "adjacent"
+      }
+    ],
+    "global_summary": "Immortal time bias is a significant methodological issue in observational studies investigating the association between metformin use and cancer risk in patients with type 2 diabetes [2][5][6][10][13][14]. This bias occurs when the follow-up period for metformin users is incorrectly defined, leading to an artificial period during which a patient is 'immortal' (i.e., cannot experience the outcome of interest, such as cancer, because they have not yet started the treatment being studied) [2][5][10]. Many observational studies have been identified as suffering from this bias, with some not considering time-window bias or inherent time-lagging issues when comparing metformin with other treatments [2].\n\nWhen studies fail to account for immortal time bias, they often report a seemingly beneficial effect of metformin on cancer risk [5][7][10]. For instance, a meta-analysis found that six cohort studies with immortal time bias reported a **33% reduced risk** of gastric cancer associated with metformin use (RR = **0.67**, 95% CI = **0.59, 0.77**; P < **0.001**) [7]. Similarly, a cohort study on women with breast cancer and type 2 diabetes confirmed implausible beneficial effects of metformin on breast cancer and all-cause mortality when using a flawed approach that did not account for immortal time bias [5]. Another meta-analysis on kidney cancer outcomes noted that while metformin use was associated with improved outcomes, this association was likely substantially affected by time-related biases, including immortal time bias [17].\n\nHowever, when appropriate methodological approaches are used to address immortal time bias and other time-related confounding factors, the observed association between metformin and reduced cancer risk largely disappears [1][3][5][6][10][12][13]. A systematic review concluded that studies least likely to be affected by bias did not support a causal effect of metformin on cancer risk [1]. For example, a cohort study of **41,533 Korean subjects** with newly diagnosed type 2 diabetes found no association between metformin ever-use or average metformin prescription days/year and incident colorectal cancer hazard when using time-dependent Cox, landmark, and nested case-control analyses (HR for ever-use: **0.88** (0.68-1.13), **0.86** (0.65-1.12), and **1.10** (0.86-1.40), respectively) [3]. Another cohort study on women with breast cancer and type 2 diabetes, using a correct time-matched approach, found no association between metformin use and beneficial effects on breast cancer or all-cause mortality [5].\n\nSpecific cancer types have also been investigated with bias-corrected methods. A meta-analysis of six studies without immortal time bias found no association between metformin and mortality in pancreatic cancer patients (pooled RR **0.93**, 95% CI **0.82, 1.05**) [4]. For prostate cancer, a meta-analysis of observational studies concluded that metformin therapy was not associated with the risk of prostate cancer in patients with type 2 diabetes mellitus [19]. Similarly, a case-control study found no decreased rate of lung cancer associated with metformin use (rate ratio **0.94**, 95% CI **0.76–1.17**) [11]. A large cohort study of **315,890 persons** with incident diabetes mellitus also did not support an association between metformin treatment and the incidence of major cancers (excluding prostate and pancreas) [12]. An emulation of a target trial in Japanese patients with type 2 diabetes found that metformin use did not reduce the 5-year risk of colorectal cancer compared with DPP-4 inhibitors [8].\n\nDespite the widespread impact of immortal time bias, some studies suggest that the observed beneficial effect of metformin on cancer risk may not be entirely explained by it. A 2019 cohort study from the Hong Kong Diabetes Registry, involving **3485 patients** who started metformin before or at enrollment, **1226 patients** who initiated metformin after enrollment, and **1392 patients** who never used metformin, indicated that the change in the association between metformin and cancer was small compared with changes in the proportion of immortal time, suggesting immortal time bias did not fully account for the observed beneficial effect [0]. Additionally, a cohort study of **47,351 members** of Kaiser Permanente Northern California with diabetes and no history of cancer or metformin use found an inverse association between long-term use of metformin and colorectal cancer risk [15]. However, another cohort study from Korea reported that metformin users had a reduced risk of overall cancer incidence compared to non-users (fully adjusted HRs for men: **0.73** (0.66-0.81); for women: **0.83** (0.78-0.89)), but this study did not explicitly state that it accounted for immortal time bias [18].\n\nReverse causation is another time-related bias that can affect findings. One cohort study on patients with diabetes found that after applying sensitivity analysis assuming reverse causation operated up to **4 years** before cancer diagnosis, the association between metformin and pancreatic cancer was no longer apparent [9]. This highlights the **complex interplay of various biases** in observational studies of metformin and cancer [13][14].",
+    "total_sources_consulted": 123,
+    "duration_seconds": 91.56,
+    "job_stats": {
+      "total_cost_usd": 0.085247,
+      "llm": {
+        "total_calls": 70,
+        "total_input_tokens": 125767,
+        "total_output_tokens": 16657,
+        "total_tokens": 142424,
+        "total_cost_usd": 0.07965625,
+        "by_purpose": {
+          "related_articles_domain": {
+            "count": 1,
+            "input_tokens": 740,
+            "output_tokens": 279,
+            "cost_usd": 0.0001856,
+            "total_latency_ms": 1069.9
+          },
+          "related_articles_brief": {
+            "count": 2,
+            "input_tokens": 3149,
+            "output_tokens": 351,
+            "cost_usd": 0.0026275,
+            "total_latency_ms": 3282.1
+          },
+          "related_articles_decompose": {
+            "count": 1,
+            "input_tokens": 577,
+            "output_tokens": 221,
+            "cost_usd": 0.0001461,
+            "total_latency_ms": 916.1
+          },
+          "related_articles_reformulate": {
+            "count": 6,
+            "input_tokens": 15809,
+            "output_tokens": 671,
+            "cost_usd": 0.0099175,
+            "total_latency_ms": 7808.5
+          },
+          "related_articles_rerank": {
+            "count": 4,
+            "input_tokens": 25342,
+            "output_tokens": 1389,
+            "cost_usd": 0.0110751,
+            "total_latency_ms": 7740.0
+          },
+          "related_articles_design_grade": {
+            "count": 1,
+            "input_tokens": 5472,
+            "output_tokens": 269,
+            "cost_usd": 0.0006548,
+            "total_latency_ms": 1044.0
+          },
+          "related_articles_summarize": {
+            "count": 19,
+            "input_tokens": 49164,
+            "output_tokens": 8941,
+            "cost_usd": 0.03605545,
+            "total_latency_ms": 75893.7
+          },
+          "related_articles_stance": {
+            "count": 35,
+            "input_tokens": 21690,
+            "output_tokens": 2622,
+            "cost_usd": 0.013062,
+            "total_latency_ms": 32120.9
+          },
+          "related_articles_synthesis": {
+            "count": 1,
+            "input_tokens": 3824,
+            "output_tokens": 1914,
+            "cost_usd": 0.0059322,
+            "total_latency_ms": 9113.8
+          }
+        }
+      },
+      "embeddings": {
+        "total_calls": 213,
+        "total_tokens": 43004,
+        "total_cost_usd": 0.00559052,
+        "by_model": {
+          "openai/text-embedding-3-large": {
+            "calls": 213,
+            "tokens": 43004,
+            "cost_usd": 0.00559052
+          }
+        }
+      },
+      "tools": {
+        "calls": {
+          "resolve_drug": 1,
+          "search_guidelines": 1,
+          "probe_pubmed": 17,
+          "submit_brief": 1,
+          "submit_queries": 2,
+          "submit_appraisals": 10,
+          "read_full_text": 2
+        },
+        "total_calls": 34
+      },
+      "providers": {
+        "calls": {
+          "clinicaltrials": 13,
+          "pubmed": 13,
+          "europe_pmc": 13
+        },
+        "cache_hits": {},
+        "errors": {},
+        "total_calls": 39,
+        "total_cache_hits": 0
+      },
+      "pipeline": {
+        "evidence_total": 0,
+        "evidence_after_relevance": 0,
+        "retries": 0
+      },
+      "stage_timings_ms": {
+        "domain_detection": 1070.0,
+        "brief": 5747.5,
+        "pro_decomposition": 916.3,
+        "pro_round1": 7506.1,
+        "pro_round2": 10796.0,
+        "pro_expansion": 11993.5,
+        "pro_round3": 10668.9,
+        "rerank": 12356.7,
+        "content_enrichment": 0.0,
+        "summarization": 19414.1,
+        "stance": 6421.6,
+        "global_synthesis": 9114.0
+      }
+    },
+    "key_findings": [
+      {
+        "text": "Immortal time bias is a common methodological flaw in observational studies examining the link between metformin and cancer risk in type 2 diabetes patients, leading to an overestimation of metformin's beneficial effects.",
+        "source_indices": [
+          2,
+          5,
+          6,
+          10,
+          13,
+          14
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Studies that properly account for immortal time bias generally find no significant association between metformin use and a reduced risk of various cancers, including colorectal, pancreatic, prostate, lung, and overall cancer incidence.",
+        "source_indices": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          8,
+          11,
+          12,
+          19
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "When immortal time bias is not addressed, observational studies frequently report a substantial reduction in cancer risk associated with metformin, such as a 33% reduced risk of gastric cancer.",
+        "source_indices": [
+          5,
+          7,
+          10,
+          17
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Reverse causation, where early symptoms of undiagnosed cancer might influence treatment decisions, can also bias results, and accounting for it can eliminate observed associations between metformin and cancer.",
+        "source_indices": [
+          9
+        ],
+        "strength": "moderate"
+      },
+      {
+        "text": "Some studies suggest that immortal time bias may not fully explain all observed beneficial effects of metformin on cancer risk, or report an inverse association with long-term use even without explicitly detailing bias correction.",
+        "source_indices": [
+          0,
+          15,
+          18
+        ],
+        "strength": "weak"
+      }
+    ],
+    "disagreements": [
+      {
+        "issue": "Whether the observed association between metformin and reduced cancer risk is a real effect or primarily due to immortal time bias.",
+        "positions": [
+          "The beneficial effect of metformin on cancer risk is largely an artifact of immortal time bias and disappears when bias is accounted for.",
+          "Immortal time bias does not fully account for the observed beneficial effect of metformin on cancer risk, suggesting a real association."
+        ],
+        "source_indices": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          17,
+          19,
+          0,
+          15,
+          18
+        ]
+      }
+    ],
+    "evidence_profile": {
+      "designs": {
+        "cohort study": 9,
+        "review": 4,
+        "meta-analysis": 3,
+        "systematic review": 2,
+        "unclassified": 1,
+        "case-control study": 1
+      },
+      "high_tier_share": 0.25,
+      "preprint_share": 0.0
+    },
+    "pico": {
+      "population": "type 2 diabetes patients",
+      "intervention": "metformin",
+      "comparison": "",
+      "outcome": "cancer incidence",
+      "study_designs": [
+        "observational studies",
+        "cohort studies"
+      ]
+    },
+    "evidence_gaps": [
+      "These sources do not provide randomized controlled trial evidence, which would be less susceptible to immortal time bias, to definitively establish or refute a causal link between metformin and cancer incidence.",
+      "The specific mechanisms by which metformin might influence cancer risk, independent of methodological biases, are not detailed in these sources.",
+      "The impact of metformin on cancer incidence in populations without type 2 diabetes is not addressed by these sources."
+    ]
+  }
+}

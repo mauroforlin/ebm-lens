@@ -1,0 +1,716 @@
+{
+  "id": "sglt2-hfpef",
+  "topic": "SGLT2 inhibitors in heart failure with preserved ejection fraction",
+  "max_sources": 20,
+  "summary_language": "en",
+  "recorded_at": "2026-08-26",
+  "events": [
+    {
+      "stage": "domain",
+      "message": "Analysing the topic…",
+      "at_ms": 0
+    },
+    {
+      "stage": "domain",
+      "message": "Domain detected: medicine",
+      "at_ms": 2398
+    },
+    {
+      "stage": "brief",
+      "message": "Research brief ready: 5 query variants, providers: pubmed, clinicaltrials, europe_pmc, dailymed",
+      "at_ms": 10589
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 1: 117 candidates from 7 queries",
+      "at_ms": 18391
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: refining queries…",
+      "at_ms": 21238
+    },
+    {
+      "stage": "discovery",
+      "message": "Citation graph expansion: +49 candidates from 4 seeds",
+      "at_ms": 32365
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: 42 candidates from 3 queries (21 new relevant)",
+      "at_ms": 33381
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: refining queries…",
+      "at_ms": 33381
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: 48 candidates from 3 queries (17 new relevant)",
+      "at_ms": 42621
+    },
+    {
+      "stage": "discovery",
+      "message": "Discovery complete: 202 unique candidates after dedup",
+      "at_ms": 42623
+    },
+    {
+      "stage": "rerank",
+      "message": "Scoring and reranking 202 candidates…",
+      "at_ms": 42623
+    },
+    {
+      "stage": "rerank",
+      "message": "Shortlisted 46 sources to read in full",
+      "at_ms": 55131
+    },
+    {
+      "stage": "read",
+      "message": "Fetching and summarising 46 sources…",
+      "at_ms": 55131
+    },
+    {
+      "stage": "read",
+      "message": "Summarised 46 sources",
+      "at_ms": 77850
+    },
+    {
+      "stage": "select",
+      "message": "Selecting the final set…",
+      "at_ms": 77850
+    },
+    {
+      "stage": "select",
+      "message": "20 articles selected",
+      "at_ms": 83828
+    },
+    {
+      "stage": "synthesis",
+      "message": "Writing the synthesis…",
+      "at_ms": 83828
+    },
+    {
+      "stage": "synthesis",
+      "message": "Synthesis complete: 8 findings, 1 conflicts",
+      "at_ms": 93067
+    }
+  ],
+  "response": {
+    "status": "completed",
+    "topic": "SGLT2 inhibitors in heart failure with preserved ejection fraction",
+    "domain_detected": "medicine",
+    "articles": [
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39400108/",
+        "title": "Empagliflozin and other SGLT2 inhibitors in patients with heart failure and preserved ejection fraction: a systematic review and meta-analysis.",
+        "source_type": "pubmed",
+        "snippet": "Hamid AK, Tayem AA, Al-Aish ST, Al Sakini AS, Hadi DD, Al-Aish RT | Therapeutic advances in cardiovascular disease | 2024 | Systematic Review; Journal Article; Meta-Analysis",
+        "full_summary": "A meta-analysis of 8 RCTs found that SGLT2 inhibitors decreased the risk of cardiovascular hospitalization in patients with HFpEF, but not cardiovascular death.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2024",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "Our meta-analysis showed a decreased risk of cardiovascular hospitalization but not death due to cardiovascular causes or other causes.",
+        "finding_direction": "mixed",
+        "population": "HFpEF patients",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/34711976/",
+        "title": "The SGLT2 inhibitor dapagliflozin in heart failure with preserved ejection fraction: a multicenter randomized trial.",
+        "source_type": "pubmed",
+        "snippet": "Nassif ME, Windsor SL, Borlaug BA, Kitzman DW, Shah SJ, Tang F et al. | Nature medicine | 2021-Nov | Journal Article; Multicenter Study; Randomized Controlled Trial",
+        "full_summary": "Dapagliflozin improved patient-reported symptoms, physical limitations, and exercise function in patients with HFpEF over 12 weeks.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2021-Nov",
+        "citation_count": 485,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "These results indicate that 12 weeks of dapagliflozin treatment significantly improved patient-reported symptoms, physical limitations and exercise function and was well tolerated in chronic HFpEF.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with HFpEF",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36027570/",
+        "title": "Dapagliflozin in Heart Failure with Mildly Reduced or Preserved Ejection Fraction.",
+        "source_type": "pubmed",
+        "snippet": "Solomon SD, McMurray JJV, Claggett B, de Boer RA, DeMets D, Hernandez AF et al. | The New England journal of medicine | 2022-Sep-22 | Journal Article; Randomized Controlled Trial; Research Support, Non-U.S. Gov't",
+        "full_summary": "Dapagliflozin reduced the risk of worsening heart failure or cardiovascular death in patients with heart failure and mildly reduced or preserved ejection fraction.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2022-Sep-22",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Dapagliflozin reduced the combined risk of worsening heart failure or cardiovascular death among patients with heart failure and a mildly reduced or preserved ejection fraction.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with heart failure and a left ventricular ejection fraction of more than 40%",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41103836/",
+        "title": "Effectiveness of SGLT2 Inhibitors in Improving Functional Capacity and Reducing Hospitalizations in Heart Failure With Preserved Ejection Fraction (HFpEF): A Systematic Review of Randomized Controlled Trials.",
+        "source_type": "pubmed",
+        "snippet": "Khan S, Ashraf A, Awais M, Elahi M, Chaudhry M, Khar A | Cureus | 2025-Sep | Journal Article; Review",
+        "full_summary": "This systematic review of 10 RCTs found that SGLT2 inhibitors improved functional capacity and reduced hospitalizations in HFpEF patients.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-Sep",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "The findings consistently demonstrate significant improvements in patient-reported outcomes, such as the Kansas City Cardiomyopathy Questionnaire (KCCQ) scores and six-minute walk test (6MWT) performance, along with reductions in heart failure hospitalizations.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with heart failure with preserved ejection fraction",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37409599/",
+        "title": "Efficacy of SGLT2-inhibitors across different definitions of heart failure with preserved ejection fraction.",
+        "source_type": "pubmed",
+        "snippet": "De Marzo V, Savarese G, Porto I, Metra M, Ameri P | Journal of cardiovascular medicine (Hagerstown, Md.) | 2023-Aug-01 | Meta-Analysis; Journal Article",
+        "full_summary": "This meta-analysis of seven RCTs found that SGLT2 inhibitors reduced the risk of cardiovascular death or heart failure hospitalization in patients with HFpEF, regardless of how HFpEF was diagnosed.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2023-Aug-01",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "SGLT2i reduced the risk of cardiovascular death or heart failure hospitalization (HFH) in all RCTs pooled together [risk ratio 0.75, 95% confidence interval (95% CI) 0.63-0.89, NNT 19], in HF-RCTs (risk ratio 0.71, 95% CI 0.52-0.97, NNT 13), and in CVOTs (risk ratio 0.78, 95% CI 0.60-0.99, NNT 26).",
+        "finding_direction": "strongly_supports",
+        "population": "patients with heart failure with preserved ejection fraction",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36914068/",
+        "title": "SGLT2 inhibitors and cardiovascular outcomes in heart failure with mildly reduced and preserved ejection fraction: A systematic review and meta-analysis.",
+        "source_type": "pubmed",
+        "snippet": "Banerjee M, Pal R, Nair K, Mukhopadhyay S | Indian heart journal | 2023 | Meta-Analysis; Systematic Review; Journal Article",
+        "full_summary": "This meta-analysis of six RCTs found that SGLT2 inhibitors significantly improved cardiovascular death/heart failure hospitalization outcomes in patients with heart failure with preserved or mildly reduced ejection fraction, regardless of diabetes status.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2023",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "Pooled analysis showed that compared to placebo, SGLT2i use was significantly associated with improved CVD/HHF outcomes in HFmrEF/HFpEF (pooled HR 0.80, 95% CI: 0.74, 0.86, p < 0.001, I2 = 0%).",
+        "finding_direction": "strongly_supports",
+        "population": "patients with heart failure with preserved or mildly reduced ejection fraction",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/13655e4954db145292b0e94653a97d42190be0b5",
+        "title": "Clinical effectiveness of sodium-glucose cotransporter 2 inhibitors in heart failure with preserved ejection fraction: nationwide cohort study (REFINE-HFpEF)",
+        "source_type": "semantic_scholar",
+        "snippet": "\n \n To evaluate the clinical effectiveness of sodium glucose cotransporter 2 (SGLT2) inhibitors in reducing the risk of hospital admission for heart failure and mortality in a contemporary nationwide cohort of patients with heart failure with preserved ejection fraction (HFpEF).\n \n \n \n Nationwide co",
+        "full_summary": "A nationwide cohort study found that SGLT2 inhibitors were associated with a significantly lower risk of hospital admission for heart failure and all-cause mortality in patients with HFpEF and type 2 diabetes.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "In this large, contemporary, nationwide cohort of patients with HFpEF, type 2 diabetes, and high event rates, starting SGLT2 inhibitors was associated with a significantly lower risk of hospital admission for heart failure and all cause mortality compared with starting treatment with DPP4 inhibitors or sulfonylureas.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with type 2 diabetes and HFpEF",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36799324/",
+        "title": "[Dapagliflozin in DELIVER : confirmation of the benefit with SGLT2 inhibitors in heart failure with preserved ejection fraction].",
+        "source_type": "pubmed",
+        "snippet": "Scheen A, Lancellotti P | Revue medicale de Liege | 2023-Feb | English Abstract; Journal Article",
+        "full_summary": "The DELIVER study confirmed that dapagliflozin significantly reduced the composite outcome of hospitalization for heart failure plus cardiovascular mortality and hospitalizations for heart failure in patients with heart failure and mildly reduced or preserved ejection fraction.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2023-Feb",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "",
+        "evidence_level": 0.4,
+        "key_finding": "The DELIVER study recently confirmed a significant reduction in the composite outcome hHF plus cardiovascular mortality (- 27 %) and in hHF (- 21 %) in patients (with or without T2DM) with heart failure and mildly reduced or preserved LVEF treated with dapagliflozin compared with placebo.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with heart failure and mildly reduced or preserved LVEF",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/8f029b0a28edc3a4381dc1a3e5de97bf9fb7f97b",
+        "title": "Long-term SGLT2 inhibitor therapy improves myocardial strain and diastolic function in HFpEF: a retrospective study linking functional recovery to reduced myocardial fibrosis",
+        "source_type": "semantic_scholar",
+        "snippet": "Background The pathophysiological mechanisms of heart failure with preserved ejection fraction (HFpEF) are complex, with myocardial fibrosis being one of its core features, closely associated with diastolic dysfunction and poor prognosis. Sodium-glucose co-transporter 2 inhibitors (SGLT2i) have show",
+        "full_summary": "Long-term SGLT2 inhibitor treatment significantly improved myocardial strain, diastolic function, and reduced heart failure rehospitalization rates in patients with HFpEF, which was associated with a reduction in myocardial fibrosis markers.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 1,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "After 6 months of treatment, GLS improved significantly (ΔGLS: −2.49% ± 0.54% vs. −0.44% ± 0.52%, P < 0.001).",
+        "finding_direction": "strongly_supports",
+        "population": "patients with HFpEF",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40624547/",
+        "title": "Impact of SGLT2 inhibitors on myocardial fibrosis in diabetic HFpEF: a longitudinal study.",
+        "source_type": "pubmed",
+        "snippet": "Albulushi A, Askari KM, Al-Abedi AM, Al-Kulaibi MA, Hasan MS, Hosseini Z et al. | European journal of medical research | 2025-Jul-08 | Journal Article; Randomized Controlled Trial; Multicenter Study",
+        "full_summary": "Dapagliflozin significantly reduced myocardial fibrosis, improved cardiac structure, metabolic control, and exercise tolerance in HFpEF patients with type 2 diabetes.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-Jul-08",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Dapagliflozin significantly reduced myocardial fibrosis (mean ΔECV: - 3.5% [95% CI - 4.2 to - 2.8]) compared to placebo (- 0.8% [95% CI - 1.3 to - 0.4]; p < 0.001).",
+        "finding_direction": "strongly_supports",
+        "population": "patients with HFpEF and T2D",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36004654/",
+        "title": "[Role of SGLT2 inhibitors (gliflozins) in heart failure].",
+        "source_type": "pubmed",
+        "snippet": "Scheen AJ, Ancion A, Lancellotti P | Revue medicale suisse | 2022-Aug-24 | Journal Article",
+        "full_summary": "SGLT2 inhibitors reduced hospitalizations for heart failure in patients with preserved left ventricular ejection fraction in the EMPEROR-Preserved and DELIVER trials.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2022-Aug-24",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "",
+        "evidence_level": 0.4,
+        "key_finding": "This protective effect was confirmed in two dedicated trials that specifically targeted patients with heart failure and reduced left ventricular ejection fraction (DAPA-HF with dapagliflozin and EMPEROR-reduced with empagliflozin) and in two trials in patients with preserved left ventricular ejection fraction (EMPEROR-preserved with empagliflozin and DELIVER with dapagliflozin), independently of t",
+        "finding_direction": "strongly_supports",
+        "population": "patients with preserved left ventricular ejection fraction",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/1c008f9c98b95dde2432939b6dacf2cbace9f5e5",
+        "title": "Sodium-glucose cotransporter-2 inhibition for heart failure with preserved ejection fraction and chronic kidney disease with or without type 2 diabetes mellitus: a narrative review",
+        "source_type": "semantic_scholar",
+        "snippet": "Background Heart failure (HF), chronic kidney disease (CKD), and type 2 diabetes mellitus (T2DM) are common and interrelated conditions, each with a significant burden of disease. HF and kidney disease progress through pathophysiologic pathways that culminate in end-stage disease, for which T2DM is ",
+        "full_summary": "SGLT2 inhibitors are effective and safe in treating HFpEF in patients with comorbid CKD with and without T2DM, with evidence suggesting benefits across the spectrum of left ventricular ejection fractions.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2023",
+        "citation_count": 29,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "SGLT2is are efficacious and safe in treating HFpEF in patients with comorbid CKD with and without T2DM.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with HFpEF and CKD, with or without T2DM",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/4e30f6578e6de65918a74e7e52cdd41bdac45068",
+        "title": "Effect of Empagliflozin on Worsening Heart Failure Events in Patients With Heart Failure and Preserved Ejection Fraction",
+        "source_type": "semantic_scholar",
+        "snippet": "Supplemental Digital Content is available in the text. Background: Empagliflozin reduces the risk of cardiovascular death or hospitalization for heart failure in patients with heart failure with preserved ejection fraction, but additional data are needed about its effect on inpatient and outpatient ",
+        "full_summary": "Empagliflozin significantly reduced the risk and severity of worsening heart failure events in patients with heart failure with preserved ejection fraction.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2021",
+        "citation_count": 147,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Empagliflozin reduced the combined risk of cardiovascular death, hospitalization for heart failure, or an emergency or urgent heart failure visit requiring intravenous treatment (432 versus 546 patients [empagliflozin versus placebo, respectively]; hazard ratio, 0.77 [95% CI, 0.67–0.87]; P<0.0001).",
+        "finding_direction": "strongly_supports",
+        "population": "patients with class II through IV heart failure with an ejection fraction of >40%",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/34308311/",
+        "title": "SGLT2 inhibitors decrease cardiovascular death and heart failure hospitalizations in patients with heart failure: A systematic review and meta-analysis.",
+        "source_type": "pubmed",
+        "snippet": "Cardoso R, Graffunder FP, Ternes CMP, Fernandes A, Rocha AV, Fernandes G et al. | EClinicalMedicine | 2021-Jun | Journal Article",
+        "full_summary": "This meta-analysis found that SGLT2 inhibitors significantly reduce all-cause and cardiovascular mortality, and the composite of cardiovascular mortality or HF hospitalizations/urgent visits, in patients with heart failure, including those with preserved ejection fraction.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2021-Jun",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "The composite of cardiovascular mortality, HF hospitalizations, or urgent visits for HF was significantly reduced with SGLT2 inhibitors in all the following subgroups: male, female, age < 65, age ≥ 65, race - Black and White, estimated glomerular filtration rate (eGFR) <60, eGFR ≥60, New York Heart Association (NYHA) class II, NYHA ≥III, and HF with preserved ejection fraction.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with HF",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/35920946/",
+        "title": "SGLT2-Inhibitors on HFpEF Patients. Role of Ejection Fraction.",
+        "source_type": "pubmed",
+        "snippet": "Requena-Ibanez JA, Santos-Gallego CG, Zafar MU, Badimon JJ | Cardiovascular drugs and therapy | 2023-Oct | Journal Article; Review",
+        "full_summary": "This review discusses the impact of SGLT2 inhibitors in HFpEF patients, highlighting the need for further research into the role of ejection fraction and patient heterogeneity.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2023-Oct",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "patients with heart failure with preserved ejection fraction",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://clinicaltrials.gov/study/NCT04739215",
+        "title": "Effects of SGLT2 Inhibition on the Mechanisms of Cardiac Damage in the Diabetic Patient With HFpEF",
+        "source_type": "clinicaltrials",
+        "snippet": "Effects of SGLT2 Inhibition on the Mechanisms of Cardiac Damage in the Diabetic Patient With HFpEF (Diabetes Mellitus, Type 2, Heart Failure With Preserved Ejection Fraction) [UNKNOWN, PHASE4]",
+        "full_summary": "This is a Phase 4 interventional clinical trial investigating the effects of dapagliflozin on cardiac damage mechanisms in diabetic patients with heart failure with preserved ejection fraction.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2021-01-15",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "registered trial",
+        "evidence_level": 0.55,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "Diabetic patients with Heart Failure with Preserved Ejection Fraction",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37318685/",
+        "title": "Rationale and Design of the SOTA-P-CARDIA Trial (ATRU-V): Sotagliflozin in HFpEF Patients Without Diabetes.",
+        "source_type": "pubmed",
+        "snippet": "Pérez MS, Rodríguez-Capitán J, Requena-Ibáñez JA, Santos-Gallego CG, Urooj Zafar M, Escolar G et al. | Cardiovascular drugs and therapy | 2025-Feb | Journal Article; Clinical Trial Protocol; Research Support, Non-U.S. Gov't",
+        "full_summary": "This trial investigates the effects of sotagliflozin in non-diabetic HFpEF patients, focusing on changes in left ventricular mass.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2025-Feb",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "non-diabetic patients with the universal definition of HFpEF (ejection fraction > 50%)",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36216487/",
+        "title": "SGLT2 Inhibitors and Heart Failure with Preserved Ejection Fraction.",
+        "source_type": "pubmed",
+        "snippet": "Jhund PS | Heart failure clinics | 2022-Oct | Journal Article; Review",
+        "full_summary": "Empagliflozin, an SGLT2 inhibitor, reduced cardiovascular death or hospitalization for heart failure in patients with heart failure with preserved ejection fraction (HFPEF) in the EMPEROR-Preserved trial.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2022-Oct",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "In the EMPEROR-Preserved trial the SGLT2 inhibitor empagliflozin reduced the risk of cardiovascular death or hospitalization for heart failure (HR 0.79 95%CI 0.69-0.9, P < .001).",
+        "finding_direction": "strongly_supports",
+        "population": "patients with heart failure with preserved ejection fraction",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/d93d32b961c3636e2f39671c3ff2aebaf7c3b00b",
+        "title": "Efficacy of SGLT2 Inhibitors in Patients With Heart Failure and Mildly Reduced or Preserved Ejection Fraction: An Updated Systematic Review and Meta-Analysis.",
+        "source_type": "semantic_scholar",
+        "snippet": "BACKGROUND\nHeart failure (HF) with mildly reduced ejection fraction (HFmrEF) and heart failure with preserved ejection fraction (HFpEF) constitute a substantial clinical burden with limited therapeutic options. While sodium-glucose cotransporter 2 (SGLT2) inhibitors are established therapies for hea",
+        "full_summary": "SGLT2 inhibitors significantly reduce the risk of cardiovascular death and hospitalization for heart failure in patients with heart failure with mildly reduced or preserved ejection fraction, and improve functional status and quality of life.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "Meta-analysis showed that SGLT2 inhibitors significantly reduced the risk of the primary composite endpoint (odds ratio [OR]: 0.71; 95% CI: 0.66-0.75, P < 0.00001) and HHF (OR: 0.69; 95% CI 0.64-0.74; P < 0.00001).",
+        "finding_direction": "strongly_supports",
+        "population": "patients with heart failure with mildly reduced or preserved ejection fraction",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37294244/",
+        "title": "Dapagliflozin in Heart Failure With Mildly Reduced or Preserved Ejection Fraction According to Polypharmacy Status.",
+        "source_type": "pubmed",
+        "snippet": "Peikert A, Goyal P, Vaduganathan M, Claggett BL, Kulac IJ, Miao ZM et al. | JACC. Heart failure | 2023-Oct | Randomized Controlled Trial; Journal Article; Research Support, N.I.H., Extramural",
+        "full_summary": "This post hoc analysis of the DELIVER trial examines the efficacy and safety of dapagliflozin in patients with HF with mildly reduced or preserved ejection fraction, considering their polypharmacy status.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2023-Oct",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Compared with placebo, dapagliflozin similarly reduced the risk of the primary outcome irrespective of polypharmacy status.",
+        "finding_direction": "supports",
+        "population": "patients with symptomatic HF with left ventricular ejection fraction \">\"40%",
+        "directness": "direct"
+      }
+    ],
+    "global_summary": "SGLT2 inhibitors, such as empagliflozin and dapagliflozin, have demonstrated significant benefits for patients with heart failure with preserved ejection fraction (HFpEF) [2][3][4][5][7][10][12][13][17][18]. These benefits include improvements in patient-reported symptoms, physical limitations, and exercise function, as well as reductions in hospitalizations for heart failure and cardiovascular death [1][2][3][4][5][7][12][13][17][18].\n\nSeveral meta-analyses and randomized controlled trials consistently show that SGLT2 inhibitors reduce the risk of cardiovascular death or heart failure hospitalization (HFH) in HFpEF patients [4][5][13][18]. One meta-analysis reported a **risk ratio of 0.75** (95% CI 0.63-0.89) for this composite outcome [4]. Another systematic review and meta-analysis found a **pooled hazard ratio of 0.80** (95% CI: 0.74, 0.86, p < 0.001) for cardiovascular disease (CVD)/HFH outcomes in patients with HF with mildly reduced or preserved ejection fraction [5]. A more recent systematic review and meta-analysis reported an **odds ratio of 0.71** (95% CI: 0.66-0.75, P < 0.00001) for the primary composite endpoint and **0.69** (95% CI 0.64-0.74; P < 0.00001) for HFH [18]. The DELIVER study, a randomized controlled trial, specifically confirmed a **27% reduction** in the composite outcome of HFH plus cardiovascular mortality and a **21% reduction** in HFH with dapagliflozin in patients with mildly reduced or preserved LVEF, regardless of type 2 diabetes mellitus (T2DM) status [7]. Similarly, the EMPEROR-Preserved trial showed that empagliflozin reduced the risk of cardiovascular death or hospitalization for heart failure (HR 0.79, 95% CI 0.69-0.9, P < .001) [17]. Empagliflozin also reduced the combined risk of cardiovascular death, hospitalization for heart failure, or an emergency/urgent heart failure visit requiring intravenous treatment by a **hazard ratio of 0.77** (95% CI, 0.67–0.87; P<0.0001) in patients with class II through IV heart failure with an ejection fraction of >40% [12].\n\nThese benefits extend to various subgroups, including males and females, those aged <65 and ≥65, different races (Black and White), and patients with varying estimated glomerular filtration rates (eGFR <60 and ≥60) and New York Heart Association (NYHA) classes (II and ≥III) [13]. The effectiveness of SGLT2 inhibitors in reducing the risk of worsening heart failure or cardiovascular death with dapagliflozin has been observed in patients with a left ventricular ejection fraction of more than 40% [2]. Furthermore, a nationwide cohort study (REFINE-HFpEF) found that starting SGLT2 inhibitors was associated with a significantly lower risk of hospital admission for heart failure and all-cause mortality compared to DPP4 inhibitors or sulfonylureas in HFpEF patients with type 2 diabetes and high event rates [6]. The benefits of dapagliflozin on the primary outcome were consistent regardless of polypharmacy status in symptomatic HF patients with LVEF >40% [19].\n\nBeyond clinical outcomes, SGLT2 inhibitors also demonstrate physiological improvements. Long-term SGLT2 inhibitor therapy has been shown to improve myocardial strain and diastolic function in HFpEF patients, with significant improvement in global longitudinal strain (ΔGLS: **−2.49% ± 0.54%** vs. −0.44% ± 0.52%, P < 0.001) after **6 months of treatment** [8]. In diabetic HFpEF patients, dapagliflozin significantly reduced myocardial fibrosis (mean ΔECV: **-3.5%** [95% CI -4.2 to -2.8]) compared to placebo (-0.8% [95% CI -1.3 to -0.4]; p < 0.001) [9]. SGLT2 inhibitors are also considered efficacious and safe for treating HFpEF in patients with comorbid chronic kidney disease (CKD), both with and without T2DM [11].\n\nHowever, one meta-analysis indicated a **mixed direction** of effect, showing a decreased risk of cardiovascular hospitalization but *not* death due to cardiovascular causes or other causes [0]. This contrasts with other meta-analyses and trials that reported reductions in cardiovascular death or the composite of cardiovascular death and heart failure hospitalization [2][4][5][7][12][13][17][18].",
+    "total_sources_consulted": 202,
+    "duration_seconds": 93.07,
+    "job_stats": {
+      "total_cost_usd": 0.094892,
+      "llm": {
+        "total_calls": 70,
+        "total_input_tokens": 127616,
+        "total_output_tokens": 17468,
+        "total_tokens": 145084,
+        "total_cost_usd": 0.0836059,
+        "by_purpose": {
+          "related_articles_domain": {
+            "count": 1,
+            "input_tokens": 738,
+            "output_tokens": 292,
+            "cost_usd": 0.0001906,
+            "total_latency_ms": 2397.9
+          },
+          "related_articles_brief": {
+            "count": 3,
+            "input_tokens": 4978,
+            "output_tokens": 447,
+            "cost_usd": 0.00383,
+            "total_latency_ms": 4452.6
+          },
+          "related_articles_decompose": {
+            "count": 1,
+            "input_tokens": 575,
+            "output_tokens": 243,
+            "cost_usd": 0.0001547,
+            "total_latency_ms": 942.6
+          },
+          "related_articles_reformulate": {
+            "count": 5,
+            "input_tokens": 13419,
+            "output_tokens": 691,
+            "cost_usd": 0.0087825,
+            "total_latency_ms": 6888.6
+          },
+          "related_articles_rerank": {
+            "count": 4,
+            "input_tokens": 30109,
+            "output_tokens": 1390,
+            "cost_usd": 0.0125077,
+            "total_latency_ms": 7043.1
+          },
+          "related_articles_design_grade": {
+            "count": 1,
+            "input_tokens": 4061,
+            "output_tokens": 190,
+            "cost_usd": 0.0004821,
+            "total_latency_ms": 773.8
+          },
+          "related_articles_summarize": {
+            "count": 16,
+            "input_tokens": 45658,
+            "output_tokens": 9378,
+            "cost_usd": 0.0371424,
+            "total_latency_ms": 74729.8
+          },
+          "related_articles_stance": {
+            "count": 38,
+            "input_tokens": 23927,
+            "output_tokens": 2815,
+            "cost_usd": 0.0142156,
+            "total_latency_ms": 30727.5
+          },
+          "related_articles_synthesis": {
+            "count": 1,
+            "input_tokens": 4151,
+            "output_tokens": 2022,
+            "cost_usd": 0.0063003,
+            "total_latency_ms": 9238.5
+          }
+        }
+      },
+      "embeddings": {
+        "total_calls": 391,
+        "total_tokens": 86814,
+        "total_cost_usd": 0.01128582,
+        "by_model": {
+          "openai/text-embedding-3-large": {
+            "calls": 391,
+            "tokens": 86814,
+            "cost_usd": 0.01128582
+          }
+        }
+      },
+      "tools": {
+        "calls": {
+          "resolve_drug": 3,
+          "search_guidelines": 1,
+          "probe_pubmed": 13,
+          "submit_brief": 1,
+          "submit_queries": 2,
+          "submit_appraisals": 10
+        },
+        "total_calls": 30
+      },
+      "providers": {
+        "calls": {
+          "clinicaltrials": 13,
+          "pubmed": 13,
+          "dailymed": 13,
+          "europe_pmc": 13
+        },
+        "cache_hits": {},
+        "errors": {},
+        "total_calls": 52,
+        "total_cache_hits": 0
+      },
+      "pipeline": {
+        "evidence_total": 0,
+        "evidence_after_relevance": 0,
+        "retries": 0
+      },
+      "stage_timings_ms": {
+        "domain_detection": 2397.9,
+        "brief": 8174.4,
+        "pro_decomposition": 942.7,
+        "pro_round1": 6859.3,
+        "pro_expansion": 11128.4,
+        "pro_round2": 12143.2,
+        "pro_round3": 9240.1,
+        "rerank": 12507.7,
+        "content_enrichment": 0.0,
+        "summarization": 18582.9,
+        "stance": 4135.7,
+        "global_synthesis": 9238.7
+      }
+    },
+    "key_findings": [
+      {
+        "text": "SGLT2 inhibitors significantly reduce the risk of heart failure hospitalization in patients with heart failure with preserved ejection fraction (HFpEF) and those with mildly reduced or preserved ejection fraction.",
+        "source_indices": [
+          0,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          12,
+          13,
+          17,
+          18
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "SGLT2 inhibitors improve patient-reported symptoms, physical limitations, and exercise function in patients with chronic HFpEF.",
+        "source_indices": [
+          1,
+          3
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Dapagliflozin reduces the combined risk of worsening heart failure or cardiovascular death in patients with heart failure and a left ventricular ejection fraction of more than 40%.",
+        "source_indices": [
+          2,
+          7
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "SGLT2 inhibitors are effective in reducing the composite outcome of cardiovascular death or heart failure hospitalization across various subgroups, including different ages, sexes, races, eGFR levels, and NYHA classes.",
+        "source_indices": [
+          13
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Long-term SGLT2 inhibitor therapy improves myocardial strain and diastolic function in HFpEF patients.",
+        "source_indices": [
+          8
+        ],
+        "strength": "moderate"
+      },
+      {
+        "text": "Dapagliflozin significantly reduces myocardial fibrosis in patients with HFpEF and type 2 diabetes.",
+        "source_indices": [
+          9
+        ],
+        "strength": "weak"
+      },
+      {
+        "text": "SGLT2 inhibitors are efficacious and safe for treating HFpEF in patients with comorbid chronic kidney disease, with or without type 2 diabetes mellitus.",
+        "source_indices": [
+          11
+        ],
+        "strength": "moderate"
+      },
+      {
+        "text": "The benefits of dapagliflozin on the primary outcome are consistent regardless of polypharmacy status in symptomatic HF patients with LVEF >40%.",
+        "source_indices": [
+          19
+        ],
+        "strength": "moderate"
+      }
+    ],
+    "disagreements": [
+      {
+        "issue": "The effect of SGLT2 inhibitors on cardiovascular mortality in HFpEF patients.",
+        "positions": [
+          "SGLT2 inhibitors reduce the risk of cardiovascular death or the composite of cardiovascular death and heart failure hospitalization [2][4][5][7][12][13][17][18].",
+          "SGLT2 inhibitors decrease the risk of cardiovascular hospitalization but not death due to cardiovascular causes or other causes [0]."
+        ],
+        "source_indices": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          12,
+          13,
+          17,
+          18
+        ]
+      }
+    ],
+    "evidence_profile": {
+      "designs": {
+        "randomised controlled trial": 6,
+        "meta-analysis": 4,
+        "review": 3,
+        "systematic review": 2,
+        "cohort study": 2,
+        "unclassified": 2,
+        "registered trial": 1
+      },
+      "high_tier_share": 0.6,
+      "preprint_share": 0.0
+    },
+    "pico": {
+      "population": "heart failure with preserved ejection fraction",
+      "intervention": "SGLT2 inhibitors",
+      "comparison": "",
+      "outcome": "",
+      "study_designs": [
+        "randomized controlled trial",
+        "clinical trial"
+      ]
+    },
+    "evidence_gaps": [
+      "The specific role of ejection fraction and patient heterogeneity in the efficacy of SGLT2 inhibitors in HFpEF patients requires further research [14].",
+      "The effects of sotagliflozin on left ventricular mass in non-diabetic HFpEF patients are being investigated, but results are not yet available [16].",
+      "The full range of effects of dapagliflozin on cardiac damage mechanisms in diabetic patients with HFpEF is under investigation [15]."
+    ]
+  }
+}

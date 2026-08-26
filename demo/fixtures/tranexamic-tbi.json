@@ -1,0 +1,506 @@
+{
+  "id": "tranexamic-tbi",
+  "topic": "Tranexamic acid in traumatic brain injury: mortality outcomes",
+  "max_sources": 10,
+  "summary_language": "en",
+  "recorded_at": "2026-08-26",
+  "events": [
+    {
+      "stage": "domain",
+      "message": "Analysing the topic…",
+      "at_ms": 0
+    },
+    {
+      "stage": "domain",
+      "message": "Domain detected: medicine",
+      "at_ms": 2163
+    },
+    {
+      "stage": "brief",
+      "message": "Research brief ready: 5 query variants, providers: pubmed, clinicaltrials, europe_pmc",
+      "at_ms": 9616
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 1: 71 candidates from 7 queries",
+      "at_ms": 17875
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: refining queries…",
+      "at_ms": 22149
+    },
+    {
+      "stage": "discovery",
+      "message": "Citation graph expansion: +59 candidates from 4 seeds",
+      "at_ms": 32899
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: 18 candidates from 3 queries (14 new relevant)",
+      "at_ms": 33575
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: refining queries…",
+      "at_ms": 33575
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: 27 candidates from 3 queries (21 new relevant)",
+      "at_ms": 45936
+    },
+    {
+      "stage": "discovery",
+      "message": "Discovery complete: 161 unique candidates after dedup",
+      "at_ms": 45937
+    },
+    {
+      "stage": "rerank",
+      "message": "Scoring and reranking 161 candidates…",
+      "at_ms": 45937
+    },
+    {
+      "stage": "rerank",
+      "message": "Shortlisted 26 sources to read in full",
+      "at_ms": 60194
+    },
+    {
+      "stage": "read",
+      "message": "Fetching and summarising 26 sources…",
+      "at_ms": 60194
+    },
+    {
+      "stage": "read",
+      "message": "Summarised 26 sources",
+      "at_ms": 74998
+    },
+    {
+      "stage": "select",
+      "message": "Selecting the final set…",
+      "at_ms": 74998
+    },
+    {
+      "stage": "select",
+      "message": "10 articles selected",
+      "at_ms": 76240
+    },
+    {
+      "stage": "synthesis",
+      "message": "Writing the synthesis…",
+      "at_ms": 76240
+    },
+    {
+      "stage": "synthesis",
+      "message": "Synthesis complete: 6 findings, 1 conflicts",
+      "at_ms": 83272
+    }
+  ],
+  "response": {
+    "status": "completed",
+    "topic": "Tranexamic acid in traumatic brain injury: mortality outcomes",
+    "domain_detected": "medicine",
+    "articles": [
+      {
+        "url": "https://www.semanticscholar.org/paper/91f322f514bc138eb5240463e50c82fef05500b4",
+        "title": "Tranexamic acid for neurological outcomes and mortality in adults with hemorrhagic acute brain injury: an updated systematic review and meta-analysis of randomized controlled trials",
+        "source_type": "semantic_scholar",
+        "snippet": "Background Hemorrhagic acute brain injury—encompassing traumatic brain injury, spontaneous intracerebral hemorrhage, and subarachnoid hemorrhage—carries substantial morbidity and mortality. Active hemorrhage and hematoma progression constitute shared pathological mechanisms across these conditions. ",
+        "full_summary": "This meta-analysis of randomized controlled trials found no statistically significant effect of tranexamic acid on short-term or long-term all-cause mortality in adults with hemorrhagic acute brain injury, which includes traumatic brain injury.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "Random-effects model analyses showed no statistically significant effect of TXA on short-term mortality (RR 0.93, 95% CI 0.86–1.00) or long-term mortality (RR 1.02, 95% CI 0.91–1.13).",
+        "finding_direction": "strongly_contradicts",
+        "population": "adults with hemorrhagic acute brain injury",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/31623894/",
+        "title": "Effects of tranexamic acid on death, disability, vascular occlusive events and other morbidities in patients with acute traumatic brain injury (CRASH-3): a randomised, placebo-controlled trial.",
+        "source_type": "pubmed",
+        "snippet": "Lancet (London, England) | 2019-Nov-09 | Journal Article; Multicenter Study; Randomized Controlled Trial",
+        "full_summary": "The CRASH-3 trial found that tranexamic acid reduced head injury-related death in patients with acute traumatic brain injury when administered within 3 hours of injury, particularly in those with mild-to-moderate head injury.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2019-Nov-09",
+        "citation_count": 725,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Among patients treated within 3 h of injury, the risk of head injury-related death was 18\n·5% in the tranexamic acid group versus 19\n·8% in the placebo group (855 vs 892 events; risk ratio [RR] 0\n·94 [95% CI 0\n·86–1\n·02]).",
+        "finding_direction": "no_evidence",
+        "population": "adults with TBI within 3 hours of injury",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/33928903/",
+        "title": "Tranexamic acid to reduce head injury death in people with traumatic brain injury: the CRASH-3 international RCT.",
+        "source_type": "pubmed",
+        "snippet": "Roberts I, Shakur-Still H, Aeron-Thomas A, Beaumont D, Belli A, Brenner A et al. | Health technology assessment (Winchester, England) | 2021-Apr | Journal Article; Randomized Controlled Trial; Research Support, Non-U.S. Gov't",
+        "full_summary": "This is a detailed report of the CRASH-3 trial, confirming that early tranexamic acid treatment reduces head injury deaths in patients with mild or moderate traumatic brain injury and is cost-effective.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2021-Apr",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Among patients treated within 3 hours of injury (n\n=\n9127), the risk of head injury death was 18.5% in the tranexamic acid group versus 19.8% in the placebo group (855/4613 vs. 892/4514; risk ratio 0.94, 95% confidence interval 0.86 to 1.02).",
+        "finding_direction": "weakly_supports",
+        "population": "adults with traumatic brain injury within 3 hours of injury",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/25447601/",
+        "title": "Tranexamic acid for traumatic brain injury: a systematic review and meta-analysis.",
+        "source_type": "pubmed",
+        "snippet": "Zehtabchi S, Abdel Baki SG, Falzon L, Nishijima DK | The American journal of emergency medicine | 2014-Dec | Journal Article; Meta-Analysis; Research Support, N.I.H., Extramural",
+        "full_summary": "This systematic review and meta-analysis of two RCTs found a non-statistically significant improvement in clinical outcomes, including mortality, with tranexamic acid in ED patients with TBI.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2014-Dec",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "The effect of TXA on mortality had a pooled relative risk of 0.64 (95% confidence interval [CI], 0.41-1.02); on unfavorable functional status, a relative risk of 0.77 (95% CI, 0.59-1.02); and on ICH progression, a relative risk of 0.76 (95% CI, 0.58-0.98).",
+        "finding_direction": "weakly_supports",
+        "population": "ED patients with TBI",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/5bb6ff84a4ddf2c98b809193ac44406c9c5bd2c8",
+        "title": "Tranexamic acid in the management of traumatic brain injury: a systematic review and meta-analysis with trial sequential analysis",
+        "source_type": "semantic_scholar",
+        "snippet": "ABSTRACT Introduction Traumatic brain injury is a leading cause of death and disability. Tranexamic acid, an antifibrinolytic agent, holds the potential for managing intracranial hemorrhages secondary to traumatic brain injury. However, its efficacy and safety remain subjects of ongoing debate. Obje",
+        "full_summary": "This meta-analysis of 14 randomized controlled trials found that tranexamic acid did not significantly reduce all-cause mortality in patients with traumatic brain injury, but did show a significant reduction in progressive intracranial hemorrhage.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "Analyses for all-cause mortality did not reach statistical significance (RR= 0.95, 95%CI= 0.88-1.02 | trial sequential analysis RR= 0.95, 95%CI= 0.87-1.03).",
+        "finding_direction": "contradicts",
+        "population": "traumatic brain injury patients aged 15 or older",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/f2dc301bf5ae71a076731bbe196449977e252b4e",
+        "title": "Tranexamic acid in patients with traumatic brain injury: Is there benefit in patients with fibrinolytic shutdown?",
+        "source_type": "semantic_scholar",
+        "snippet": "BACKGROUND\nTranexamic acid (TXA) is widely used in patients with traumatic brain injury (TBI). However, its pharmacology suggests differences in effectiveness should exist based on fibrinolytic phenotype, particularly fibrinolytic shutdown. This study examined whether fibrinolytic shutdown is associ",
+        "full_summary": "This retrospective cohort study investigated the effect of tranexamic acid on mortality in traumatic brain injury patients, particularly those with fibrinolytic shutdown, finding that TXA was associated with lower mortality in patients with fibrinolytic shutdown.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "In patients with fibrinolytic shutdown, unadjusted mortality was lower in patients who received TXA [12% (24/196) vs. 24% (21/89), p=0.015].",
+        "finding_direction": "supports",
+        "population": "TBI patients who had thromboelastography (TEG) upon presentation at three affiliated trauma centers",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/38685481/",
+        "title": "The effects of prehospital TXA on mortality and neurologic outcomes in patients with traumatic intracranial hemorrhage: A subgroup analysis from the prehospital TXA for TBI trial.",
+        "source_type": "pubmed",
+        "snippet": "Rowell S, Meier EN, Hoyos Gomez T, Fleming M, Jui J, Morrison L et al. | The journal of trauma and acute care surgery | 2024-Oct-01 | Journal Article; Randomized Controlled Trial; Multicenter Study",
+        "full_summary": "This subgroup analysis of the Prehospital Tranexamic Acid for TBI Trial found that a 2-g out-of-hospital TXA bolus in TBI patients with intracranial hemorrhage resulted in lower 28-day mortality and lower 6-month Disability Rating Scale scores compared to placebo and standard TXA dosing.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2024-Oct-01",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Among 541 participants with ICH, 28-day mortality was lower in the 2-g TXA bolus group (17%) compared with the other two groups (1-g bolus/1-g infusion 26%, placebo 27%).",
+        "finding_direction": "strongly_supports",
+        "population": "adults with moderate/severe TBI (Glasgow Coma Scale score < 13) and systolic blood pressure ≥ 90 mm Hg within 2 hours of injury with intracranial hemorrhage (ICH) on initial CT",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/6b3284cf4ffbdf4599de1d2eb63913301a2eb3d7",
+        "title": "Tranexamic Acid in Pediatric Traumatic Brain Injury: A Multicenter Retrospective Observational Study.",
+        "source_type": "semantic_scholar",
+        "snippet": "STUDY OBJECTIVE\nTranexamic acid (TXA) can be used after trauma to prevent bleeding. Our goal was to examine the influence of TXA on morbidity and mortality for children with severe traumatic brain injury (TBI).\n\n\nMETHODS\nWe identified children aged <18 years with a severe TBI (Glasgow Coma Scale sco",
+        "full_summary": "This multicenter retrospective observational study in pediatric patients with severe traumatic brain injury found no association between tranexamic acid administration and in-hospital death or poor neurologic outcome.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2024",
+        "citation_count": 8,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "After inverse propensity weighting, TXA administration was not associated with either mortality (adjusted odds ratio [aOR] 1.25, 95% confidence interval [CI] 0.61 to 2.54) or poor neurologic outcome (aOR 0.86, 95% CI 0.47 to 1.56).",
+        "finding_direction": "contradicts",
+        "population": "children aged <18 years with a severe TBI (Glasgow Coma Scale score less than 8)",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/38502985/",
+        "title": "Efficacy and safety of tranexamic acid in acute traumatic brain injury: A meta-analysis of randomized controlled trials.",
+        "source_type": "pubmed",
+        "snippet": "Zhang M, Liu T | The American journal of emergency medicine | 2024-Jun | Journal Article; Meta-Analysis; Systematic Review",
+        "full_summary": "This meta-analysis of randomized controlled trials found that tranexamic acid had no significant effect on mortality in patients with traumatic brain injury, but might reduce the rate of hemorrhagic expansion and mean hemorrhage volume.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2024-Jun",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "The result showed that TXA had no effect on mortality (RR 0.93 [0.86, 1.00], p = 0.06; I2: 0%, p = 0.79), poor clinical outcomes (RR 0.92 [0.78, 1.09], p = 0.34; I2: 0%, p = 0.40), adverse events (RR 0.94 [0.83, 1.07], p = 0.34; I2: 48%, p = 0.10), vascular occlusive events (RR 0.85 [0.68, 1.06], p = 0.16; I2: 32%, p = 0.22), pulmonary embolism (RR 0.76 [0.47, 1.22], p = 0.26; I2: 0%, p = 0.83), s",
+        "finding_direction": "strongly_contradicts",
+        "population": "adults with TBI",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/38454455/",
+        "title": "Therapeutic efficacy of tranexamic acid on traumatic brain injury: a systematic review and meta-analysis.",
+        "source_type": "pubmed",
+        "snippet": "Song JX, Wu JX, Zhong H, Chen W, Zheng JC | Scandinavian journal of trauma, resuscitation and emergency medicine | 2024-Mar-07 | Meta-Analysis; Systematic Review; Journal Article",
+        "full_summary": "This systematic review and meta-analysis of ten RCTs concluded that tranexamic acid significantly reduced mortality and hemorrhage growth in patients with traumatic brain injury.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2024-Mar-07",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "Compared to the placebo group, administration of TXA in patients with TBI resulted in a significant reduction in mortality (P = 0.05), hemorrhage growth (P = 0.03), and volume of hemorrhage growth (P = 0.003).",
+        "finding_direction": "strongly_supports",
+        "population": "patients with TBI",
+        "directness": "direct"
+      }
+    ],
+    "global_summary": "Tranexamic acid (TXA) has been investigated for its effect on mortality in patients with traumatic brain injury (TBI), with **mixed results across studies and populations**. Several meta-analyses of randomized controlled trials (RCTs) have concluded that TXA does not significantly reduce mortality in adults with TBI [0][4][8]. For instance, a 2026 meta-analysis of RCTs on adults with hemorrhagic acute brain injury found no statistically significant effect of TXA on short-term mortality (RR **0.93**, 95% CI **0.86–1.00**) or long-term mortality (RR **1.02**, 95% CI **0.91–1.13**) [0]. Similarly, a 2025 meta-analysis of TBI patients aged 15 or older reported that analyses for all-cause mortality did not reach statistical significance (RR= **0.95**, 95%CI= **0.88-1.02**) [4]. Another meta-analysis from 2024, focusing on adults with TBI, also found no effect on mortality (RR **0.93** [**0.86, 1.00**], p = **0.06**) [8].\n\nHowever, some studies suggest a potential benefit, particularly when TXA is administered early or in specific subgroups. The CRASH-3 trial, a large randomized, placebo-controlled trial published in 2019 and 2021, investigated TXA in adults with TBI [1][2]. Among patients treated within **3 hours** of injury, the risk of head injury-related death was **18.5%** in the TXA group versus **19.8%** in the placebo group (RR **0.94**, 95% CI **0.86–1.02**) [1][2]. While this specific finding did not reach statistical significance on its own, a 2024 meta-analysis concluded that TXA administration in TBI patients resulted in a significant reduction in mortality (P = **0.05**), hemorrhage growth (P = **0.03**), and volume of hemorrhage growth (P = **0.003**) [9]. Another earlier meta-analysis from 2014 reported a pooled relative risk for mortality of **0.64** (95% CI, **0.41-1.02**) [3].\n\nSubgroup analyses and specific dosing regimens have also shown promising results. A 2024 randomized controlled trial, a subgroup analysis from the prehospital TXA for TBI trial, found that among 541 participants with intracranial hemorrhage (ICH) and moderate/severe TBI, 28-day mortality was lower in the **2-g TXA bolus group (17%)** compared with the other two groups (1-g bolus/1-g infusion **26%**, placebo **27%**) [6]. Furthermore, a 2026 cohort study of TBI patients who had thromboelastography (TEG) upon presentation found that in patients with *fibrinolytic shutdown*, unadjusted mortality was lower in those who received TXA (**12%** vs. **24%**, p=**0.015**) [5].\n\nIn contrast to the adult population, a multicenter retrospective observational study from 2024 focusing on children aged less than 18 years with severe TBI found that TXA administration was not associated with mortality (adjusted odds ratio [aOR] **1.25**, 95% CI **0.61 to 2.54**) [7]. This suggests a **potential difference in effect based on age group**.",
+    "total_sources_consulted": 161,
+    "duration_seconds": 83.27,
+    "job_stats": {
+      "total_cost_usd": 0.07458,
+      "llm": {
+        "total_calls": 48,
+        "total_input_tokens": 105391,
+        "total_output_tokens": 13284,
+        "total_tokens": 118675,
+        "total_cost_usd": 0.06695015,
+        "by_purpose": {
+          "related_articles_domain": {
+            "count": 1,
+            "input_tokens": 737,
+            "output_tokens": 270,
+            "cost_usd": 0.0001817,
+            "total_latency_ms": 2162.6
+          },
+          "related_articles_brief": {
+            "count": 2,
+            "input_tokens": 3077,
+            "output_tokens": 361,
+            "cost_usd": 0.0026215,
+            "total_latency_ms": 3027.8
+          },
+          "related_articles_decompose": {
+            "count": 1,
+            "input_tokens": 574,
+            "output_tokens": 221,
+            "cost_usd": 0.0001458,
+            "total_latency_ms": 945.8
+          },
+          "related_articles_reformulate": {
+            "count": 6,
+            "input_tokens": 16604,
+            "output_tokens": 718,
+            "cost_usd": 0.010456,
+            "total_latency_ms": 8428.4
+          },
+          "related_articles_rerank": {
+            "count": 4,
+            "input_tokens": 33600,
+            "output_tokens": 1391,
+            "cost_usd": 0.0135575,
+            "total_latency_ms": 7179.5
+          },
+          "related_articles_design_grade": {
+            "count": 1,
+            "input_tokens": 2558,
+            "output_tokens": 124,
+            "cost_usd": 0.0003054,
+            "total_latency_ms": 743.9
+          },
+          "related_articles_summarize": {
+            "count": 9,
+            "input_tokens": 29388,
+            "output_tokens": 6873,
+            "cost_usd": 0.02571135,
+            "total_latency_ms": 48680.7
+          },
+          "related_articles_stance": {
+            "count": 23,
+            "input_tokens": 15652,
+            "output_tokens": 1780,
+            "cost_usd": 0.0091456,
+            "total_latency_ms": 20743.7
+          },
+          "related_articles_synthesis": {
+            "count": 1,
+            "input_tokens": 3201,
+            "output_tokens": 1546,
+            "cost_usd": 0.0048253,
+            "total_latency_ms": 7032.4
+          }
+        }
+      },
+      "embeddings": {
+        "total_calls": 281,
+        "total_tokens": 58688,
+        "total_cost_usd": 0.00762944,
+        "by_model": {
+          "openai/text-embedding-3-large": {
+            "calls": 281,
+            "tokens": 58688,
+            "cost_usd": 0.00762944
+          }
+        }
+      },
+      "tools": {
+        "calls": {
+          "resolve_drug": 1,
+          "search_guidelines": 1,
+          "probe_pubmed": 17,
+          "submit_brief": 1,
+          "submit_queries": 2,
+          "submit_appraisals": 6
+        },
+        "total_calls": 28
+      },
+      "providers": {
+        "calls": {
+          "clinicaltrials": 13,
+          "pubmed": 13,
+          "europe_pmc": 13
+        },
+        "cache_hits": {},
+        "errors": {},
+        "total_calls": 39,
+        "total_cache_hits": 0
+      },
+      "pipeline": {
+        "evidence_total": 0,
+        "evidence_after_relevance": 0,
+        "retries": 0
+      },
+      "stage_timings_ms": {
+        "domain_detection": 2162.7,
+        "brief": 7453.4,
+        "pro_decomposition": 945.9,
+        "pro_round1": 7313.0,
+        "pro_expansion": 10750.8,
+        "pro_round2": 11426.2,
+        "pro_round3": 12360.3,
+        "rerank": 14256.6,
+        "content_enrichment": 0.0,
+        "summarization": 12008.9,
+        "stance": 2794.5,
+        "global_synthesis": 7032.6
+      }
+    },
+    "key_findings": [
+      {
+        "text": "Several meta-analyses of randomized controlled trials indicate that tranexamic acid (TXA) does not significantly reduce short-term or long-term mortality in adults with traumatic brain injury (TBI) or hemorrhagic acute brain injury.",
+        "source_indices": [
+          0,
+          4,
+          8
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "The CRASH-3 randomized controlled trial found that among adults with TBI treated within 3 hours of injury, the risk of head injury-related death was slightly lower in the tranexamic acid group (18.5%) compared to the placebo group (19.8%), though this specific finding did not reach statistical significance.",
+        "source_indices": [
+          1,
+          2
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "One meta-analysis concluded that TXA administration in TBI patients resulted in a significant reduction in mortality, hemorrhage growth, and volume of hemorrhage growth.",
+        "source_indices": [
+          9
+        ],
+        "strength": "moderate"
+      },
+      {
+        "text": "A 2-gram TXA bolus was associated with lower 28-day mortality (17%) compared to other dosing regimens or placebo (26-27%) in adults with moderate/severe TBI and intracranial hemorrhage treated within 2 hours of injury.",
+        "source_indices": [
+          6
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "In TBI patients exhibiting fibrinolytic shutdown, unadjusted mortality was lower in those who received TXA (12%) compared to those who did not (24%).",
+        "source_indices": [
+          5
+        ],
+        "strength": "moderate"
+      },
+      {
+        "text": "Tranexamic acid administration was not associated with reduced mortality in children aged less than 18 years with severe TBI.",
+        "source_indices": [
+          7
+        ],
+        "strength": "weak"
+      }
+    ],
+    "disagreements": [
+      {
+        "issue": "The overall effect of tranexamic acid on mortality in traumatic brain injury patients.",
+        "positions": [
+          "Tranexamic acid does not significantly reduce mortality in adults with TBI.",
+          "Tranexamic acid significantly reduces mortality in TBI patients."
+        ],
+        "source_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          8,
+          9
+        ]
+      }
+    ],
+    "evidence_profile": {
+      "designs": {
+        "meta-analysis": 5,
+        "randomised controlled trial": 3,
+        "cohort study": 2
+      },
+      "high_tier_share": 0.8,
+      "preprint_share": 0.0
+    },
+    "pico": {
+      "population": "traumatic brain injury patients",
+      "intervention": "tranexamic acid",
+      "comparison": "",
+      "outcome": "mortality",
+      "study_designs": [
+        "randomized controlled trial",
+        "observational study"
+      ]
+    },
+    "evidence_gaps": [
+      "The optimal dosing regimen and timing of tranexamic acid administration for TBI patients to achieve mortality benefit are not fully established across all studies.",
+      "Further research is needed to confirm the specific benefit of TXA in TBI patients with fibrinolytic shutdown, as this finding comes from a cohort study.",
+      "More robust evidence, such as randomized controlled trials, is needed to definitively assess the effect of TXA on mortality in pediatric TBI patients."
+    ]
+  }
+}

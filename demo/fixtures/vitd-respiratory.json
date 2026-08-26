@@ -1,0 +1,881 @@
+{
+  "id": "vitd-respiratory",
+  "topic": "Vitamin D supplementation and prevention of acute respiratory infections",
+  "max_sources": 30,
+  "summary_language": "en",
+  "recorded_at": "2026-08-26",
+  "events": [
+    {
+      "stage": "domain",
+      "message": "Analysing the topic…",
+      "at_ms": 0
+    },
+    {
+      "stage": "domain",
+      "message": "Domain detected: medicine",
+      "at_ms": 1008
+    },
+    {
+      "stage": "brief",
+      "message": "Research brief ready: 5 query variants, providers: pubmed, clinicaltrials, europe_pmc",
+      "at_ms": 5326
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 1: 74 candidates from 7 queries",
+      "at_ms": 13443
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: refining queries…",
+      "at_ms": 16609
+    },
+    {
+      "stage": "discovery",
+      "message": "Citation graph expansion: +40 candidates from 4 seeds",
+      "at_ms": 29063
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: 21 candidates from 3 queries (17 new relevant)",
+      "at_ms": 29122
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: refining queries…",
+      "at_ms": 29122
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: 37 candidates from 3 queries (29 new relevant)",
+      "at_ms": 42632
+    },
+    {
+      "stage": "discovery",
+      "message": "Discovery complete: 160 unique candidates after dedup",
+      "at_ms": 42634
+    },
+    {
+      "stage": "rerank",
+      "message": "Scoring and reranking 160 candidates…",
+      "at_ms": 42634
+    },
+    {
+      "stage": "rerank",
+      "message": "Shortlisted 60 sources to read in full",
+      "at_ms": 54665
+    },
+    {
+      "stage": "read",
+      "message": "Fetching and summarising 60 sources…",
+      "at_ms": 54665
+    },
+    {
+      "stage": "read",
+      "message": "Summarised 60 sources",
+      "at_ms": 77461
+    },
+    {
+      "stage": "select",
+      "message": "Selecting the final set…",
+      "at_ms": 77461
+    },
+    {
+      "stage": "select",
+      "message": "30 articles selected",
+      "at_ms": 87913
+    },
+    {
+      "stage": "synthesis",
+      "message": "Writing the synthesis…",
+      "at_ms": 87913
+    },
+    {
+      "stage": "synthesis",
+      "message": "Synthesis complete: 4 findings, 3 conflicts",
+      "at_ms": 100432
+    }
+  ],
+  "response": {
+    "status": "completed",
+    "topic": "Vitamin D supplementation and prevention of acute respiratory infections",
+    "domain_detected": "medicine",
+    "articles": [
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/28202713/",
+        "title": "Vitamin D supplementation to prevent acute respiratory tract infections: systematic review and meta-analysis of individual participant data.",
+        "source_type": "pubmed",
+        "snippet": "Martineau AR, Jolliffe DA, Hooper RL, Greenberg L, Aloia JF, Bergman P et al. | BMJ (Clinical research ed.) | 2017-Feb-15 | Journal Article; Meta-Analysis; Systematic Review",
+        "full_summary": "Vitamin D supplementation reduced the risk of acute respiratory tract infection, especially in those with severe vitamin D deficiency and those not receiving bolus doses.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2017-Feb-15",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "Vitamin D supplementation reduced the risk of acute respiratory tract infection among all participants (adjusted odds ratio 0.88, 95% confidence interval 0.81 to 0.96; P for heterogeneity <0.001).",
+        "finding_direction": "strongly_supports",
+        "population": "0 to 95 years old",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39993397/",
+        "title": "Vitamin D supplementation to prevent acute respiratory infections: systematic review and meta-analysis of stratified aggregate data.",
+        "source_type": "pubmed",
+        "snippet": "Jolliffe DA, Camargo CA, Sluyter JD, Aglipay M, Aloia JF, Bergman P et al. | The lancet. Diabetes & endocrinology | 2025-Apr | Journal Article; Systematic Review; Meta-Analysis",
+        "full_summary": "An updated meta-analysis, including new trials, found no statistically significant protective effect of vitamin D supplementation on overall acute respiratory infection risk.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-Apr",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "For the primary comparison of any vitamin D versus placebo, the intervention did not statistically significantly affect overall ARI risk (OR 0\n94 [95% CI 0\n88-1\n00], p=0\n057; 40 studies; 61\n589 participants; I2=26\n4%).",
+        "finding_direction": "no_evidence",
+        "population": "61,589 participants",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/33798465/",
+        "title": "Vitamin D supplementation to prevent acute respiratory infections: a systematic review and meta-analysis of aggregate data from randomised controlled trials.",
+        "source_type": "pubmed",
+        "snippet": "Jolliffe DA, Camargo CA, Sluyter JD, Aglipay M, Aloia JF, Ganmaa D et al. | The lancet. Diabetes & endocrinology | 2021-May | Journal Article; Meta-Analysis; Research Support, Non-U.S. Gov't",
+        "full_summary": "An updated meta-analysis found a small protective effect of vitamin D supplementation against acute respiratory infections, particularly with daily dosing, specific dose ranges, shorter durations, and in children.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2021-May",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "A significantly lower proportion of participants in the vitamin D supplementation group had one or more ARIs (14\n332 [61\n3%] of 23\n364 participants) than in the placebo group (14\n217 [62\n3%] of 22\n802 participants), with an OR of 0\n92 (95% CI 0\n86-0\n99; 37 studies; I2=35\n6%, pheterogeneity=0\n018).",
+        "finding_direction": "no_evidence",
+        "population": "0-95 years old",
+        "directness": "direct"
+      },
+      {
+        "url": "https://clinicaltrials.gov/study/NCT05014048",
+        "title": "Vitamin D Supplementation for the Prevention of Acute Respiratory Infections: a RCT in Young Finnish Men",
+        "source_type": "clinicaltrials",
+        "snippet": "Vitamin D Supplementation for the Prevention of Acute Respiratory Infections: a RCT in Young Finnish Men (Vitamin D Deficiency, Respiratory Tract Infections) [COMPLETED, NA]",
+        "full_summary": "This is a completed randomized controlled trial registered on ClinicalTrials.gov investigating the effect of vitamin D supplementation on days off due to acute respiratory tract infections in young Finnish men.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2018-01-04",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "The study is completed, but no results are reported in this registry entry.",
+        "finding_direction": "no_evidence",
+        "population": "Young Finnish Men",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/38787821/",
+        "title": "Vitamin D supplementation for prevention of acute respiratory infections in older adults: A systematic review and meta-analysis.",
+        "source_type": "pubmed",
+        "snippet": "Jia H, Sheng F, Yan Y, Liu X, Zeng B | PloS one | 2024 | Journal Article; Systematic Review; Meta-Analysis",
+        "full_summary": "Vitamin D supplementation in older adults likely has little to no effect on the incidence of acute respiratory infections, though there's a non-significant possibility of benefit in those with baseline vitamin D deficiency.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2024",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "It showed that vitamin D supplementation probably does not reduce the incidence of ARIs (RR, 0.99; 95% CI, 0.97-1.02, I2 = 0%; moderate certainty).",
+        "finding_direction": "strongly_contradicts",
+        "population": "older adults",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42037591/",
+        "title": "Vitamin D for preventing acute respiratory infections in children up to five years of age.",
+        "source_type": "pubmed",
+        "snippet": "van Arragon M, Grant CC, Scragg RK, Jordan VM | The Cochrane database of systematic reviews | 2026-Apr-27 | Journal Article; Systematic Review; Meta-Analysis",
+        "full_summary": "Vitamin D supplementation may slightly reduce ARI-related healthcare visits in children under five, but probably doesn't reduce the mean number of visits. Higher vs. lower doses showed no significant reduction.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026-Apr-27",
+        "citation_count": 1,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "Vitamin D supplementation may result in a slight reduction in the proportion of children who make ARI-related healthcare visits compared to placebo.",
+        "finding_direction": "mixed",
+        "population": "children up to five years of age",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/33269357/",
+        "title": "Vitamin D supplementation to prevent acute respiratory infections: systematic review and meta-analysis of aggregate data from randomised controlled trials.",
+        "source_type": "pubmed",
+        "snippet": "Jolliffe DA, Camargo CA, Sluyter JD, Aglipay M, Aloia JF, Ganmaa D et al. | medRxiv : the preprint server for health sciences | 2020-Nov-25 | Preprint; Journal Article",
+        "full_summary": "This meta-analysis of 45 RCTs found that vitamin D supplementation reduced the risk of acute respiratory infections (ARI) overall, particularly with daily dosing regimens of 400-1000 IU for up to 12 months.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2020-Nov-25",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "For the primary comparison of vitamin D supplementation vs. placebo, the intervention reduced risk of ARI overall (Odds Ratio [OR] 0.91, 95% CI 0.84 to 0.99; P for heterogeneity 0.01).",
+        "finding_direction": "strongly_supports",
+        "population": "participants aged 0 to 95 years",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/27631625/",
+        "title": "Effect of Vitamin D3 Supplementation on Respiratory Tract Infections in Healthy Individuals: A Systematic Review and Meta-Analysis of Randomized Controlled Trials.",
+        "source_type": "pubmed",
+        "snippet": "Vuichard Gysin D, Dao D, Gysin CM, Lytvyn L, Loeb M | PloS one | 2016 | Journal Article; Meta-Analysis; Systematic Review",
+        "full_summary": "A meta-analysis of 15 trials found a 6% risk reduction with vitamin D3 supplementation on clinical RTIs, but this was not statistically significant. The overall study quality was low and heterogeneity was large.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2016",
+        "citation_count": 73,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "We found a 6% risk reduction with vitamin D3 supplementation on clinical RTIs, but the result was not statistically significant (RR 0.94; 95% CI 0.88 to 1.00).",
+        "finding_direction": "weakly_supports",
+        "population": "healthy adults and children",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/38113446/",
+        "title": "Effect of Daily Vitamin D Supplementation on Risk of Upper Respiratory Infection in Older Adults: A Randomized Controlled Trial.",
+        "source_type": "pubmed",
+        "snippet": "Camargo CA, Schaumberg DA, Friedenberg G, Dushkes R, Glynn RJ, Gold DR et al. | Clinical infectious diseases : an official publication of the Infectious Diseases Society of America | 2024-May-15 | Journal Article; Randomized Controlled Trial; Research Support, N.I.H., Extramural",
+        "full_summary": "This randomized controlled trial found that daily vitamin D supplementation did not lower the risk of upper respiratory infection (URI) in older adults not selected for vitamin D deficiency.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2024-May-15",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "In older adults not selected for vitamin D deficiency, supplemental vitamin D did not lower URI risk overall.",
+        "finding_direction": "strongly_contradicts",
+        "population": "older adults",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/35182989/",
+        "title": "Current opinion on the role of vitamin D supplementation in respiratory infections and asthma/COPD exacerbations: A need to establish publication guidelines for overcoming the unpublished data.",
+        "source_type": "pubmed",
+        "snippet": "Anitua E, Tierno R, Alkhraisat MH | Clinical nutrition (Edinburgh, Scotland) | 2022-Mar | Journal Article; Meta-Analysis; Systematic Review",
+        "full_summary": "This meta-analysis of 65 RCTs found that vitamin D supplementation significantly reduced the overall incidence of respiratory infections, particularly with daily administration, despite high heterogeneity and potential publication bias.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2022-Mar",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "The overall incidence of respiratory infections in terms of count data (OR: 0.87; 95%CI [0.80-0.95]; p = 0.0028; I2 = 43%) and event rate (IRR: 0.81; 95%CI [0.70-0.95]; p = 0.010; I2 = 79%) was significantly reduced in the intervention group.",
+        "finding_direction": "strongly_supports",
+        "population": "50,554 participants in RCTs",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36215226/",
+        "title": "Effect of a test-and-treat approach to vitamin D supplementation on risk of all cause acute respiratory tract infection and covid-19: phase 3 randomised controlled trial (CORONAVIT).",
+        "source_type": "pubmed",
+        "snippet": "Jolliffe DA, Holt H, Greenig M, Talaei M, Perdek N, Pfeffer P et al. | BMJ (Clinical research ed.) | 2022-Sep-07 | Clinical Trial, Phase III; Journal Article; Randomized Controlled Trial",
+        "full_summary": "This randomized controlled trial found that a test-and-treat approach to vitamin D supplementation did not reduce the risk of all-cause acute respiratory tract infection or COVID-19 in adults.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2022-Sep-07",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Among people aged 16 years and older with a high baseline prevalence of suboptimal vitamin D status, implementation of a population level test-and-treat approach to vitamin D supplementation was not associated with a reduction in risk of all cause acute respiratory tract infection or covid-19.",
+        "finding_direction": "strongly_contradicts",
+        "population": "6200 people aged ≥16 years in the United Kingdom",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/30675873/",
+        "title": "Vitamin D supplementation to prevent acute respiratory infections: individual participant data meta-analysis.",
+        "source_type": "pubmed",
+        "snippet": "Martineau AR, Jolliffe DA, Greenberg L, Aloia JF, Bergman P, Dubnov-Raz G et al. | Health technology assessment (Winchester, England) | 2019-Jan | Meta-Analysis; Journal Article",
+        "full_summary": "This individual participant data meta-analysis of 25 RCTs found that vitamin D supplementation reduced the risk of acute respiratory infections (ARIs) overall, with stronger protective effects in individuals with very low baseline vitamin D levels and those receiving daily or weekly doses without bolus doses.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2019-Jan",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "Vitamin D supplementation reduced the risk of ARI among all participants [adjusted odds ratio (aOR) 0.88, 95% confidence interval (CI) 0.81 to 0.96; heterogeneity p < 0.001].",
+        "finding_direction": "strongly_supports",
+        "population": "participants aged 0 to 95 years",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/26063508/",
+        "title": "Double-blind randomised controlled trial of vitamin D3 supplementation for the prevention of acute respiratory infection in older adults and their carers (ViDiFlu).",
+        "source_type": "pubmed",
+        "snippet": "Martineau AR, Hanifa Y, Witt KD, Barnes NC, Hooper RL, Patel M et al. | Thorax | 2015-Oct | Journal Article; Randomized Controlled Trial; Research Support, Non-U.S. Gov't",
+        "full_summary": "This double-blind randomized controlled trial found that adding intermittent bolus-dose vitamin D3 supplementation to a daily low-dose regimen did not influence the risk of acute respiratory infection (ARI) in older adults and their carers, and was associated with an increased risk and duration of upper respiratory infection (URI).",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2015-Oct",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Addition of intermittent bolus-dose vitamin D3 supplementation to a daily low-dose regimen did not influence risk of ARI in older adults and their carers, but was associated with increased risk and duration of URI.",
+        "finding_direction": "contradicts",
+        "population": "older adults and their carers",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/c14e131605b3cab79981926ce0f292c0ed8df262",
+        "title": "High Dose Monthly Vitamin D for Prevention of Acute Respiratory Infection in Older Long-Term Care Residents: A Randomized Clinical Trial",
+        "source_type": "semantic_scholar",
+        "snippet": "To determine the efficacy and safety of high‐dose vitamin D supplementation for prevention of acute respiratory infection (ARI) in older long‐term care residents.",
+        "full_summary": "This is a randomized clinical trial investigating the efficacy and safety of high-dose vitamin D supplementation for the prevention of acute respiratory infection in older long-term care residents.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2016",
+        "citation_count": 137,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "The abstract states the objective of the study, but does not report any results or findings.",
+        "finding_direction": "no_evidence",
+        "population": "older long-term care residents",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41387808/",
+        "title": "The role of vitamin D in the prevention and treatment of acute respiratory infections in pediatric populations: a systematic review and meta-analysis of randomized controlled trials.",
+        "source_type": "pubmed",
+        "snippet": "Wang L, Yu Y, Liu K, Yu X, Li Y | BMC pediatrics | 2025-Dec-12 | Journal Article; Systematic Review; Meta-Analysis",
+        "full_summary": "This systematic review and meta-analysis of 17 RCTs in pediatric populations found that vitamin D supplementation did not significantly reduce overall ARI incidence, but daily low-dose regimens (≤ 1000 IU/day) showed a preventive benefit.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2025-Dec-12",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "Overall, vitamin D supplementation did not significantly reduce ARI incidence (RR = 0.82, 95% CI: 0.64 to 1.06), hospitalization duration (MD = 0.03 days, 95% CI: -0.72 to 0.78), recovery time (MD = -4.36 h, 95% CI: -11.87 to 3.15), or all-cause mortality (RR = 0.88, 95% CI: 0.60 to 1.28).",
+        "finding_direction": "strongly_contradicts",
+        "population": "pediatric populations",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/23032549/",
+        "title": "Effect of vitamin D3 supplementation on upper respiratory tract infections in healthy adults: the VIDARIS randomized controlled trial.",
+        "source_type": "pubmed",
+        "snippet": "Murdoch DR, Slow S, Chambers ST, Jennings LC, Stewart AW, Priest PC et al. | JAMA | 2012-Oct-03 | Journal Article; Randomized Controlled Trial; Research Support, Non-U.S. Gov't",
+        "full_summary": "This randomized controlled trial found that monthly administration of 100,000 IU of vitamin D did not reduce the incidence or severity of upper respiratory tract infections (URTIs) in healthy adults.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2012-Oct-03",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "In this trial, monthly administration of 100,000 IU of vitamin D did not reduce the incidence or severity of URTIs in healthy adults.",
+        "finding_direction": "strongly_contradicts",
+        "population": "healthy adults",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/33444565/",
+        "title": "The effect of vitamin D supplementation on acute respiratory tract infection in older Australian adults: an analysis of data from the D-Health Trial.",
+        "source_type": "pubmed",
+        "snippet": "Pham H, Waterhouse M, Baxter C, Duarte Romero B, McLeod DSA, Armstrong BK et al. | The lancet. Diabetes & endocrinology | 2021-Feb | Journal Article; Research Support, Non-U.S. Gov't",
+        "full_summary": "Monthly bolus doses of 60,000 IU of vitamin D did not reduce the overall risk of acute respiratory tract infection in older Australian adults, but could slightly reduce the duration of symptoms.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2021-Feb",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Vitamin D supplementation did not reduce the risk of acute respiratory tract infection (survey OR 0\n98, 95% CI 0\n93 to 1\n02; diary OR 0\n98, 0\n83 to 1\n15).",
+        "finding_direction": "no_evidence",
+        "population": "men and women aged 60 to 79 years (with volunteers up to age 84 years) from the Australian general population",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/26310436/",
+        "title": "Vitamin D supplementation for the prevention of childhood acute respiratory infections: a systematic review of randomised controlled trials.",
+        "source_type": "pubmed",
+        "snippet": "Xiao L, Xing C, Yang Z, Xu S, Wang M, Du H et al. | The British journal of nutrition | 2015-Oct-14 | Journal Article; Meta-Analysis; Research Support, Non-U.S. Gov't",
+        "full_summary": "This systematic review and meta-analysis of seven RCTs found no significant reduction in the risk of ARI in healthy children with vitamin D supplementation, but suggested a benefit for children with asthma in reducing exacerbations.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2015-Oct-14",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "We identified seven RCT and found that the summary estimates were not statistically significantly associated with a reduction in the risk of ARI (relative risk (RR) 0\n79, 95% CI 0\n55, 1\n13), all-cause mortality (RR 1\n18, 95% CI 0\n71, 1\n94), or the rate of hospital admission due to respiratory infection in healthy children (RR 0\n95, 95% CI 0\n72, 1\n26).",
+        "finding_direction": "no_evidence",
+        "population": "children younger than 18 years of age",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/23220552/",
+        "title": "Vitamin D in the prevention of acute respiratory infection: systematic review of clinical studies.",
+        "source_type": "pubmed",
+        "snippet": "Jolliffe DA, Griffiths CJ, Martineau AR | The Journal of steroid biochemistry and molecular biology | 2013-Jul | Journal Article; Research Support, Non-U.S. Gov't; Systematic Review",
+        "full_summary": "This systematic review found conflicting results from clinical trials on vitamin D supplementation for preventing acute respiratory infection, but observational studies generally showed an association between low vitamin D and increased risk.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2013-Jul",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "Observational studies predominantly reported statistically significant associations between low vitamin D status and increased risk of both upper and lower respiratory tract infections.",
+        "finding_direction": "supports",
+        "population": "humans",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39465641/",
+        "title": "Effect of vitamin D status and vitamin D supplementation on immune function and prevention of acute respiratory tract infections in dark-skinned individuals: a systematic review and meta-analysis.",
+        "source_type": "pubmed",
+        "snippet": "Bournot AR, Darling AL, Givens ID, Lovegrove JA, Lanham-New SA, Hart KH | Public health nutrition | 2024-Oct-28 | Journal Article; Meta-Analysis; Systematic Review",
+        "full_summary": "This systematic review and meta-analysis found no significant effect of vitamin D supplementation on acute respiratory tract infection incidence in dark-skinned individuals.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2024-Oct-28",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "There was no significant effect of vitamin D supplementation on differences in ARTI incidence in ethnic minority groups (OR, 1·40; 95 % CI: 0·70, 2·79; P = 0·34), nor African American (OR, 1·77; 95 % CI: 0·51, 6·19; P = 0·37) or Asian/Pacific (OR, 1·08; 95 % CI: 0·77, 2·68; P = 0·66) subgroups.",
+        "finding_direction": "strongly_contradicts",
+        "population": "dark-skinned individuals (ethnic groups other than white)",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39808630/",
+        "title": "Vitamin D, acute respiratory infections, and Covid-19: The curse of small-size randomised trials. A critical review with meta-analysis of randomised trials.",
+        "source_type": "pubmed",
+        "snippet": "Autier P, Doi G, Mullie P, Vankrunkelsven P, D'Ecclesiis O, Gandini S | PloS one | 2025 | Journal Article; Meta-Analysis; Systematic Review",
+        "full_summary": "This meta-analysis found that small randomized trials on vitamin D supplementation for preventing severe COVID-19 and acute respiratory infections were affected by strong publication bias, exaggerating health benefits. Larger trials did not confirm these benefits.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "The summary odds ratio (SOR) for the 37 trials on VDS for ARI prevention was 0.92 (0.86-0.99) for all trials, but after adjusting for publication bias, the SOR was 0.96 (0.88-1.05), suggesting no significant benefit.",
+        "finding_direction": "contradicts",
+        "population": "patients at risk of acute respiratory infections and COVID-19 patients",
+        "directness": "direct"
+      },
+      {
+        "url": "https://clinicaltrials.gov/study/NCT02046577",
+        "title": "Study of Vitamin D for the Prevention of Acute Respiratory Infections in Children",
+        "source_type": "clinicaltrials",
+        "snippet": "Study of Vitamin D for the Prevention of Acute Respiratory Infections in Children (Acute Respiratory Tract Infections) [COMPLETED, PHASE2]",
+        "full_summary": "This is a completed randomized controlled trial investigating the effectiveness of weekly oral vitamin D supplementation in preventing acute respiratory tract infections in children aged 18 to 36 months.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2014-02",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "registered trial",
+        "evidence_level": 0.55,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "children aged 18 to 36 months",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/33472840/",
+        "title": "Effect of micronutrient supplements on influenza and other respiratory tract infections among adults: a systematic review and meta-analysis.",
+        "source_type": "pubmed",
+        "snippet": "Abioye AI, Bromage S, Fawzi W | BMJ global health | 2021-Jan | Journal Article; Meta-Analysis; Systematic Review",
+        "full_summary": "This systematic review and meta-analysis found that vitamin D supplementation modestly reduced the risk of acute respiratory infections and shortened symptom duration in adults.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2021-Jan",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "Vitamin D supplementation reduced the risk of ARI (risk ratio (RR)=0.97; 95% CI 0.94 to 1.00; p=0.028) and shortened the duration of symptoms (per cent difference: -6% (95% CI -9% to -2%; p=0.003)).",
+        "finding_direction": "strongly_supports",
+        "population": "adults",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/24014734/",
+        "title": "Vitamin D3 supplementation and upper respiratory tract infections in a randomized, controlled trial.",
+        "source_type": "pubmed",
+        "snippet": "Rees JR, Hendricks K, Barry EL, Peacock JL, Mott LA, Sandler RS et al. | Clinical infectious diseases : an official publication of the Infectious Diseases Society of America | 2013-Nov | Journal Article; Multicenter Study; Randomized Controlled Trial",
+        "full_summary": "Vitamin D3 supplementation (1000 IU/day) did not significantly reduce the incidence or duration of upper respiratory tract infections in adults with a history of colorectal adenoma and baseline vitamin D levels \">=\" 12 ng/mL.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2013-Nov",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Supplementation with 1000 IU/day vitamin D(3) did not significantly reduce the incidence or duration of URTI in adults with a baseline serum 25-hydroxyvitamin D level \">=\" 12 ng/mL.",
+        "finding_direction": "no_evidence",
+        "population": "adults aged 45-75 with a history of colorectal adenoma and serum 25-hydroxyvitamin D level \">=\" 12 ng/mL",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://clinicaltrials.gov/study/NCT01069874",
+        "title": "Trial of Vitamin D Supplementation for the Prevention of Influenza and Other Respiratory Infections (ViDiFlu)",
+        "source_type": "clinicaltrials",
+        "snippet": "Trial of Vitamin D Supplementation for the Prevention of Influenza and Other Respiratory Infections (ViDiFlu) (Respiratory Tract Infections, Influenza) [COMPLETED, PHASE2, PHASE3]",
+        "full_summary": "This is a completed cluster-randomized, double-blind, placebo-controlled trial investigating the effect of vitamin D supplementation on the time to first acute respiratory tract infection in residents of sheltered accommodation.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2010-03",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "sheltered accommodation residents",
+        "directness": "direct"
+      },
+      {
+        "url": "https://clinicaltrials.gov/study/NCT00973583",
+        "title": "Vitamin D Supplementation for the Prevention of Acute Respiratory Tract Infections",
+        "source_type": "clinicaltrials",
+        "snippet": "Vitamin D Supplementation for the Prevention of Acute Respiratory Tract Infections (Respiratory Tract Infections) [COMPLETED, NA]",
+        "full_summary": "This is a completed randomized double-blinded trial investigating vitamin D supplementation for the prevention of acute respiratory tract infections in young Finnish men.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2005-05",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "young Finnish men",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/34626488/",
+        "title": "Nutrient supplementation for prevention of viral respiratory tract infections in healthy subjects: A systematic review and meta-analysis.",
+        "source_type": "pubmed",
+        "snippet": "Vlieg-Boerstra B, de Jong N, Meyer R, Agostoni C, De Cosmi V, Grimshaw K et al. | Allergy | 2022-May | Journal Article; Meta-Analysis; Systematic Review",
+        "full_summary": "This meta-analysis found that vitamin D supplementation significantly decreased the incidence of respiratory tract infections (RTIs) in adults, particularly in North America.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2022-May",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "Vitamin D supplementation in adults significantly decreased the incidence of RTI (RR 0.89, 95% CI 0.79-0.99, p = .272), particularly in North America (RR 0.82 95% CI 0.68-0.97), but not in Europe or Oceania.",
+        "finding_direction": "mixed",
+        "population": "adults and children",
+        "directness": "direct"
+      },
+      {
+        "url": "https://clinicaltrials.gov/study/NCT01158560",
+        "title": "A Trial of Vitamin D and Health Advice for the Prevention of Upper Respiratory Tract Infections",
+        "source_type": "clinicaltrials",
+        "snippet": "A Trial of Vitamin D and Health Advice for the Prevention of Upper Respiratory Tract Infections (Upper Respiratory Tract Infections, Rhinovirus, Infections) [COMPLETED, PHASE3]",
+        "full_summary": "This is a completed randomized, placebo-controlled, double-blind trial investigating the effectiveness of vitamin D supplementation and gargling for the prevention of upper respiratory tract infections in university students.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2010-09",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "university students",
+        "directness": "direct"
+      },
+      {
+        "url": "https://clinicaltrials.gov/study/NCT02617771",
+        "title": "Impact of Vitamin D Supplementation on Recurrent Respiratory Infections in Paediatric Primary Care.",
+        "source_type": "clinicaltrials",
+        "snippet": "Impact of Vitamin D Supplementation on Recurrent Respiratory Infections in Paediatric Primary Care. (Recurrent Respiratory Tract Infections) [COMPLETED, PHASE4]",
+        "full_summary": "This is a completed clinical trial investigating the impact of vitamin D supplementation on recurrent respiratory infections in children in a primary care setting.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2014-10",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "The primary outcome was evaluated if Vitamin D supplementation during autumn and winter can reduce the number of respiratory tract infections in children diagnosed with recurrent respiratory tract infections the seasons before.",
+        "finding_direction": "mixed",
+        "population": "children with recurrent respiratory tract infections",
+        "directness": "direct"
+      },
+      {
+        "url": "https://clinicaltrials.gov/study/NCT01875757",
+        "title": "Effect of Supplementation With Vitamin D on the Acute Bronchitis Prevention During the First Year of Life",
+        "source_type": "clinicaltrials",
+        "snippet": "Effect of Supplementation With Vitamin D on the Acute Bronchitis Prevention During the First Year of Life (Acute Bronchitis, Upper Respiratory Tract Infection, Acute Bronchiolitis) [COMPLETED, PHASE3]",
+        "full_summary": "This is a completed phase III randomized double-blind clinical trial investigating the effect of vitamin D supplementation on the prevention of acute bronchitis and upper respiratory tract infections in infants during their first year of life.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2013-11",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "healthy term born infants",
+        "directness": "direct"
+      }
+    ],
+    "global_summary": "Vitamin D supplementation has shown **mixed results** in preventing acute respiratory infections (ARIs) across different populations and study designs. Several meta-analyses of individual participant data and aggregate data from randomized controlled trials (RCTs) suggest a modest reduction in ARI risk across broad age ranges [0][2][6][9][11]. For instance, a 2017 meta-analysis of individual participant data found that vitamin D supplementation reduced the risk of ARI among all participants (adjusted odds ratio **0.88**, 95% confidence interval **0.81 to 0.96**) [0], a finding echoed by a 2019 meta-analysis with an identical adjusted odds ratio [11]. Similarly, a 2020 meta-analysis reported an odds ratio of **0.91** (95% CI **0.84 to 0.99**) [6], and a 2021 meta-analysis found a significantly lower proportion of participants in the vitamin D group experiencing one or more ARIs (OR **0.92**, 95% CI **0.86-0.99**) [2]. Another meta-analysis from 2022 reported a significant reduction in the overall incidence of respiratory infections (OR: **0.87**, 95%CI [**0.80-0.95**]) [9]. A 2021 meta-analysis focusing on adults also found that vitamin D supplementation reduced the risk of ARI (risk ratio **0.97**, 95% CI **0.94 to 1.00**) and shortened symptom duration by **6%** [22]. Observational studies have also reported associations between low vitamin D status and increased risk of both upper and lower respiratory tract infections [18].\n\nHowever, other large meta-analyses and RCTs have found **no significant benefit** of vitamin D supplementation for ARI prevention. A 2025 meta-analysis of 40 studies with 61,589 participants found no statistically significant effect on overall ARI risk (OR **0.94**, 95% CI **0.88-1.00**, p=**0.057**) [1]. Another meta-analysis, after adjusting for publication bias, also suggested no significant benefit (SOR **0.96**, 95% CI **0.88-1.05**) [20]. A 2016 meta-analysis found a **6%** risk reduction with vitamin D3 supplementation, but this result was not statistically significant (RR **0.94**, 95% CI **0.88 to 1.00**) [7].\n\n**Results are particularly inconsistent in specific populations**, such as older adults and children. For older adults, a 2024 systematic review and meta-analysis concluded that vitamin D supplementation *probably does not* reduce the incidence of ARIs (RR **0.99**, 95% CI **0.97-1.02**) [4]. This is supported by a 2024 randomized controlled trial in older adults not selected for vitamin D deficiency, which found no overall reduction in URI risk [8]. A 2015 RCT in older adults and their carers found that intermittent bolus-dose vitamin D3 did not influence ARI risk and was associated with *increased* risk and duration of URI [12]. Similarly, a 2021 analysis of the D-Health Trial in older Australian adults (aged 60-79) found no reduction in ARI risk [16]. For children, a 2025 meta-analysis in pediatric populations found that vitamin D supplementation did not significantly reduce ARI incidence (RR = **0.82**, 95% CI: **0.64 to 1.06**), hospitalization duration, recovery time, or all-cause mortality [14]. A 2015 systematic review of RCTs in children younger than 18 years also found no statistically significant association with a reduction in ARI risk (RR **0.79**, 95% CI **0.55, 1.13**) [17]. However, a 2026 systematic review in children up to five years of age suggested a *slight reduction* in ARI-related healthcare visits [5].\n\n**Dosing and population characteristics may influence outcomes**. A 2012 RCT in healthy adults found that monthly administration of **100,000 IU** of vitamin D did not reduce the incidence or severity of URTIs [15]. A 2013 RCT in adults with a baseline serum 25-hydroxyvitamin D level of **>= 12 ng/mL** found that supplementation with **1000 IU/day** vitamin D3 did not significantly reduce the incidence or duration of URTI [23]. A 2022 meta-analysis noted that vitamin D supplementation significantly decreased the incidence of RTI in adults, *particularly in North America* (RR **0.82**, 95% CI **0.68-0.97**), but not in Europe or Oceania [26]. Furthermore, a 2024 meta-analysis found no significant effect of vitamin D supplementation on ARI incidence in dark-skinned individuals or specific ethnic minority subgroups [19]. A large phase 3 RCT (CORONAVIT) in the United Kingdom with 6200 people aged 16 and older, many with suboptimal vitamin D, found that a population-level test-and-treat approach to vitamin D supplementation was not associated with a reduction in ARI risk [10]. Several other randomized controlled trials have been completed but have not yet reported results in their registry entries, including studies in young Finnish men [3][25], children aged 18 to 36 months [21], older long-term care residents [13], sheltered accommodation residents [24], university students [27], children with recurrent respiratory tract infections [28], and infants during their first year of life [29].",
+    "total_sources_consulted": 160,
+    "duration_seconds": 100.43,
+    "job_stats": {
+      "total_cost_usd": 0.101999,
+      "llm": {
+        "total_calls": 68,
+        "total_input_tokens": 139522,
+        "total_output_tokens": 19340,
+        "total_tokens": 158862,
+        "total_cost_usd": 0.0942678,
+        "by_purpose": {
+          "related_articles_domain": {
+            "count": 1,
+            "input_tokens": 735,
+            "output_tokens": 262,
+            "cost_usd": 0.0001783,
+            "total_latency_ms": 1008.4
+          },
+          "related_articles_brief": {
+            "count": 2,
+            "input_tokens": 3066,
+            "output_tokens": 351,
+            "cost_usd": 0.002586,
+            "total_latency_ms": 3631.5
+          },
+          "related_articles_decompose": {
+            "count": 1,
+            "input_tokens": 572,
+            "output_tokens": 131,
+            "cost_usd": 0.0001096,
+            "total_latency_ms": 610.3
+          },
+          "related_articles_reformulate": {
+            "count": 7,
+            "input_tokens": 21811,
+            "output_tokens": 879,
+            "cost_usd": 0.0135425,
+            "total_latency_ms": 9106.0
+          },
+          "related_articles_rerank": {
+            "count": 4,
+            "input_tokens": 29677,
+            "output_tokens": 1398,
+            "cost_usd": 0.0123981,
+            "total_latency_ms": 7698.6
+          },
+          "related_articles_design_grade": {
+            "count": 1,
+            "input_tokens": 1383,
+            "output_tokens": 79,
+            "cost_usd": 0.0001699,
+            "total_latency_ms": 519.8
+          },
+          "related_articles_summarize": {
+            "count": 19,
+            "input_tokens": 56719,
+            "output_tokens": 11806,
+            "cost_usd": 0.0465307,
+            "total_latency_ms": 92091.6
+          },
+          "related_articles_stance": {
+            "count": 32,
+            "input_tokens": 20374,
+            "output_tokens": 2269,
+            "cost_usd": 0.0117847,
+            "total_latency_ms": 24486.3
+          },
+          "related_articles_synthesis": {
+            "count": 1,
+            "input_tokens": 5185,
+            "output_tokens": 2165,
+            "cost_usd": 0.006968,
+            "total_latency_ms": 12518.1
+          }
+        }
+      },
+      "embeddings": {
+        "total_calls": 296,
+        "total_tokens": 59471,
+        "total_cost_usd": 0.00773123,
+        "by_model": {
+          "openai/text-embedding-3-large": {
+            "calls": 296,
+            "tokens": 59471,
+            "cost_usd": 0.00773123
+          }
+        }
+      },
+      "tools": {
+        "calls": {
+          "search_guidelines": 1,
+          "probe_pubmed": 27,
+          "submit_brief": 1,
+          "submit_queries": 2,
+          "submit_appraisals": 12
+        },
+        "total_calls": 43
+      },
+      "providers": {
+        "calls": {
+          "clinicaltrials": 13,
+          "pubmed": 13,
+          "europe_pmc": 13
+        },
+        "cache_hits": {},
+        "errors": {},
+        "total_calls": 39,
+        "total_cache_hits": 0
+      },
+      "pipeline": {
+        "evidence_total": 0,
+        "evidence_after_relevance": 0,
+        "retries": 0
+      },
+      "stage_timings_ms": {
+        "domain_detection": 1008.5,
+        "brief": 4317.0,
+        "pro_decomposition": 610.3,
+        "pro_round1": 7507.6,
+        "pro_expansion": 12454.3,
+        "pro_round2": 12513.2,
+        "pro_round3": 13510.1,
+        "rerank": 12031.1,
+        "content_enrichment": 0.1,
+        "summarization": 19482.5,
+        "stance": 3312.2,
+        "global_synthesis": 12518.6
+      }
+    },
+    "key_findings": [
+      {
+        "text": "Vitamin D supplementation may reduce the risk of acute respiratory tract infection (ARI) in the general population, with some meta-analyses reporting an adjusted odds ratio of 0.88.",
+        "source_indices": [
+          0,
+          2,
+          6,
+          9,
+          11
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Vitamin D supplementation has been associated with a reduction in the duration of ARI symptoms in adults.",
+        "source_indices": [
+          22
+        ],
+        "strength": "moderate"
+      },
+      {
+        "text": "Observational studies suggest a link between low vitamin D status and an increased risk of respiratory tract infections.",
+        "source_indices": [
+          18
+        ],
+        "strength": "weak"
+      },
+      {
+        "text": "Vitamin D supplementation may result in a slight reduction in the proportion of children up to five years of age who make ARI-related healthcare visits.",
+        "source_indices": [
+          5
+        ],
+        "strength": "weak"
+      }
+    ],
+    "disagreements": [
+      {
+        "issue": "The overall effectiveness of vitamin D supplementation in preventing acute respiratory infections (ARIs).",
+        "positions": [
+          "Vitamin D supplementation significantly reduces the risk of ARIs across various populations.",
+          "Vitamin D supplementation does not significantly reduce the overall risk of ARIs."
+        ],
+        "source_indices": [
+          0,
+          2,
+          6,
+          9,
+          11,
+          22,
+          1,
+          7,
+          20
+        ]
+      },
+      {
+        "issue": "The effect of vitamin D supplementation on ARI prevention in older adults.",
+        "positions": [
+          "Vitamin D supplementation does not reduce the incidence of ARIs in older adults, and may even increase risk or duration of URIs.",
+          "The evidence is mixed or inconclusive regarding ARI prevention in older adults."
+        ],
+        "source_indices": [
+          4,
+          8,
+          12,
+          16
+        ]
+      },
+      {
+        "issue": "The effect of vitamin D supplementation on ARI prevention in pediatric populations.",
+        "positions": [
+          "Vitamin D supplementation does not significantly reduce ARI incidence, hospitalization, recovery time, or mortality in pediatric populations.",
+          "Vitamin D supplementation may result in a slight reduction in ARI-related healthcare visits in young children."
+        ],
+        "source_indices": [
+          14,
+          17,
+          5
+        ]
+      }
+    ],
+    "evidence_profile": {
+      "designs": {
+        "meta-analysis": 14,
+        "registered trial": 7,
+        "randomised controlled trial": 7,
+        "systematic review": 2
+      },
+      "high_tier_share": 0.73,
+      "preprint_share": 0.03
+    },
+    "pico": {
+      "population": "patients at risk of acute respiratory infections",
+      "intervention": "Vitamin D supplementation",
+      "comparison": "",
+      "outcome": "prevention of acute respiratory infections",
+      "study_designs": [
+        "randomized controlled trial",
+        "meta-analysis"
+      ]
+    },
+    "evidence_gaps": [
+      "Several completed randomized controlled trials in specific populations (young Finnish men, children aged 18-36 months, older long-term care residents, sheltered accommodation residents, university students, children with recurrent respiratory tract infections, and infants) have not yet reported their results, leaving a gap in the published evidence for these groups [3][13][21][24][25][27][28][29].",
+      "The optimal dosing regimen (e.g., daily vs. bolus, specific IU) and duration of vitamin D supplementation for ARI prevention are not definitively established across all populations and baseline vitamin D statuses.",
+      "The effectiveness of vitamin D supplementation in specific ethnic minority groups, particularly dark-skinned individuals, remains unclear, with current evidence suggesting no significant effect [19].",
+      "The impact of a 'test-and-treat' approach to vitamin D supplementation at a population level on ARI risk has been investigated in one large trial, but more evidence on this strategy is needed [10]."
+    ]
+  }
+}

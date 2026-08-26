@@ -1,0 +1,712 @@
+{
+  "id": "dr-ai-screening",
+  "topic": "Autonomous AI screening for diabetic retinopathy: sensitivity vs expert graders",
+  "max_sources": 20,
+  "summary_language": "en",
+  "recorded_at": "2026-08-26",
+  "events": [
+    {
+      "stage": "domain",
+      "message": "Analysing the topic…",
+      "at_ms": 0
+    },
+    {
+      "stage": "domain",
+      "message": "Domain detected: medicine",
+      "at_ms": 1144
+    },
+    {
+      "stage": "brief",
+      "message": "Research brief ready: 5 query variants, providers: pubmed, clinicaltrials, europe_pmc",
+      "at_ms": 5771
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 1: 50 candidates from 7 queries",
+      "at_ms": 13210
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: refining queries…",
+      "at_ms": 15892
+    },
+    {
+      "stage": "discovery",
+      "message": "Citation graph expansion: +47 candidates from 4 seeds",
+      "at_ms": 27658
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: 10 candidates from 3 queries (6 new relevant)",
+      "at_ms": 29639
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: refining queries…",
+      "at_ms": 29639
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: 13 candidates from 3 queries (12 new relevant)",
+      "at_ms": 41987
+    },
+    {
+      "stage": "discovery",
+      "message": "Discovery complete: 109 unique candidates after dedup",
+      "at_ms": 41988
+    },
+    {
+      "stage": "rerank",
+      "message": "Scoring and reranking 109 candidates…",
+      "at_ms": 41988
+    },
+    {
+      "stage": "rerank",
+      "message": "Shortlisted 46 sources to read in full",
+      "at_ms": 53828
+    },
+    {
+      "stage": "read",
+      "message": "Fetching and summarising 46 sources…",
+      "at_ms": 53828
+    },
+    {
+      "stage": "read",
+      "message": "Summarised 46 sources",
+      "at_ms": 80974
+    },
+    {
+      "stage": "select",
+      "message": "Selecting the final set…",
+      "at_ms": 80974
+    },
+    {
+      "stage": "select",
+      "message": "20 articles selected",
+      "at_ms": 87000
+    },
+    {
+      "stage": "synthesis",
+      "message": "Writing the synthesis…",
+      "at_ms": 87000
+    },
+    {
+      "stage": "synthesis",
+      "message": "Synthesis complete: 7 findings, 1 conflicts",
+      "at_ms": 96010
+    }
+  ],
+  "response": {
+    "status": "completed",
+    "topic": "Autonomous AI screening for diabetic retinopathy: sensitivity vs expert graders",
+    "domain_detected": "medicine",
+    "articles": [
+      {
+        "url": "https://www.semanticscholar.org/paper/1a3922a2716da58589a3ede4b5fcde328257f9a9",
+        "title": "Accuracy of Autonomous Artificial Intelligence-Based Diabetic Retinopathy Screening in Real-Life Clinical Practice",
+        "source_type": "semantic_scholar",
+        "snippet": "Background: In diabetic retinopathy, early detection and intervention are crucial in preventing vision loss and improving patient outcomes. In the era of artificial intelligence (AI) and machine learning, new promising diagnostic tools have emerged. The IDX-DR machine (Digital Diagnostics, Coralvill",
+        "full_summary": "This study compared the IDX-DR AI system to human graders for diabetic retinopathy screening, finding 100% sensitivity for 'no DR', 'mild DR', and 'moderate DR', but also that the AI system tended to overestimate DR stages.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2024",
+        "citation_count": 18,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Sensitivity was calculated to be 100% for 'no DR', 'mild DR', and 'moderate DR'.",
+        "finding_direction": "no_evidence",
+        "population": "patients undergoing AI-based DR screening",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40649184/",
+        "title": "Comparison of Validity and Reliability of Manual Consensus Grading vs. Automated AI Grading for Diabetic Retinopathy Screening in Oslo, Norway: A Cross-Sectional Pilot Study.",
+        "source_type": "pubmed",
+        "snippet": "Karabeg M, Petrovski G, Holen K, Steffensen Sauesund E, Fosmark DS, Russell G et al. | Journal of clinical medicine | 2025-Jul-07 | Journal Article",
+        "full_summary": "This cross-sectional pilot study compared the validity and reliability of automated AI-based grading (EyeArt) with manual consensus grading for diabetic retinopathy screening, reporting high sensitivity for the AI system.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-Jul-07",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cross-sectional study",
+        "evidence_level": 0.42,
+        "key_finding": "Prevalence of any vs. referable DR (RDR) was 20.2% vs. 11.7%, while sensitivity was 94.0% vs. 89.7%, specificity was 72.6% was 83.0%, and AUC was 83.5% vs. 86.3%, respectively.",
+        "finding_direction": "supports",
+        "population": "patients (≥18 years) with diabetes",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36345378/",
+        "title": "Artificial Intelligence Detection of Diabetic Retinopathy: Subgroup Comparison of the EyeArt System with Ophthalmologists' Dilated Examinations.",
+        "source_type": "pubmed",
+        "snippet": "Lim JI, Regillo CD, Sadda SR, Ipp E, Bhaskaranand M, Ramachandra C et al. | Ophthalmology science | 2023-Mar | Journal Article",
+        "full_summary": "The EyeArt AI system demonstrated higher sensitivity for detecting more than mild diabetic retinopathy (mtmDR) (97% and 96.5%) compared to general ophthalmologists (20.6%) and retina specialists (59.5%).",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2023-Mar",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "controlled trial",
+        "evidence_level": 0.72,
+        "key_finding": "Retina specialists correctly identified 22 of 37 eyes as positive (sensitivity 59.5%) and 182 of 184 eyes as negative (specificity 98.9%) for mtmDR versus the EyeArt AI system that identified 36 of 37 as positive (sensitivity 97%) and 162 of 184 eyes as negative (specificity of 88%) for mtmDR. General ophthalmologists correctly identified 35 of 170 eyes as positive (sensitivity 20.6%) and 607 of 6",
+        "finding_direction": "strongly_supports",
+        "population": "patients with diabetes mellitus",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42141103/",
+        "title": "Clinical setting-dependent diagnostic accuracy of artificial intelligence and store-and-forward diabetic retinopathy screening: a systematic review and meta-analysis.",
+        "source_type": "pubmed",
+        "snippet": "Chen KY, Chan HC, Chan CM | NPJ digital medicine | 2026-May-15 | Journal Article",
+        "full_summary": "A systematic review and meta-analysis found that autonomous AI screening showed higher pooled sensitivity than store-and-forward teleophthalmology for any DR (86.9%), referable DR (96.2%), vision-threatening DR (96.2%), and diabetic macular edema (97.2%).",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026-May-15",
+        "citation_count": 4,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "AI showed higher pooled sensitivity than SAF for any DR (86.9% vs 80.9%), RDR (96.2% vs 88.6%), VTDR (96.2% vs 84.2%), and DME (97.2% vs 87.4%).",
+        "finding_direction": "strongly_supports",
+        "population": "patients undergoing diabetic retinopathy screening",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/28024825/",
+        "title": "Automated Diabetic Retinopathy Image Assessment Software: Diagnostic Accuracy and Cost-Effectiveness Compared with Human Graders.",
+        "source_type": "pubmed",
+        "snippet": "Tufail A, Rudisill C, Egan C, Kapetanakis VV, Salas-Vega S, Owen CG et al. | Ophthalmology | 2017-Mar | Comparative Study; Journal Article; Observational Study",
+        "full_summary": "Automated DR image assessment systems (EyeArt and Retmarker) showed acceptable sensitivity for referable retinopathy when compared to human graders, with EyeArt achieving 94.7% sensitivity for any retinopathy and Retmarker 73.0%.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2017-Mar",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Sensitivity point estimates (95% confidence intervals) of the ARIAS were as follows: EyeArt 94.7% (94.2%-95.2%) for any retinopathy, 93.8% (92.9%-94.6%) for referable retinopathy (human graded as either ungradable, maculopathy, preproliferative, or proliferative), 99.6% (97.0%-99.9%) for proliferative retinopathy; Retmarker 73.0% (72.0 %-74.0%) for any retinopathy, 85.0% (83.6%-86.2%) for referabl",
+        "finding_direction": "mixed",
+        "population": "patients attending routine annual diabetic eye screening",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/38656241/",
+        "title": "Autonomous artificial intelligence versus teleophthalmology for diabetic retinopathy.",
+        "source_type": "pubmed",
+        "snippet": "Musetti D, Cutolo CA, Bonetto M, Giacomini M, Maggi D, Viviani GL et al. | European journal of ophthalmology | 2025-Jan | Journal Article; Comparative Study",
+        "full_summary": "This comparative study assessed two AI-based automated software programs (Eye Art TM and IDx-DR) for detecting diabetic retinopathy against evaluations by two retina specialists, concluding that AI software can achieve similar sensitivity to experts.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-Jan",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "The comparison between the diagnosis provided by artificial intelligence based automated software and the reference clinical diagnosis showed that they can work at a level of sensitivity that is similar to that achieved by experts.",
+        "finding_direction": "supports",
+        "population": "patients with type 1 or type 2 diabetes mellitus",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39425597/",
+        "title": "Grading of diabetic retinopathy using a pre-segmenting deep learning classification model: Validation of an automated algorithm.",
+        "source_type": "pubmed",
+        "snippet": "Similié DE, Andersen JKH, Dinesen S, Savarimuthu TR, Grauslund J | Acta ophthalmologica | 2025-Mar | Journal Article; Validation Study",
+        "full_summary": "An autonomous deep learning algorithm for diabetic retinopathy classification had a sensitivity of 78% compared to a gold-standard expert ophthalmologist grading.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-Mar",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "",
+        "evidence_level": 0.4,
+        "key_finding": "As compared to the gold standard, weighted kappa for Models 1-3 was 0.88, 0.89 and 0.72, sensitivities were 95%, 94% and 78% and specificities were 82%, 84% and 81%.",
+        "finding_direction": "supports",
+        "population": "patients with diabetic retinopathy",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/35132211/",
+        "title": "Comparison of early diabetic retinopathy staging in asymptomatic patients between autonomous AI-based screening and human-graded ultra-widefield colour fundus images.",
+        "source_type": "pubmed",
+        "snippet": "Sedova A, Hajdu D, Datlinger F, Steiner I, Neschi M, Aschauer J et al. | Eye (London, England) | 2022-Mar | Journal Article; Observational Study",
+        "full_summary": "This pilot study compared an autonomous AI system (IDx-DR) with human expert grading of ultra-widefield images for early diabetic retinopathy staging in asymptomatic patients, concluding that the AI system has sufficient accuracy for screening.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2022-Mar",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "The autonomous AI-based DR examination demonstrates sufficient accuracy in diagnosing asymptomatic non-proliferative diabetic patients with referable DR even compared to UWF imaging evaluated by human experts offering a suitable method for DR screening.",
+        "finding_direction": "supports",
+        "population": "asymptomatic diabetics without a previous diagnosis of DR",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41052568/",
+        "title": "Diagnostic Accuracy of EyeArt for Fundus-Based Detection of Diabetic Retinopathy: A Systematic Review and Meta-analysis.",
+        "source_type": "pubmed",
+        "snippet": "Wang TW, Luo WT, Tu YK, Chou YB, Wu YT | American journal of ophthalmology | 2026-Jan | Journal Article; Systematic Review; Meta-Analysis",
+        "full_summary": "This systematic review and meta-analysis assesses the diagnostic accuracy of the EyeArt AI system for detecting referable diabetic retinopathy, pooling data from 17 studies.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026-Jan",
+        "citation_count": 8,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "EyeArt demonstrated a pooled sensitivity of 95% (95% CI: 92%-97%) and specificity of 81% (95% CI: 74%-87%).",
+        "finding_direction": "supports",
+        "population": "adult populations screened with EyeArt (162,695 examinations)",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/32376611/",
+        "title": "Diagnostic accuracy of diabetic retinopathy grading by an artificial intelligence-enabled algorithm compared with a human standard for wide-field true-colour confocal scanning and standard digital retinal images.",
+        "source_type": "pubmed",
+        "snippet": "Olvera-Barrios A, Heeren TF, Balaskas K, Chambers R, Bolter L, Egan C et al. | The British journal of ophthalmology | 2021-Feb | Comparative Study; Journal Article; Research Support, Non-U.S. Gov't",
+        "full_summary": "This cross-sectional study compared the diagnostic accuracy of the EyeArt AI algorithm with human grading for diabetic retinopathy using both wide-field confocal scanning and standard digital retinal images, finding high sensitivity for the AI system.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2021-Feb",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cross-sectional study",
+        "evidence_level": 0.42,
+        "key_finding": "Sensitivity estimates for retinopathy grades were: EIDON images; 92.27% (95% CI: 88.43% to 94.69%) for any retinopathy, 99% (95% CI: 95.35% to 100%) for vision-threatening retinopathy and 100% (95% CI: 61% to 100%) for proliferative retinopathy. For NDESP images: 92.26% (95% CI: 88.37% to 94.69%) for any retinopathy, 100% (95% CI: 99.53% to 100%) for vision-threatening retinopathy and 100% (95% CI",
+        "finding_direction": "strongly_supports",
+        "population": "patients attending annual diabetic eye screening",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/3999cb41062d05ea942a1b50d9606fc91100475c",
+        "title": "Comparative assessment of diagnostic agreement between artificial intelligence and general practitioners in diabetic retinopathy screening using non-mydriatic fundus photography.",
+        "source_type": "semantic_scholar",
+        "snippet": "AIMS\nTo assess the diagnostic agreement between an artificial intelligence (AI) system and general practitioners (GPs) interpreting fundus photographs for diabetic retinopathy (DR) screening, using the ophthalmologists' assessment as the reference standard.\n\n\nMETHODS\nWe performed a cross-sectional s",
+        "full_summary": "This study compares an AI system to general practitioners for diabetic retinopathy screening, finding the AI system had higher sensitivity and diagnostic agreement than GPs when compared to an ophthalmologist reference standard.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cross-sectional study",
+        "evidence_level": 0.42,
+        "key_finding": "AI showed near-perfect agreement with ophthalmology (κ = 0.91) and outperformed GPs, with 98.2% sensitivity, 98.9% specificity, and 98.8% accuracy.",
+        "finding_direction": "strongly_supports",
+        "population": "500 primary care patients with type 2 diabetes",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/33153819/",
+        "title": "Use in clinical practice of an automated screening method of diabetic retinopathy that can be derived using a diagnostic artificial intelligence system.",
+        "source_type": "pubmed",
+        "snippet": "Peris-Martínez C, Shaha A, Clarida W, Amelon R, Hernáez-Ortega MC, Navea A et al. | Archivos de la Sociedad Espanola de Oftalmologia | 2021-Mar | Journal Article",
+        "full_summary": "An autonomous AI system showed 100% sensitivity for detecting referable diabetic retinopathy (RDR) and vision-threatening diabetic retinopathy (VTDR) when compared to manual classification by ophthalmologists.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2021-Mar",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "",
+        "evidence_level": 0.4,
+        "key_finding": "The AI system recorded 100% (95% CI: 97-100%) sensitivity and 81.82% (95% CI: 80 -83%) specificity for RDR, and 100% (95% CI: 95-100%) of sensitivity and 94.64% (95% CI: 94-95%) of specificity for VTDR.",
+        "finding_direction": "weakly_supports",
+        "population": "patients with type 1 and type 2 diabetes",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/32341536/",
+        "title": "Comparison of automated and expert human grading of diabetic retinopathy using smartphone-based retinal photography.",
+        "source_type": "pubmed",
+        "snippet": "Kim TN, Aaberg MT, Li P, Davila JR, Bhaskaranand M, Bhat S et al. | Eye (London, England) | 2021-Jan | Journal Article; Research Support, N.I.H., Extramural; Research Support, Non-U.S. Gov't",
+        "full_summary": "This study compared automated and expert human grading of diabetic retinopathy using smartphone-based retinal photography, finding automated interpretation had lower sensitivity but higher specificity than trained expert graders.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2021-Jan",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "",
+        "evidence_level": 0.4,
+        "key_finding": "At the patient-level, automated interpretation had a sensitivity of 87.0% and specificity of 78.6%; grader 1 had a sensitivity of 96.3% and specificity of 42.9%; grader 2 had a sensitivity of 92.5% and specificity of 50.0%.",
+        "finding_direction": "contradicts",
+        "population": "119 eyes from 69 patients with diabetes",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41420101/",
+        "title": "Systematic review and meta-analysis of regulator-approved deep learning systems for fundus diabetic retinopathy detections.",
+        "source_type": "pubmed",
+        "snippet": "Wang TW, Luo WT, Tu YK, Chou YB, Wu YT | NPJ digital medicine | 2025-Dec-19 | Journal Article",
+        "full_summary": "This meta-analysis of regulator-approved deep learning systems for diabetic retinopathy (DR) screening found high pooled sensitivity and specificity, closely paralleling expert grading.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-Dec-19",
+        "citation_count": 4,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "Hierarchical bivariate meta-analysis yielded pooled sensitivity/specificity of 0.93/0.90 on a per-patient basis and 0.92/0.93 per eye, closely paralleling expert grading.",
+        "finding_direction": "strongly_supports",
+        "population": "patients undergoing DR screening",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/23ddb276e21da376b9049060b0f38a2f0b3481e8",
+        "title": "Performance of a Deep-Learning Algorithm vs Manual Grading for Detecting Diabetic Retinopathy in India.",
+        "source_type": "semantic_scholar",
+        "snippet": "Importance\nMore than 60 million people in India have diabetes and are at risk for diabetic retinopathy (DR), a vision-threatening disease. Automated interpretation of retinal fundus photographs can help support and scale a robust screening program to detect DR.\n\n\nObjective\nTo prospectively validate ",
+        "full_summary": "This study validated an automated DR system against manual grading by trained graders and retina specialists in an Indian population, finding the automated system's performance was equal to or exceeded manual grading.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2019",
+        "citation_count": 267,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "The automated DR system's performance was equal to or exceeded manual grading, with an 88.9% sensitivity (95% CI, 85.8-91.5), 92.2% specificity (95% CI, 90.3-93.8), and an area under the curve of 0.963 on the data set from Aravind Eye Hospital and 92.1% sensitivity (95% CI, 90.1-93.8), 95.2% specificity (95% CI, 94.2-96.1), and an area under the curve of 0.980 on the data set from Sankara Nethrala",
+        "finding_direction": "strongly_supports",
+        "population": "3049 patients with diabetes in India",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/87839706e763eee156089f01798019aae368cccc",
+        "title": "Pivotal trial of an autonomous AI-based diagnostic system for detection of diabetic retinopathy in primary care offices",
+        "source_type": "semantic_scholar",
+        "snippet": "Artificial Intelligence (AI) has long promised to increase healthcare affordability, quality and accessibility but FDA, until recently, had never authorized an autonomous AI diagnostic system. This pivotal trial of an AI system to detect diabetic retinopathy (DR) in people with diabetes enrolled 900",
+        "full_summary": "This pivotal trial evaluated an autonomous AI system for detecting diabetic retinopathy in primary care, demonstrating that the AI system exceeded pre-specified superiority endpoints for sensitivity and specificity.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2018",
+        "citation_count": 1462,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "The AI system exceeded all pre-specified superiority endpoints at sensitivity of 87.2% (95% CI, 81.8–91.2%) (>85%), specificity of 90.7% (95% CI, 88.3–92.7%) (>82.5%), and imageability rate of 96.1% (95% CI, 94.6–97.3%), demonstrating AI’s ability to bring specialty-level diagnostics to primary care settings.",
+        "finding_direction": "supports",
+        "population": "900 subjects with no history of DR at primary care clinics",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36003071/",
+        "title": "Towards a Device Agnostic AI for Diabetic Retinopathy Screening: An External Validation Study.",
+        "source_type": "pubmed",
+        "snippet": "Rao DP, Sindal MD, Sengupta S, Baskaran P, Venkatesh R, Sivaraman A et al. | Clinical ophthalmology (Auckland, N.Z.) | 2022 | Journal Article",
+        "full_summary": "This study evaluates an AI algorithm's performance in screening for diabetic retinopathy using images from a standard desktop fundus camera, comparing it against image-based consensus grades and clinical examination.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2022",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "The sensitivity was 98.3% (95% CI 96%, 100%) and the specificity 83.7% (95% CI 73%, 94%) for RDR against image grading.",
+        "finding_direction": "supports",
+        "population": "135 consecutive patients (233 eyes) with established diabetes mellitus",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42267948/",
+        "title": "Head-to-Head Comparative Evaluation of Four Commercially Available Artificial Intelligence Systems for Detecting Referable Diabetic Retinopathy in a Tanzanian Population.",
+        "source_type": "pubmed",
+        "snippet": "Cleland CR, Bascaran C, Makupa WU, Shilio B, Tufail A, Egan C et al. | Diabetes care | 2026-Aug-01 | Journal Article; Comparative Study",
+        "full_summary": "This comparative study evaluated four commercially available AI systems for detecting referable diabetic retinopathy in a Tanzanian population, finding high sensitivity across all systems.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026-Aug-01",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Sensitivity in detecting referable DR ranged from 83.9% to 93.7%, with lower specificity ranging from 70.3% to 79.0%.",
+        "finding_direction": "mixed",
+        "population": "people in a Tanzanian DR screening program",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/32606081/",
+        "title": "Prospective evaluation of an artificial intelligence-enabled algorithm for automated diabetic retinopathy screening of 30 000 patients.",
+        "source_type": "pubmed",
+        "snippet": "Heydon P, Egan C, Bolter L, Chambers R, Anderson J, Aldington S et al. | The British journal of ophthalmology | 2021-May | Journal Article; Multicenter Study; Research Support, Non-U.S. Gov't",
+        "full_summary": "This study evaluates the EyeArt AI algorithm for automated diabetic retinopathy screening, comparing its performance to human grading in a large-scale program.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2021-May",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Sensitivity (95% CIs) of EyeArt was 95.7% (94.8% to 96.5%) for referable retinopathy (human graded ungradable, referable maculopathy, moderate-to-severe non-proliferative or proliferative).",
+        "finding_direction": "supports",
+        "population": "30,405 consecutive screening episodes from three English DESPs",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/32174153/",
+        "title": "Validation of Automated Screening for Referable Diabetic Retinopathy With an Autonomous Diagnostic Artificial Intelligence System in a Spanish Population.",
+        "source_type": "pubmed",
+        "snippet": "Shah A, Clarida W, Amelon R, Hernaez-Ortega MC, Navea A, Morales-Olivas J et al. | Journal of diabetes science and technology | 2021-May | Journal Article; Research Support, Non-U.S. Gov't",
+        "full_summary": "This study validated an autonomous AI system for detecting referable diabetic retinopathy against manual grading by Spanish ophthalmologists, reporting high sensitivity and specificity for the AI system.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2021-May",
+        "citation_count": 60,
+        "domain": "medicine",
+        "study_design": "",
+        "evidence_level": 0.4,
+        "key_finding": "Against manual grading, the AI system had a 100% (95% confidence interval [CI]: 97%-100%) sensitivity and 81.82% (95% CI: 80%-83%) specificity for RDR, and a 100% (95% CI: 95%-100%) sensitivity and 94.64% (95% CI: 94%-95%) specificity for VTDR.",
+        "finding_direction": "strongly_supports",
+        "population": "2680 subjects with type 1 and 2 diabetes in a DR screening program",
+        "directness": "direct"
+      }
+    ],
+    "global_summary": "Autonomous artificial intelligence (AI) systems for diabetic retinopathy (DR) screening generally demonstrate high sensitivity, often comparable to or exceeding that of human expert graders, particularly for detecting referable or vision-threatening DR [2][3][5][7][8][9][10][11][13][14][15][16][18][19]. Several studies highlight the potential for AI to improve screening efficiency and access, especially in primary care settings [10][15].\n\nFor instance, a 2023 controlled trial comparing the EyeArt AI system with ophthalmologists' dilated examinations found that the AI system identified **36 of 37 eyes as positive** for more than mild DR (mtmDR), achieving a sensitivity of **97%**, while retina specialists identified **22 of 37 eyes as positive** (sensitivity **59.5%**) [2]. Similarly, general ophthalmologists in the same study had a sensitivity of **20.6%** [2]. A 2026 cross-sectional study in primary care patients with type 2 diabetes reported that AI showed near-perfect agreement with ophthalmology (kappa = **0.91**) and outperformed general practitioners, with **98.2% sensitivity**, **98.9% specificity**, and **98.8% accuracy** [10].\n\nMultiple cohort studies and systematic reviews support these findings. A 2024 cohort study calculated AI sensitivity to be **100%** for 'no DR', 'mild DR', and 'moderate DR' [0]. Another cohort study from 2021 reported **100% sensitivity** for referable DR (RDR) and vision-threatening DR (VTDR) in a Spanish population, with specificities of **81.82%** and **94.64%**, respectively [19]. A 2021 study on an AI system in clinical practice also found **100% sensitivity** for RDR and VTDR [11]. A 2026 systematic review and meta-analysis found that AI had higher pooled sensitivity than store-and-forward (SAF) methods for any DR (**86.9% vs 80.9%**), RDR (**96.2% vs 88.6%**), VTDR (**96.2% vs 84.2%**), and DME (**97.2% vs 87.4%**) [3]. A 2026 meta-analysis of regulator-approved deep learning systems reported pooled sensitivity of **0.93** per-patient and **0.92** per eye, closely paralleling expert grading [13].\n\nSpecific AI systems, such as EyeArt, have been extensively evaluated. A 2026 meta-analysis of 162,695 examinations with EyeArt showed a pooled sensitivity of **95%** and specificity of **81%** [8]. A 2017 cohort study reported EyeArt sensitivity at **94.7%** for any retinopathy and **93.8%** for referable retinopathy [4]. A large prospective evaluation of EyeArt in over 30,000 patients in English screening programs found a sensitivity of **95.7%** for referable retinopathy [18]. Other AI models have also shown high performance, with one study reporting sensitivities of **95%** and **94%** for two models compared to a gold standard [6].\n\nHowever, some studies present **mixed or lower sensitivity results** for AI systems. A 2025 cross-sectional pilot study in Oslo, Norway, found AI sensitivity for any DR to be **94.0%** and for referable DR to be **89.7%**, with specificities of **72.6%** and **83.0%**, respectively [1]. A 2026 cohort study in a Tanzanian population found that sensitivity for detecting referable DR across four commercially available AI systems ranged from **83.9% to 93.7%**, with lower specificity ranging from **70.3% to 79.0%** [17]. A 2021 study comparing automated and expert human grading using smartphone-based retinal photography found that automated interpretation had a sensitivity of **87.0%** and specificity of **78.6%**, while human graders achieved higher sensitivities of **96.3%** and **92.5%** [12]. In the 2017 cohort study, while EyeArt performed well, another system, Retmarker, showed lower sensitivities of **73.0%** for any retinopathy and **85.0%** for referable retinopathy [4].",
+    "total_sources_consulted": 109,
+    "duration_seconds": 96.01,
+    "job_stats": {
+      "total_cost_usd": 0.102725,
+      "llm": {
+        "total_calls": 79,
+        "total_input_tokens": 148526,
+        "total_output_tokens": 20634,
+        "total_tokens": 169160,
+        "total_cost_usd": 0.09810144,
+        "by_purpose": {
+          "related_articles_domain": {
+            "count": 1,
+            "input_tokens": 737,
+            "output_tokens": 258,
+            "cost_usd": 0.0001769,
+            "total_latency_ms": 1143.4
+          },
+          "related_articles_brief": {
+            "count": 2,
+            "input_tokens": 3040,
+            "output_tokens": 354,
+            "cost_usd": 0.002582,
+            "total_latency_ms": 3802.0
+          },
+          "related_articles_decompose": {
+            "count": 1,
+            "input_tokens": 574,
+            "output_tokens": 134,
+            "cost_usd": 0.000111,
+            "total_latency_ms": 660.6
+          },
+          "related_articles_reformulate": {
+            "count": 8,
+            "input_tokens": 23413,
+            "output_tokens": 902,
+            "cost_usd": 0.0144125,
+            "total_latency_ms": 9605.5
+          },
+          "related_articles_rerank": {
+            "count": 4,
+            "input_tokens": 32726,
+            "output_tokens": 1396,
+            "cost_usd": 0.0133078,
+            "total_latency_ms": 7303.2
+          },
+          "related_articles_design_grade": {
+            "count": 1,
+            "input_tokens": 6574,
+            "output_tokens": 329,
+            "cost_usd": 0.000789,
+            "total_latency_ms": 1009.0
+          },
+          "related_articles_summarize": {
+            "count": 17,
+            "input_tokens": 47163,
+            "output_tokens": 12067,
+            "cost_usd": 0.04344754,
+            "total_latency_ms": 93555.1
+          },
+          "related_articles_stance": {
+            "count": 44,
+            "input_tokens": 29795,
+            "output_tokens": 3275,
+            "cost_usd": 0.017126,
+            "total_latency_ms": 35112.5
+          },
+          "related_articles_synthesis": {
+            "count": 1,
+            "input_tokens": 4504,
+            "output_tokens": 1919,
+            "cost_usd": 0.0061487,
+            "total_latency_ms": 9009.3
+          }
+        }
+      },
+      "embeddings": {
+        "total_calls": 186,
+        "total_tokens": 35563,
+        "total_cost_usd": 0.00462319,
+        "by_model": {
+          "openai/text-embedding-3-large": {
+            "calls": 186,
+            "tokens": 35563,
+            "cost_usd": 0.00462319
+          }
+        }
+      },
+      "tools": {
+        "calls": {
+          "search_guidelines": 1,
+          "probe_pubmed": 25,
+          "submit_brief": 1,
+          "submit_queries": 2,
+          "submit_appraisals": 10
+        },
+        "total_calls": 39
+      },
+      "providers": {
+        "calls": {
+          "clinicaltrials": 13,
+          "pubmed": 13,
+          "europe_pmc": 13
+        },
+        "cache_hits": {},
+        "errors": {},
+        "total_calls": 39,
+        "total_cache_hits": 0
+      },
+      "pipeline": {
+        "evidence_total": 0,
+        "evidence_after_relevance": 0,
+        "retries": 0
+      },
+      "stage_timings_ms": {
+        "domain_detection": 1143.5,
+        "brief": 4627.1,
+        "pro_decomposition": 660.7,
+        "pro_round1": 6778.3,
+        "pro_expansion": 11766.5,
+        "pro_round2": 13747.3,
+        "pro_round3": 12347.3,
+        "rerank": 11840.4,
+        "content_enrichment": 0.0,
+        "summarization": 22250.6,
+        "stance": 4891.1,
+        "global_synthesis": 9009.6
+      }
+    },
+    "key_findings": [
+      {
+        "text": "Autonomous AI systems for diabetic retinopathy screening generally achieve high sensitivity, often comparable to or exceeding that of human expert graders, particularly for detecting referable or vision-threatening diabetic retinopathy.",
+        "source_indices": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11,
+          13,
+          14,
+          15,
+          16,
+          18,
+          19
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "The EyeArt AI system has demonstrated high sensitivity for detecting diabetic retinopathy, with pooled sensitivity of 95% across a large number of examinations and specific instances of 97% for more than mild DR.",
+        "source_indices": [
+          2,
+          4,
+          8,
+          18
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "AI systems can achieve 100% sensitivity for detecting 'no DR', 'mild DR', 'moderate DR', referable DR, and vision-threatening DR in certain clinical settings.",
+        "source_indices": [
+          0,
+          9,
+          11,
+          19
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "AI systems show higher pooled sensitivity compared to store-and-forward methods for various stages of diabetic retinopathy, including any DR, referable DR, vision-threatening DR, and diabetic macular edema.",
+        "source_indices": [
+          3
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "AI systems can outperform general practitioners in diabetic retinopathy screening, demonstrating near-perfect agreement with ophthalmology.",
+        "source_indices": [
+          10
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Some AI systems may exhibit lower specificity, ranging from 70.3% to 83.0%, even when sensitivity is high.",
+        "source_indices": [
+          1,
+          17
+        ],
+        "strength": "moderate"
+      },
+      {
+        "text": "The performance of AI systems can vary, with some systems showing lower sensitivities (e.g., 73.0% for any retinopathy) compared to others.",
+        "source_indices": [
+          4
+        ],
+        "strength": "moderate"
+      }
+    ],
+    "disagreements": [
+      {
+        "issue": "The comparative sensitivity of automated AI interpretation versus human graders for diabetic retinopathy detection using smartphone-based retinal photography.",
+        "positions": [
+          "Automated interpretation has lower sensitivity (87.0%) compared to human graders (96.3% and 92.5%) [12].",
+          "AI systems can achieve sensitivity similar to or exceeding that of experts [2][5][10]."
+        ],
+        "source_indices": [
+          2,
+          5,
+          10,
+          12
+        ]
+      }
+    ],
+    "evidence_profile": {
+      "designs": {
+        "cohort study": 8,
+        "unclassified": 4,
+        "cross-sectional study": 3,
+        "meta-analysis": 2,
+        "controlled trial": 1,
+        "systematic review": 1,
+        "randomised controlled trial": 1
+      },
+      "high_tier_share": 0.2,
+      "preprint_share": 0.0
+    },
+    "pico": {
+      "population": "patients with diabetic retinopathy",
+      "intervention": "autonomous AI screening",
+      "comparison": "expert graders",
+      "outcome": "sensitivity",
+      "study_designs": [
+        "diagnostic accuracy study",
+        "comparative study"
+      ]
+    },
+    "evidence_gaps": [
+      "The sources do not consistently report on the long-term impact of autonomous AI screening on patient outcomes, such as progression of DR or visual acuity.",
+      "There is limited information on the cost-effectiveness of various AI systems compared to human grading in diverse healthcare settings, beyond a single mention of cost-effectiveness as a comparison point [4].",
+      "The sources do not provide a detailed breakdown of AI performance across different ethnic groups or populations with varying prevalence of DR, which could influence generalizability.",
+      "The sources do not extensively discuss the implications of AI's varying specificity on patient management, such as the potential for increased false positives and subsequent burden on ophthalmology services."
+    ]
+  }
+}

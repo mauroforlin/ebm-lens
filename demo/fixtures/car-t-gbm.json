@@ -1,0 +1,879 @@
+{
+  "id": "car-t-gbm",
+  "topic": "CAR-T therapy, BBB disruption and ctDNA monitoring in glioblastoma",
+  "max_sources": 30,
+  "summary_language": "en",
+  "recorded_at": "2026-08-26",
+  "events": [
+    {
+      "stage": "domain",
+      "message": "Analysing the topic…",
+      "at_ms": 0
+    },
+    {
+      "stage": "domain",
+      "message": "Domain detected: medicine",
+      "at_ms": 911
+    },
+    {
+      "stage": "brief",
+      "message": "Research brief ready: 5 query variants, providers: pubmed, biorxiv, clinicaltrials, europe_pmc, open_targets",
+      "at_ms": 7269
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 1: 216 candidates from 11 queries",
+      "at_ms": 20361
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: refining queries…",
+      "at_ms": 26017
+    },
+    {
+      "stage": "discovery",
+      "message": "Citation graph expansion: +48 candidates from 4 seeds",
+      "at_ms": 37486
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: 43 candidates from 3 queries (16 new relevant)",
+      "at_ms": 38050
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: refining queries…",
+      "at_ms": 38050
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: 26 candidates from 3 queries (12 new relevant)",
+      "at_ms": 53394
+    },
+    {
+      "stage": "discovery",
+      "message": "Discovery complete: 288 unique candidates after dedup",
+      "at_ms": 53398
+    },
+    {
+      "stage": "rerank",
+      "message": "Scoring and reranking 288 candidates…",
+      "at_ms": 53398
+    },
+    {
+      "stage": "rerank",
+      "message": "Shortlisted 60 sources to read in full",
+      "at_ms": 66731
+    },
+    {
+      "stage": "read",
+      "message": "Fetching and summarising 60 sources…",
+      "at_ms": 66731
+    },
+    {
+      "stage": "read",
+      "message": "Summarised 60 sources",
+      "at_ms": 87177
+    },
+    {
+      "stage": "select",
+      "message": "Selecting the final set…",
+      "at_ms": 87177
+    },
+    {
+      "stage": "select",
+      "message": "30 articles selected",
+      "at_ms": 100305
+    },
+    {
+      "stage": "synthesis",
+      "message": "Writing the synthesis…",
+      "at_ms": 100305
+    },
+    {
+      "stage": "synthesis",
+      "message": "Synthesis complete: 9 findings, 0 conflicts",
+      "at_ms": 108981
+    }
+  ],
+  "response": {
+    "status": "completed",
+    "topic": "CAR-T therapy, BBB disruption and ctDNA monitoring in glioblastoma",
+    "domain_detected": "medicine",
+    "articles": [
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42628610/",
+        "title": "CAR-T Cell Therapy for Glioblastoma: Obstacles and Advances.",
+        "source_type": "pubmed",
+        "snippet": "Chen L, Zou Z | Critical reviews in oncology/hematology | 2026-Aug-21 | Journal Article; Review",
+        "full_summary": "This review summarizes obstacles and advances in CAR-T cell therapy for glioblastoma, including strategies to disrupt the blood-brain barrier and integrate real-time imaging for monitoring therapeutic responses.",
+        "relevance_score": 0.95,
+        "reliability_tier": 2,
+        "publication_date": "2026-Aug-21",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Physical modalities, such as focused ultrasound and thermal modulation, can transiently disrupt the blood-brain barrier to enhance CAR-T cell therapy in glioblastoma, and integration with real-time imaging enables dynamic monitoring of therapeutic responses.",
+        "finding_direction": "strongly_supports",
+        "population": "glioblastoma patients",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39105794/",
+        "title": "Predicting recurrent glioblastoma clinical outcome to immune checkpoint inhibition and low-dose bevacizumab with tumor in situ fluid circulating tumor DNA analysis.",
+        "source_type": "pubmed",
+        "snippet": "Guo G, Zhang Z, Zhang J, Wang D, Xu S, Liu G et al. | Cancer immunology, immunotherapy : CII | 2024-Aug-06 | Journal Article; Clinical Trial, Phase II",
+        "full_summary": "This phase II trial evaluates tumor in situ fluid (TISF) circulating tumor DNA (ctDNA) as a biomarker for response to low-dose bevacizumab plus anti-PD-1 therapy in recurrent glioblastoma patients.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2024-Aug-06",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "TISF-ctDNA can monitor rGBM patients' response to combination therapy and guide treatment.",
+        "finding_direction": "strongly_supports",
+        "population": "recurrent glioblastoma patients",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/18f81501bb232cdc54c88a77a9e22dbf0809afe9",
+        "title": "CAR-T Cell Therapy in Glioblastoma: Overcoming Immunological Barriers and Advancing Clinical Translation",
+        "source_type": "semantic_scholar",
+        "snippet": "Abstract Chimeric antigen receptor (CAR) T-cell therapy has delivered unprecedented clinical benefit in hematological malignancies, yet its successful translation to solid tumors remains a major unmet clinical challenge. Glioblastoma (GBM), the most aggressive primary brain tumor, exemplifies the ba",
+        "full_summary": "This review discusses strategies to overcome barriers to CAR-T cell therapy in glioblastoma, including methods to enhance blood-brain barrier penetration and intratumoral retention.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 2,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Emerging delivery paradigms, including locoregional administration, viral vectors, and nanotechnology-enabled platforms, are designed to enhance blood–brain barrier penetration and intratumoral retention for CAR-T cell therapy in glioblastoma.",
+        "finding_direction": "supports",
+        "population": "glioblastoma patients",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39000281/",
+        "title": "CAR-T Cells Therapy in Glioblastoma: A Systematic Review on Molecular Targets and Treatment Strategies.",
+        "source_type": "pubmed",
+        "snippet": "Agosti E, Garaba A, Antonietti S, Ius T, Fontanella MM, Zeppieri M et al. | International journal of molecular sciences | 2024-Jun-29 | Journal Article; Systematic Review",
+        "full_summary": "This systematic review evaluates CAR-T cell therapy for glioblastoma, highlighting challenges like antigen escape and immunosuppression, and suggesting innovative delivery methods and combination therapies for improved efficacy.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2024-Jun-29",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "Median OS ranged from 5.5 to 11.1 months across the studies.",
+        "finding_direction": "contradicts",
+        "population": "glioblastoma patients",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42497658/",
+        "title": "Advancing chimeric antigen receptor T-cell therapy frontiers in glioblastoma: Navigating the current landscape from clinical hurdles to breakthrough strategies.",
+        "source_type": "pubmed",
+        "snippet": "Sarma RK, Nath P, Bora P, Chetia P, Bala A | International immunopharmacology | 2026-Jul-24 | Journal Article; Review",
+        "full_summary": "This review provides an integrated perspective on emerging CAR-T strategies for glioblastoma, including novel delivery methods like nanoparticle/focused-ultrasound BBB modulation.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2026-Jul-24",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Novel delivery methods such as nanoparticle/focused-ultrasound BBB modulation are being explored to advance CAR-T cell therapy in glioblastoma.",
+        "finding_direction": "supports",
+        "population": "glioblastoma patients",
+        "directness": "direct"
+      },
+      {
+        "url": "https://clinicaltrials.gov/study/NCT07244666",
+        "title": "Safety and Preliminary Efficacy of a Metabolically Armed Chimeric Antigen Receptor T Cell Therapy Targeting EGFRvIII for Recurrent Glioblastoma",
+        "source_type": "clinicaltrials",
+        "snippet": "Safety and Preliminary Efficacy of a Metabolically Armed Chimeric Antigen Receptor T Cell Therapy Targeting EGFRvIII for Recurrent Glioblastoma (Glioblastoma (GBM)) [NOT_YET_RECRUITING, EARLY_PHASE1]",
+        "full_summary": "This is an early Phase 1 clinical trial assessing the safety and preliminary efficacy of metabolically armed EGFRvIII CAR-T cell therapy for recurrent glioblastoma.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2025-11-15",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "patients with recurrent glioblastoma",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/35464472/",
+        "title": "Cell-Free Tumor DNA (cf-tDNA) Liquid Biopsy: Current Methods and Use in Brain Tumor Immunotherapy.",
+        "source_type": "pubmed",
+        "snippet": "Wadden J, Ravi K, John V, Babila CM, Koschmann C | Frontiers in immunology | 2022 | Journal Article; Review; Research Support, U.S. Gov't, Non-P.H.S.",
+        "full_summary": "This review discusses the use of cell-free tumor DNA (cf-tDNA) as a biomarker for glioma diagnosis and monitoring, highlighting challenges due to the blood-brain barrier and the need for sensitive detection methods.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2022",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Plasma cf-tDNA typically represents <1% of total cf-DNA due to the blood-brain barrier, limiting their usefulness in practice and motivating the development and use of highly sensitive and specific detection methods.",
+        "finding_direction": "contradicts",
+        "population": "glioma patients",
+        "directness": "direct"
+      },
+      {
+        "url": "https://doi.org/10.1101/2022.05.01.490250",
+        "title": "GD2-targeting CAR-T cells enhanced by transgenic IL-15 expression are an effective and clinically feasible therapy for glioblastoma",
+        "source_type": "biorxiv",
+        "snippet": "Abstract\n                \n                  Background\n                  Aggressive primary brain tumors such as glioblastoma are uniquely challenging to treat. The intracranial location poses barriers to therapy, and the potential for severe toxicity. Effective treatments for primary brain tumors a",
+        "full_summary": "This preclinical study demonstrates that GD2-targeting CAR-T cells, especially when enhanced with IL-15, can infiltrate the brain and control tumor growth in an orthotopic xenograft model of glioblastoma after intravenous administration.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2022",
+        "citation_count": 97,
+        "domain": "medicine",
+        "study_design": "preclinical study",
+        "evidence_level": 0.3,
+        "key_finding": "Finally, after intravenous administration, GD2-CAR-T cells effectively infiltrated the brain and controlled tumor growth in an aggressive orthotopic xenograft model of glioblastoma.",
+        "finding_direction": "supports",
+        "population": "glioblastoma xenograft model",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40901145/",
+        "title": "CAR-T cell therapy for glioblastoma: advances, challenges, and future directions.",
+        "source_type": "pubmed",
+        "snippet": "Czyżewski W, Kus-Budzynska K, Sobstyl J, Sojka M, Litak J, Szaliński T et al. | Annals of medicine and surgery (2012) | 2025-Sep | Journal Article; Review",
+        "full_summary": "This systematic review evaluates the progress, effectiveness, and challenges of CAR-T therapy for glioblastoma, including the obstacle of overcoming the blood-brain barrier.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2025-Sep",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "glioblastoma patients",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41196398/",
+        "title": "CAR-T cells immunotherapy in the treatment of glioblastoma.",
+        "source_type": "pubmed",
+        "snippet": "Królikowska A, Tarnowski M | Cancer immunology, immunotherapy : CII | 2025-Nov-06 | Journal Article; Review",
+        "full_summary": "This review examines the progress of CAR-T cell therapy in glioblastoma, focusing on target antigens, delivery strategies, and innovations to improve safety and persistence.",
+        "relevance_score": 0.7,
+        "reliability_tier": 2,
+        "publication_date": "2025-Nov-06",
+        "citation_count": 11,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Locoregional delivery can enhance tumor penetration of CAR-T cells compared with systemic infusion in glioblastoma.",
+        "finding_direction": "supports",
+        "population": "glioblastoma patients",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37720174/",
+        "title": "Insight into the Progress in CAR-T Cell Therapy and Combination with Other Therapies for Glioblastoma.",
+        "source_type": "pubmed",
+        "snippet": "Liang T, Song Y, Gu L, Wang Y, Ma W | International journal of general medicine | 2023 | Journal Article; Review",
+        "full_summary": "This review discusses the challenges of CAR-T cell therapy for glioblastoma, including the blood-brain barrier and tumor microenvironment, and explores strategies to overcome these hurdles, such as novel CAR-T cell designs and combination therapies.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2023",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "glioblastoma patients",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/3c3301755be6047f75dd60277d41cb8cd14c60c2",
+        "title": "Safety and antitumor activity of GD2-Specific 4SCAR-T cells in patients with glioblastoma",
+        "source_type": "semantic_scholar",
+        "snippet": "Background This study aimed to validate whether infusion of GD2-specific fourth-generation safety-designed chimeric antigen receptor (4SCAR)-T cells is safe and whether CAR-T cells exert anti-glioblastoma (GBM) activity. Methods A total of eight patients with GD2-positive GBM were enrolled and infus",
+        "full_summary": "This study investigates the safety and anti-tumor activity of GD2-specific 4SCAR-T cells in eight glioblastoma patients, showing partial responses and acceptable safety.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2023",
+        "citation_count": 120,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Both single and combined infusions of GD2-specific 4SCAR-T cells in targeting GBM were safe and well tolerated, with no severe adverse events.",
+        "finding_direction": "supports",
+        "population": "glioblastoma patients",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41176315/",
+        "title": "Chimeric antigen receptor (CAR) T-cell therapy for glioblastoma (GBM): current clinical insights, challenges, and future directions.",
+        "source_type": "pubmed",
+        "snippet": "Walton CM, Bell M, O'Neil R, Sahin O, Choi BD, Fecci PE et al. | Journal for immunotherapy of cancer | 2025-Oct-31 | Journal Article; Review",
+        "full_summary": "This review discusses CAR T-cell therapy for glioblastoma, noting that peripheral delivery is feasible and multi-antigen, regionally delivered products can induce intracranial responses, indicating that access across the blood-brain barrier is possible.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2025-Oct-31",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "First, that CAR T cells can be effectively delivered peripherally rather than requiring direct intracranial administration. And second, multi-antigen, regionally delivered products can induce measurable intracranial responses. These findings indicate that access across the blood-brain barrier is feasible, but persistent function is limited by tumor antigen heterogeneity and an immunosuppressive, m",
+        "finding_direction": "supports",
+        "population": "glioblastoma patients",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/3ee1dcd6e2db19bb4266871f920c896137c487ef",
+        "title": "CAR-T cell therapy in glioblastoma: from αβ to γδ T-cell platforms",
+        "source_type": "semantic_scholar",
+        "snippet": "Glioblastoma multiforme (GBM) remains a highly aggressive brain tumor with limited treatment options and poor survival. The persistent clinical failure has driven interest in novel, immune-based strategies with higher specificity and greater cytotoxic potency, among which chimeric antigen receptor (",
+        "full_summary": "This abstract discusses the limitations of αβ CAR-T cells in glioblastoma due to the blood-brain barrier and tumor microenvironment, and introduces γδ CAR-T cells as a promising next-generation immunotherapy.",
+        "relevance_score": 0.7,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "glioblastoma patients",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/aa11f84a569e1928b6562da6933e88f044b8dc3b",
+        "title": "Molecular monitoring of T-cell kinetics and migration in severe neurotoxicity after real-world CD19-specific chimeric antigen receptor T cell therapy",
+        "source_type": "semantic_scholar",
+        "snippet": "CD19-specific chimeric antigen receptor (CD19-CAR) T-cell therapies mediate durable responses in late-stage B-cell malignancies, but can be complicated by a potentially severe immune effector cell-associated neurotoxicity syndrome (ICANS). Despite broad efforts, the precise mechanisms of ICANS are n",
+        "full_summary": "This study investigates molecular monitoring of T-cell kinetics in cerebrospinal fluid and blood in patients with neurotoxicity after CD19-specific CAR T-cell therapy for B-cell malignancies, observing CAR T-cell enrichment in CSF in ICANS patients.",
+        "relevance_score": 0.6,
+        "reliability_tier": 2,
+        "publication_date": "2022",
+        "citation_count": 24,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Consistently, we observed a CAR T-cell enrichment within CSF in ICANS patients with further progressive accumulation despite intense corticosteroid-containing immuno-chemotherapies in a subset of patients with prolonged and therapy-resistant grade 3-4 neurotoxicity.",
+        "finding_direction": "no_evidence",
+        "population": "patients with B-cell malignancies",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/38480922/",
+        "title": "Intrathecal bivalent CAR T cells targeting EGFR and IL13Rα2 in recurrent glioblastoma: phase 1 trial interim results.",
+        "source_type": "pubmed",
+        "snippet": "Bagley SJ, Logun M, Fraietta JA, Wang X, Desai AS, Bagley LJ et al. | Nature medicine | 2024-May | Journal Article; Clinical Trial, Phase I; Research Support, N.I.H., Extramural",
+        "full_summary": "This phase 1 clinical trial reports interim safety and bioactivity results for intrathecal bivalent CAR T cells targeting EGFR and IL13Rα2 in patients with recurrent glioblastoma, noting early-onset neurotoxicity and some tumor size reductions.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2024-May",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Taken together, these first-in-human data demonstrate the preliminary safety and bioactivity of CART-EGFR-IL13Rα2 cells in rGBM.",
+        "finding_direction": "contradicts",
+        "population": "patients with recurrent glioblastoma",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40585996/",
+        "title": "Overcoming barriers in glioblastoma: The potential of CAR T cell immunotherapy.",
+        "source_type": "pubmed",
+        "snippet": "Ijaz M, Tan Q, Yan Y, Zhang D, Chen Q, Zhang Y et al. | Theranostics | 2025 | Journal Article; Review",
+        "full_summary": "This review discusses the challenges of CAR T cell therapy for glioblastoma, including the blood-brain barrier, and explores strategies to enhance its efficacy.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2025",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "glioblastoma patients",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/34113233/",
+        "title": "CAR T Cell-Based Immunotherapy for the Treatment of Glioblastoma.",
+        "source_type": "pubmed",
+        "snippet": "Maggs L, Cattaneo G, Dal AE, Moghaddam AS, Ferrone S | Frontiers in neuroscience | 2021 | Journal Article; Review",
+        "full_summary": "This review summarizes current CAR T cell approaches for glioblastoma, highlighting limitations such as inadequate trafficking, lack of persistence, and limited diffusion across the blood-brain barrier.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2021",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "glioblastoma patients",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37190280/",
+        "title": "Gene Targets of CAR-T Cell Therapy for Glioblastoma.",
+        "source_type": "pubmed",
+        "snippet": "Wang C, Li Y, Gu L, Chen R, Zhu H, Zhang X et al. | Cancers | 2023-Apr-18 | Journal Article; Review",
+        "full_summary": "This review discusses the challenges and potential of CAR-T cell therapy for glioblastoma, highlighting the blood-brain barrier as a significant impediment to treatment efficacy.",
+        "relevance_score": 0.6,
+        "reliability_tier": 2,
+        "publication_date": "2023-Apr-18",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "The blood-brain barrier severely impedes the permeation of chemotherapy drugs, thereby reducing their efficacy in glioblastoma.",
+        "finding_direction": "no_evidence",
+        "population": "glioblastoma patients",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://clinicaltrials.gov/study/NCT05063682",
+        "title": "The Efficacy and Safety of Brain-targeting Immune Cells (EGFRvIII-CAR T Cells) in Treating Patients With Leptomeningeal Disease From Glioblastoma. Administering Patients EGFRvIII -CAR T Cells May Help to Recognize and Destroy Brain Tumor Cells in Patients",
+        "source_type": "clinicaltrials",
+        "snippet": "The Efficacy and Safety of Brain-targeting Immune Cells (EGFRvIII-CAR T Cells) in Treating Patients With Leptomeningeal Disease From Glioblastoma. Administering Patients EGFRvIII -CAR T Cells May Help to Recognize and Destroy Brain Tumor Cells in Patients (Glioblastoma, Glioblastoma Multiforme, Glio",
+        "full_summary": "This is a Phase 1 clinical trial investigating the safety and efficacy of EGFRvIII-CAR T cells for glioblastoma patients with leptomeningeal disease.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2020-05-15",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "adult patients with leptomeningeal glioblastoma",
+        "directness": "direct"
+      },
+      {
+        "url": "https://clinicaltrials.gov/study/NCT05168423",
+        "title": "CART-EGFR-IL13Ra2 in EGFR Amplified Recurrent GBM",
+        "source_type": "clinicaltrials",
+        "snippet": "CART-EGFR-IL13Ra2 in EGFR Amplified Recurrent GBM (Glioblastoma) [ACTIVE_NOT_RECRUITING, PHASE1]",
+        "full_summary": "This Phase 1 clinical trial evaluates the safety and feasibility of CART-EGFR-IL13Ra2 cells in patients with EGFR-amplified recurrent glioblastoma.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2023-02-24",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "patients with EGFR-amplified recurrent glioblastoma",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/96cb2686e19684734829237dc53856350dfedffb",
+        "title": "CXCL11-armed oncolytic adenoviruses enhance CAR-T cell therapeutic efficacy and reprogram tumor microenvironment in glioblastoma",
+        "source_type": "semantic_scholar",
+        "snippet": "Glioblastoma (GBM) is the most aggressive primary malignant brain cancer and urgently requires effective treatments. Chimeric antigen receptor T (CAR-T) cell therapy offers a potential treatment method, but it is often hindered by poor infiltration of CAR-T cells in tumors and highly immunosuppressi",
+        "full_summary": "This preclinical study shows that CXCL11-armed oncolytic adenoviruses can enhance the therapeutic efficacy of CAR-T cells and reprogram the tumor microenvironment in glioblastoma mouse models, improving CAR-T cell infiltration.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2022",
+        "citation_count": 204,
+        "domain": "medicine",
+        "study_design": "preclinical study",
+        "evidence_level": 0.3,
+        "key_finding": "In both immunodeficient and immunocompetent orthotopic GBM mice models, we showed that B7H3-targeted CAR-T cells alone failed to inhibit GBM growth but, when combined with the intratumoral administration of CXCL11-armed oAd, it achieved a durable antitumor response.",
+        "finding_direction": "mixed",
+        "population": "immunodeficient and immunocompetent orthotopic GBM mice models",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40042315/",
+        "title": "Dynamic Tumor in Situ Fluid Circulating Tumor DNA Postsurgery Effectively Predicts Recurrence and Clinical Benefits for Glioblastomas.",
+        "source_type": "pubmed",
+        "snippet": "Zhang J, Liu G, Wang D, Bu C, Lv G, Zhang Z et al. | Neurosurgery | 2025-Mar-05 | Journal Article",
+        "full_summary": "Dynamic tumor in situ fluid ctDNA effectively predicts recurrence and clinical benefits in postsurgical glioblastoma patients.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2025-Mar-05",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "TISF-ctDNA positivity was identified in 62.2% of patients in the early postsurgical period, indicating a high prevalence of molecular residual disease.",
+        "finding_direction": "weakly_supports",
+        "population": "glioblastoma patients",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://clinicaltrials.gov/study/NCT06815029",
+        "title": "Intracranial Genetically Modified Immune Cells (TGFβR2KO/IL13Rα2 CAR T-Cells) for the Treatment of Recurrent or Progressive Glioblastoma or Grade 3 or 4 IDH-Mutant Astrocytoma",
+        "source_type": "clinicaltrials",
+        "snippet": "Intracranial Genetically Modified Immune Cells (TGFβR2KO/IL13Rα2 CAR T-Cells) for the Treatment of Recurrent or Progressive Glioblastoma or Grade 3 or 4 IDH-Mutant Astrocytoma (Recurrent Astrocytoma, IDH-Mutant, Grade 3, Recurrent Astrocytoma, IDH-Mutant, Grade 4, Recurrent Glioblastoma) [RECRUITING",
+        "full_summary": "This Phase 1 trial evaluates the safety and optimal dose of intracranial TGFβR2KO/IL13Rα2 CAR T-cells for recurrent/progressive glioblastoma or IDH-mutant astrocytoma.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2025-06-17",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "registered trial",
+        "evidence_level": 0.55,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "patients with recurrent or progressive glioblastoma or IDH-mutant grade 3 or 4 astrocytoma",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/35885047/",
+        "title": "Site-Specific Considerations on Engineered T Cells for Malignant Gliomas.",
+        "source_type": "pubmed",
+        "snippet": "Elmadany N, Alhalabi OT, Platten M, Bunse L | Biomedicines | 2022-Jul-19 | Journal Article; Review",
+        "full_summary": "This review summarizes different administration routes for CAR-T cell therapy in malignant gliomas, including glioblastoma, and discusses the potential for improved efficacy with locoregional delivery and focused ultrasound.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2022-Jul-19",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "malignant glioma patients, including glioblastoma",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37443804/",
+        "title": "Chimeric Antigen Receptor T Cells in Glioblastoma-Current Concepts and Promising Future.",
+        "source_type": "pubmed",
+        "snippet": "Kringel R, Lamszus K, Mohme M | Cells | 2023-Jul-03 | Journal Article; Review; Research Support, Non-U.S. Gov't",
+        "full_summary": "This review discusses CAR-T cell therapy for glioblastoma, highlighting challenges like restricted trafficking and the immunosuppressive tumor microenvironment, and notes that current studies show feasibility with transient responses.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2023-Jul-03",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "CAR-T cell therapy is a feasible option in GBM with at least transient responses and acceptable adverse effects.",
+        "finding_direction": "supports",
+        "population": "glioblastoma patients",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39702579/",
+        "title": "CAR-T cell therapy for the treatment of adult high-grade gliomas.",
+        "source_type": "pubmed",
+        "snippet": "Park S, Maus MV, Choi BD | NPJ precision oncology | 2024-Dec-19 | Journal Article; Review",
+        "full_summary": "This review discusses CAR-T cell therapy for adult high-grade gliomas, including glioblastoma, focusing on clinical trials, novel target antigens, and combinatorial strategies.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2024-Dec-19",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "adult high-grade gliomas patients",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40057825/",
+        "title": "CAR T cell therapy for glioblastoma: A review of the first decade of clinical trials.",
+        "source_type": "pubmed",
+        "snippet": "Begley SL, O'Rourke DM, Binder ZA | Molecular therapy : the journal of the American Society of Gene Therapy | 2025-Jun-04 | Journal Article; Review",
+        "full_summary": "This review summarizes a decade of CAR T cell clinical trials for glioblastoma, highlighting challenges like tumor heterogeneity and variable efficacy, while noting the continued development of this immunotherapy approach.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2025-Jun-04",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "glioblastoma patients",
+        "directness": "direct"
+      },
+      {
+        "url": "https://clinicaltrials.gov/study/NCT02844062",
+        "title": "Pilot Study of Autologous Anti-EGFRvIII CAR T Cells in Recurrent Glioblastoma Multiforme",
+        "source_type": "clinicaltrials",
+        "snippet": "Pilot Study of Autologous Anti-EGFRvIII CAR T Cells in Recurrent Glioblastoma Multiforme (Glioblastoma Multiforme) [UNKNOWN, PHASE1]",
+        "full_summary": "This is a pilot phase 1 study to determine the safety and efficacy of autologous anti-EGFRvIII CAR T cells in patients with recurrent glioblastoma multiforme.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2016-07",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "registered trial",
+        "evidence_level": 0.55,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "recurrent glioblastoma multiforme patients",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41478769/",
+        "title": "Advances and challenges in CAR-T therapy for glioblastoma.",
+        "source_type": "pubmed",
+        "snippet": "Ryou H, Jung SE, Seo H | Seminars in hematology | 2025-Aug | Journal Article; Review; Research Support, Non-U.S. Gov't",
+        "full_summary": "This review discusses the advances and challenges of CAR-T cell therapy for glioblastoma, summarizing clinical outcomes and emerging strategies.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2025-Aug",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "glioblastoma patients",
+        "directness": "adjacent"
+      }
+    ],
+    "global_summary": "Chimeric antigen receptor (CAR)-T cell therapy is being explored as a treatment for glioblastoma (GBM), with research focusing on overcoming challenges such as the blood-brain barrier (BBB) and monitoring treatment response [0][2][4][8][9][10][12][13][16][17][24][25][27]. While some studies indicate the feasibility and preliminary efficacy of CAR-T cell therapy in GBM, with at least transient responses and acceptable adverse effects [11][12][15][25], the median overall survival (OS) in treated patients has ranged from **5.5 to 11.1 months** across various studies [3].\n\nOne significant challenge for CAR-T cell therapy in GBM is the penetration of the blood-brain barrier [0][2][4][8][10][12][13][16][17][24]. Emerging strategies to enhance CAR-T cell delivery and BBB penetration include locoregional administration [2][9][24], viral vectors, and nanotechnology-enabled platforms [2]. Physical modalities like focused ultrasound and thermal modulation can transiently disrupt the BBB to improve CAR-T cell therapy [0][4][24]. Despite these challenges, some findings suggest that CAR-T cells can be effectively delivered peripherally, rather than solely requiring direct intracranial administration, and that multi-antigen, regionally delivered products can induce measurable intracranial responses [12]. Preclinical studies, such as one using an aggressive orthotopic xenograft model of glioblastoma, have shown that GD2-CAR-T cells effectively infiltrated the brain and controlled tumor growth after intravenous administration [7].\n\nSeveral clinical trials are investigating the safety and efficacy of various CAR-T cell constructs for glioblastoma. A Phase 1 trial is assessing the safety and preliminary efficacy of metabolically armed EGFRvIII CAR-T cell therapy for recurrent glioblastoma [5]. Another Phase 1 trial is evaluating the safety and efficacy of EGFRvIII-CAR T cells for glioblastoma patients with leptomeningeal disease [19]. The safety and feasibility of CART-EGFR-IL13Ra2 cells in patients with EGFR-amplified recurrent glioblastoma are also being evaluated in a Phase 1 clinical trial [20]. Additionally, a Phase 1 trial is assessing the safety and optimal dose of intracranial TGFβR2KO/IL13Rα2 CAR T-cells for recurrent/progressive glioblastoma or IDH-mutant astrocytoma [23]. A pilot Phase 1 study is determining the safety and efficacy of autologous anti-EGFRvIII CAR T cells in patients with recurrent glioblastoma multiforme [28]. GD2-specific 4SCAR-T cells have been found to be safe and well tolerated in glioblastoma patients, both with single and combined infusions, with **no severe adverse events** [11].\n\nMonitoring treatment response in glioblastoma patients is another area of active research. Tumor in situ fluid circulating tumor DNA (TISF-ctDNA) can be used to monitor recurrent glioblastoma (rGBM) patients' response to combination therapy and guide treatment [1]. TISF-ctDNA positivity was identified in **62.2%** of glioblastoma patients in the early postsurgical period, indicating a high prevalence of molecular residual disease [22]. However, plasma cell-free tumor DNA (cf-tDNA) typically represents **less than 1%** of total cf-DNA due to the BBB, which limits its usefulness in practice and necessitates the development of highly sensitive detection methods [6]. Real-time imaging can be integrated with physical modalities for BBB disruption to enable dynamic monitoring of therapeutic responses [0].\n\nCombination strategies are also being explored to enhance CAR-T cell efficacy. For instance, in immunodeficient and immunocompetent orthotopic GBM mice models, B7H3-targeted CAR-T cells alone failed to inhibit GBM growth, but achieved a durable antitumor response when combined with intratumoral administration of CXCL11-armed oncolytic adenoviruses [21].",
+    "total_sources_consulted": 288,
+    "duration_seconds": 108.98,
+    "job_stats": {
+      "total_cost_usd": 0.086688,
+      "llm": {
+        "total_calls": 55,
+        "total_input_tokens": 116735,
+        "total_output_tokens": 15105,
+        "total_tokens": 131840,
+        "total_cost_usd": 0.0735721,
+        "by_purpose": {
+          "related_articles_domain": {
+            "count": 1,
+            "input_tokens": 741,
+            "output_tokens": 286,
+            "cost_usd": 0.0001885,
+            "total_latency_ms": 911.4
+          },
+          "related_articles_brief": {
+            "count": 3,
+            "input_tokens": 5731,
+            "output_tokens": 479,
+            "cost_usd": 0.0043025,
+            "total_latency_ms": 4233.2
+          },
+          "related_articles_decompose": {
+            "count": 1,
+            "input_tokens": 578,
+            "output_tokens": 429,
+            "cost_usd": 0.0002294,
+            "total_latency_ms": 1354.7
+          },
+          "related_articles_reformulate": {
+            "count": 7,
+            "input_tokens": 18575,
+            "output_tokens": 948,
+            "cost_usd": 0.0121315,
+            "total_latency_ms": 10446.7
+          },
+          "related_articles_rerank": {
+            "count": 4,
+            "input_tokens": 22469,
+            "output_tokens": 1396,
+            "cost_usd": 0.0102307,
+            "total_latency_ms": 7517.2
+          },
+          "related_articles_design_grade": {
+            "count": 1,
+            "input_tokens": 2389,
+            "output_tokens": 114,
+            "cost_usd": 0.0002845,
+            "total_latency_ms": 594.0
+          },
+          "related_articles_summarize": {
+            "count": 16,
+            "input_tokens": 49498,
+            "output_tokens": 7948,
+            "cost_usd": 0.0324163,
+            "total_latency_ms": 94480.3
+          },
+          "related_articles_stance": {
+            "count": 21,
+            "input_tokens": 12490,
+            "output_tokens": 1658,
+            "cost_usd": 0.007892,
+            "total_latency_ms": 17347.0
+          },
+          "related_articles_synthesis": {
+            "count": 1,
+            "input_tokens": 4264,
+            "output_tokens": 1847,
+            "cost_usd": 0.0058967,
+            "total_latency_ms": 8675.2
+          }
+        }
+      },
+      "embeddings": {
+        "total_calls": 469,
+        "total_tokens": 100890,
+        "total_cost_usd": 0.0131157,
+        "by_model": {
+          "openai/text-embedding-3-large": {
+            "calls": 469,
+            "tokens": 100890,
+            "cost_usd": 0.0131157
+          }
+        }
+      },
+      "tools": {
+        "calls": {
+          "search_guidelines": 1,
+          "probe_pubmed": 26,
+          "submit_brief": 1,
+          "submit_queries": 2,
+          "submit_appraisals": 12
+        },
+        "total_calls": 42
+      },
+      "providers": {
+        "calls": {
+          "clinicaltrials": 17,
+          "biorxiv": 17,
+          "open_targets": 17,
+          "pubmed": 17,
+          "europe_pmc": 17
+        },
+        "cache_hits": {},
+        "errors": {},
+        "total_calls": 85,
+        "total_cache_hits": 0
+      },
+      "pipeline": {
+        "evidence_total": 0,
+        "evidence_after_relevance": 0,
+        "retries": 0
+      },
+      "stage_timings_ms": {
+        "domain_detection": 911.5,
+        "brief": 6357.7,
+        "pro_decomposition": 1354.8,
+        "pro_round1": 11736.7,
+        "pro_expansion": 11470.3,
+        "pro_round2": 12033.0,
+        "pro_round3": 15344.8,
+        "rerank": 13333.4,
+        "content_enrichment": 0.0,
+        "summarization": 17872.6,
+        "stance": 2572.1,
+        "global_synthesis": 8675.4
+      }
+    },
+    "key_findings": [
+      {
+        "text": "Physical modalities like focused ultrasound and thermal modulation can temporarily disrupt the blood-brain barrier to improve CAR-T cell therapy in glioblastoma, and real-time imaging can monitor responses [0][4][24].",
+        "source_indices": [
+          0,
+          4,
+          24
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Locoregional administration, viral vectors, and nanotechnology-enabled platforms are emerging delivery methods designed to enhance blood-brain barrier penetration and intratumoral retention of CAR-T cells for glioblastoma treatment [2][9][24].",
+        "source_indices": [
+          2,
+          9,
+          24
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "CAR-T cell therapy for glioblastoma is considered feasible, showing at least transient responses and acceptable adverse effects [11][12][15][25].",
+        "source_indices": [
+          11,
+          12,
+          15,
+          25
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Tumor in situ fluid circulating tumor DNA (TISF-ctDNA) can be used to monitor the response of recurrent glioblastoma patients to combination therapy and guide treatment [1].",
+        "source_indices": [
+          1
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Plasma cell-free tumor DNA (cf-tDNA) is generally limited in its usefulness for monitoring brain tumors due to the blood-brain barrier, as it typically represents less than 1% of total cf-DNA [6].",
+        "source_indices": [
+          6
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "GD2-specific 4SCAR-T cells have demonstrated safety and good tolerability in glioblastoma patients, with no severe adverse events reported in a randomized controlled trial [11].",
+        "source_indices": [
+          11
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "In preclinical glioblastoma xenograft models, GD2-CAR-T cells administered intravenously effectively infiltrated the brain and controlled tumor growth [7].",
+        "source_indices": [
+          7
+        ],
+        "strength": "weak"
+      },
+      {
+        "text": "In mouse models of glioblastoma, B7H3-targeted CAR-T cells alone were insufficient to inhibit tumor growth but achieved a durable antitumor response when combined with intratumoral administration of CXCL11-armed oncolytic adenoviruses [21].",
+        "source_indices": [
+          21
+        ],
+        "strength": "weak"
+      },
+      {
+        "text": "TISF-ctDNA positivity was observed in 62.2% of glioblastoma patients in the early postsurgical period, indicating a high prevalence of molecular residual disease [22].",
+        "source_indices": [
+          22
+        ],
+        "strength": "weak"
+      }
+    ],
+    "disagreements": [],
+    "evidence_profile": {
+      "designs": {
+        "review": 16,
+        "registered trial": 5,
+        "randomised controlled trial": 3,
+        "systematic review": 2,
+        "preclinical study": 2,
+        "cohort study": 2
+      },
+      "high_tier_share": 0.17,
+      "preprint_share": 0.03
+    },
+    "pico": {
+      "population": "glioblastoma patients",
+      "intervention": "CAR-T therapy, blood-brain barrier disruption",
+      "comparison": "",
+      "outcome": "ctDNA monitoring",
+      "study_designs": [
+        "clinical trial",
+        "observational study"
+      ]
+    },
+    "evidence_gaps": [
+      "The long-term efficacy and overall survival benefits of CAR-T cell therapy in glioblastoma patients are not definitively established across all studies, with reported median OS ranging from 5.5 to 11.1 months [3].",
+      "The optimal CAR-T cell constructs, target antigens, and delivery methods for consistent and durable responses in glioblastoma patients are still under investigation [2][5][19][20][23][28].",
+      "The specific impact of various BBB disruption techniques (e.g., focused ultrasound, thermal modulation) on CAR-T cell distribution, efficacy, and safety in human glioblastoma patients needs further clinical validation [0][4][24].",
+      "The clinical utility and optimal methods for monitoring CAR-T cell activity and tumor response using ctDNA in glioblastoma, particularly given the limitations of plasma cf-tDNA, require more research [1][6][22]."
+    ]
+  }
+}

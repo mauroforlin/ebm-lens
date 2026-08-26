@@ -1,0 +1,498 @@
+{
+  "id": "glp1-cv-risk",
+  "topic": "GLP-1 receptor agonists and cardiovascular risk reduction in type 2 diabetes",
+  "max_sources": 10,
+  "summary_language": "en",
+  "recorded_at": "2026-08-26",
+  "events": [
+    {
+      "stage": "domain",
+      "message": "Analysing the topic…",
+      "at_ms": 0
+    },
+    {
+      "stage": "domain",
+      "message": "Domain detected: medicine",
+      "at_ms": 3700
+    },
+    {
+      "stage": "brief",
+      "message": "Research brief ready: 5 query variants, providers: pubmed, clinicaltrials, europe_pmc",
+      "at_ms": 12596
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 1: 102 candidates from 7 queries",
+      "at_ms": 20303
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: refining queries…",
+      "at_ms": 24763
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: 42 candidates from 3 queries (41 new relevant)",
+      "at_ms": 34649
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: refining queries…",
+      "at_ms": 34649
+    },
+    {
+      "stage": "discovery",
+      "message": "Citation graph expansion: +31 candidates from 4 seeds",
+      "at_ms": 35206
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: 41 candidates from 3 queries (35 new relevant)",
+      "at_ms": 45950
+    },
+    {
+      "stage": "discovery",
+      "message": "Discovery complete: 206 unique candidates after dedup",
+      "at_ms": 45952
+    },
+    {
+      "stage": "rerank",
+      "message": "Scoring and reranking 206 candidates…",
+      "at_ms": 45952
+    },
+    {
+      "stage": "rerank",
+      "message": "Shortlisted 26 sources to read in full",
+      "at_ms": 58732
+    },
+    {
+      "stage": "read",
+      "message": "Fetching and summarising 26 sources…",
+      "at_ms": 58732
+    },
+    {
+      "stage": "read",
+      "message": "Summarised 26 sources",
+      "at_ms": 74298
+    },
+    {
+      "stage": "select",
+      "message": "Selecting the final set…",
+      "at_ms": 74298
+    },
+    {
+      "stage": "select",
+      "message": "10 articles selected",
+      "at_ms": 75384
+    },
+    {
+      "stage": "synthesis",
+      "message": "Writing the synthesis…",
+      "at_ms": 75384
+    },
+    {
+      "stage": "synthesis",
+      "message": "Synthesis complete: 6 findings, 0 conflicts",
+      "at_ms": 81780
+    }
+  ],
+  "response": {
+    "status": "completed",
+    "topic": "GLP-1 receptor agonists and cardiovascular risk reduction in type 2 diabetes",
+    "domain_detected": "medicine",
+    "articles": [
+      {
+        "url": "https://www.semanticscholar.org/paper/72be1d85afe5af2e094e79e083ecae3fe7adea2d",
+        "title": "Comparative Cardiovascular Outcomes and Safety Profiles of Glucagon-Like Peptide-1 Receptor Agonists in Type 2 Diabetes Mellitus: A Systematic Review and Meta-Analysis of Randomized Trials",
+        "source_type": "semantic_scholar",
+        "snippet": "Cardiovascular disease is the leading cause of morbidity and mortality in type 2 diabetes mellitus (T2DM). Glucagon-like peptide-1 receptor agonists (GLP-1 RAs) have been assessed in several large cardiovascular outcome trials (CVOTs); however, the individual agents differ in molecular structure, ph",
+        "full_summary": "This systematic review and meta-analysis of randomized trials investigates the comparative cardiovascular outcomes and safety profiles of GLP-1 RAs in type 2 diabetes.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "In adults with T2DM, GLP-1 RAs as a class reduce the risk of MACE by approximately 14% with an acceptable safety profile, supporting their role as a cornerstone of cardiovascular risk reduction.",
+        "finding_direction": "strongly_supports",
+        "population": "adults with type 2 diabetes",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39608381/",
+        "title": "Effects of GLP-1 receptor agonists on kidney and cardiovascular disease outcomes: a meta-analysis of randomised controlled trials.",
+        "source_type": "pubmed",
+        "snippet": "Badve SV, Bilal A, Lee MMY, Sattar N, Gerstein HC, Ruff CT et al. | The lancet. Diabetes & endocrinology | 2025-Jan | Journal Article; Meta-Analysis; Systematic Review",
+        "full_summary": "GLP-1 receptor agonists reduce the risk of major adverse cardiovascular events (MACE), all-cause death, and kidney outcomes in patients with type 2 diabetes, with similar effects observed when including patients without diabetes but with cardiovascular disease and obesity.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-Jan",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "In participants with type 2 diabetes (67 769), GLP-1 receptor agonists reduced the composite kidney outcome by 18% compared with placebo (hazard ratio [HR] 0·82, 95% CI 0·73-0·93; I2 =26·41%), kidney failure by 16% (HR 0·84, 0·72-0·99; I2 =0%), MACE by 13% (HR 0·87, 0·81-0·93; I2 =49·75%), and all-cause death by 12% (HR 0·88, 0·83-0·93; I2 =0%).",
+        "finding_direction": "strongly_supports",
+        "population": "85,373 participants, including 67,769 with type 2 diabetes, and a subgroup with cardiovascular disease and obesity without diabetes",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40652242/",
+        "title": "Glucagon-like peptide-1 receptor agonist in myocardial infarction and atherosclerotic cardiovascular disease risk reduction: a comprehensive meta-analysis of number needed to treat, efficacy and safety.",
+        "source_type": "pubmed",
+        "snippet": "Tang ASP, Hsu JTY, Chong SKS, Quek J, Shek G, Sulaimi F et al. | Cardiovascular diabetology | 2025-Jul-12 | Journal Article; Meta-Analysis; Systematic Review",
+        "full_summary": "This meta-analysis evaluates the clinical impact, efficacy, and safety profile of GLP-1RAs in reducing myocardial infarction and atherosclerotic cardiovascular disease risk.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2025-Jul-12",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "GLP-1RA reduced the risk of total MI (RR: 0.86, p < 0.01), with numbers needed to benefit (NNTB) of 207 to prevent one event of MI.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with and without T2DM and/or prior ASCVD",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/05bbb3bf85537dfc07f791d793fd3ebec790eb66",
+        "title": "Cardiovascular Risk Reduction With GLP-1 RA Drugs.",
+        "source_type": "semantic_scholar",
+        "snippet": "GLP-1 (glucagon-like peptide-1) receptor agonists (RAs) have emerged as a major therapeutic advance in cardiometabolic medicine. Initially developed as glucose-lowering therapies for type 2 diabetes, these agents have demonstrated broad benefits that extend well beyond glycemic control. GLP-1 RAs en",
+        "full_summary": "This clinical primer reviews the physiology of GLP-1 signaling, evidence for cardiovascular risk reduction, and practical considerations for incretin-based therapies.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 1,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Large randomized cardiovascular outcomes trials have consistently shown that several GLP-1 RAs reduce major adverse cardiovascular events, including myocardial infarction, stroke, cardiovascular death, and heart failure.",
+        "finding_direction": "strongly_supports",
+        "population": "diverse populations, including individuals with established cardiovascular disease and those with obesity but without diabetes",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/29221659/",
+        "title": "Cardiovascular outcomes with glucagon-like peptide-1 receptor agonists in patients with type 2 diabetes: a meta-analysis.",
+        "source_type": "pubmed",
+        "snippet": "Bethel MA, Patel RA, Merrill P, Lokhnygina Y, Buse JB, Mentz RJ et al. | The lancet. Diabetes & endocrinology | 2018-Feb | Journal Article; Meta-Analysis; Research Support, Non-U.S. Gov't",
+        "full_summary": "This meta-analysis examines the overall cardiovascular efficacy of lixisenatide, liraglutide, semaglutide, and extended-release exenatide in patients with type 2 diabetes.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2018-Feb",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "Compared with placebo, GLP-1 receptor agonist treatment showed a significant 10% relative risk reduction in the three-point major adverse cardiovascular event primary outcome (cardiovascular mortality, non-fatal myocardial infarction, and non-fatal stroke; HR 0·90, 95% CI 0·82-0·99; p=0·033), a 13% RRR in cardiovascular mortality (0·87, 0·79-0·96; p=0·007), and a 12% relative risk reduction in all",
+        "finding_direction": "strongly_supports",
+        "population": "adult patients (aged 18 years or older) with type 2 diabetes",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40892610/",
+        "title": "Cardiovascular Effects and Tolerability of GLP-1 Receptor Agonists: A Systematic Review and Meta-Analysis of 99,599 Patients.",
+        "source_type": "pubmed",
+        "snippet": "Galli M, Benenati S, Laudani C, Simeone B, Sarto G, Ortega-Paz L et al. | Journal of the American College of Cardiology | 2025-Nov-18 | Journal Article; Systematic Review; Meta-Analysis",
+        "full_summary": "GLP-1 RAs significantly reduce all-cause death, cardiovascular death, and major adverse cardiovascular events (MACE) in high-risk populations, including those with type 2 diabetes, but increase gastrointestinal and gallbladder risks.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-Nov-18",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "We found conclusive, high-certainty evidence that GLP-1 RAs reduced all-cause death (incidence rate ratio [IRR]: 0.88; 95% CI: 0.84-0.92; needed to treat [NNT] = 121), CV death (IRR: 0.87; 95% CI: 0.81-0.92; NNT = 170), and MACE (IRR: 0.87; 95% CI: 0.83-0.91; NNT = 66), compared with controls.",
+        "finding_direction": "strongly_supports",
+        "population": "99,599 patients across 21 randomized controlled trials, including those with diabetes mellitus, kidney dysfunction, obesity, or heart failure",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/31373167/",
+        "title": "GLP-1 receptor agonists for prevention of cardiorenal outcomes in type 2 diabetes: An updated meta-analysis including the REWIND and PIONEER 6 trials.",
+        "source_type": "pubmed",
+        "snippet": "Giugliano D, Maiorino MI, Bellastella G, Longo M, Chiodini P, Esposito K | Diabetes, obesity & metabolism | 2019-Nov | Journal Article; Meta-Analysis",
+        "full_summary": "GLP-1 receptor agonists reduce major cardiovascular events (MACE), cardiovascular death, non-fatal stroke, hospitalization for heart failure, all-cause mortality, and macroalbuminuria in patients with type 2 diabetes.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2019-Nov",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "GLP-1RA reduced major cardiovascular events (MACE) by 13% (HR, 0.87; 95% CI, 0.80-0.96; P = 0.011) with a non-significant heterogeneity between subgroups of patients with and without cardiovascular disease (CVD) (P = 0.220).",
+        "finding_direction": "strongly_supports",
+        "population": "56,004 patients with type 2 diabetes (68.9% with established cardiovascular disease)",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/34526024/",
+        "title": "GLP-1 receptor agonists and cardiorenal outcomes in type 2 diabetes: an updated meta-analysis of eight CVOTs.",
+        "source_type": "pubmed",
+        "snippet": "Giugliano D, Scappaticcio L, Longo M, Caruso P, Maiorino MI, Bellastella G et al. | Cardiovascular diabetology | 2021-Sep-15 | Journal Article; Meta-Analysis; Systematic Review",
+        "full_summary": "GLP-1 receptor agonists significantly reduce major cardiovascular events (MACE), cardiovascular death, nonfatal stroke, hospitalization for heart failure, all-cause mortality, and macroalbuminuria in patients with type 2 diabetes.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2021-Sep-15",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "GLP-1RA reduced major cardiovascular events (MACE) by 14% (HR = 0.86, 95% CI 0.79-0.94, P = 0.006) with a non-significant heterogeneity between subgroups of patients with and without cardiovascular disease (P = 0.127).",
+        "finding_direction": "strongly_supports",
+        "population": "60,080 patients with type 2 diabetes mellitus (72.4% with established cardiovascular disease)",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/32448716/",
+        "title": "Major cardiovascular events, heart failure, and atrial fibrillation in patients treated with glucagon-like peptide-1 receptor agonists: An updated meta-analysis of randomized controlled trials.",
+        "source_type": "pubmed",
+        "snippet": "Nreu B, Dicembrini I, Tinti F, Sesti G, Mannucci E, Monami M | Nutrition, metabolism, and cardiovascular diseases : NMCD | 2020-Jun-25 | Journal Article; Meta-Analysis; Research Support, Non-U.S. Gov't",
+        "full_summary": "This meta-analysis of 43 randomized clinical trials found that GLP-1 receptor agonists significantly reduce major cardiovascular events (MACE) and all-cause mortality in patients with type 2 diabetes, with an uncertain effect on heart failure.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2020-Jun-25",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "A significant reduction of MACE (MH-OR 0.87 [0.83, 0.92]), all-cause mortality (MH-OR 0.89 [0.83, 0.96]), and a nonstatistical trend toward reduction of heart failure (MH-OR 0.93 [0.85, 1.01]) was observed - GLP1-RA did not increase the risk of atrial fibrillation (MH-OR 0.94 [0.84, 1.04]).",
+        "finding_direction": "strongly_supports",
+        "population": "patients with type 2 diabetes",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40156846/",
+        "title": "Cardiovascular and Kidney Outcomes and Mortality With Long-Acting Injectable and Oral Glucagon-Like Peptide 1 Receptor Agonists in Individuals With Type 2 Diabetes: A Systematic Review and Meta-analysis of Randomized Trials.",
+        "source_type": "pubmed",
+        "snippet": "Lee MMY, Sattar N, Pop-Busui R, Deanfield J, Emerson SS, Inzucchi SE et al. | Diabetes care | 2025-May-01 | Journal Article; Systematic Review; Meta-Analysis",
+        "full_summary": "This systematic review and meta-analysis of 10 randomized trials found that long-acting GLP-1 receptor agonists, including both injectable and oral formulations, reduce the incidence of major adverse cardiovascular events (MACE), hospitalization for heart failure (HHF), kidney events, and all-cause mortality in individuals with type 2 diabetes.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-May-01",
+        "citation_count": 72,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "Across 10 trials (n = 71,351), long-acting GLP-1RA reduced incidence rate of MACE by 14% (HR 0.86 [95% CI 0.81, 0.90]; I2 = 27.6%), HHF by 14% (0.86 [0.79, 0.93]; I2 = 2.1%), and the composite kidney outcome by 17% (0.83 [0.75, 0.92]; I2 = 20.4%) and all-cause mortality by 12% (0.88 [0.82, 0.93]; I2 = 17.5%).",
+        "finding_direction": "strongly_supports",
+        "population": "individuals with type 2 diabetes",
+        "directness": "direct"
+      }
+    ],
+    "global_summary": "Glucagon-like peptide-1 receptor agonists (GLP-1 RAs) significantly reduce major adverse cardiovascular events (MACE) and all-cause mortality in adults with type 2 diabetes [0][1][4][5][8][9]. Multiple meta-analyses of randomized controlled trials consistently report a reduction in MACE ranging from **10% to 14%** [0][1][4][6][7][9]. Specifically, a 2026 meta-analysis found a **14%** reduction in MACE for GLP-1 RAs as a class [0]. Other meta-analyses reported similar reductions: a 2025 meta-analysis of 67,769 participants with type 2 diabetes found a **13%** reduction in MACE [1], while another 2025 meta-analysis across 21 trials and 99,599 patients reported a **13%** reduction in MACE (IRR: **0.87**) [5]. A 2018 meta-analysis of adult patients with type 2 diabetes showed a **10%** relative risk reduction in the three-point MACE outcome [4].\n\nBeyond MACE, GLP-1 RAs also reduce the risk of all-cause death and cardiovascular death. A 2025 meta-analysis of 85,373 participants, including 67,769 with type 2 diabetes, found a **12%** reduction in all-cause death (HR **0.88**) [1]. Another 2025 meta-analysis of 99,599 patients reported a **12%** reduction in all-cause death (IRR: **0.88**) and a **13%** reduction in cardiovascular death (IRR: **0.87**) [5]. A 2025 meta-analysis focusing on long-acting GLP-1 RAs in 71,351 individuals with type 2 diabetes also found a **12%** reduction in all-cause mortality [9]. A 2018 meta-analysis specifically noted a **13%** relative risk reduction in cardiovascular mortality [4].\n\nGLP-1 RAs have also been shown to reduce specific cardiovascular events. A 2025 meta-analysis, which included patients with and without type 2 diabetes and/or prior atherosclerotic cardiovascular disease (ASCVD), found that GLP-1 RAs reduced the risk of total myocardial infarction (MI) by **14%** (RR: **0.86**) [2]. Large randomized cardiovascular outcomes trials have consistently demonstrated that several GLP-1 RAs reduce events such as myocardial infarction, stroke, cardiovascular death, and heart failure [3]. A 2020 meta-analysis observed a non-statistical trend toward a reduction in heart failure (MH-OR **0.93**) [8]. The reduction in MACE by GLP-1 RAs appears consistent across subgroups of patients with and without established cardiovascular disease, with meta-analyses in 2019 and 2021 reporting non-significant heterogeneity between these subgroups [6][7].\n\nIn addition to cardiovascular benefits, GLP-1 RAs also demonstrate positive effects on kidney outcomes. A 2025 meta-analysis of 67,769 participants with type 2 diabetes showed an **18%** reduction in the composite kidney outcome and a **16%** reduction in kidney failure [1]. Similarly, a 2025 meta-analysis of long-acting GLP-1 RAs in individuals with type 2 diabetes found a **17%** reduction in the composite kidney outcome [9]. The safety profile of GLP-1 RAs is considered acceptable [0]. A 2020 meta-analysis found that GLP-1 RAs did not increase the risk of atrial fibrillation [8].",
+    "total_sources_consulted": 206,
+    "duration_seconds": 81.78,
+    "job_stats": {
+      "total_cost_usd": 0.077527,
+      "llm": {
+        "total_calls": 50,
+        "total_input_tokens": 108708,
+        "total_output_tokens": 12885,
+        "total_tokens": 121593,
+        "total_cost_usd": 0.06676914,
+        "by_purpose": {
+          "related_articles_domain": {
+            "count": 1,
+            "input_tokens": 741,
+            "output_tokens": 295,
+            "cost_usd": 0.0001921,
+            "total_latency_ms": 3699.6
+          },
+          "related_articles_brief": {
+            "count": 3,
+            "input_tokens": 5267,
+            "output_tokens": 540,
+            "cost_usd": 0.0042535,
+            "total_latency_ms": 4458.6
+          },
+          "related_articles_decompose": {
+            "count": 1,
+            "input_tokens": 578,
+            "output_tokens": 245,
+            "cost_usd": 0.0001558,
+            "total_latency_ms": 887.5
+          },
+          "related_articles_reformulate": {
+            "count": 5,
+            "input_tokens": 13917,
+            "output_tokens": 597,
+            "cost_usd": 0.0087495,
+            "total_latency_ms": 6469.2
+          },
+          "related_articles_rerank": {
+            "count": 4,
+            "input_tokens": 34836,
+            "output_tokens": 1384,
+            "cost_usd": 0.0139108,
+            "total_latency_ms": 7146.5
+          },
+          "related_articles_design_grade": {
+            "count": 1,
+            "input_tokens": 1923,
+            "output_tokens": 92,
+            "cost_usd": 0.0002291,
+            "total_latency_ms": 603.2
+          },
+          "related_articles_summarize": {
+            "count": 10,
+            "input_tokens": 31968,
+            "output_tokens": 6671,
+            "cost_usd": 0.02578244,
+            "total_latency_ms": 48055.2
+          },
+          "related_articles_stance": {
+            "count": 24,
+            "input_tokens": 16015,
+            "output_tokens": 1657,
+            "cost_usd": 0.008947,
+            "total_latency_ms": 18472.7
+          },
+          "related_articles_synthesis": {
+            "count": 1,
+            "input_tokens": 3463,
+            "output_tokens": 1404,
+            "cost_usd": 0.0045489,
+            "total_latency_ms": 6395.2
+          }
+        }
+      },
+      "embeddings": {
+        "total_calls": 369,
+        "total_tokens": 82750,
+        "total_cost_usd": 0.0107575,
+        "by_model": {
+          "openai/text-embedding-3-large": {
+            "calls": 369,
+            "tokens": 82750,
+            "cost_usd": 0.0107575
+          }
+        }
+      },
+      "tools": {
+        "calls": {
+          "resolve_drug": 4,
+          "search_guidelines": 1,
+          "probe_pubmed": 13,
+          "submit_brief": 1,
+          "submit_queries": 2,
+          "read_section": 1,
+          "submit_appraisals": 6
+        },
+        "total_calls": 28
+      },
+      "providers": {
+        "calls": {
+          "clinicaltrials": 13,
+          "pubmed": 13,
+          "europe_pmc": 13
+        },
+        "cache_hits": {},
+        "errors": {},
+        "total_calls": 39,
+        "total_cache_hits": 0
+      },
+      "pipeline": {
+        "evidence_total": 0,
+        "evidence_after_relevance": 0,
+        "retries": 0
+      },
+      "stage_timings_ms": {
+        "domain_detection": 3699.7,
+        "brief": 8864.4,
+        "pro_decomposition": 887.6,
+        "pro_round1": 6819.5,
+        "pro_round2": 9886.1,
+        "pro_expansion": 10443.6,
+        "pro_round3": 11300.9,
+        "rerank": 12779.7,
+        "content_enrichment": 0.0,
+        "summarization": 12868.2,
+        "stance": 2696.7,
+        "global_synthesis": 6395.4
+      }
+    },
+    "key_findings": [
+      {
+        "text": "GLP-1 receptor agonists (GLP-1 RAs) significantly reduce the risk of major adverse cardiovascular events (MACE) in adults with type 2 diabetes by approximately 10% to 14%.",
+        "source_indices": [
+          0,
+          1,
+          4,
+          5,
+          6,
+          7,
+          9
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "GLP-1 RAs reduce all-cause mortality by 12% and cardiovascular death by 13% in patients with type 2 diabetes.",
+        "source_indices": [
+          1,
+          4,
+          5,
+          8,
+          9
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "GLP-1 RAs reduce the risk of total myocardial infarction by 14%, including in patients with and without type 2 diabetes and/or prior atherosclerotic cardiovascular disease.",
+        "source_indices": [
+          2,
+          3
+        ],
+        "strength": "moderate"
+      },
+      {
+        "text": "GLP-1 RAs reduce the composite kidney outcome by 17-18% and kidney failure by 16% in individuals with type 2 diabetes.",
+        "source_indices": [
+          1,
+          9
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "The reduction in MACE with GLP-1 RAs is consistent across subgroups of patients with and without established cardiovascular disease.",
+        "source_indices": [
+          6,
+          7
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "GLP-1 RAs do not increase the risk of atrial fibrillation.",
+        "source_indices": [
+          8
+        ],
+        "strength": "strong"
+      }
+    ],
+    "disagreements": [],
+    "evidence_profile": {
+      "designs": {
+        "meta-analysis": 9,
+        "review": 1
+      },
+      "high_tier_share": 0.9,
+      "preprint_share": 0.0
+    },
+    "pico": {
+      "population": "type 2 diabetes",
+      "intervention": "GLP-1 receptor agonists",
+      "comparison": "",
+      "outcome": "cardiovascular risk reduction",
+      "study_designs": [
+        "randomized controlled trial",
+        "meta-analysis"
+      ]
+    },
+    "evidence_gaps": [
+      "The sources do not provide specific details on the comparative efficacy or safety profiles of individual GLP-1 RA drugs for cardiovascular risk reduction.",
+      "The sources do not extensively detail the long-term safety profile beyond the reported trial durations, nor do they specify potential adverse events beyond atrial fibrillation."
+    ]
+  }
+}

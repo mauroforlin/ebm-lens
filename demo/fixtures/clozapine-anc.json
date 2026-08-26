@@ -1,0 +1,511 @@
+{
+  "id": "clozapine-anc",
+  "topic": "Clozapine-induced agranulocytosis and ANC monitoring requirements",
+  "max_sources": 10,
+  "summary_language": "en",
+  "recorded_at": "2026-08-26",
+  "events": [
+    {
+      "stage": "domain",
+      "message": "Analysing the topic…",
+      "at_ms": 0
+    },
+    {
+      "stage": "domain",
+      "message": "Domain detected: medicine",
+      "at_ms": 1043
+    },
+    {
+      "stage": "brief",
+      "message": "Research brief ready: 5 query variants, providers: pubmed, clinicaltrials, europe_pmc, dailymed",
+      "at_ms": 16025
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 1: 72 candidates from 7 queries",
+      "at_ms": 23920
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: refining queries…",
+      "at_ms": 27980
+    },
+    {
+      "stage": "discovery",
+      "message": "Citation graph expansion: +29 candidates from 4 seeds",
+      "at_ms": 37435
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: 19 candidates from 3 queries (16 new relevant)",
+      "at_ms": 43402
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: refining queries…",
+      "at_ms": 43402
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: 15 candidates from 3 queries (5 new relevant)",
+      "at_ms": 58116
+    },
+    {
+      "stage": "discovery",
+      "message": "Discovery complete: 118 unique candidates after dedup",
+      "at_ms": 58117
+    },
+    {
+      "stage": "rerank",
+      "message": "Scoring and reranking 118 candidates…",
+      "at_ms": 58117
+    },
+    {
+      "stage": "rerank",
+      "message": "Shortlisted 26 sources to read in full",
+      "at_ms": 71879
+    },
+    {
+      "stage": "read",
+      "message": "Fetching and summarising 26 sources…",
+      "at_ms": 71879
+    },
+    {
+      "stage": "read",
+      "message": "Summarised 26 sources",
+      "at_ms": 84454
+    },
+    {
+      "stage": "select",
+      "message": "Selecting the final set…",
+      "at_ms": 84454
+    },
+    {
+      "stage": "select",
+      "message": "10 articles selected",
+      "at_ms": 85606
+    },
+    {
+      "stage": "synthesis",
+      "message": "Writing the synthesis…",
+      "at_ms": 85606
+    },
+    {
+      "stage": "synthesis",
+      "message": "Synthesis complete: 6 findings, 1 conflicts",
+      "at_ms": 92222
+    }
+  ],
+  "response": {
+    "status": "completed",
+    "topic": "Clozapine-induced agranulocytosis and ANC monitoring requirements",
+    "domain_detected": "medicine",
+    "articles": [
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40617246/",
+        "title": "Absolute neutrophil count and adverse drug reaction monitoring during clozapine treatment: consensus guidelines from a global Delphi panel.",
+        "source_type": "pubmed",
+        "snippet": "Siskind D, Northwood K, Pillinger T, Chan S, Correll C, Cotes RO et al. | The lancet. Psychiatry | 2026-Jan | Journal Article; Review",
+        "full_summary": "This global Delphi study established consensus guidelines for ANC thresholds for clozapine cessation and monitoring protocols, recommending lowering ANC thresholds and discontinuing routine ANC monitoring after 2 years.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026-Jan",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "Recommendations include lowering ANC thresholds for consideration of clozapine cessation to 1·0 × 109 cells per L (0·5 × 109 cells per L for Duffy antigen receptor for chemokines-null individuals) and discontinuing routine ANC monitoring after 2 years.",
+        "finding_direction": "strongly_supports",
+        "population": "Humans",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41993722/",
+        "title": "Clozapine-related neutropenia and agranulocytosis in Korea: 2025 update for rethinking the role of monitoring system.",
+        "source_type": "pubmed",
+        "snippet": "Kang N, Jang JS, Joo SW, Lee JH, Jeong JH, Kim M et al. | Therapeutic advances in psychopharmacology | 2026 | Journal Article",
+        "full_summary": "This retrospective cohort study in Korea found that clozapine-induced agranulocytosis is rare (0.17%), abrupt, and confined to the early period of treatment, suggesting a need to reconsider current hematological monitoring regulations.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Ten cases of agranulocytosis were identified, of which four (0.17%) were clozapine-related. All appeared abruptly within 5 weeks of initiation without preceding neutropenia or low baseline ANC, and recovered after discontinuation.",
+        "finding_direction": "supports",
+        "population": "patients with schizophrenia spectrum disorders who had newly initiated clozapine in Korea",
+        "directness": "direct"
+      },
+      {
+        "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=61fe53d5-ed5c-4e45-9189-709d08d386cb",
+        "title": "CLOZAPINE TABLET [NORTHSTAR RX LLC]",
+        "source_type": "dailymed",
+        "snippet": "FDA Drug Label: CLOZAPINE TABLET [NORTHSTAR RX LLC] | Published: Aug 03, 2026",
+        "full_summary": "This FDA drug label for clozapine highlights severe neutropenia as a boxed warning, detailing baseline ANC requirements before initiation and dosage modifications based on ANC levels during treatment.",
+        "relevance_score": 1.0,
+        "reliability_tier": 1,
+        "publication_date": "Aug 03, 2026",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "regulatory drug label",
+        "evidence_level": 0.78,
+        "key_finding": "Clozapine has caused severe neutropenia which is associated with an increased risk of serious and potentially fatal infections.",
+        "finding_direction": "strongly_supports",
+        "population": "patients treated with clozapine",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42210730/",
+        "title": "Clozapine-induced neutropenia: Prevalence and associated factors.",
+        "source_type": "pubmed",
+        "snippet": "Sandroni V, Sta A, Defez M, Sébille SB, Perozziello A, Iftimovici A et al. | Journal of psychopharmacology (Oxford, England) | 2026-May-29 | Journal Article",
+        "full_summary": "This retrospective study in France found a clozapine-induced agranulocytosis prevalence of 0.28% with no fatalities, and a neutropenia prevalence of 9.22%, suggesting a looser approach to hematological monitoring.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026-May-29",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Among 1768 patients treated with clozapine, we identified 5 cases of CIA (prevalence: 0.28%), with no fatalities, and 163 cases of CIN (prevalence: 9.22%), including 36 moderate cases.",
+        "finding_direction": "supports",
+        "population": "patients treated with clozapine at GHU Paris Psychiatrie & Neurosciences",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/4415bd3c865d0606b78c2cd25c9032aa01cd14b0",
+        "title": "Baseline neutrophil count, benign ethnic neutropenia risk, and clozapine haematological monitoring: A multi-ethnic retrospective cohort study from the United Arab Emirates.",
+        "source_type": "semantic_scholar",
+        "snippet": "BACKGROUND\nConcerns about haematological toxicity and absolute neutrophil count (ANC) monitoring may limit clozapine use, particularly in multi-ethnic populations where benign ethnic neutropenia (BEN) and lower baseline ANC are common. We characterised baseline ANC distribution, nationality-derived ",
+        "full_summary": "This retrospective cohort study in the UAE found that agranulocytosis did not occur in any of the 179 clozapine patients. Low ANC was uncommon and associated with baseline ANC and benign ethnic neutropenia risk.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Among 239 patients, 179 formed the final study cohort, contributing 284.7 on-clozapine person-years. Overall, 158 patients (88.3%) had no post-initiation ANC <2.0 × 109/L, 16 (8.9%) entered the 1.5-2.0 × 109/L low-ANC monitoring range, 2 (1.1%) reached conventional-threshold neutropenia, 3 (1.7%) reached severe neutropenia, and none reached agranulocytosis range.",
+        "finding_direction": "strongly_contradicts",
+        "population": "multi-ethnic clozapine cohort in the United Arab Emirates",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/35288577/",
+        "title": "Distinctive pattern of neutrophil count change in clozapine-associated, life-threatening agranulocytosis.",
+        "source_type": "pubmed",
+        "snippet": "Taylor D, Vallianatou K, Whiskey E, Dzahini O, MacCabe J | Schizophrenia (Heidelberg, Germany) | 2022-Mar-14 | Journal Article",
+        "full_summary": "This study identified 9 episodes of life-threatening agranulocytosis (LTA) among clozapine patients, characterized by a distinct pattern of rapid neutrophil count decline and delayed recovery, suggesting that not all recorded agranulocytosis cases are life-threatening or clozapine-related.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2022-Mar-14",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "case report",
+        "evidence_level": 0.25,
+        "key_finding": "We found 23 episodes recorded as agranulocytosis in clozapine patients. Of these, nine met pre-defined criteria and were considered episodes of life-threatening agranulocytosis (LTA).",
+        "finding_direction": "supports",
+        "population": "clozapine patients",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/8515788/",
+        "title": "Clozapine-induced agranulocytosis. Incidence and risk factors in the United States.",
+        "source_type": "pubmed",
+        "snippet": "Alvir JM, Lieberman JA, Safferman AZ, Schwimmer JL, Schaaf JA | The New England journal of medicine | 1993-Jul-15 | Journal Article; Research Support, U.S. Gov't, P.H.S.",
+        "full_summary": "This study analyzed data from the Clozaril Patient Management System to determine the incidence and risk factors for clozapine-induced agranulocytosis in the US.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "1993-Jul-15",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Agranulocytosis developed in 73 patients, resulting in death from infectious complications in 2 patients.",
+        "finding_direction": "supports",
+        "population": "patients receiving clozapine in the US",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42125771/",
+        "title": "ACKR1/Duffy-null genotype testing for clozapine: A guideline developed by the UK Centre of Excellence in Regulatory Science and Innovation in Pharmacogenomics (CERSI-PGx).",
+        "source_type": "pubmed",
+        "snippet": "Murtough S, Stellakis O, Mills D, Bjourson B, Chaplin V, Chauhan D et al. | British journal of clinical pharmacology | 2026-Jul | Journal Article; Practice Guideline",
+        "full_summary": "This guideline proposes a framework for ACKR1 genotype testing to identify individuals with benign ethnic neutropenia (ADAN) to avoid unnecessary clozapine discontinuation and allow for revised ANC monitoring thresholds.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2026-Jul",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "clinical guideline",
+        "evidence_level": 0.92,
+        "key_finding": "We recommend that people with the Duffy-null genotype should be monitored using revised WBC/ANC thresholds for ADAN.",
+        "finding_direction": "supports",
+        "population": "people starting clozapine or with below-threshold blood results in the UK",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/38820548/",
+        "title": "Time for a change to clozapine haematological monitoring.",
+        "source_type": "pubmed",
+        "snippet": "Cheng A, Buten S, Large M | Australasian psychiatry : bulletin of Royal Australian and New Zealand College of Psychiatrists | 2024-Aug | Journal Article; Review",
+        "full_summary": "This review critiques current Australian clozapine haematological monitoring guidelines, suggesting they are not consistent with current evidence. It proposes modifications like adjusting neutrophil thresholds for benign ethnic neutropenia and reducing monitoring frequency after two years.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2024-Aug",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Contemporary Australian protocols for clozapine haematological monitoring are not consistent with the current evidence base.",
+        "finding_direction": "contradicts",
+        "population": "patients treated with clozapine",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/a7536889841e9e3535e8a55bf5193d16a5629a54",
+        "title": "Risk factors associated with blood dyscrasia during clozapine treatment: a systematic review and meta-analysis",
+        "source_type": "semantic_scholar",
+        "snippet": "Abstract Clozapine is the only effective treatment for treatment-resistant schizophrenia, but concerns over blood dyscrasia and need for monitoring limit its use. Evidence suggests many hematological abnormalities may result from surveillance bias, with agranulocytosis being the primary adverse effe",
+        "full_summary": "This systematic review and meta-analysis investigated non-genetic risk factors for blood dyscrasia during clozapine treatment, finding no strong predictors of clozapine-associated blood dyscrasia.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "No strong predictors of clozapine-associated blood dyscrasia were identified.",
+        "finding_direction": "supports",
+        "population": "patients receiving clozapine treatment",
+        "directness": "direct"
+      }
+    ],
+    "global_summary": "Clozapine, an antipsychotic medication, carries a known risk of severe neutropenia and agranulocytosis, which can lead to serious and potentially fatal infections [2]. Agranulocytosis, a severe drop in white blood cells, has been observed in patients receiving clozapine, with some cases resulting in death from infectious complications [6]. A 2026 cohort study in Korea identified four clozapine-related agranulocytosis cases (0.17%) among newly initiated patients, all appearing abruptly within five weeks of initiation without preceding neutropenia or low baseline ANC [1]. Similarly, a 2026 cohort study in Paris found a prevalence of 0.28% for clozapine-induced agranulocytosis (CIA) and 9.22% for clozapine-induced neutropenia (CIN) among 1768 patients, with no fatalities from CIA [3]. Another study identified nine episodes of life-threatening agranulocytosis among clozapine patients [5].\n\nThere is an ongoing discussion regarding the optimal absolute neutrophil count (ANC) monitoring requirements for patients on clozapine. Consensus guidelines from a global Delphi panel in 2026 recommend lowering ANC thresholds for considering clozapine cessation to **1.0 × 10^9 cells per L** (or **0.5 × 10^9 cells per L** for Duffy antigen receptor for chemokines-null individuals) and discontinuing routine ANC monitoring after two years [0]. This is supported by a 2026 clinical guideline from the UK Centre of Excellence in Regulatory Science and Innovation in Pharmacogenomics, which recommends revised WBC/ANC thresholds for individuals with the Duffy-null genotype [7].\n\nHowever, some evidence suggests that current monitoring protocols may be overly cautious or not aligned with contemporary data. A 2024 review highlights that contemporary Australian protocols for clozapine haematological monitoring are **not consistent with the current evidence base** [8]. A multi-ethnic retrospective cohort study from the United Arab Emirates involving 179 patients over 284.7 on-clozapine person-years found that **88.3%** had no post-initiation ANC below 2.0 × 10^9/L, and none reached the agranulocytosis range [4]. This study suggests that the incidence of severe neutropenia and agranulocytosis might be lower than conventionally assumed in certain populations [4].\n\nDespite the risks, a 2026 systematic review and meta-analysis found **no strong predictors** of clozapine-associated blood dyscrasia [9]. This suggests that identifying individuals at high risk for these adverse events remains challenging.",
+    "total_sources_consulted": 118,
+    "duration_seconds": 92.22,
+    "job_stats": {
+      "total_cost_usd": 0.07073,
+      "llm": {
+        "total_calls": 53,
+        "total_input_tokens": 105442,
+        "total_output_tokens": 11539,
+        "total_tokens": 116981,
+        "total_cost_usd": 0.0645973,
+        "by_purpose": {
+          "related_articles_domain": {
+            "count": 1,
+            "input_tokens": 739,
+            "output_tokens": 300,
+            "cost_usd": 0.0001939,
+            "total_latency_ms": 1042.5
+          },
+          "related_articles_brief": {
+            "count": 3,
+            "input_tokens": 5256,
+            "output_tokens": 406,
+            "cost_usd": 0.003846,
+            "total_latency_ms": 4190.6
+          },
+          "related_articles_decompose": {
+            "count": 1,
+            "input_tokens": 576,
+            "output_tokens": 140,
+            "cost_usd": 0.0001136,
+            "total_latency_ms": 692.1
+          },
+          "related_articles_reformulate": {
+            "count": 8,
+            "input_tokens": 25046,
+            "output_tokens": 1080,
+            "cost_usd": 0.015763,
+            "total_latency_ms": 12687.0
+          },
+          "related_articles_rerank": {
+            "count": 4,
+            "input_tokens": 26201,
+            "output_tokens": 1388,
+            "cost_usd": 0.0113303,
+            "total_latency_ms": 7831.6
+          },
+          "related_articles_design_grade": {
+            "count": 1,
+            "input_tokens": 5018,
+            "output_tokens": 236,
+            "cost_usd": 0.0005962,
+            "total_latency_ms": 938.8
+          },
+          "related_articles_summarize": {
+            "count": 9,
+            "input_tokens": 25015,
+            "output_tokens": 4690,
+            "cost_usd": 0.0192295,
+            "total_latency_ms": 37329.3
+          },
+          "related_articles_stance": {
+            "count": 25,
+            "input_tokens": 14923,
+            "output_tokens": 1984,
+            "cost_usd": 0.0094369,
+            "total_latency_ms": 21080.9
+          },
+          "related_articles_synthesis": {
+            "count": 1,
+            "input_tokens": 2668,
+            "output_tokens": 1315,
+            "cost_usd": 0.0040879,
+            "total_latency_ms": 6615.1
+          }
+        }
+      },
+      "embeddings": {
+        "total_calls": 228,
+        "total_tokens": 47171,
+        "total_cost_usd": 0.00613223,
+        "by_model": {
+          "openai/text-embedding-3-large": {
+            "calls": 228,
+            "tokens": 47171,
+            "cost_usd": 0.00613223
+          }
+        }
+      },
+      "tools": {
+        "calls": {
+          "resolve_drug": 1,
+          "search_guidelines": 1,
+          "probe_pubmed": 26,
+          "submit_brief": 1,
+          "submit_queries": 2,
+          "submit_appraisals": 6
+        },
+        "total_calls": 37
+      },
+      "providers": {
+        "calls": {
+          "clinicaltrials": 13,
+          "dailymed": 13,
+          "pubmed": 13,
+          "europe_pmc": 13
+        },
+        "cache_hits": {},
+        "errors": {},
+        "total_calls": 52,
+        "total_cache_hits": 0
+      },
+      "pipeline": {
+        "evidence_total": 0,
+        "evidence_after_relevance": 0,
+        "retries": 0
+      },
+      "stage_timings_ms": {
+        "domain_detection": 1042.5,
+        "brief": 14982.1,
+        "pro_decomposition": 692.1,
+        "pro_round1": 7203.5,
+        "pro_expansion": 9455.0,
+        "pro_round2": 15421.9,
+        "pro_round3": 14713.7,
+        "rerank": 13761.5,
+        "content_enrichment": 0.0,
+        "summarization": 9528.1,
+        "stance": 3047.1,
+        "global_synthesis": 6615.3
+      }
+    },
+    "key_findings": [
+      {
+        "text": "Clozapine treatment is associated with a risk of severe neutropenia and agranulocytosis, which can lead to serious and potentially fatal infections.",
+        "source_indices": [
+          2,
+          6
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Agranulocytosis cases related to clozapine can appear abruptly within weeks of initiation without preceding neutropenia or low baseline ANC.",
+        "source_indices": [
+          1
+        ],
+        "strength": "moderate"
+      },
+      {
+        "text": "The prevalence of clozapine-induced agranulocytosis (CIA) has been reported at 0.17% in Korea and 0.28% in a Paris cohort, with clozapine-induced neutropenia (CIN) at 9.22% in the latter.",
+        "source_indices": [
+          1,
+          3
+        ],
+        "strength": "moderate"
+      },
+      {
+        "text": "Consensus guidelines recommend lowering ANC thresholds for clozapine cessation to 1.0 × 10^9 cells per L (0.5 × 10^9 cells per L for Duffy-null individuals) and discontinuing routine ANC monitoring after two years.",
+        "source_indices": [
+          0
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Individuals with the Duffy-null genotype should be monitored using revised WBC/ANC thresholds due to their increased risk for benign ethnic neutropenia.",
+        "source_indices": [
+          0,
+          7
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "No strong predictors of clozapine-associated blood dyscrasia have been identified.",
+        "source_indices": [
+          9
+        ],
+        "strength": "strong"
+      }
+    ],
+    "disagreements": [
+      {
+        "issue": "Consistency of current clozapine haematological monitoring protocols with the evidence base",
+        "positions": [
+          "Current monitoring protocols are not consistent with the evidence base and may be overly cautious, with a low incidence of severe neutropenia/agranulocytosis observed in some populations.",
+          "Clozapine carries a significant risk of severe neutropenia and agranulocytosis, necessitating careful monitoring, and revised, but still present, monitoring thresholds are recommended."
+        ],
+        "source_indices": [
+          4,
+          8,
+          0,
+          1,
+          2,
+          3,
+          5,
+          6
+        ]
+      }
+    ],
+    "evidence_profile": {
+      "designs": {
+        "cohort study": 4,
+        "systematic review": 2,
+        "regulatory drug label": 1,
+        "case report": 1,
+        "clinical guideline": 1,
+        "review": 1
+      },
+      "high_tier_share": 0.3,
+      "preprint_share": 0.0
+    },
+    "pico": {
+      "population": "patients treated with clozapine",
+      "intervention": "clozapine",
+      "comparison": "",
+      "outcome": "agranulocytosis",
+      "study_designs": [
+        "pharmacovigilance studies",
+        "clinical trials"
+      ]
+    },
+    "evidence_gaps": [
+      "The sources do not provide specific details on the long-term outcomes or management strategies for patients who experience clozapine-induced neutropenia or agranulocytosis beyond discontinuation of the drug.",
+      "The sources do not detail the specific characteristics or risk factors that differentiate patients who experience life-threatening agranulocytosis from those with less severe neutropenic events.",
+      "The sources do not provide a comprehensive comparison of the efficacy and safety of different monitoring protocols across diverse global populations."
+    ]
+  }
+}

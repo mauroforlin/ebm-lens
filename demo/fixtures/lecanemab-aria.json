@@ -1,0 +1,719 @@
+{
+  "id": "lecanemab-aria",
+  "topic": "Lecanemab efficacy and ARIA risk in early Alzheimer's disease",
+  "max_sources": 20,
+  "summary_language": "en",
+  "recorded_at": "2026-08-26",
+  "events": [
+    {
+      "stage": "domain",
+      "message": "Analysing the topic…",
+      "at_ms": 0
+    },
+    {
+      "stage": "domain",
+      "message": "Domain detected: medicine",
+      "at_ms": 1090
+    },
+    {
+      "stage": "brief",
+      "message": "Research brief ready: 5 query variants, providers: pubmed, clinicaltrials, europe_pmc, dailymed, ema",
+      "at_ms": 11166
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 1: 104 candidates from 7 queries",
+      "at_ms": 19892
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: refining queries…",
+      "at_ms": 23212
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: 50 candidates from 3 queries (33 new relevant)",
+      "at_ms": 35133
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: refining queries…",
+      "at_ms": 35133
+    },
+    {
+      "stage": "discovery",
+      "message": "Citation graph expansion: +55 candidates from 4 seeds",
+      "at_ms": 36223
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: 33 candidates from 3 queries (18 new relevant)",
+      "at_ms": 47707
+    },
+    {
+      "stage": "discovery",
+      "message": "Discovery complete: 208 unique candidates after dedup",
+      "at_ms": 47710
+    },
+    {
+      "stage": "rerank",
+      "message": "Scoring and reranking 208 candidates…",
+      "at_ms": 47710
+    },
+    {
+      "stage": "rerank",
+      "message": "Shortlisted 46 sources to read in full",
+      "at_ms": 61281
+    },
+    {
+      "stage": "read",
+      "message": "Fetching and summarising 46 sources…",
+      "at_ms": 61281
+    },
+    {
+      "stage": "read",
+      "message": "Summarised 46 sources",
+      "at_ms": 78309
+    },
+    {
+      "stage": "select",
+      "message": "Selecting the final set…",
+      "at_ms": 78309
+    },
+    {
+      "stage": "select",
+      "message": "20 articles selected",
+      "at_ms": 85018
+    },
+    {
+      "stage": "synthesis",
+      "message": "Writing the synthesis…",
+      "at_ms": 85018
+    },
+    {
+      "stage": "synthesis",
+      "message": "Synthesis complete: 9 findings, 0 conflicts",
+      "at_ms": 92719
+    }
+  ],
+  "response": {
+    "status": "completed",
+    "topic": "Lecanemab efficacy and ARIA risk in early Alzheimer's disease",
+    "domain_detected": "medicine",
+    "articles": [
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36949897/",
+        "title": "ARIA in patients treated with lecanemab (BAN2401) in a phase 2 study in early Alzheimer's disease.",
+        "source_type": "pubmed",
+        "snippet": "Honig LS, Barakos J, Dhadda S, Kanekiyo M, Reyderman L, Irizarry M et al. | Alzheimer's & dementia (New York, N. Y.) | 2023 | Journal Article",
+        "full_summary": "This phase 2 study of lecanemab in early Alzheimer's disease reports a low incidence of ARIA-E, which was generally asymptomatic and mild-to-moderate, occurring early in treatment and more frequently in ApoE4 homozygous carriers.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2023",
+        "citation_count": 108,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "In the phase 2 core and OLE, there was a low incidence of ARIA-E (<10%), with <3% symptomatic cases.",
+        "finding_direction": "supports",
+        "population": "patients with early Alzheimer's disease",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/38730496/",
+        "title": "Updated safety results from phase 3 lecanemab study in early Alzheimer's disease.",
+        "source_type": "pubmed",
+        "snippet": "Honig LS, Sabbagh MN, van Dyck CH, Sperling RA, Hersch S, Matta A et al. | Alzheimer's research & therapy | 2024-May-10 | Journal Article; Multicenter Study; Randomized Controlled Trial",
+        "full_summary": "This phase 3 study of lecanemab in early Alzheimer's disease reports on the safety profile, including the incidence of ARIA-H and ARIA-E, and their association with ApoE ε4 carriers.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2024-May-10",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "In the Core + OLE, the most common adverse events in the lecanemab group (> 10%) were infusion-related reactions (24.5%), ARIA with hemosiderin deposits (ARIA-H) microhemorrhages (16.0%), COVID-19 (14.7%), ARIA with edema (ARIA-E; 13.6%), and headache (10.3%).",
+        "finding_direction": "supports",
+        "population": "participants with early Alzheimer's disease",
+        "directness": "direct"
+      },
+      {
+        "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=9d1ff786-e577-410a-a273-c4d7d0e4e975",
+        "title": "LEQEMBI (LECANEMAB) INJECTION, SOLUTION LECANEMAB AUTOINJECTOR (LECANEMAB-IRMB) INJECTION, SOLUTION [EISAI INC.]",
+        "source_type": "dailymed",
+        "snippet": "FDA Drug Label: LEQEMBI (LECANEMAB) INJECTION, SOLUTION LECANEMAB AUTOINJECTOR (LECANEMAB-IRMB) INJECTION, SOLUTION [EISAI INC.] | Published: Jul 27, 2026",
+        "full_summary": "The FDA drug label for LEQEMBI (lecanemab) details its indications, dosage, warnings regarding ARIA, and mechanism of action for Alzheimer's disease.",
+        "relevance_score": 1.0,
+        "reliability_tier": 1,
+        "publication_date": "Jul 27, 2026",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "regulatory drug label",
+        "evidence_level": 0.78,
+        "key_finding": "Monoclonal antibodies directed against aggregated forms of beta amyloid, including LEQEMBI, can cause amyloid related imaging abnormalities (ARIA), characterized as ARIA with edema (ARIA-E) and ARIA with hemosiderin deposition (ARIA-H).",
+        "finding_direction": "strongly_supports",
+        "population": "patients with mild cognitive impairment or mild dementia stage of Alzheimer's disease",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41689888/",
+        "title": "Lecanemab for treatment of individuals with early Alzheimer's Disease (AD) who are apolipoprotein E ε4 (ApoE ε4) non-carriers or heterozygotes.",
+        "source_type": "pubmed",
+        "snippet": "Perry R, Kipps C, Soto Martín ME, Bozzali M, Logroscino G, Trafford S et al. | The journal of prevention of Alzheimer's disease | 2026-Apr | Journal Article; Randomized Controlled Trial; Multicenter Study",
+        "full_summary": "Lecanemab slowed cognitive decline and reduced amyloid markers in ApoE ε4 non-carriers or heterozygotes with early AD, with manageable ARIA rates.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026-Apr",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Lecanemab significantly reduced clinical decline on CDR-SB at 18 months compared to placebo in the ApoEε4 heterozygotes or non-carriers subgroup.",
+        "finding_direction": "strongly_supports",
+        "population": "early AD patients who are ApoE ε4 non-carriers or heterozygotes",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41581261/",
+        "title": "Lecanemab over a two-year duration: Key insights from a regional specialty medical center.",
+        "source_type": "pubmed",
+        "snippet": "Shields LBE, Hust HS, Cooper GE, Kluthe T, Hart RN, Thaliath AP et al. | The journal of prevention of Alzheimer's disease | 2026-Mar | Journal Article; Observational Study",
+        "full_summary": "This observational study from a regional medical center evaluates the incidence of ARIA and other adverse events associated with lecanemab in patients with mild cognitive impairment or mild dementia due to Alzheimer's disease.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026-Mar",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Of the 175 patients who underwent at least one surveillance brain MRI following lecanemab initiation, 39 (22.3 %) had evidence of ARIA (both ARIA-H and ARIA-E: 13 [33.3 %]; solitary ARIA-H: 17 [43.6 %]; and solitary ARIA-E: 9 [23.1 %]).",
+        "finding_direction": "supports",
+        "population": "patients with mild cognitive impairment or mild dementia due to Alzheimer's disease",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37213538/",
+        "title": "Safety and efficacy of lecanemab for Alzheimer's disease: a systematic review and meta-analysis of randomized clinical trials.",
+        "source_type": "pubmed",
+        "snippet": "Qiao Y, Chi Y, Zhang Q, Ma Y | Frontiers in aging neuroscience | 2023 | Systematic Review; Journal Article",
+        "full_summary": "This systematic review and meta-analysis of four randomized controlled trials found that lecanemab was beneficial in stabilizing or slowing the decrease in cognitive and functional scores in early AD patients. It also reported increased risks for ARIA-E and ARIA-H.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2023",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "It is reported that lecanemab was beneficial to stabilize or slow down the decrease in CDR-SB (WMD: -0.45; 95% CI: -0.64, -0.25; p < 0.00001), ADCOMS (WMD: -0.05; 95% CI: -0.07, -0.03; p < 0.00001), ADAS-cog (WMD: -1.11; 95% CI: -1.64, -0.57; p < 0.0001), amyloid PET SUVr (WMD: -0.15; 95% CI: -0.48, 0.19; p = 0.38), amyloid burden on PET (WMD:-35.44; 95% CI: -65.22,-5.67; p = 0.02), adverse events",
+        "finding_direction": "mixed",
+        "population": "AD patients with MCI or AD",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36449413/",
+        "title": "Lecanemab in Early Alzheimer's Disease.",
+        "source_type": "pubmed",
+        "snippet": "van Dyck CH, Swanson CJ, Aisen P, Bateman RJ, Chen C, Gee M et al. | The New England journal of medicine | 2023-Jan-05 | Clinical Trial, Phase III; Journal Article; Multicenter Study",
+        "full_summary": "This phase 3 trial investigates the efficacy and safety of lecanemab in early Alzheimer's disease, showing reduced amyloid markers and less cognitive decline compared to placebo, but with associated adverse events including ARIA-E.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2023-Jan-05",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Lecanemab reduced markers of amyloid in early Alzheimer's disease and resulted in moderately less decline on measures of cognition and function than placebo at 18 months but was associated with adverse events.",
+        "finding_direction": "strongly_supports",
+        "population": "persons with early Alzheimer's disease (mild cognitive impairment or mild dementia due to Alzheimer's disease)",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42642841/",
+        "title": "APOE-guided lecanemab dosing dissociates ARIA-E from ARIA-H: The K-ROAD study.",
+        "source_type": "pubmed",
+        "snippet": "Kang H, Jang H, Ahn J, Na DL, Lee JH, Kim EJ et al. | Alzheimer's & dementia : the journal of the Alzheimer's Association | 2026-Aug | Journal Article; Multicenter Study",
+        "full_summary": "This multicenter study investigated APOE genotype-guided lecanemab escalation and its effect on ARIA-E and ARIA-H incidence in early Alzheimer's disease patients.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026-Aug",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "ARIA-E incidence was 2.0% in non-carriers and 6.2% in εε4/εε4 homozygotes (εε4/εε4-versus-non-carrier OR 3.25, versus 8.49 in Clarity AD and 8.32 in Japan post-marketing surveillance). Any ARIA-H was independently predicted by baseline cerebral microbleeds, white matter hyperintensity (WMH), age, and APOE εε4 allele dose (aORs 1.23, 1.50, 1.04, 1.75).",
+        "finding_direction": "strongly_supports",
+        "population": "patients with early Alzheimer's disease",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/1e32d14942dd4b67d3c4b3fa21e50baed135afdb",
+        "title": "Fluid and Imaging Biomarkers in Lecanemab Therapy for Early Alzheimer’s Disease: Current Evidence, ARIA Risk Prediction, and Treatment Monitoring",
+        "source_type": "semantic_scholar",
+        "snippet": "Background/Objectives: Lecanemab, a humanized anti-amyloid-β protofibril antibody, achieves substantial amyloid clearance and modest slowing of clinical decline in early Alzheimer’s disease (AD). Amyloid-related imaging abnormalities (ARIA) represent the most clinically important safety concern, yet",
+        "full_summary": "This narrative review synthesizes evidence on fluid and imaging biomarkers for ARIA risk stratification and treatment-response monitoring in lecanemab therapy for early Alzheimer's disease.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "APOE ε4 genotype and baseline MRI markers of cerebral amyloid angiopathy are the only established, clinically actionable ARIA risk stratifiers.",
+        "finding_direction": "supports",
+        "population": "patients with early Alzheimer's disease treated with lecanemab",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/382af5b590e915432049049cfcb99cd6ab22c9c0",
+        "title": "Lecanemab in clinical practice: real-world outcomes in early Alzheimer’s disease",
+        "source_type": "semantic_scholar",
+        "snippet": "Lecanemab, a monoclonal antibody targeting amyloid beta, has recently been approved for treatment of early-stage Alzheimer’s disease (AD), demonstrating amyloid plaque reduction and slowing of cognitive decline in clinical trials. However, real-world data on its efficacy and safety remain limited. T",
+        "full_summary": "This real-world study in early Alzheimer’s disease patients treated with lecanemab found a significant decline in MMSE scores over 6 months in younger patients, but not older patients. ARIA occurred in 18.6% of patients, mostly asymptomatic, with one symptomatic case requiring hospitalization.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025",
+        "citation_count": 42,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "ARIA occurred in 18.6% of patients, mostly asymptomatic. One patient experienced symptomatic ARIA, required hospitalization with intravenous treatment, and discontinued therapy.",
+        "finding_direction": "supports",
+        "population": "patients with biomarker-confirmed early-stage AD",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41787137/",
+        "title": "Regulatory, clinical, and post-marketing challenges of lecanemab for Alzheimer's disease: insights from real-world data.",
+        "source_type": "pubmed",
+        "snippet": "Marano G, Da Cas R, Ippoliti I, Caffarra P, Locuratolo N, Vanacore N et al. | Neurological sciences : official journal of the Italian Neurological Society and of the Italian Society of Clinical Neurophysiology | 2026-Mar-06 | Journal Article; Systematic Review",
+        "full_summary": "This systematic review and analysis of real-world data and pharmacovigilance reports examines the regulatory, clinical, and post-marketing challenges of lecanemab for Alzheimer's disease, focusing on its safety profile, particularly the risk of ARIA.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026-Mar-06",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "Analysis of the FAERS database identified 1,286 reports revealing 2,627 AEs, of which 30% were classified as serious, including forty-six deaths.",
+        "finding_direction": "supports",
+        "population": "patients treated with lecanemab",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40308765/",
+        "title": "Re-evaluation of the efficacy and safety of anti-Aβ monoclonal antibodies (lecanemab/donanemab) in the treatment of early Alzheimer's disease.",
+        "source_type": "pubmed",
+        "snippet": "Wang H, Pan J, Zhang M, Tan Z | Frontiers in pharmacology | 2025 | Journal Article; Systematic Review",
+        "full_summary": "This systematic review and meta-analysis found that lecanemab/donanemab improved cognitive function and daily living abilities in early AD patients, while increasing the risk of ARIA by 4.35 times compared to control.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "Meta-analysis results showed that in terms of clinical outcomes, Lecanemab/Donanemab outperformed the control group in ADCOMS, CDR-SB, ADAS-Cog 14, and amyloid burden on PET. Regarding safety, the relative risk of amyloid-related imaging abnormalities (ARIA) in patients treated with Lecanemab/Donanemab was 4.35 times higher than the control group, with significantly higher risks of ARIA-E and ARIA",
+        "finding_direction": "mixed",
+        "population": "patients with early Alzheimer's disease",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41915579/",
+        "title": "Leqembi (Lecanemab) in Early Alzheimer's Disease: A Review of Clinical Trial Evidence and Therapeutic Implications.",
+        "source_type": "pubmed",
+        "snippet": "Ashchi A, Lachapelle AA, Nassirou S, Huston J | Reviews on recent clinical trials | 2026-Mar-30 | Journal Article",
+        "full_summary": "This review discusses lecanemab as the first FDA-approved drug to slow Alzheimer's progression by targeting amyloid plaques. It highlights the Clarity AD study results, showing a 27% reduction in cognitive decline and a 21% incidence of ARIA in lecanemab-treated participants.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026-Mar-30",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "However, approximately 21% of participants who received lecanemab treatment developed amyloid-related imaging abnormalities, with a higher incidence in homozygous APOE4 carriers.",
+        "finding_direction": "supports",
+        "population": "patients with mild cognitive impairment or mild dementia",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41520099/",
+        "title": "Real world clinical practice of lecanemab at PUMCH dementia cohort: focus on dynamic imaging and biomarker evolution.",
+        "source_type": "pubmed",
+        "snippet": "Mao C, Wang W, Huang X, Wu M, Wang Y, Wang T et al. | Alzheimer's research & therapy | 2026-Jan-10 | Journal Article",
+        "full_summary": "This real-world study in a Chinese population with early AD treated with lecanemab found a significant reduction in Centiloid, a slower rate of cognitive and functional decline compared to controls, and a 7.1% incidence of asymptomatic, mild ARIA.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026-Jan-10",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "A favorable safety profile was observed, with a 7.1% incidence of asymptomatic, mild ARIA.",
+        "finding_direction": "supports",
+        "population": "adults aged 40-90 with early AD from the PUMCH Dementia Cohort",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39207112/",
+        "title": "Population pharmacokinetics and exposure-response analyses of safety (ARIA-E and isolated ARIA-H) of lecanemab in subjects with early Alzheimer's disease.",
+        "source_type": "pubmed",
+        "snippet": "Majid O, Cao Y, Willis BA, Hayato S, Takenaka O, Lalovic B et al. | CPT: pharmacometrics & systems pharmacology | 2024-Dec | Journal Article; Research Support, Non-U.S. Gov't",
+        "full_summary": "This study analyzed lecanemab's pharmacokinetics and the relationship between drug exposure and ARIA-E incidence in early AD patients.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2024-Dec",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "",
+        "evidence_level": 0.4,
+        "key_finding": "The probability of ARIA-E was significantly correlated with model-predicted Cmax and predicted to be higher in subjects homozygous for APOE4.",
+        "finding_direction": "supports",
+        "population": "subjects with early Alzheimer's disease",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40232258/",
+        "title": "Exploring the efficacy and safety of lecanemab in the management of early Alzheimer's disease: A systematic review of clinical evidence.",
+        "source_type": "pubmed",
+        "snippet": "Ashmawy RE, Okesanya OJ, Ukoaka BM, Daniel FM, Ezedigwe SG, Agboola AO et al. | Journal of Alzheimer's disease : JAD | 2025-Jun | Journal Article; Systematic Review; Research Support, Non-U.S. Gov't",
+        "full_summary": "This systematic review explores the efficacy and safety of lecanemab in early Alzheimer's disease, noting its reduction of amyloid plaque and generally favorable safety profile, with common infusion-related reactions.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-Jun",
+        "citation_count": 9,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "Lecanemab substantially reduces amyloid plaque load in the brains of AD patients, and common infusion-related reactions were observed in 26.4% of the lecanemab group compared to 7% in the placebo group.",
+        "finding_direction": "no_evidence",
+        "population": "AD patients",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40189473/",
+        "title": "Clarity AD: Asian regional analysis of a phase III trial of lecanemab in early Alzheimer's disease.",
+        "source_type": "pubmed",
+        "snippet": "Chen C, Katayama S, Lee JH, Lee JY, Nakagawa M, Torii K et al. | The journal of prevention of Alzheimer's disease | 2025-May | Journal Article; Clinical Trial, Phase III; Multicenter Study",
+        "full_summary": "This study is an Asian regional analysis of the Clarity AD trial, showing consistent efficacy and a similar safety profile for lecanemab in early Alzheimer's disease compared to the overall population, with a lower incidence of ARIA-H, ARIA-E, and infusion-related reactions in the Asian subgroup.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-May",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "For the primary endpoint, there was a slowing of decline with lecanemab in the CDR-SB at 18 months compared to placebo in the Asian region (adjusted mean difference: -0.349; 95 % confidence intervals: -0.773, 0.076; 24 % slowing of decline).",
+        "finding_direction": "weakly_supports",
+        "population": "294 individuals with early Alzheimer's disease in the Asian region",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37357276/",
+        "title": "Lecanemab: Appropriate Use Recommendations.",
+        "source_type": "pubmed",
+        "snippet": "Cummings J, Apostolova L, Rabinovici GD, Atri A, Aisen P, Greenberg S et al. | The journal of prevention of Alzheimer's disease | 2023 | Journal Article; Research Support, N.I.H., Extramural",
+        "full_summary": "This article provides appropriate use recommendations for lecanemab in early Alzheimer's disease, detailing safety and efficacy considerations, including the risk of ARIA and monitoring guidelines.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2023",
+        "citation_count": 799,
+        "domain": "medicine",
+        "study_design": "clinical guideline",
+        "evidence_level": 0.92,
+        "key_finding": "Adverse events may occur with lecanemab including amyloid related imaging abnormalities (ARIA) and infusion reactions.",
+        "finding_direction": "supports",
+        "population": "patients with early Alzheimer's disease",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41355080/",
+        "title": "Long-term safety and efficacy of lecanemab in early Alzheimer's disease: Results from the clarity AD open-label extension study.",
+        "source_type": "pubmed",
+        "snippet": "van Dyck CH, Sperling R, Johnson K, Dhadda S, Kanekiyo M, Li D et al. | Alzheimer's & dementia : the journal of the Alzheimer's Association | 2025-Dec | Journal Article; Randomized Controlled Trial",
+        "full_summary": "This study reports 36-month data from the open-label extension of the Clarity AD trial, showing continued benefit of lecanemab in slowing cognitive and functional decline and low ARIA rates after 6 months, with no new safety signals.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-Dec",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "ARIA rates were low after 6 months and not associated with long-term progression.",
+        "finding_direction": "supports",
+        "population": "participants with early symptomatic Alzheimer's disease",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40354064/",
+        "title": "Lecanemab Treatment in a Specialty Memory Clinic.",
+        "source_type": "pubmed",
+        "snippet": "Paczynski M, Hofmann A, Posey Z, Gregersen M, Rudman M, Ellington D et al. | JAMA neurology | 2025-Jul-01 | Journal Article",
+        "full_summary": "A real-world study in a specialty memory clinic found lecanemab treatment for early AD to be feasible with manageable adverse events, including ARIA.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2025-Jul-01",
+        "citation_count": 87,
+        "domain": "medicine",
+        "study_design": "",
+        "evidence_level": 0.4,
+        "key_finding": "Over an average treatment period of 6.5 months, 42 total patients (22%) developed ARIA; 29 developed ARIA-E with or without ARIA-H (15%) and 13 developed isolated ARIA-H (6.7%).",
+        "finding_direction": "supports",
+        "population": "patients with early symptomatic AD",
+        "directness": "direct"
+      }
+    ],
+    "global_summary": "Lecanemab, a monoclonal antibody targeting aggregated forms of beta-amyloid, has demonstrated efficacy in slowing cognitive decline in patients with early Alzheimer's disease (AD) [2][5][6][11]. Multiple randomized controlled trials and systematic reviews indicate that lecanemab significantly reduces clinical decline on measures such as the Clinical Dementia Rating-Sum of Boxes (CDR-SB), Alzheimer's Disease Composite Score (ADCOMS), and Alzheimer's Disease Assessment Scale-Cognitive Subscale (ADAS-cog) over 18 months compared to placebo [5][6][11]. For instance, a meta-analysis reported a **weighted mean difference of -0.45** for CDR-SB, **-0.05** for ADCOMS, and **-1.11** for ADAS-cog, all statistically significant [5]. Another randomized controlled trial (RCT) specifically noted a reduction in clinical decline on CDR-SB at 18 months in the *ApoEε4 heterozygotes or non-carriers subgroup* [3]. An analysis in the Asian region from the Clarity AD trial also showed a **24% slowing of decline** in CDR-SB at 18 months [16]. Beyond clinical outcomes, lecanemab has been shown to substantially reduce amyloid plaque load and amyloid burden on PET scans [5][15].\n\nHowever, treatment with lecanemab is associated with amyloid-related imaging abnormalities (ARIA), which include ARIA with edema (ARIA-E) and ARIA with hemosiderin deposition (ARIA-H) [2][17]. The incidence of ARIA varies across studies, but it is a common adverse event. In a phase 3 study, ARIA-E occurred in **13.6%** of patients and ARIA-H in **16.0%** [1]. A systematic review and meta-analysis found that the relative risk of ARIA in patients treated with lecanemab was **4.35 times higher** than in control groups, with significantly higher risks for both ARIA-E and ARIA-H [11]. Real-world cohort studies have reported ARIA incidence rates ranging from **7.1%** (mostly asymptomatic and mild) in one cohort [13] to **18.6%** (mostly asymptomatic) in another [9], and **22.3%** in a regional specialty medical center, where **33.3%** of those had both ARIA-H and ARIA-E [4]. Another real-world study observed ARIA in **22%** of patients over an average of **6.5 months** of treatment, with **15%** developing ARIA-E with or without ARIA-H and **6.7%** developing isolated ARIA-H [19]. A phase 2 study reported a low incidence of ARIA-E (**<10%**), with **<3%** symptomatic cases [0]. Overall, approximately **21%** of participants in clinical trials developed ARIA [12].\n\nThe risk of ARIA is significantly influenced by the apolipoprotein E ε4 (ApoE ε4) genotype [7][8][12][14]. Patients who are homozygous for ApoEε4 have a higher incidence of ARIA [12][14]. For example, one cohort study found ARIA-E incidence was **2.0%** in non-carriers and **6.2%** in ε4/ε4 homozygotes, with the odds ratio for ε4/ε4 versus non-carrier being **3.25** [7]. Baseline cerebral microbleeds, white matter hyperintensity (WMH), and age are also independent predictors of ARIA-H [7]. While most ARIA events are asymptomatic, symptomatic cases can occur and may require hospitalization and treatment discontinuation [0][9]. Infusion-related reactions are also common, reported in **24.5%** of the lecanemab group in one phase 3 study [1] and **26.4%** in a systematic review [15]. Long-term data from an open-label extension study suggest that ARIA rates were low after **6 months** and not associated with long-term progression [18].",
+    "total_sources_consulted": 208,
+    "duration_seconds": 92.72,
+    "job_stats": {
+      "total_cost_usd": 0.09492,
+      "llm": {
+        "total_calls": 69,
+        "total_input_tokens": 129716,
+        "total_output_tokens": 18182,
+        "total_tokens": 147898,
+        "total_cost_usd": 0.08434162,
+        "by_purpose": {
+          "related_articles_domain": {
+            "count": 1,
+            "input_tokens": 741,
+            "output_tokens": 289,
+            "cost_usd": 0.0001897,
+            "total_latency_ms": 1090.0
+          },
+          "related_articles_brief": {
+            "count": 4,
+            "input_tokens": 6011,
+            "output_tokens": 432,
+            "cost_usd": 0.0043015,
+            "total_latency_ms": 5309.5
+          },
+          "related_articles_decompose": {
+            "count": 1,
+            "input_tokens": 578,
+            "output_tokens": 328,
+            "cost_usd": 0.000189,
+            "total_latency_ms": 976.4
+          },
+          "related_articles_reformulate": {
+            "count": 5,
+            "input_tokens": 12268,
+            "output_tokens": 635,
+            "cost_usd": 0.008039,
+            "total_latency_ms": 7546.7
+          },
+          "related_articles_rerank": {
+            "count": 4,
+            "input_tokens": 30593,
+            "output_tokens": 1381,
+            "cost_usd": 0.0126304,
+            "total_latency_ms": 7496.1
+          },
+          "related_articles_design_grade": {
+            "count": 1,
+            "input_tokens": 3998,
+            "output_tokens": 176,
+            "cost_usd": 0.0004702,
+            "total_latency_ms": 689.9
+          },
+          "related_articles_summarize": {
+            "count": 14,
+            "input_tokens": 47358,
+            "output_tokens": 10264,
+            "cost_usd": 0.03837862,
+            "total_latency_ms": 67224.7
+          },
+          "related_articles_stance": {
+            "count": 38,
+            "input_tokens": 24036,
+            "output_tokens": 2942,
+            "cost_usd": 0.0145658,
+            "total_latency_ms": 30934.0
+          },
+          "related_articles_synthesis": {
+            "count": 1,
+            "input_tokens": 4133,
+            "output_tokens": 1735,
+            "cost_usd": 0.0055774,
+            "total_latency_ms": 7700.4
+          }
+        }
+      },
+      "embeddings": {
+        "total_calls": 371,
+        "total_tokens": 81370,
+        "total_cost_usd": 0.0105781,
+        "by_model": {
+          "openai/text-embedding-3-large": {
+            "calls": 371,
+            "tokens": 81370,
+            "cost_usd": 0.0105781
+          }
+        }
+      },
+      "tools": {
+        "calls": {
+          "resolve_drug": 1,
+          "search_guidelines": 1,
+          "probe_pubmed": 13,
+          "submit_brief": 1,
+          "submit_queries": 2,
+          "submit_appraisals": 10
+        },
+        "total_calls": 28
+      },
+      "providers": {
+        "calls": {
+          "clinicaltrials": 13,
+          "ema": 13,
+          "pubmed": 13,
+          "dailymed": 13,
+          "europe_pmc": 13
+        },
+        "cache_hits": {},
+        "errors": {},
+        "total_calls": 65,
+        "total_cache_hits": 0
+      },
+      "pipeline": {
+        "evidence_total": 0,
+        "evidence_after_relevance": 0,
+        "retries": 0
+      },
+      "stage_timings_ms": {
+        "domain_detection": 1090.1,
+        "brief": 10075.6,
+        "pro_decomposition": 976.4,
+        "pro_round1": 7750.0,
+        "pro_round2": 11920.9,
+        "pro_expansion": 13011.5,
+        "pro_round3": 12574.2,
+        "rerank": 13571.5,
+        "content_enrichment": 0.0,
+        "summarization": 12860.5,
+        "stance": 4167.0,
+        "global_synthesis": 7700.6
+      }
+    },
+    "key_findings": [
+      {
+        "text": "Lecanemab significantly slows cognitive and functional decline in patients with early Alzheimer's disease.",
+        "source_indices": [
+          3,
+          5,
+          6,
+          11,
+          16
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Lecanemab substantially reduces amyloid plaque load and amyloid burden in the brains of patients with Alzheimer's disease.",
+        "source_indices": [
+          5,
+          6,
+          15
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Amyloid-related imaging abnormalities (ARIA), including ARIA-E (edema) and ARIA-H (hemosiderin deposition), are common adverse events associated with lecanemab treatment.",
+        "source_indices": [
+          1,
+          2,
+          4,
+          9,
+          11,
+          12,
+          17,
+          19
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "The incidence of ARIA-E and ARIA-H varies, with reported rates for any ARIA ranging from 7.1% to 22.3% in real-world settings and up to 21% in clinical trials.",
+        "source_indices": [
+          0,
+          1,
+          4,
+          9,
+          12,
+          13,
+          19
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "The ApoE ε4 genotype, particularly homozygosity, is a significant risk factor for developing ARIA, especially ARIA-E.",
+        "source_indices": [
+          7,
+          8,
+          12,
+          14
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Baseline cerebral microbleeds, white matter hyperintensity, and age are independent predictors of ARIA-H.",
+        "source_indices": [
+          7,
+          8
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Infusion-related reactions are a common adverse event with lecanemab, occurring in approximately 24.5% to 26.4% of patients.",
+        "source_indices": [
+          1,
+          15
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Most ARIA events are asymptomatic, but symptomatic cases can occur and may necessitate hospitalization and treatment discontinuation.",
+        "source_indices": [
+          0,
+          9
+        ],
+        "strength": "moderate"
+      },
+      {
+        "text": "Long-term data suggest that ARIA rates are low after 6 months of treatment and are not associated with long-term disease progression.",
+        "source_indices": [
+          18
+        ],
+        "strength": "moderate"
+      }
+    ],
+    "disagreements": [],
+    "evidence_profile": {
+      "designs": {
+        "randomised controlled trial": 6,
+        "cohort study": 4,
+        "systematic review": 3,
+        "review": 2,
+        "unclassified": 2,
+        "regulatory drug label": 1,
+        "meta-analysis": 1,
+        "clinical guideline": 1
+      },
+      "high_tier_share": 0.55,
+      "preprint_share": 0.0
+    },
+    "pico": {
+      "population": "early Alzheimer's disease",
+      "intervention": "Lecanemab",
+      "comparison": "",
+      "outcome": "efficacy and ARIA risk",
+      "study_designs": [
+        "randomized controlled trial",
+        "clinical trial"
+      ]
+    },
+    "evidence_gaps": [
+      "The sources do not provide detailed information on the long-term clinical outcomes beyond 18 months for lecanemab treatment.",
+      "The sources do not extensively cover the management strategies for symptomatic ARIA events or the long-term consequences of ARIA on patient health.",
+      "The sources do not provide a comprehensive comparison of lecanemab's efficacy and safety profile against other anti-amyloid monoclonal antibodies, beyond a mention in one meta-analysis [11]."
+    ]
+  }
+}

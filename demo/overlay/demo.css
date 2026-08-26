@@ -1,0 +1,104 @@
+/* Demo-only additions, layered on top of frontend/style.css. Every color,
+   radius and spacing unit here reuses that file's tokens - no new palette,
+   so the demo reads as part of the same product rather than a skin over it. */
+
+.demo-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 13px 15px;
+  margin-bottom: 20px;
+}
+.demo-banner-text {
+  flex: 1 1 320px;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--text-soft);
+}
+.demo-banner-text strong { color: var(--text); }
+.demo-banner-text a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.demo-banner-text a:hover { text-decoration: underline; }
+
+.demo-lang-toggle {
+  flex: none;
+  display: inline-flex;
+  background: var(--accent-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+}
+.demo-lang-toggle button {
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-soft);
+  padding: 4px 11px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+.demo-lang-toggle button[aria-pressed="true"] {
+  background: var(--surface);
+  color: var(--accent);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
+}
+
+/* Source count and language are decided by the fixture, not the visitor -
+   readonly/disabled controls still show the values that run actually used. */
+#topic[readonly] { cursor: default; }
+#language:disabled,
+#sourcesPreset button:disabled { cursor: not-allowed; opacity: 0.55; }
+
+.demo-picker { margin: 18px 0; }
+.demo-picker-title {
+  font-size: 0.72rem;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  margin: 0 0 10px;
+}
+.demo-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 10px;
+}
+.demo-picker-card {
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+}
+.demo-picker-card:hover { border-color: var(--border-strong); }
+.demo-picker-card[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.demo-picker-topic { font-size: 0.87rem; font-weight: 600; color: var(--text); line-height: 1.35; }
+.demo-picker-showcase { font-size: 0.78rem; color: var(--text-soft); line-height: 1.4; }
+.demo-picker-meta { font-size: 0.72rem; color: var(--text-faint); font-family: var(--mono); }
+
+@media (max-width: 480px) {
+  /* Flipping to a column would otherwise inherit .demo-banner-text's
+     row flex-basis (320px) as a *height*, stranding the toggle below a
+     tall empty gap - reset it to content height in this layout. */
+  .demo-banner { flex-direction: column; }
+  .demo-banner-text { flex: 1 1 auto; }
+  .demo-lang-toggle { align-self: flex-end; }
+}

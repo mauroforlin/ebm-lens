@@ -1,0 +1,700 @@
+{
+  "id": "tb-drug-resistance",
+  "topic": "Global tuberculosis incidence trends and the burden of MDR-TB",
+  "max_sources": 20,
+  "summary_language": "en",
+  "recorded_at": "2026-08-26",
+  "events": [
+    {
+      "stage": "domain",
+      "message": "Analysing the topic…",
+      "at_ms": 0
+    },
+    {
+      "stage": "domain",
+      "message": "Domain detected: medicine",
+      "at_ms": 1107
+    },
+    {
+      "stage": "brief",
+      "message": "Research brief ready: 5 query variants, providers: pubmed, clinicaltrials, europe_pmc, who_gho",
+      "at_ms": 5092
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 1: 163 candidates from 10 queries",
+      "at_ms": 39112
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: refining queries…",
+      "at_ms": 43428
+    },
+    {
+      "stage": "discovery",
+      "message": "Citation graph expansion: +63 candidates from 4 seeds",
+      "at_ms": 56311
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: 63 candidates from 3 queries (27 new relevant)",
+      "at_ms": 60320
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: refining queries…",
+      "at_ms": 60320
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: 70 candidates from 3 queries (9 new relevant)",
+      "at_ms": 74127
+    },
+    {
+      "stage": "discovery",
+      "message": "Discovery complete: 278 unique candidates after dedup",
+      "at_ms": 74131
+    },
+    {
+      "stage": "rerank",
+      "message": "Scoring and reranking 278 candidates…",
+      "at_ms": 74131
+    },
+    {
+      "stage": "rerank",
+      "message": "Shortlisted 46 sources to read in full",
+      "at_ms": 88849
+    },
+    {
+      "stage": "read",
+      "message": "Fetching and summarising 46 sources…",
+      "at_ms": 88849
+    },
+    {
+      "stage": "read",
+      "message": "Summarised 46 sources",
+      "at_ms": 108406
+    },
+    {
+      "stage": "select",
+      "message": "Selecting the final set…",
+      "at_ms": 108406
+    },
+    {
+      "stage": "select",
+      "message": "20 articles selected",
+      "at_ms": 113799
+    },
+    {
+      "stage": "synthesis",
+      "message": "Writing the synthesis…",
+      "at_ms": 113799
+    },
+    {
+      "stage": "synthesis",
+      "message": "Synthesis complete: 9 findings, 0 conflicts",
+      "at_ms": 121898
+    }
+  ],
+  "response": {
+    "status": "completed",
+    "topic": "Global tuberculosis incidence trends and the burden of MDR-TB",
+    "domain_detected": "medicine",
+    "articles": [
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39319291/",
+        "title": "Tracking multidrug resistant tuberculosis: a 30-year analysis of global, regional, and national trends.",
+        "source_type": "pubmed",
+        "snippet": "Song HW, Tian JH, Song HP, Guo SJ, Lin YH, Pan JS | Frontiers in public health | 2024 | Journal Article",
+        "full_summary": "MDR-TB remains a global health concern, particularly in lower socio-demographic index regions, with incidence rates showing a steadfast presence over the past decade and a troubling forecast predicting an uptick from 2020 to 2030.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2024",
+        "citation_count": 28,
+        "domain": "medicine",
+        "study_design": "",
+        "evidence_level": 0.4,
+        "key_finding": "Notably, the incidence rates have shown a steadfast presence over the past decade, and a troubling forecast predicts an uptick in these areas from 2020 to 2030.",
+        "finding_direction": "supports",
+        "population": "global population",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39155365/",
+        "title": "Global, regional, and national burden of HIV-negative tuberculosis, 1990-2021: findings from the Global Burden of Disease Study 2021.",
+        "source_type": "pubmed",
+        "snippet": "Zhang SX, Miao FY, Yang J, Zhou WT, Lv S, Wei FN et al. | Infectious diseases of poverty | 2024-Aug-19 | Journal Article",
+        "full_summary": "This study examines the epidemiological characteristics of HIV-negative TB globally, including MDR-TB and XDR-TB, from 1990 to 2021, and projects trends to 2035, highlighting an upward trend in drug-resistant TB.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2024-Aug-19",
+        "citation_count": 51,
+        "domain": "medicine",
+        "study_design": "",
+        "evidence_level": 0.4,
+        "key_finding": "The global ASIR of MDR-TB has not decreased since 2015, instead, it has shown a slow upward trend in recent years. The ASIR of XDR-TB has exhibited significant increase in the past 30 years. The projections indicate MDR-TB and XDR-TB are expected to see significant increases in both ASIR and ASMR from 2022 to 2035, highlighting the growing challenge of drug-resistant TB.",
+        "finding_direction": "strongly_supports",
+        "population": "HIV-negative global population",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42010504/",
+        "title": "Global and regional trends in multidrug- or rifampicin-resistant tuberculosis, 2000-2024 with forecasts to 2030: a systematic review and meta-analysis.",
+        "source_type": "pubmed",
+        "snippet": "Hossain A, Asmar AE, Almheiri A, Almheiri H, Alameddine M | BMC infectious diseases | 2026-Apr-20 | Systematic Review; Journal Article; Meta-Analysis",
+        "full_summary": "This systematic review and meta-analysis assesses global and regional trends in MDR/RR-TB prevalence from 2000 to 2024, with forecasts to 2030, finding a significant global decline but a disproportionate burden in Africa.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026-Apr-20",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "Global pooled MDR-TB prevalence declined significantly from 14.4% (95% CI 9.0–19.8) in 2000–2009 to 2.6% (2.3–2.9) in 2020–2024.",
+        "finding_direction": "supports",
+        "population": "global tuberculosis patients",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40990501/",
+        "title": "Global, regional, and national burden of tuberculosis, 1990-2050: a systematic comparative analysis based on retrospective cross-sectional of GBD 2021 and WHO surveillance systems.",
+        "source_type": "pubmed",
+        "snippet": "Jiang F, Li X, Qiao Q, Zhang M, Tian Y, Zhou S et al. | International journal of surgery (London, England) | 2026-Jan-01 | Journal Article; Comparative Study",
+        "full_summary": "This study provides a systematic comparative analysis of the global, regional, and national burden of tuberculosis, including MDR-TB and XDR-TB, from 1990 to 2050, using GBD 2021 and WHO surveillance data.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026-Jan-01",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "XDR-TB is emerging as the fastest-growing threat.",
+        "finding_direction": "supports",
+        "population": "global population",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40832039/",
+        "title": "Decadal trends and regional disparities in tuberculosis burden: a comprehensive analysis of global, African, and Southeast Asian data from the GBD 1990-2021.",
+        "source_type": "pubmed",
+        "snippet": "Xie S, Xiao H, Xu L, Zhang F, Luo M | Frontiers in public health | 2025 | Journal Article",
+        "full_summary": "This study analyzes global, African, and Southeast Asian tuberculosis burden trends from 1990 to 2021, showing a marked decline in global age-standardized rates but persistent regional disparities.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "",
+        "evidence_level": 0.4,
+        "key_finding": "From 1990 to 2021, global age-standardized rates of TB declined markedly, with ASIR decreasing from 173.0 to 103.0 per 100,000, ASMR from 40.0 to 14.0, and ASDR from 1,650.6 to 580.3.",
+        "finding_direction": "strongly_supports",
+        "population": "global, African, and Southeast Asian populations",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40540545/",
+        "title": "Comprehensive analysis of tuberculosis burden trends and attributable risk factors in the BRICS countries from 1990 to 2021, with forecasts for the next 15 years.",
+        "source_type": "pubmed",
+        "snippet": "Zhang X, Guo M, Song X, Abdalla AE, Wang G, Xie L | International journal of surgery (London, England) | 2025-Sep-01 | Journal Article",
+        "full_summary": "This study analyzes tuberculosis burden trends and risk factors in BRICS countries from 1990 to 2021, with forecasts for the next 15 years.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-Sep-01",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "",
+        "evidence_level": 0.4,
+        "key_finding": "The global age-standardized incidence rate (ASIR) was 103 per 100 000 in 2021, which represented a 40.5% decrease since 1990.",
+        "finding_direction": "supports",
+        "population": "BRICS countries",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/38077655/",
+        "title": "Trends and Progress on Antibiotic-Resistant Mycobacterium tuberculosis and Genes in relation to Human Immunodeficiency Virus.",
+        "source_type": "pubmed",
+        "snippet": "Mbewana Ntshanka NG, Msagati TAM | The Canadian journal of infectious diseases & medical microbiology = Journal canadien des maladies infectieuses et de la microbiologie medicale | 2023 | Journal Article; Review",
+        "full_summary": "This review discusses the accelerating global trends of MDR-TB, particularly in the context of HIV co-infection, and highlights the challenges in controlling its spread.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2023",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Despite all measures that have been executed to overcome the challenge of MDR-TB in recent decades, the global MDR-TB trends have kept on accelerating with more and more people becoming victims.",
+        "finding_direction": "strongly_supports",
+        "population": "global population, people with HIV/AIDS",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41207935/",
+        "title": "Tuberculosis: An Ongoing Global Threat.",
+        "source_type": "pubmed",
+        "snippet": "Farnia P, Velayati AA, Ghanavi J, Farnia P | Advances in experimental medicine and biology | 2026 | Journal Article; Review",
+        "full_summary": "This review provides an overview of the global burden of tuberculosis, including drug-resistant strains, and discusses challenges to elimination efforts, such as the impact of the COVID-19 pandemic.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "According to the World Health Organization (WHO) Global Tuberculosis Report 2024, approximately 10.6 million people developed TB in 2023, resulting in 1.6 million deaths.",
+        "finding_direction": "weakly_supports",
+        "population": "global population",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/06d15ac96c36836c81fc686eec23de9869ae8ed6",
+        "title": "Prevalence of extensively drug-resistant tuberculosis and drug resistance patterns in Asia and Africa (2000-2025): systematic review and meta-analysis.",
+        "source_type": "semantic_scholar",
+        "snippet": "Prevalence of extensively drug-resistant tuberculosis and drug resistance patterns in Asia and Africa (2000-2025): systematic review and meta-analysis.",
+        "full_summary": "This is a systematic review and meta-analysis protocol for the prevalence of extensively drug-resistant tuberculosis and drug resistance patterns in Asia and Africa.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "Asia and Africa",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/35065702/",
+        "title": "Global burden of bacterial antimicrobial resistance in 2019: a systematic analysis.",
+        "source_type": "pubmed",
+        "snippet": "Lancet (London, England) | 2022-Feb-12 | Journal Article; Systematic Review",
+        "full_summary": "This systematic analysis estimates the global burden of bacterial antimicrobial resistance (AMR) in 2019, including deaths associated with and attributable to AMR, and identifies leading pathogens and drug combinations.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2022-Feb-12",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "One pathogen-drug combination, meticillin-resistant S aureus, caused more than 100 000 deaths attributable to AMR in 2019, while six more each caused 50 000-100 000 deaths: multidrug-resistant excluding extensively drug-resistant tuberculosis, third-generation cephalosporin-resistant E coli, carbapenem-resistant A baumannii, fluoroquinolone-resistant E coli, carbapenem-resistant K pneumoniae, and ",
+        "finding_direction": "strongly_supports",
+        "population": "global population",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/35342000/",
+        "title": "Drug resistant TB - latest developments in epidemiology, diagnostics and management.",
+        "source_type": "pubmed",
+        "snippet": "Tiberi S, Utjesanovic N, Galvin J, Centis R, D'Ambrosio L, van den Boom M et al. | International journal of infectious diseases : IJID : official publication of the International Society for Infectious Diseases | 2022-Nov | Review; Journal Article",
+        "full_summary": "This review provides an overview of the latest developments in the epidemiology, diagnostics, and management of drug-resistant tuberculosis, noting that a significant number of cases remain undetected and untreated globally.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2022-Nov",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Of 500,000 estimated new cases of RR-TB in 2020, only 157 903 cases are notified. Only about a third of cases are detected and treated annually.",
+        "finding_direction": "supports",
+        "population": "global population",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36838390/",
+        "title": "Epidemiology and Drug Resistance Patterns of Mycobacterium tuberculosis in High-Burden Area in Western Siberia, Russia.",
+        "source_type": "pubmed",
+        "snippet": "Kostyukova I, Pasechnik O, Mokrousov I | Microorganisms | 2023-Feb-08 | Journal Article",
+        "full_summary": "This study investigates the epidemiological situation and drug resistance patterns of Mycobacterium tuberculosis in the Omsk region of Western Siberia, Russia, finding a decrease in TB incidence but an increase in primary MDR-TB rates.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2023-Feb-08",
+        "citation_count": 18,
+        "domain": "medicine",
+        "study_design": "",
+        "evidence_level": 0.4,
+        "key_finding": "The TB incidence decreased from 93.9 in 2012 to 48.1 in 2021, per 100,000 population, but the primary MDR-TB rate increased from 19.2% to 26.4%.",
+        "finding_direction": "no_evidence",
+        "population": "newly diagnosed TB patients in Omsk region, Western Siberia, Russia",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/MDG_0000000020",
+        "title": "Incidence of tuberculosis (per 100 000 population per year) - WHO Global Health Observatory",
+        "source_type": "who_gho",
+        "snippet": "WHO GHO: Incidence of tuberculosis (per 100 000 population per year) | Latest: 40.0 (2024)",
+        "full_summary": "This WHO Global Health Observatory page provides current tuberculosis incidence rates for specific countries.",
+        "relevance_score": 0.7,
+        "reliability_tier": 1,
+        "publication_date": null,
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "adverse-event surveillance",
+        "evidence_level": 0.38,
+        "key_finding": "The incidence of tuberculosis in South Africa in 2024 is 389.0 per 100,000 population per year.",
+        "finding_direction": "weakly_contradicts",
+        "population": "Yemen, Guatemala, Morocco, Bahrain, South Africa",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/33430786/",
+        "title": "HIV infection and multidrug resistant tuberculosis: a systematic review and meta-analysis.",
+        "source_type": "pubmed",
+        "snippet": "Sultana ZZ, Hoque FU, Beyene J, Akhlak-Ul-Islam M, Khan MHR, Ahmed S et al. | BMC infectious diseases | 2021-Jan-11 | Journal Article; Meta-Analysis; Systematic Review",
+        "full_summary": "This systematic review and meta-analysis found that HIV infection increases the risk of multidrug-resistant tuberculosis (MDR-TB), with the highest risk in the South-East Asian region.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2021-Jan-11",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "The pooled odds of MDR-TB was 1.42 times higher in HIV-positive patients than HIV-negative patients (OR=1.42,CI=1.17-1.71, I2=75.8%).",
+        "finding_direction": "supports",
+        "population": "TB patients (430,534) with and without HIV infection",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/3928ddd35e82cd8b540403f5f22d9a26a9440789",
+        "title": "[Epidemic situation of multidrug-resistant tuberculosis and change trend in Belt and Road countries].",
+        "source_type": "semantic_scholar",
+        "snippet": "[Epidemic situation of multidrug-resistant tuberculosis and change trend in Belt and Road countries].",
+        "full_summary": "This article discusses the epidemic situation and change trend of multidrug-resistant tuberculosis in Belt and Road countries.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2022",
+        "citation_count": 3,
+        "domain": "medicine",
+        "study_design": "",
+        "evidence_level": 0.4,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "Belt and Road countries",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37072053/",
+        "title": "Epidemiology of extensively drug-resistant tuberculosis among patients with multidrug-resistant tuberculosis: A systematic review and meta-analysis.",
+        "source_type": "pubmed",
+        "snippet": "Diriba G, Alemu A, Yenew B, Tola HH, Gamtesa DF, Mollalign H et al. | International journal of infectious diseases : IJID : official publication of the International Society for Infectious Diseases | 2023-Jul | Meta-Analysis; Systematic Review; Journal Article",
+        "full_summary": "This meta-analysis estimates the global proportions of pre-XDR-TB and XDR-TB among MDR-TB patients, finding considerable burdens of both.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2023-Jul",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "The pooled proportion of pre-XDR-TB was 26% (95% confidence interval [CI]: 22-31%), whereas XDR-TB in MDR-TB cases was 9% (95% CI: 7-11%) in patients treated for MDR-TB.",
+        "finding_direction": "supports",
+        "population": "patients with MDR-TB from 22 countries",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/0c70d9fce9972fccb785eced18cfd191d16ea69a",
+        "title": "Economic burden of multidrug-resistant tuberculosis on patients and households: a global systematic review and meta-analysis",
+        "source_type": "semantic_scholar",
+        "snippet": "Multidrug-resistant tuberculosis (MDR-TB) is a major health threat worldwide, causing a significant economic burden to patients and their families. Due to the longer duration of treatment and expensive second-line medicine, the economic burden of MDR-TB is assumed to be higher than drug-susceptible ",
+        "full_summary": "This systematic review and meta-analysis quantifies the economic burden of MDR-TB on patients and households globally, finding a high proportion of catastrophic costs.",
+        "relevance_score": 0.6,
+        "reliability_tier": 2,
+        "publication_date": "2023",
+        "citation_count": 46,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "The overall burden of catastrophic cost among MDR-TB patients and households was 81.58% (95% Confidence Interval (CI) 74.13–89.04%).",
+        "finding_direction": "no_evidence",
+        "population": "MDR-TB patients and households globally",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/37cdec02cfcc22fa9da1264e375141f2da0a4b03",
+        "title": "Tuberculosis in South Asia: A regional analysis of burden, progress, and future projections using the global burden of disease (1990–2021)",
+        "source_type": "semantic_scholar",
+        "snippet": "Background Tuberculosis (TB) is a major public health issue in South Asia and accounts for a large share of the global TB burden. Despite global efforts to curb TB incidence and mortality, progress in South Asia has been uneven, necessitating focused regional analysis to guide effective intervention",
+        "full_summary": "This study analyzes trends in TB burden in South Asia from 1990 to 2021 and projects future incidence rates, highlighting significant declines but also uneven progress across countries.",
+        "relevance_score": 0.7,
+        "reliability_tier": 2,
+        "publication_date": "2024",
+        "citation_count": 15,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "This study revealed significant declines in the ASIR, ASPR, ASDR, and ASMR related to TB in South Asia over the past three decades.",
+        "finding_direction": "supports",
+        "population": "South Asian population",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39887565/",
+        "title": "Tuberculosis: An Update for the Clinician.",
+        "source_type": "pubmed",
+        "snippet": "Janssen S, Murphy M, Upton C, Allwood B, Diacon AH | Respirology (Carlton, Vic.) | 2025-Mar | Journal Article; Review; Research Support, Non-U.S. Gov't",
+        "full_summary": "This review provides an update on tuberculosis, highlighting that efforts to meet WHO End TB Strategy milestones are off-track and that rising resistance to bedaquiline threatens progress with new treatment regimens.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2025-Mar",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "New shorter, all-oral treatment regimens represent a breakthrough, but progress is threatened by rising resistance to bedaquiline.",
+        "finding_direction": "mixed",
+        "population": "global population",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/da37ef22fa874c585c67695267b3b17a411fbbb1",
+        "title": "Association of urbanization-related factors with tuberculosis incidence among 1992 counties in China from 2005 to 2019: a nationwide observational study",
+        "source_type": "semantic_scholar",
+        "snippet": "Most high tuberculosis (TB) burden countries are in low- and middle-income regions undergoing rapid urbanization. We aimed to assess the association between urbanization factors and TB incidence in China. We evaluated urbanization at the county level in China from 2005 to 2019 using a composite inde",
+        "full_summary": "This observational study in China found that urbanization factors were associated with reduced TB incidence overall, but with regional variations, and a U-shaped relationship between urbanization and TB incidence.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2025",
+        "citation_count": 10,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Overall, urbanization scores were associated with reduced TB incidence (β = − 0.0114, P < 0.001), corresponding to a 1.1% reduction in TB incidence per unit score.",
+        "finding_direction": "supports",
+        "population": "1992 counties in China",
+        "directness": "adjacent"
+      }
+    ],
+    "global_summary": "The global age-standardized incidence rate (ASIR) of tuberculosis (TB) significantly declined by **40.5%** from 1990 to 2021, decreasing from 173.0 to 103.0 per 100,000 population [4][5]. During the same period, the age-standardized mortality rate (ASMR) dropped from 40.0 to 14.0, and the age-standardized disability-adjusted life years (ASDR) decreased from 1,650.6 to 580.3 [4]. In 2023, approximately **10.6 million people** developed TB, leading to **1.6 million deaths** globally [7].\n\nDespite the overall decline in TB incidence, multidrug-resistant TB (MDR-TB) and extensively drug-resistant TB (XDR-TB) present a growing challenge [1]. The global ASIR of MDR-TB has not decreased since 2015 and has shown a slow upward trend in recent years [1]. Projections indicate that MDR-TB and XDR-TB are expected to see significant increases in both ASIR and ASMR from 2022 to 2035 [1]. A 30-year analysis of global trends also forecasts an uptick in MDR-TB incidence rates from 2020 to 2030 [0]. XDR-TB is emerging as the fastest-growing threat [3], with its ASIR exhibiting a significant increase over the past 30 years [1].\n\nWhile the prevalence of MDR-TB among all TB patients globally showed a significant decline from **14.4%** in 2000–2009 to **2.6%** in 2020–2024 [2], the overall trends in MDR-TB have continued to accelerate, affecting more people [6]. The pooled odds of MDR-TB were **1.42 times higher** in HIV-positive patients compared to HIV-negative patients (OR=1.42, CI=1.17-1.71) [13]. In 2020, an estimated **500,000 new cases** of rifampicin-resistant TB (RR-TB) occurred, but only **157,903 cases** were notified, indicating that only about a third of cases are detected and treated annually [10].\n\nDrug-resistant TB, specifically multidrug-resistant TB excluding extensively drug-resistant TB, was among the top six pathogen-drug combinations causing **50,000-100,000 deaths** attributable to antimicrobial resistance (AMR) globally in 2019 [9]. New shorter, all-oral treatment regimens represent a breakthrough in TB management, but progress is threatened by rising resistance to bedaquiline [18].\n\nRegionally, a cohort study in South Asia revealed significant declines in ASIR, age-standardized prevalence rate (ASPR), ASDR, and ASMR related to TB over the past three decades [17]. In contrast, a study in Western Siberia, Russia, observed a decrease in overall TB incidence from **93.9 to 48.1 per 100,000 population** between 2012 and 2021, but the primary MDR-TB rate *increased* from **19.2% to 26.4%** [11]. Urbanization scores in China were associated with a **1.1% reduction** in TB incidence per unit score [19].",
+    "total_sources_consulted": 278,
+    "duration_seconds": 121.9,
+    "job_stats": {
+      "total_cost_usd": 0.086053,
+      "llm": {
+        "total_calls": 61,
+        "total_input_tokens": 118732,
+        "total_output_tokens": 15541,
+        "total_tokens": 134273,
+        "total_cost_usd": 0.0745491,
+        "by_purpose": {
+          "related_articles_domain": {
+            "count": 1,
+            "input_tokens": 737,
+            "output_tokens": 270,
+            "cost_usd": 0.0001817,
+            "total_latency_ms": 1106.9
+          },
+          "related_articles_brief": {
+            "count": 2,
+            "input_tokens": 3155,
+            "output_tokens": 351,
+            "cost_usd": 0.0026305,
+            "total_latency_ms": 2768.0
+          },
+          "related_articles_decompose": {
+            "count": 1,
+            "input_tokens": 574,
+            "output_tokens": 304,
+            "cost_usd": 0.000179,
+            "total_latency_ms": 1104.2
+          },
+          "related_articles_reformulate": {
+            "count": 4,
+            "input_tokens": 9100,
+            "output_tokens": 545,
+            "cost_usd": 0.006185,
+            "total_latency_ms": 5297.0
+          },
+          "related_articles_rerank": {
+            "count": 4,
+            "input_tokens": 31587,
+            "output_tokens": 1371,
+            "cost_usd": 0.0129036,
+            "total_latency_ms": 7603.2
+          },
+          "related_articles_design_grade": {
+            "count": 1,
+            "input_tokens": 4420,
+            "output_tokens": 224,
+            "cost_usd": 0.0005316,
+            "total_latency_ms": 836.8
+          },
+          "related_articles_summarize": {
+            "count": 17,
+            "input_tokens": 47230,
+            "output_tokens": 8510,
+            "cost_usd": 0.035444,
+            "total_latency_ms": 70846.7
+          },
+          "related_articles_stance": {
+            "count": 30,
+            "input_tokens": 18203,
+            "output_tokens": 2218,
+            "cost_usd": 0.0110059,
+            "total_latency_ms": 23886.8
+          },
+          "related_articles_synthesis": {
+            "count": 1,
+            "input_tokens": 3726,
+            "output_tokens": 1748,
+            "cost_usd": 0.0054878,
+            "total_latency_ms": 8098.9
+          }
+        }
+      },
+      "embeddings": {
+        "total_calls": 480,
+        "total_tokens": 88495,
+        "total_cost_usd": 0.01150435,
+        "by_model": {
+          "openai/text-embedding-3-large": {
+            "calls": 480,
+            "tokens": 88495,
+            "cost_usd": 0.01150435
+          }
+        }
+      },
+      "tools": {
+        "calls": {
+          "search_guidelines": 1,
+          "probe_pubmed": 9,
+          "submit_brief": 1,
+          "submit_queries": 2,
+          "submit_appraisals": 10
+        },
+        "total_calls": 23
+      },
+      "providers": {
+        "calls": {
+          "clinicaltrials": 16,
+          "pubmed": 16,
+          "europe_pmc": 16,
+          "who_gho": 16
+        },
+        "cache_hits": {
+          "pubmed": 1,
+          "clinicaltrials": 1,
+          "europe_pmc": 1,
+          "who_gho": 1
+        },
+        "errors": {},
+        "total_calls": 64,
+        "total_cache_hits": 4
+      },
+      "pipeline": {
+        "evidence_total": 0,
+        "evidence_after_relevance": 0,
+        "retries": 0
+      },
+      "stage_timings_ms": {
+        "domain_detection": 1107.0,
+        "brief": 3985.0,
+        "pro_decomposition": 1104.4,
+        "pro_round1": 32915.4,
+        "pro_expansion": 12884.1,
+        "pro_round2": 16892.3,
+        "pro_round3": 13807.2,
+        "rerank": 14717.8,
+        "content_enrichment": 0.0,
+        "summarization": 16253.2,
+        "stance": 3300.3,
+        "global_synthesis": 8099.0
+      }
+    },
+    "key_findings": [
+      {
+        "text": "The global age-standardized incidence rate of tuberculosis (TB) decreased by 40.5% from 1990 to 2021, with corresponding declines in mortality and disability-adjusted life years.",
+        "source_indices": [
+          4,
+          5
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "The global age-standardized incidence rate of multidrug-resistant TB (MDR-TB) has not decreased since 2015 and shows a slow upward trend, with projections indicating significant increases in both incidence and mortality for MDR-TB and extensively drug-resistant TB (XDR-TB) from 2022 to 2035.",
+        "source_indices": [
+          0,
+          1
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Extensively drug-resistant TB (XDR-TB) is emerging as the fastest-growing threat, with its age-standardized incidence rate significantly increasing over the past 30 years.",
+        "source_indices": [
+          1,
+          3
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "The global pooled prevalence of MDR-TB among all TB patients declined significantly from 14.4% in 2000–2009 to 2.6% in 2020–2024.",
+        "source_indices": [
+          2
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "HIV-positive patients have 1.42 times higher odds of developing MDR-TB compared to HIV-negative patients.",
+        "source_indices": [
+          13
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "A significant portion of estimated new rifampicin-resistant TB (RR-TB) cases are not detected and treated annually, with only about a third of cases notified in 2020.",
+        "source_indices": [
+          10
+        ],
+        "strength": "moderate"
+      },
+      {
+        "text": "Multidrug-resistant TB (excluding extensively drug-resistant TB) was among the leading causes of deaths attributable to bacterial antimicrobial resistance globally in 2019.",
+        "source_indices": [
+          9
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "New shorter, all-oral treatment regimens for TB are a breakthrough, but their effectiveness is threatened by rising resistance to bedaquiline.",
+        "source_indices": [
+          18
+        ],
+        "strength": "moderate"
+      },
+      {
+        "text": "In Western Siberia, Russia, while overall TB incidence decreased, the primary MDR-TB rate increased from 19.2% to 26.4% between 2012 and 2021.",
+        "source_indices": [
+          11
+        ],
+        "strength": "weak"
+      }
+    ],
+    "disagreements": [],
+    "evidence_profile": {
+      "designs": {
+        "unclassified": 6,
+        "systematic review": 4,
+        "review": 4,
+        "cohort study": 3,
+        "meta-analysis": 2,
+        "adverse-event surveillance": 1
+      },
+      "high_tier_share": 0.3,
+      "preprint_share": 0.0
+    },
+    "pico": {
+      "population": "global population",
+      "intervention": "tuberculosis incidence, MDR-TB burden",
+      "comparison": "",
+      "outcome": "trends",
+      "study_designs": [
+        "observational study",
+        "epidemiological study"
+      ]
+    },
+    "evidence_gaps": [
+      "The sources do not provide a comprehensive global overview of the prevalence of pre-XDR-TB or XDR-TB among MDR-TB cases, only a pooled proportion from 22 countries [15].",
+      "The specific factors contributing to the projected increase in MDR-TB and XDR-TB incidence and mortality are not detailed in these sources.",
+      "The sources do not provide detailed information on the effectiveness or implementation challenges of new shorter, all-oral treatment regimens for TB, beyond noting the threat of bedaquiline resistance [18].",
+      "The sources do not consistently report the current global incidence rates for MDR-TB and XDR-TB, making it difficult to quantify the exact burden of these specific forms of drug-resistant TB in recent years.",
+      "The sources do not provide a detailed analysis of regional disparities in MDR-TB and XDR-TB trends beyond a few specific examples (e.g., Western Siberia [11], South Asia [17])."
+    ]
+  }
+}

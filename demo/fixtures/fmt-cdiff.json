@@ -1,0 +1,506 @@
+{
+  "id": "fmt-cdiff",
+  "topic": "Faecal microbiota transplantation for recurrent C. difficile infection",
+  "max_sources": 10,
+  "summary_language": "en",
+  "recorded_at": "2026-08-26",
+  "events": [
+    {
+      "stage": "domain",
+      "message": "Analysing the topic…",
+      "at_ms": 0
+    },
+    {
+      "stage": "domain",
+      "message": "Domain detected: medicine",
+      "at_ms": 1059
+    },
+    {
+      "stage": "brief",
+      "message": "Research brief ready: 5 query variants, providers: pubmed, clinicaltrials, europe_pmc",
+      "at_ms": 5654
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 1: 127 candidates from 7 queries",
+      "at_ms": 13203
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: refining queries…",
+      "at_ms": 17869
+    },
+    {
+      "stage": "discovery",
+      "message": "Citation graph expansion: +18 candidates from 4 seeds",
+      "at_ms": 23273
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: 32 candidates from 3 queries (20 new relevant)",
+      "at_ms": 28691
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: refining queries…",
+      "at_ms": 28691
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: 11 candidates from 3 queries (4 new relevant)",
+      "at_ms": 41000
+    },
+    {
+      "stage": "discovery",
+      "message": "Discovery complete: 166 unique candidates after dedup",
+      "at_ms": 41002
+    },
+    {
+      "stage": "rerank",
+      "message": "Scoring and reranking 166 candidates…",
+      "at_ms": 41002
+    },
+    {
+      "stage": "rerank",
+      "message": "Shortlisted 26 sources to read in full",
+      "at_ms": 53691
+    },
+    {
+      "stage": "read",
+      "message": "Fetching and summarising 26 sources…",
+      "at_ms": 53691
+    },
+    {
+      "stage": "read",
+      "message": "Summarised 26 sources",
+      "at_ms": 68737
+    },
+    {
+      "stage": "select",
+      "message": "Selecting the final set…",
+      "at_ms": 68737
+    },
+    {
+      "stage": "select",
+      "message": "10 articles selected",
+      "at_ms": 69744
+    },
+    {
+      "stage": "synthesis",
+      "message": "Writing the synthesis…",
+      "at_ms": 69744
+    },
+    {
+      "stage": "synthesis",
+      "message": "Synthesis complete: 7 findings, 0 conflicts",
+      "at_ms": 76303
+    }
+  ],
+  "response": {
+    "status": "completed",
+    "topic": "Faecal microbiota transplantation for recurrent C. difficile infection",
+    "domain_detected": "medicine",
+    "articles": [
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37096495/",
+        "title": "Fecal microbiota transplantation for the treatment of recurrent Clostridioides difficile (Clostridium difficile).",
+        "source_type": "pubmed",
+        "snippet": "Minkoff NZ, Aslam S, Medina M, Tanner-Smith EE, Zackular JP, Acra S et al. | The Cochrane database of systematic reviews | 2023-Apr-25 | Systematic Review; Journal Article; Research Support, N.I.H., Extramural",
+        "full_summary": "FMT likely increases resolution of recurrent C. difficile infection in immunocompetent patients and may slightly reduce serious adverse events.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2023-Apr-25",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "Pooled results from six studies showed that the use of FMT in immunocompetent participants with rCDI likely leads to a large increase in resolution of rCDI in the FMT group compared to control.",
+        "finding_direction": "strongly_supports",
+        "population": "immunocompetent adults with recurrent C. difficile infection",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36152636/",
+        "title": "Faecal microbiota transplantation for first or second Clostridioides difficile infection (EarlyFMT): a randomised, double-blind, placebo-controlled trial.",
+        "source_type": "pubmed",
+        "snippet": "Baunwall SMD, Andreasen SE, Hansen MM, Kelsen J, Høyer KL, Rågård N et al. | The lancet. Gastroenterology & hepatology | 2022-Dec | Randomized Controlled Trial; Journal Article; Research Support, Non-U.S. Gov't",
+        "full_summary": "First-line FMT is highly effective and superior to vancomycin alone for sustained resolution of first or second C. difficile infection.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2022-Dec",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "19 (90%; 95% CI 70-99) of 21 patients in the faecal microbiota transplantation group and seven (33%, 95% CI 15-57) of 21 patients in the placebo group had resolution of CDAD at week 8 (p=0·0003).",
+        "finding_direction": "strongly_supports",
+        "population": "patients with first or second C. difficile infection",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/33437951/",
+        "title": "Faecal microbiota transplantation for recurrent Clostridioides difficile infection: An updated systematic review and meta-analysis.",
+        "source_type": "pubmed",
+        "snippet": "Baunwall SMD, Lee MM, Eriksen MK, Mullish BH, Marchesi JR, Dahlerup JF et al. | EClinicalMedicine | 2020-Dec | Journal Article",
+        "full_summary": "FMT is effective for recurrent C. difficile infection, with repeat FMT and lower gastrointestinal endoscopy delivery showing superior results.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2020-Dec",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "The overall clinical effect week 8 following repeat FMT (24 studies, 1855 patients) was 91% (95% CI: 89-94%, I 2=53%) and 84% (80-88%, I 2=86%) following single FMT (43 studies, 2937 patients).",
+        "finding_direction": "strongly_supports",
+        "population": "patients with recurrent C. difficile infection",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/24577353/",
+        "title": "Reset of a critically disturbed microbial ecosystem: faecal transplant in recurrent Clostridium difficile infection.",
+        "source_type": "pubmed",
+        "snippet": "Fuentes S, van Nood E, Tims S, Heikamp-de Jong I, ter Braak CJ, Keller JJ et al. | The ISME journal | 2014-Aug | Journal Article; Randomized Controlled Trial",
+        "full_summary": "This randomized controlled trial investigates the mechanism of action of FMT in recurrent CDI by analyzing changes in faecal microbiota composition and diversity.",
+        "relevance_score": 0.95,
+        "reliability_tier": 2,
+        "publication_date": "2014-Aug",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "All patients successfully recovered. Their intestinal microbiota changed from a low-diversity diseased state, dominated by Proteobacteria and Bacilli, to a more diverse ecosystem resembling that of healthy donors, dominated by Bacteroidetes and Clostridium groups, including butyrate-producing bacteria.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with recurrent CDI",
+        "directness": "direct"
+      },
+      {
+        "url": "https://clinicaltrials.gov/study/NCT02148601",
+        "title": "Fecal Microbiota Transplantation by Colonoscopy for Recurrent C. Difficile Infection",
+        "source_type": "clinicaltrials",
+        "snippet": "Fecal Microbiota Transplantation by Colonoscopy for Recurrent C. Difficile Infection (Clostridium Difficile) [COMPLETED, PHASE2]",
+        "full_summary": "This is a completed Phase 2 randomized clinical trial comparing the efficacy of colonoscopic FMT and standard antibiotic therapy for recurrent C. difficile infection.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2013-07",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "The investigators' aim is to compare the efficacy of colonoscopic FMT and standard antibiotic therapy for the treatment of C. difficile infection in a randomized clinical trial",
+        "finding_direction": "mixed",
+        "population": "patients with recurrent C. difficile infection",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/1de4519f3e79a8443a08f7eb69ed002398279654",
+        "title": "Efficacy and safety of faecal microbiota transplantation for recurrent Clostridioides difficile infection: a 4-year retrospective study in a Swiss cohort",
+        "source_type": "semantic_scholar",
+        "snippet": "STUDY AIMS: Clostridioides difficile infection (CDI) is associated with high recurrence and mortality. Faecal microbiota transplantation (FMT) is recognised as the most effective treatment for recurrent CDI. However, implementation varies internationally, and real-world data from Switzerland – where",
+        "full_summary": "FMT showed high efficacy (93% after one treatment) and a favorable safety profile for recurrent C. difficile infection in a real-world Swiss cohort.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Among the 88 patients who received 100 FMTs, a clinical cure was achieved in 93% of cases after a single treatment, 98% after two and 100% after three.",
+        "finding_direction": "strongly_supports",
+        "population": "adult patients with recurrent Clostridioides difficile infection",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36844708/",
+        "title": "Fecal Microbiota Transplantation.",
+        "source_type": "pubmed",
+        "snippet": "Cheng YW, Fischer M | Clinics in colon and rectal surgery | 2023-Mar | Journal Article; Review",
+        "full_summary": "FMT is recommended for multiply recurrent C. difficile infection with high cure rates, and emerging evidence supports its use in severe and fulminant CDI.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2023-Mar",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Current guidelines recommend FMT for the prevention of multiply recurrent Clostridioides difficile infection (CDI) after two recurrences, with cure rates approaching 90%.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with multiply recurrent C. difficile infection, severe and fulminant CDI",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39662821/",
+        "title": "The presence of Clostridioides difficile in faeces before and after faecal microbiota transplantation and its relation with recurrent C. difficile infection and the gut microbiota in a Dutch cohort.",
+        "source_type": "pubmed",
+        "snippet": "Groenewegen B, van Lingen E, Kovynev A, van den Berg AJ, Berssenbrugge EKL, Sanders IMJG et al. | Clinical microbiology and infection : the official publication of the European Society of Clinical Microbiology and Infectious Diseases | 2025-Apr | Journal Article",
+        "full_summary": "FMT achieved a 92.8% cure rate for recurrent C. difficile infection. Post-FMT C. difficile culture positivity, post-FMT antibiotic use, and a short course of pre-FMT vancomycin were associated with early CDI recurrence.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-Apr",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "The FMT cure rate for rCDI was 92.8% (77/83), with six early CDI recurrences (<2 months post-FMT).",
+        "finding_direction": "strongly_supports",
+        "population": "patients with recurrent C. difficile infection (rCDI)",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/1812ca00662d79a887d86aa4484fb8b4db74a9b9",
+        "title": "Comparison of Different Strategies for Providing Fecal Microbiota Transplantation to Treat Patients with Recurrent Clostridium difficile Infection in Two English Hospitals: A Review",
+        "source_type": "semantic_scholar",
+        "snippet": "Fecal microbiota transplant (FMT) has emerged as a highly efficacious treatment for difficult cases of refractory and/or recurrent Clostridium difficile infection (CDI). There have been many well-conducted randomized controlled trials and thousands of patients reported in case series that describe s",
+        "full_summary": "This review compares different strategies for providing FMT for recurrent CDI in two English hospitals, noting similar cure rates despite methodological variations.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2018",
+        "citation_count": 50,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Despite these significant methodological variations, clinical outcomes in terms of cure rate appear to be remarkably similar for both FMT providers.",
+        "finding_direction": "supports",
+        "population": "patients with recurrent Clostridium difficile infection",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/31883938/",
+        "title": "Faecal microbiota transplantation for recurrent Clostridioides difficile infection: experience with lyophilized oral capsules.",
+        "source_type": "pubmed",
+        "snippet": "Reigadas E, Bouza E, Olmedo M, Vázquez-Cuesta S, Villar-Gómara L, Alcalá L et al. | The Journal of hospital infection | 2020-Jun | Journal Article",
+        "full_summary": "This study reports on the experience of using lyophilized oral capsules for FMT in patients with recurrent CDI, showing high primary and overall cure rates.",
+        "relevance_score": 0.95,
+        "reliability_tier": 2,
+        "publication_date": "2020-Jun",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "case report",
+        "evidence_level": 0.25,
+        "key_finding": "Primary cure was achieved in 81.3% of patients, and the overall cure rate was 87.5%.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with recurrent CDI",
+        "directness": "direct"
+      }
+    ],
+    "global_summary": "Faecal microbiota transplantation (FMT) is an effective treatment for recurrent *Clostridioides difficile* infection (rCDI), with high cure rates reported across various study designs and patient populations [0][1][2][3][5][6][7][9]. Current guidelines recommend FMT for preventing multiply recurrent CDI after two recurrences, with cure rates approaching **90%** [6].\n\nSeveral studies demonstrate the efficacy of FMT. A 2022 randomized, double-blind, placebo-controlled trial (the *EarlyFMT* trial) involving patients with first or second *C. difficile* infection found that **90%** (19 of 21 patients) in the FMT group achieved resolution of *C. difficile*-associated diarrhoea at week 8, compared to **33%** (7 of 21 patients) in the placebo group (*p*=0.0003) [1]. A 2023 systematic review of six studies in immunocompetent adults with rCDI concluded that FMT likely leads to a large increase in resolution of rCDI compared to control groups [0]. Similarly, a 2020 systematic review and meta-analysis reported an overall clinical effect at week 8 of **91%** following repeat FMT (across 24 studies, 1855 patients) and **84%** following single FMT (across 43 studies, 2937 patients) [2].\n\nReal-world data and cohort studies further support these findings. A 4-year retrospective cohort study in Switzerland found that among 88 patients receiving 100 FMTs, clinical cure was achieved in **93%** after a single treatment, **98%** after two, and **100%** after three treatments [5]. Another cohort study in a Dutch population reported an FMT cure rate for rCDI of **92.8%** (77 of 83 patients), with six early recurrences within two months post-FMT [7]. A case report on the use of lyophilized oral capsules for FMT in patients with recurrent CDI showed a primary cure rate of **81.3%** and an overall cure rate of **87.5%** [9].\n\nFMT appears to restore a healthy gut microbiota. A 2014 randomized controlled trial observed that patients successfully recovered and their intestinal microbiota shifted from a low-diversity diseased state, dominated by Proteobacteria and Bacilli, to a more diverse ecosystem resembling that of healthy donors, dominated by Bacteroidetes and *Clostridium* groups, including butyrate-producing bacteria [3]. Despite variations in methodological approaches for providing FMT, clinical outcomes in terms of cure rates appear to be remarkably similar [8].",
+    "total_sources_consulted": 166,
+    "duration_seconds": 76.3,
+    "job_stats": {
+      "total_cost_usd": 0.061084,
+      "llm": {
+        "total_calls": 42,
+        "total_input_tokens": 84973,
+        "total_output_tokens": 10154,
+        "total_tokens": 95127,
+        "total_cost_usd": 0.05166782,
+        "by_purpose": {
+          "related_articles_domain": {
+            "count": 1,
+            "input_tokens": 736,
+            "output_tokens": 282,
+            "cost_usd": 0.0001864,
+            "total_latency_ms": 1058.6
+          },
+          "related_articles_brief": {
+            "count": 2,
+            "input_tokens": 2968,
+            "output_tokens": 352,
+            "cost_usd": 0.00254,
+            "total_latency_ms": 3578.5
+          },
+          "related_articles_decompose": {
+            "count": 1,
+            "input_tokens": 573,
+            "output_tokens": 215,
+            "cost_usd": 0.0001433,
+            "total_latency_ms": 712.3
+          },
+          "related_articles_reformulate": {
+            "count": 5,
+            "input_tokens": 12153,
+            "output_tokens": 652,
+            "cost_usd": 0.0080325,
+            "total_latency_ms": 10224.5
+          },
+          "related_articles_rerank": {
+            "count": 4,
+            "input_tokens": 25325,
+            "output_tokens": 1399,
+            "cost_usd": 0.011095,
+            "total_latency_ms": 7542.9
+          },
+          "related_articles_design_grade": {
+            "count": 1,
+            "input_tokens": 3080,
+            "output_tokens": 144,
+            "cost_usd": 0.0003656,
+            "total_latency_ms": 736.4
+          },
+          "related_articles_summarize": {
+            "count": 7,
+            "input_tokens": 25312,
+            "output_tokens": 4388,
+            "cost_usd": 0.01805222,
+            "total_latency_ms": 26859.9
+          },
+          "related_articles_stance": {
+            "count": 20,
+            "input_tokens": 12144,
+            "output_tokens": 1453,
+            "cost_usd": 0.0072757,
+            "total_latency_ms": 21629.9
+          },
+          "related_articles_synthesis": {
+            "count": 1,
+            "input_tokens": 2682,
+            "output_tokens": 1269,
+            "cost_usd": 0.0039771,
+            "total_latency_ms": 6558.7
+          }
+        }
+      },
+      "embeddings": {
+        "total_calls": 340,
+        "total_tokens": 72430,
+        "total_cost_usd": 0.0094159,
+        "by_model": {
+          "openai/text-embedding-3-large": {
+            "calls": 340,
+            "tokens": 72430,
+            "cost_usd": 0.0094159
+          }
+        }
+      },
+      "tools": {
+        "calls": {
+          "search_guidelines": 1,
+          "probe_pubmed": 13,
+          "submit_brief": 1,
+          "submit_queries": 2,
+          "submit_appraisals": 6
+        },
+        "total_calls": 23
+      },
+      "providers": {
+        "calls": {
+          "clinicaltrials": 13,
+          "pubmed": 13,
+          "europe_pmc": 13
+        },
+        "cache_hits": {},
+        "errors": {},
+        "total_calls": 39,
+        "total_cache_hits": 0
+      },
+      "pipeline": {
+        "evidence_total": 0,
+        "evidence_after_relevance": 0,
+        "retries": 0
+      },
+      "stage_timings_ms": {
+        "domain_detection": 1058.6,
+        "brief": 4595.1,
+        "pro_decomposition": 712.3,
+        "pro_round1": 6836.5,
+        "pro_expansion": 5404.6,
+        "pro_round2": 10821.9,
+        "pro_round3": 12309.6,
+        "rerank": 12689.0,
+        "content_enrichment": 1181.8,
+        "summarization": 10512.2,
+        "stance": 3349.7,
+        "global_synthesis": 6559.1
+      }
+    },
+    "key_findings": [
+      {
+        "text": "Faecal microbiota transplantation (FMT) is highly effective in treating recurrent *Clostridioides difficile* infection (rCDI), with cure rates often exceeding 80% and approaching 90% or more across various studies and patient populations.",
+        "source_indices": [
+          0,
+          1,
+          2,
+          5,
+          6,
+          7,
+          9
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "FMT can lead to a significant increase in the resolution of rCDI compared to placebo or standard antibiotic therapy.",
+        "source_indices": [
+          0,
+          1,
+          4
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "The efficacy of FMT has been observed in immunocompetent adults with rCDI, as well as in patients with first or second *C. difficile* infection.",
+        "source_indices": [
+          0,
+          1
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "FMT helps restore the diversity of the intestinal microbiota, shifting it from a diseased state to one resembling that of healthy donors, with an increase in beneficial bacteria.",
+        "source_indices": [
+          3
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Repeat FMT may achieve higher cure rates than single FMT, with one systematic review reporting 91% for repeat FMT versus 84% for single FMT.",
+        "source_indices": [
+          2
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Clinical cure rates for FMT can reach 93% after a single treatment, and even higher (98-100%) after multiple treatments.",
+        "source_indices": [
+          5
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Current guidelines recommend FMT for the prevention of multiply recurrent *Clostridioides difficile* infection after two recurrences.",
+        "source_indices": [
+          6
+        ],
+        "strength": "strong"
+      }
+    ],
+    "disagreements": [],
+    "evidence_profile": {
+      "designs": {
+        "systematic review": 2,
+        "randomised controlled trial": 2,
+        "cohort study": 2,
+        "review": 2,
+        "registered trial": 1,
+        "case report": 1
+      },
+      "high_tier_share": 0.4,
+      "preprint_share": 0.0
+    },
+    "pico": {
+      "population": "recurrent C. difficile infection",
+      "intervention": "faecal microbiota transplantation",
+      "comparison": "",
+      "outcome": "",
+      "study_designs": [
+        "randomized controlled trial",
+        "clinical trial",
+        "observational study"
+      ]
+    },
+    "evidence_gaps": [
+      "These sources do not provide detailed information on the long-term safety profile of FMT beyond the reported cure rates and early recurrences.",
+      "The specific optimal number of FMT treatments for all patients is not definitively established, although some sources suggest higher cure rates with repeat treatments.",
+      "The sources do not extensively compare the efficacy of different administration routes for FMT (e.g., colonoscopy, oral capsules, enema) in a head-to-head manner, beyond noting similar outcomes despite methodological variations.",
+      "The sources do not provide specific data on the efficacy and safety of FMT in immunocompromised patients, as one systematic review focused on immunocompetent participants."
+    ]
+  }
+}

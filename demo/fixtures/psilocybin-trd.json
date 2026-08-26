@@ -1,0 +1,492 @@
+{
+  "id": "psilocybin-trd",
+  "topic": "Psilocybin-assisted therapy for treatment-resistant depression",
+  "max_sources": 10,
+  "summary_language": "en",
+  "recorded_at": "2026-08-26",
+  "events": [
+    {
+      "stage": "domain",
+      "message": "Analysing the topic…",
+      "at_ms": 0
+    },
+    {
+      "stage": "domain",
+      "message": "Domain detected: medicine",
+      "at_ms": 1166
+    },
+    {
+      "stage": "brief",
+      "message": "Research brief ready: 5 query variants, providers: pubmed, clinicaltrials, europe_pmc",
+      "at_ms": 5641
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 1: 71 candidates from 7 queries",
+      "at_ms": 14294
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: refining queries…",
+      "at_ms": 17065
+    },
+    {
+      "stage": "discovery",
+      "message": "Citation graph expansion: +15 candidates from 4 seeds",
+      "at_ms": 22688
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: 48 candidates from 3 queries (45 new relevant)",
+      "at_ms": 26214
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: refining queries…",
+      "at_ms": 26214
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: 56 candidates from 3 queries (47 new relevant)",
+      "at_ms": 35830
+    },
+    {
+      "stage": "discovery",
+      "message": "Discovery complete: 169 unique candidates after dedup",
+      "at_ms": 35831
+    },
+    {
+      "stage": "rerank",
+      "message": "Scoring and reranking 169 candidates…",
+      "at_ms": 35831
+    },
+    {
+      "stage": "rerank",
+      "message": "Shortlisted 26 sources to read in full",
+      "at_ms": 48226
+    },
+    {
+      "stage": "read",
+      "message": "Fetching and summarising 26 sources…",
+      "at_ms": 48226
+    },
+    {
+      "stage": "read",
+      "message": "Summarised 26 sources",
+      "at_ms": 59943
+    },
+    {
+      "stage": "select",
+      "message": "Selecting the final set…",
+      "at_ms": 59943
+    },
+    {
+      "stage": "select",
+      "message": "10 articles selected",
+      "at_ms": 61063
+    },
+    {
+      "stage": "synthesis",
+      "message": "Writing the synthesis…",
+      "at_ms": 61063
+    },
+    {
+      "stage": "synthesis",
+      "message": "Synthesis complete: 5 findings, 0 conflicts",
+      "at_ms": 66873
+    }
+  ],
+  "response": {
+    "status": "completed",
+    "topic": "Psilocybin-assisted therapy for treatment-resistant depression",
+    "domain_detected": "medicine",
+    "articles": [
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42562964/",
+        "title": "Psilocybin-assisted therapy for treatment-resistant major depressive disorder in a public healthcare setting: a randomized controlled trial.",
+        "source_type": "pubmed",
+        "snippet": "Rucker JJ, Mantingh T, Kerr-Gaffney J, Bird C, Chu P, Modlin NL et al. | Nature medicine | 2026-Aug-06 | Journal Article",
+        "full_summary": "A randomized controlled trial found that a single 25-mg dose of psilocybin with psychological support significantly reduced depression symptoms in patients with treatment-resistant major depressive disorder compared to placebo, with effects sustained at 6 weeks.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026-Aug-06",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "The adjusted between-group difference at week 3 on the MADRS was -10.41 (95% confidence interval: -14.86 to -5.95; Cohen's d = -1.70), favoring psilocybin, which was sustained at week 6.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with treatment-resistant major depressive disorder",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/38359838/",
+        "title": "Psilocybin-assisted psychotherapy for treatment resistant depression: A randomized clinical trial evaluating repeated doses of psilocybin.",
+        "source_type": "pubmed",
+        "snippet": "Rosenblat JD, Meshkat S, Doyle Z, Kaczmarek E, Brudner RM, Kratiuk K et al. | Med (New York, N.Y.) | 2024-Mar-08 | Randomized Controlled Trial; Journal Article; Research Support, Non-U.S. Gov't",
+        "full_summary": "A randomized clinical trial found that psilocybin-assisted psychotherapy was feasible and associated with significant reductions in depression severity in complex patients with treatment-resistant depression, with repeated doses leading to further improvements.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2024-Mar-08",
+        "citation_count": 108,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Greater reductions in depression severity as measured by the Montgomery-Åsberg Depression Rating Scale (MADRS) were observed in the immediate treatment arm compared to the waitlist period arm with a large hedge's g effect size of 1.07 (p < 0.01).",
+        "finding_direction": "strongly_supports",
+        "population": "adults with treatment-resistant depression as part of major depressive or bipolar II disorder",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37443386/",
+        "title": "Psilocybin for treatment resistant depression in patients taking a concomitant SSRI medication.",
+        "source_type": "pubmed",
+        "snippet": "Goodwin GM, Croal M, Feifel D, Kelly JR, Marwood L, Mistry S et al. | Neuropsychopharmacology : official publication of the American College of Neuropsychopharmacology | 2023-Sep | Clinical Trial, Phase II; Journal Article; Research Support, Non-U.S. Gov't",
+        "full_summary": "This Phase II open-label study investigated the safety and efficacy of a single 25 mg dose of psilocybin alongside psychological support in 19 participants with treatment-resistant depression who were also taking an SSRI.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2023-Sep",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "controlled trial",
+        "evidence_level": 0.72,
+        "key_finding": "At Week 3, mean change from Baseline in MADRS total score was -14.9 (95% CI, -20.7 to -9.2), and -1.3 (SD = 1.29) in the CGI-S.",
+        "finding_direction": "strongly_supports",
+        "population": "adults with treatment-resistant depression taking a concomitant SSRI",
+        "directness": "direct"
+      },
+      {
+        "url": "https://clinicaltrials.gov/study/NCT06303739",
+        "title": "Psilocybin-Assisted Therapy in Treatment-Resistant Depression",
+        "source_type": "clinicaltrials",
+        "snippet": "Psilocybin-Assisted Therapy in Treatment-Resistant Depression (Refractory Depression, Treatment Resistant Depression) [ACTIVE_NOT_RECRUITING, PHASE3]",
+        "full_summary": "This is a Phase 3 clinical trial investigating the efficacy and duration of effect of psilocybin-assisted therapy in individuals with treatment-resistant depression.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2024-04-19",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "registered trial",
+        "evidence_level": 0.55,
+        "key_finding": "",
+        "finding_direction": "no_evidence",
+        "population": "people with refractory depression, treatment resistant depression",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/fdacce0d704a5914df0e00f2585e80605f8a7b15",
+        "title": "Psilocybin with psychotherapeutic support for treatment-resistant depression: a pilot clinical trial",
+        "source_type": "semantic_scholar",
+        "snippet": "Background: Depressive disorders are a major global health challenge, with many individuals unresponsive to existing treatments. Novel psychedelic therapies show promise but require further research. Objectives: This study aimed to evaluate the feasibility, safety and effectiveness of psilocybin wit",
+        "full_summary": "A pilot clinical trial found that psilocybin with psychotherapeutic support led to a clinically meaningful reduction in depressive symptoms at 3 weeks, maintained long-term, in participants with treatment-resistant depression, with diverse individual response patterns.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025",
+        "citation_count": 4,
+        "domain": "medicine",
+        "study_design": "controlled trial",
+        "evidence_level": 0.72,
+        "key_finding": "At the aggregate level, a clinically meaningful reduction in depressive symptoms was observed at the primary endpoint (mean change = –7.14; p = 0.02; Hedges’ g = –1.27; 95% CI [–2.40, –0.37]) and maintained long-term.",
+        "finding_direction": "strongly_supports",
+        "population": "individuals with treatment-resistant depression (TRD)",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39627679/",
+        "title": "Randomized Controlled Trials of Psilocybin-Assisted Therapy in the Treatment of Major Depressive Disorder: Systematic Review and Meta-Analysis.",
+        "source_type": "pubmed",
+        "snippet": "Menon V, Ramamurthy P, Venu S, Andrade C | Acta psychiatrica Scandinavica | 2025-May | Journal Article; Systematic Review; Meta-Analysis",
+        "full_summary": "This systematic review and meta-analysis of 6 RCTs found that psilocybin-assisted therapy was superior to comparator interventions for reducing depression ratings in major depressive disorder, including treatment-resistant depression, for up to 6 weeks.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-May",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "Antidepressant effects of psilocybin-assisted therapy are superior (with at least medium effect sizes) to comparator interventions for at least up to 6\n\tweeks postintervention.",
+        "finding_direction": "strongly_supports",
+        "population": "adults with major depressive disorder, including treatment-resistant depression",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39741440/",
+        "title": "Single-Dose Psilocybin for Depression With Severe Treatment Resistance: An Open-Label Trial.",
+        "source_type": "pubmed",
+        "snippet": "Aaronson ST, van der Vaart A, Miller T, LaPratt J, Swartz K, Shoultz A et al. | The American journal of psychiatry | 2025-Jan-01 | Clinical Trial, Phase II; Journal Article",
+        "full_summary": "This open-label trial investigated the safety and efficacy of a single 25 mg dose of psilocybin in 12 participants with severe treatment-resistant depression.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-Jan-01",
+        "citation_count": 30,
+        "domain": "medicine",
+        "study_design": "controlled trial",
+        "evidence_level": 0.72,
+        "key_finding": "Depressive symptoms were significantly decreased at week 3 (MADRS least-squares mean change=-15.8, 95% CI=-25.4 to -6.3) and Week 12 (MADRS least-squares mean change=-17.2, 95% CI=-25.2 to -9.1).",
+        "finding_direction": "strongly_supports",
+        "population": "patients with severe treatment-resistant depression",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/27210031/",
+        "title": "Psilocybin with psychological support for treatment-resistant depression: an open-label feasibility study.",
+        "source_type": "pubmed",
+        "snippet": "Carhart-Harris RL, Bolstridge M, Rucker J, Day CM, Erritzoe D, Kaelen M et al. | The lancet. Psychiatry | 2016-Jul | Clinical Trial; Journal Article",
+        "full_summary": "This open-label feasibility study investigated the safety and efficacy of two oral doses of psilocybin (10 mg and 25 mg) with psychological support in 12 patients with moderate-to-severe, unipolar, treatment-resistant major depression.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2016-Jul",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "controlled trial",
+        "evidence_level": 0.72,
+        "key_finding": "Relative to baseline, depressive symptoms were markedly reduced 1 week (mean QIDS difference -11\b8, 95% CI -9\b15 to -14\b35, p=0\b002, Hedges' g=3\b1) and 3 months (-9\b2, 95% CI -5\b69 to -12\b71, p=0\b003, Hedges' g=2) after high-dose treatment.",
+        "finding_direction": "no_evidence",
+        "population": "patients with unipolar treatment-resistant depression",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36938991/",
+        "title": "Psilocybin-assisted therapy for major depressive disorder: An exploratory placebo-controlled, fixed-order trial.",
+        "source_type": "pubmed",
+        "snippet": "Sloshower J, Skosnik PD, Safi-Aghdam H, Pathania S, Syed S, Pittman B et al. | Journal of psychopharmacology (Oxford, England) | 2023-Jul | Randomized Controlled Trial; Journal Article; Research Support, Non-U.S. Gov't",
+        "full_summary": "This exploratory placebo-controlled study investigated psilocybin-assisted therapy for major depressive disorder, finding that antidepressant effect sizes were larger after psilocybin than after placebo, with high rates of response and remission following psilocybin administration.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2023-Jul",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "However, antidepressant effect sizes were larger after psilocybin (d' = 1.02-2.27) than after placebo (d' = 0.65-0.99) and there were high rates of response (66.7%) and remission (46.7%) following psilocybin administration.",
+        "finding_direction": "strongly_supports",
+        "population": "individuals with moderate to severe major depressive disorder",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36040772/",
+        "title": "[The use of psilocybin for treatment-resistant depression].",
+        "source_type": "pubmed",
+        "snippet": "Johannesdottir A, Sigurdsson E | Laeknabladid | 2022-Sep | Journal Article; Systematic Review",
+        "full_summary": "This systematic review discusses psilocybin as a potential novel treatment for treatment-resistant depression (TRD), noting that a systematic review demonstrated significant antidepressant efficacy and a phase 2 study showed rapid response and remission.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2022-Sep",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "A systematic review has demonstrated significant antidepressant efficacy in certain groups and a double-blind randomized study found antidepressant efficacy of psilocybin comparable to the SSRI escitalopram.",
+        "finding_direction": "strongly_supports",
+        "population": "certain groups (not specified beyond TRD)",
+        "directness": "direct"
+      }
+    ],
+    "global_summary": "Psilocybin-assisted therapy shows promise as an effective treatment for individuals with treatment-resistant depression (TRD), with multiple studies reporting significant reductions in depressive symptoms [0][1][2][4][5][6][7]. A 2025 meta-analysis of randomized controlled trials concluded that the antidepressant effects of psilocybin-assisted therapy are superior to comparator interventions, with at least medium effect sizes, lasting for at least **six weeks post-intervention** [5].\n\nSeveral randomized controlled trials (RCTs) have demonstrated this efficacy. One RCT, published in 2026, found an adjusted between-group difference on the Montgomery-Åsberg Depression Rating Scale (MADRS) of **-10.41** (95% CI: -14.86 to -5.95; Cohen's d = -1.70) favoring psilocybin, which was sustained at week 6 in patients with TRD [0]. Another RCT from 2024 observed greater reductions in depression severity in the immediate treatment arm compared to a waitlist arm, with a large Hedge's g effect size of **1.07** (p < 0.01) [1]. Even in patients with TRD who were concurrently taking an SSRI medication, a 2023 controlled trial reported a mean change from baseline in MADRS total score of **-14.9** (95% CI, -20.7 to -9.2) at Week 3 [2].\n\nFurther evidence comes from other controlled trials. A 2025 pilot clinical trial noted a clinically meaningful reduction in depressive symptoms at the primary endpoint (mean change = **–7.14**; p = 0.02; Hedges’ g = –1.27; 95% CI [–2.40, –0.37]), which was maintained long-term [4]. An open-label trial from 2025 focusing on severe TRD patients found depressive symptoms significantly decreased at week 3 (MADRS least-squares mean change=**-15.8**, 95% CI=-25.4 to -6.3) and week 12 (MADRS least-squares mean change=**-17.2**, 95% CI=-25.2 to -9.1) [6]. An earlier open-label feasibility study from 2016 also reported marked reductions in depressive symptoms one week (mean QIDS difference **-11.8**, 95% CI -9.15 to -14.35, p=0.002, Hedges' g=3.1) and three months (mean QIDS difference **-9.2**, 95% CI -5.69 to -12.71, p=0.003, Hedges' g=2) after high-dose treatment in patients with unipolar TRD [7].\n\nWhile most studies directly address TRD, an exploratory placebo-controlled trial from 2023, though conducted in individuals with moderate to severe major depressive disorder (not exclusively TRD), also showed larger antidepressant effect sizes after psilocybin (d' = **1.02-2.27**) compared to placebo (d' = **0.65-0.99**), with high rates of response (**66.7%**) and remission (**46.7%**) [8]. A 2022 systematic review also highlighted significant antidepressant efficacy in certain groups and noted a double-blind randomized study that found psilocybin's antidepressant efficacy comparable to the SSRI escitalopram [9]. A Phase 3 clinical trial is currently investigating the efficacy and duration of effect of psilocybin-assisted therapy in individuals with refractory and treatment-resistant depression [3].",
+    "total_sources_consulted": 169,
+    "duration_seconds": 66.87,
+    "job_stats": {
+      "total_cost_usd": 0.057064,
+      "llm": {
+        "total_calls": 37,
+        "total_input_tokens": 77358,
+        "total_output_tokens": 9765,
+        "total_tokens": 87123,
+        "total_cost_usd": 0.04771737,
+        "by_purpose": {
+          "related_articles_domain": {
+            "count": 1,
+            "input_tokens": 738,
+            "output_tokens": 274,
+            "cost_usd": 0.0001834,
+            "total_latency_ms": 1165.7
+          },
+          "related_articles_brief": {
+            "count": 2,
+            "input_tokens": 3083,
+            "output_tokens": 416,
+            "cost_usd": 0.0027895,
+            "total_latency_ms": 3458.9
+          },
+          "related_articles_decompose": {
+            "count": 1,
+            "input_tokens": 575,
+            "output_tokens": 139,
+            "cost_usd": 0.0001131,
+            "total_latency_ms": 627.3
+          },
+          "related_articles_reformulate": {
+            "count": 4,
+            "input_tokens": 8682,
+            "output_tokens": 512,
+            "cost_usd": 0.005877,
+            "total_latency_ms": 5162.4
+          },
+          "related_articles_rerank": {
+            "count": 4,
+            "input_tokens": 27597,
+            "output_tokens": 1390,
+            "cost_usd": 0.0117541,
+            "total_latency_ms": 7411.9
+          },
+          "related_articles_design_grade": {
+            "count": 1,
+            "input_tokens": 1066,
+            "output_tokens": 50,
+            "cost_usd": 0.0001266,
+            "total_latency_ms": 555.3
+          },
+          "related_articles_summarize": {
+            "count": 10,
+            "input_tokens": 24550,
+            "output_tokens": 4686,
+            "cost_usd": 0.01780857,
+            "total_latency_ms": 38330.4
+          },
+          "related_articles_stance": {
+            "count": 13,
+            "input_tokens": 8237,
+            "output_tokens": 978,
+            "cost_usd": 0.0049161,
+            "total_latency_ms": 11960.8
+          },
+          "related_articles_synthesis": {
+            "count": 1,
+            "input_tokens": 2830,
+            "output_tokens": 1320,
+            "cost_usd": 0.004149,
+            "total_latency_ms": 5809.4
+          }
+        }
+      },
+      "embeddings": {
+        "total_calls": 348,
+        "total_tokens": 71897,
+        "total_cost_usd": 0.00934661,
+        "by_model": {
+          "openai/text-embedding-3-large": {
+            "calls": 348,
+            "tokens": 71897,
+            "cost_usd": 0.00934661
+          }
+        }
+      },
+      "tools": {
+        "calls": {
+          "resolve_drug": 1,
+          "search_guidelines": 1,
+          "probe_pubmed": 10,
+          "submit_brief": 1,
+          "submit_queries": 2,
+          "submit_appraisals": 6
+        },
+        "total_calls": 21
+      },
+      "providers": {
+        "calls": {
+          "clinicaltrials": 13,
+          "pubmed": 13,
+          "europe_pmc": 13
+        },
+        "cache_hits": {},
+        "errors": {},
+        "total_calls": 39,
+        "total_cache_hits": 0
+      },
+      "pipeline": {
+        "evidence_total": 0,
+        "evidence_after_relevance": 0,
+        "retries": 0
+      },
+      "stage_timings_ms": {
+        "domain_detection": 1165.8,
+        "brief": 4474.7,
+        "pro_decomposition": 627.3,
+        "pro_round1": 8025.6,
+        "pro_expansion": 5622.8,
+        "pro_round2": 9148.6,
+        "pro_round3": 9615.7,
+        "rerank": 12395.1,
+        "content_enrichment": 0.0,
+        "summarization": 9749.7,
+        "stance": 1966.3,
+        "global_synthesis": 5809.6
+      }
+    },
+    "key_findings": [
+      {
+        "text": "Psilocybin-assisted therapy significantly reduces depressive symptoms in individuals with treatment-resistant depression (TRD).",
+        "source_indices": [
+          0,
+          1,
+          2,
+          4,
+          5,
+          6,
+          7,
+          9
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "The antidepressant effects of psilocybin-assisted therapy for TRD can be sustained for at least six weeks post-intervention.",
+        "source_indices": [
+          0,
+          5
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Psilocybin-assisted therapy demonstrates efficacy in TRD patients even when they are concurrently taking SSRI medication.",
+        "source_indices": [
+          2
+        ],
+        "strength": "moderate"
+      },
+      {
+        "text": "Antidepressant effects of psilocybin-assisted therapy are superior to comparator interventions for major depressive disorder, including TRD.",
+        "source_indices": [
+          5,
+          8
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Psilocybin-assisted therapy has shown clinically meaningful reductions in depressive symptoms that are maintained long-term in TRD.",
+        "source_indices": [
+          4,
+          6,
+          7
+        ],
+        "strength": "moderate"
+      }
+    ],
+    "disagreements": [],
+    "evidence_profile": {
+      "designs": {
+        "controlled trial": 4,
+        "randomised controlled trial": 3,
+        "registered trial": 1,
+        "meta-analysis": 1,
+        "systematic review": 1
+      },
+      "high_tier_share": 0.5,
+      "preprint_share": 0.0
+    },
+    "pico": {
+      "population": "treatment-resistant depression",
+      "intervention": "psilocybin-assisted therapy",
+      "comparison": "",
+      "outcome": "",
+      "study_designs": [
+        "randomized controlled trial",
+        "clinical trial"
+      ]
+    },
+    "evidence_gaps": [
+      "The specific long-term duration of effect beyond 12 weeks for psilocybin-assisted therapy in TRD is not fully established across all studies.",
+      "The optimal dosing regimen and frequency of psilocybin administration for sustained effects in TRD are not explicitly detailed across these sources.",
+      "The comparative efficacy of psilocybin-assisted therapy against other established treatments for TRD, beyond general comparators, is not consistently reported."
+    ]
+  }
+}

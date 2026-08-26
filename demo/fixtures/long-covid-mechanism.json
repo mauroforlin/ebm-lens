@@ -1,0 +1,917 @@
+{
+  "id": "long-covid-mechanism",
+  "topic": "Long COVID pathophysiology: viral persistence versus immune dysregulation",
+  "max_sources": 30,
+  "summary_language": "en",
+  "recorded_at": "2026-08-26",
+  "events": [
+    {
+      "stage": "domain",
+      "message": "Analysing the topic…",
+      "at_ms": 0
+    },
+    {
+      "stage": "domain",
+      "message": "Domain detected: medicine",
+      "at_ms": 1010
+    },
+    {
+      "stage": "brief",
+      "message": "Research brief ready: 5 query variants, providers: pubmed, biorxiv, clinicaltrials, europe_pmc",
+      "at_ms": 5622
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 1: 218 candidates from 10 queries",
+      "at_ms": 16746
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: refining queries…",
+      "at_ms": 22943
+    },
+    {
+      "stage": "discovery",
+      "message": "Citation graph expansion: +51 candidates from 4 seeds",
+      "at_ms": 34549
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: 50 candidates from 3 queries (37 new relevant)",
+      "at_ms": 37791
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: refining queries…",
+      "at_ms": 37791
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: 77 candidates from 3 queries (62 new relevant)",
+      "at_ms": 53338
+    },
+    {
+      "stage": "discovery",
+      "message": "Discovery complete: 381 unique candidates after dedup",
+      "at_ms": 53342
+    },
+    {
+      "stage": "rerank",
+      "message": "Scoring and reranking 381 candidates…",
+      "at_ms": 53342
+    },
+    {
+      "stage": "rerank",
+      "message": "Shortlisted 60 sources to read in full",
+      "at_ms": 66779
+    },
+    {
+      "stage": "read",
+      "message": "Fetching and summarising 60 sources…",
+      "at_ms": 66779
+    },
+    {
+      "stage": "read",
+      "message": "Summarised 60 sources",
+      "at_ms": 98389
+    },
+    {
+      "stage": "select",
+      "message": "Selecting the final set…",
+      "at_ms": 98389
+    },
+    {
+      "stage": "select",
+      "message": "30 articles selected",
+      "at_ms": 112120
+    },
+    {
+      "stage": "synthesis",
+      "message": "Writing the synthesis…",
+      "at_ms": 112120
+    },
+    {
+      "stage": "synthesis",
+      "message": "Synthesis complete: 9 findings, 2 conflicts",
+      "at_ms": 120606
+    }
+  ],
+  "response": {
+    "status": "completed",
+    "topic": "Long COVID pathophysiology: viral persistence versus immune dysregulation",
+    "domain_detected": "medicine",
+    "articles": [
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40474772/",
+        "title": "Mechanistic Insights Into Long Covid: Viral Persistence, Immune Dysregulation, and Multi-Organ Dysfunction.",
+        "source_type": "pubmed",
+        "snippet": "Gupta G, Buonsenso D, Wood J, Mohandas S, Warburton D | Comprehensive Physiology | 2025-Jun | Journal Article; Review",
+        "full_summary": "This review synthesizes current data on viral persistence, immune dysregulation, and metabolic disturbances as mechanisms driving Long COVID pathogenesis and explores potential therapeutic strategies.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-Jun",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Current literature suggests that the mechanisms causing Long Covid involve viral persistence, immune dysregulation, systemic inflammation, endothelial dysfunction, and metabolic disturbances.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with Long COVID",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42433775/",
+        "title": "Emerging trends in post-COVID immune dysregulation: a narrative review.",
+        "source_type": "pubmed",
+        "snippet": "Abera EG, Himbaro SA, Megersa SW, Ashine AH, Tukeni KN, Gebremichael EH | Annals of medicine and surgery (2012) | 2026-Jul | Journal Article; Review",
+        "full_summary": "This narrative review synthesizes findings on immunological assessments in Long COVID patients, highlighting persistent immune dysregulation, autoimmunity, and vascular perturbations, and also mentions viral persistence.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026-Jul",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Long COVID is characterized by persistent low-grade inflammation, T- and B-cell dysregulation, and prolonged adaptive immune activation. Viral persistence and early immune biomarkers predict long COVID development.",
+        "finding_direction": "no_evidence",
+        "population": "Long COVID patients",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/35524358/",
+        "title": "Long COVID: A proposed hypothesis-driven model of viral persistence for the pathophysiology of the syndrome.",
+        "source_type": "pubmed",
+        "snippet": "Buonsenso D, Piazza M, Boner AL, Bellanti JA | Allergy and asthma proceedings | 2022-May-01 | Journal Article; Review",
+        "full_summary": "This review proposes a model for Long COVID pathophysiology based on viral persistence leading to increased proinflammatory cytokine production and immune dysregulation.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2022-May-01",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "In this model of the long COVID syndrome, the persistence of SARS-CoV-2 is hypothesized to trigger a dysregulated immune system with subsequent heightened release of proinflammatory cytokines that lead to chronic low-grade inflammation and multiorgan symptomatology.",
+        "finding_direction": "supports",
+        "population": "patients with Long COVID",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/38959327/",
+        "title": "Tissue-based T cell activation and viral RNA persist for up to 2 years after SARS-CoV-2 infection.",
+        "source_type": "pubmed",
+        "snippet": "Peluso MJ, Ryder D, Flavell RR, Wang Y, Levi J, LaFranchi BH et al. | Science translational medicine | 2024-Jul-03 | Journal Article; Research Support, Non-U.S. Gov't; Research Support, N.I.H., Extramural",
+        "full_summary": "This study investigated T cell activation and viral RNA persistence in tissues of individuals after SARS-CoV-2 infection, finding increased T cell activation in various tissues and the presence of SARS-CoV-2 RNA in colorectal tissue up to 676 days post-infection in Long COVID patients.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2024-Jul-03",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "We identified intracellular SARS-CoV-2 single-stranded spike protein-encoding RNA in rectosigmoid lamina propria tissue in all five participants and double-stranded spike protein-encoding RNA in three participants up to 676 days after initial COVID-19, suggesting that tissue viral persistence could be associated with long-term immunologic perturbations.",
+        "finding_direction": "strongly_supports",
+        "population": "24 participants after acute SARS-CoV-2 infection (with and without continuing symptoms), and a subset of five participants with LC symptoms",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37179568/",
+        "title": "Long COVID: Clinical characteristics, proposed pathogenesis and potential therapeutic targets.",
+        "source_type": "pubmed",
+        "snippet": "Kenny G, Townsend L, Savinelli S, Mallon PWG | Frontiers in molecular biosciences | 2023 | Journal Article; Review",
+        "full_summary": "This narrative review describes clinical features and phenotypes of Long COVID and discusses potential pathogenesis, including ongoing immune dysregulation and viral persistence.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2023",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "The underlying pathophysiology remains poorly understood, with no therapeutic agents proven to be effective. This narrative review describes predominant clinical features and phenotypes of long COVID alongside the data supporting potential pathogenesis of these phenotypes including ongoing immune dysregulation, viral persistence, endotheliopathy, gastrointestinal microbiome disturbance, autoimmuni",
+        "finding_direction": "mixed",
+        "population": "patients with Long COVID",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41794369/",
+        "title": "Persistent Gut-Immune Axis dysregulation in long-term Post-COVID Syndrome: Insights from a prospective, observational, cross-sectional case-control study.",
+        "source_type": "pubmed",
+        "snippet": "Augustin M, Picard L, Rauschning D, Zenev E, Pracht E, de Silva US et al. | Mucosal immunology | 2026-Jun | Journal Article; Observational Study",
+        "full_summary": "This study investigates the link between persistent viral proteins in gut tissue and immune cell changes in patients with Long COVID, finding increased mast cell activity, elevated zonulin levels, and SARS-CoV-2 nucleocapsid protein expression in the gut of PCS+ individuals.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026-Jun",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cross-sectional study",
+        "evidence_level": 0.42,
+        "key_finding": "PCS+ individuals exhibited a distinct immune profile characterized by increased mast cell activity, and elevated zonulin levels, indicating compromised gut barrier function alongside with elevated SARS-CoV-2 nucleocapsid protein expression in the TI.",
+        "finding_direction": "strongly_supports",
+        "population": "SARS-CoV-2 convalescent patients (20 with PCS+ and 23 without PCS symptoms)",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37140960/",
+        "title": "Viral persistence, reactivation, and mechanisms of long COVID.",
+        "source_type": "pubmed",
+        "snippet": "Chen B, Julg B, Mohandas S, Bradfute SB | eLife | 2023-May-04 | Review; Journal Article; Research Support, N.I.H., Extramural",
+        "full_summary": "This review focuses on the emerging literature supporting the role of viral persistence or reactivation in Long COVID, and its potential association with pathogenic immune responses.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2023-May-04",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Persistence of SARS-CoV-2 RNA or antigens is reported in some organs, yet the mechanism by which they do so and how they may be associated with pathogenic immune responses is unclear.",
+        "finding_direction": "weakly_supports",
+        "population": "individuals with Long COVID",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/35594336/",
+        "title": "Pathophysiology and mechanism of long COVID: a comprehensive review.",
+        "source_type": "pubmed",
+        "snippet": "Castanares-Zapatero D, Chalon P, Kohn L, Dauvrin M, Detollenaere J, Maertens de Noordhout C et al. | Annals of medicine | 2022-Dec | Journal Article; Research Support, Non-U.S. Gov't; Systematic Review",
+        "full_summary": "This systematic review synthesizes hypotheses on the pathophysiology of Long COVID, identifying immune dysregulation, autoimmunity, endothelial dysfunction, occult viral persistence, and coagulation activation as main underlying mechanisms.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2022-Dec",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "Immune dysregulation, auto-immunity, endothelial dysfunction, occult viral persistence, as well as coagulation activation are the main underlying pathophysiological mechanisms so far.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with Long COVID",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41516190/",
+        "title": "The Central Role of Macrophages in Long COVID Pathophysiology.",
+        "source_type": "pubmed",
+        "snippet": "Mcmillan P, Turner AJ, Uhal BD | International journal of molecular sciences | 2025-Dec-27 | Journal Article; Review",
+        "full_summary": "This review proposes that Long COVID is a disorder of persistent immune dysregulation, specifically chronic macrophage activation, driven by persistent spike protein, epigenetic imprinting, and gut viral reservoirs.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-Dec-27",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "The hypothesis described here proposes that Long COVID is best understood as a disorder of persistent immune dysregulation, with chronic macrophage activation representing the fundamental underlying pathophysiology.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with Long COVID",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40649991/",
+        "title": "Immunomodulatory Mechanisms Underlying Neurological Manifestations in Long COVID: Implications for Immune-Mediated Neurodegeneration.",
+        "source_type": "pubmed",
+        "snippet": "Hein ZM, Thazin, Kumar S, Che Ramli MD, Che Mohd Nassir CMN | International journal of molecular sciences | 2025-Jun-27 | Journal Article; Review",
+        "full_summary": "This narrative review explores immunomodulatory mechanisms underlying neurological manifestations in Long COVID, focusing on immune dysregulation, neuroinflammation, and endothelial dysfunction, and discusses potential therapeutic strategies.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2025-Jun-27",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Long COVID, or post-acute sequelae of SARS-CoV-2 infection (PASC), is characterized by a spectrum of neurological symptoms, including cognitive dysfunction, fatigue, neuropathy, and mood disturbances.",
+        "finding_direction": "contradicts",
+        "population": "patients with Long COVID",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40738238/",
+        "title": "Peripheral immune progression to long COVID is associated with mitochondrial gene transcription: A meta-analysis.",
+        "source_type": "pubmed",
+        "snippet": "Maison DP, Khadka VS, Mohd-Ibrahim I, Peluso MJ, Henrich TJ, Deng Y et al. | Mitochondrion | 2025-Nov | Journal Article; Meta-Analysis; Research Support, N.I.H., Extramural",
+        "full_summary": "A meta-analysis of RNA-seq studies found significant mitochondrial transcript changes in the peripheral immune system of Long COVID patients, with low levels of intracellular viral RNA.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2025-Nov",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "meta-analysis",
+        "evidence_level": 1.0,
+        "key_finding": "We conducted one of the most comprehensive meta-analyses to date of all quality bulk RNA-seq studies worldwide from the COVID-19 pandemic and show significant mitochondrial transcript changes in the peripheral immune system of people with Long COVID, with unexpectedly low levels of intracellular viral RNA in Long COVID.",
+        "finding_direction": "strongly_supports",
+        "population": "people with Long COVID",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37667052/",
+        "title": "SARS-CoV-2 reservoir in post-acute sequelae of COVID-19 (PASC).",
+        "source_type": "pubmed",
+        "snippet": "Proal AD, VanElzakker MB, Aleman S, Bach K, Boribong BP, Buggert M et al. | Nature immunology | 2023-Oct | Journal Article; Review; Research Support, N.I.H., Extramural",
+        "full_summary": "This review discusses the concept of a SARS-CoV-2 reservoir in PASC, where persistent viral RNA and/or proteins could modulate host immune responses and contribute to pathology.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2023-Oct",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Some individuals with PASC may not fully clear the coronavirus SARS-CoV-2 after acute infection. Instead, replicating virus and/or viral RNA-potentially capable of being translated to produce viral proteins-persist in tissue as a 'reservoir'.",
+        "finding_direction": "strongly_supports",
+        "population": "individuals with Long COVID or PASC",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39956285/",
+        "title": "Autoimmunity in long COVID.",
+        "source_type": "pubmed",
+        "snippet": "Talwar S, Harker JA, Openshaw PJM, Thwaites RS | The Journal of allergy and clinical immunology | 2025-Apr | Journal Article; Review",
+        "full_summary": "This review article discusses the role of autoimmunity, specifically B-cell dysregulation and autoantibody production, as a hypothesized cause of Long COVID, alongside other factors like viral persistence and inflammation.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2025-Apr",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Several studies show preexisting and/or de novo production of autoantibodies after infection with SARS-CoV-2, but the persistence of these antibodies and their role in causing long COVID is debated.",
+        "finding_direction": "weakly_supports",
+        "population": "patients with Long COVID",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/38237983/",
+        "title": "Long Covid.",
+        "source_type": "pubmed",
+        "snippet": "Zaidi AK, Dehgani-Mobaraki P | Progress in molecular biology and translational science | 2024 | Journal Article",
+        "full_summary": "This chapter provides an overview of Long COVID, discussing various hypotheses for its pathogenesis, including persistent viral reservoirs, immune dysregulation, dysbiosis, and autoimmunity.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2024",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Hypotheses regarding the pathogenesis of Long COVID are discussed, encompassing various factors such as persistent viral reservoirs, immune dysregulation with or without reactivation of herpesviruses (e.g., Epstein-Barr Virus and human herpesvirus), dysbiosis, autoimmunity triggered by infection, endothelial dysfunction, microvessel blood clotting, and dysfunctional brainstem and/or vagal signalin",
+        "finding_direction": "mixed",
+        "population": "patients with Long COVID",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/38203577/",
+        "title": "Long COVID: Molecular Mechanisms and Detection Techniques.",
+        "source_type": "pubmed",
+        "snippet": "Constantinescu-Bercu A, Lobiuc A, Căliman-Sturdza OA, Oiţă RC, Iavorschi M, Pavăl NE et al. | International journal of molecular sciences | 2023-Dec-28 | Journal Article; Review",
+        "full_summary": "This review summarizes molecular mechanisms underlying Long COVID, including viral persistence, immune dysregulation, endothelial dysfunction, and neurological involvement, highlighting the need for further research.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2023-Dec-28",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Molecular mechanisms underlying the occurrence and progression of long COVID include viral persistence, immune dysregulation, endothelial dysfunction, and neurological involvement, and highlight the need for further research to develop targeted therapies for this condition.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with Long COVID",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39489518/",
+        "title": "Beyond acute infection: mechanisms underlying post-acute sequelae of COVID-19 (PASC).",
+        "source_type": "pubmed",
+        "snippet": "Adhikari A, Maddumage J, Eriksson EM, Annesley SJ, Lawson VA, Bryant VL et al. | The Medical journal of Australia | 2024-Nov-04 | Journal Article; Review",
+        "full_summary": "This review highlights immune dysregulation as a key aspect of Long COVID, involving sustained immune cell activation, T cell exhaustion, and disrupted immune communication.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2024-Nov-04",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Immune dysregulation is a key aspect of post-acute sequelae of coronavirus disease 2019 (PASC), also known as long COVID, with sustained activation of immune cells, T cell exhaustion, skewed B cell profiles, and disrupted immune communication thereby resulting in autoimmune-related complications.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with Long COVID",
+        "directness": "direct"
+      },
+      {
+        "url": "https://doi.org/10.1101/2021.06.25.449905",
+        "title": "Persistence of SARS CoV-2 S1 Protein in CD16+ Monocytes in Post-Acute Sequelae of COVID-19 (PASC) Up to 15 Months Post-Infection",
+        "source_type": "biorxiv",
+        "snippet": "ABSTRACT\n                The recent COVID-19 pandemic is a treatment challenge in the acute infection stage but the recognition of chronic COVID-19 symptoms termed post-acute sequelae SARS-CoV-2 infection (PASC) may affect up to 30% of all infected individuals. The underlying mechanism and source of",
+        "full_summary": "This study found persistent SARS-CoV-2 S1 protein in non-classical monocytes of Long COVID patients up to 15 months post-infection, suggesting viral persistence may contribute to PASC.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2021",
+        "citation_count": 21,
+        "domain": "medicine",
+        "study_design": "preclinical study",
+        "evidence_level": 0.3,
+        "key_finding": "A statistically significant number of non-classical monocytes contained SARS-CoV-2 S1 protein in both severe (P=0.004) and PASC patients (P=0.02) out to 15 months post-infection.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with severe COVID-19 and PASC",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41038267/",
+        "title": "Decoding long COVID-associated cardiovascular dysfunction: Mechanisms, models, and new approach methodologies.",
+        "source_type": "pubmed",
+        "snippet": "Thomas D, Yang PC, Wu JC, Sayed N | Journal of molecular and cellular cardiology | 2025-Dec | Journal Article; Review",
+        "full_summary": "This review synthesizes current understanding of cardiovascular involvement in Long COVID, implicating immune dysregulation, endothelial dysfunction, persistent viral antigens, and coagulopathy as central drivers.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2025-Dec",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Increasing evidence implicates immune dysregulation, endothelial dysfunction, persistent viral antigens, and coagulopathy as central drivers of cardiovascular complications.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with Long COVID",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/38673384/",
+        "title": "Pathophysiological Mechanisms in Long COVID: A Mixed Method Systematic Review.",
+        "source_type": "pubmed",
+        "snippet": "Diar Bakerly N, Smith N, Darbyshire JL, Kwon J, Bullock E, Baley S et al. | International journal of environmental research and public health | 2024-Apr-12 | Journal Article; Systematic Review; Research Support, Non-U.S. Gov't",
+        "full_summary": "This systematic review identifies immune system dysregulation, cerebral hypoperfusion, and impaired gas transfer as pathophysiological mechanisms with strong evidence in Long COVID.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2024-Apr-12",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "The pathophysiological mechanisms with strong evidence were immune system dysregulation, cerebral hypoperfusion, and impaired gas transfer in the lungs.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with Long COVID",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/33ab585d1c63b2772778d63ce790963ed8820ac2",
+        "title": "Current status and future perspectives on the mechanistic and pathophysiological understanding of long COVID",
+        "source_type": "semantic_scholar",
+        "snippet": "Viral and infectious illnesses can exert profound and enduring effects on population health and well-being. In the aftermath of SARS-CoV-2 infection, post-acute sequelae, collectively referred to as Long COVID, have emerged as a major global health challenge, affecting more than 400 million people a",
+        "full_summary": "This review synthesizes current evidence on the biological mechanisms contributing to Long COVID, including immune dysregulation, viral persistence, autonomic dysfunction, and microvascular pathology.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 5,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "This review synthesises current evidence on the biological mechanisms thought to contribute to Long COVID, spanning immune dysregulation, viral persistence, autonomic dysfunction, microvascular pathology, and other emerging hypotheses.",
+        "finding_direction": "mixed",
+        "population": "patients with Long COVID",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/13e69fbdfb68c2656829b2a9b9569ded6ca9db06",
+        "title": "Metabolic, viral, and immune phenotypes in long COVID",
+        "source_type": "semantic_scholar",
+        "snippet": "\n \n Long COVID is characterized by persistent symptoms ≥ 3 months after acute SARS-CoV-2 infection. To date, the underlying pathophysiology is unclear.\n \n \n \n To characterize the immune and metabolic features of Long COVID and the potential role of viral persistence in adipose tissue.\n \n \n \n Case-co",
+        "full_summary": "This case-control study investigated immune and metabolic features of Long COVID, finding subtle impairments in glucose tolerance and enhanced T-cell DPP-4 activity, but no detectable SARS-CoV-2 viral RNA in subcutaneous adipose tissue biopsies.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "case-control study",
+        "evidence_level": 0.52,
+        "key_finding": "SARS-CoV-2 viral RNA was not detectable in subcutaneous adipose tissue biopsies.",
+        "finding_direction": "contradicts",
+        "population": "Adults from the RECOVER study with high or low symptom burden",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/610908fb8b5d6b3aed56fa2f5d58ad21704b65e1",
+        "title": "A perfect storm: the immunological and pathophysiological landscape of pediatric post-COVID-19 condition",
+        "source_type": "semantic_scholar",
+        "snippet": "Pediatric Post-COVID Condition (PPCC) represents a significant and complex long-term sequela of SARS-CoV-2 infection, affecting a subset of children and adolescents even after mild acute disease. While acute COVID-19 is generally milder in children due to a more robust innate immune response, the me",
+        "full_summary": "This narrative review explores the immunological and pathophysiological alterations in pediatric post-COVID-19 condition, focusing on dysregulated immune responses, persistent viral reservoirs, and downstream pathogenic pathways.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Critical hypotheses for pediatric post-COVID condition include a dysregulated immune response, persistent SARS-CoV-2 viral reservoirs, and the reactivation of latent viruses.",
+        "finding_direction": "strongly_supports",
+        "population": "children and adolescents with pediatric post-COVID condition",
+        "directness": "adjacent"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37388814/",
+        "title": "The pathophysiology of postacute sequelae of COVID-19 (PASC): Possible role for persistent inflammation.",
+        "source_type": "pubmed",
+        "snippet": "Marshall GD | Asia Pacific allergy | 2023-Jun | Journal Article; Review",
+        "full_summary": "This review discusses the role of persistent inflammation in the pathophysiology of PASC, highlighting various forms of inflammation as major factors.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2023-Jun",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "The literature supports a prominent role for various forms and types of inflammation in the pathophysiologic spectrum of PASC.",
+        "finding_direction": "supports",
+        "population": "patients with PASC",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/38663423/",
+        "title": "The persistence of SARS-CoV-2 in tissues and its association with long COVID symptoms: a cross-sectional cohort study in China.",
+        "source_type": "pubmed",
+        "snippet": "Zuo W, He D, Liang C, Du S, Hua Z, Nie Q et al. | The Lancet. Infectious diseases | 2024-Aug | Journal Article; Research Support, Non-U.S. Gov't",
+        "full_summary": "This cross-sectional study found a significant association between persistent SARS-CoV-2 RNA in various tissues and the development of Long COVID symptoms.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2024-Aug",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cross-sectional study",
+        "evidence_level": 0.42,
+        "key_finding": "Detection of viral RNA in recovered patients was significantly associated with the development of long COVID symptoms (odds ratio 5·17, 95% CI 2·64-10·13, p<0·0001).",
+        "finding_direction": "strongly_supports",
+        "population": "patients who recovered from mild COVID-19",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41157582/",
+        "title": "Insights into Persistent SARS-CoV-2 Reservoirs in Chronic Long COVID.",
+        "source_type": "pubmed",
+        "snippet": "Prakash S, Karan S, Lekbach Y, Tifrea DF, Figueroa CJ, Ulmer JB et al. | Viruses | 2025-Sep-27 | Journal Article; Review",
+        "full_summary": "This review discusses the role of persistent SARS-CoV-2 reservoirs in driving chronic inflammation and immune overstimulation in Long COVID.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-Sep-27",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "a causative factor in a large subset of patients with LC, involves reservoirs of virus and/or viral RNA (vRNA) that persist months to years in multiple organs driving chronic inflammation, respiratory, muscular, cognitive, and cardiovascular damages, and provide continuous viral antigenic stimuli that overstimulate and exhaust CD4+ and CD8+ T cells.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with Long COVID",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/ad7718bda3df9168181981af644f2cdc44db716e",
+        "title": "Systems Immunology of Long Covid: Insights from the STOP-PASC Clinical Trial 2265936",
+        "source_type": "semantic_scholar",
+        "snippet": "\n \n \n Post Acute Sequelae of COVID-19 (PASC), also called Long COVID, is an infection-associated chronic syndrome. Despite proposed viral persistence mechanisms, no therapeutic benefit was observed in randomized placebo-controlled trials of nirmatrelvir/ritonavir (NMV/r) in adults with Long COVID, i",
+        "full_summary": "This study investigated immune profiles in Long COVID patients from the STOP-PASC trial, finding transient changes in plasma proteins with nirmatrelvir/ritonavir treatment and identifying a conserved 60-protein Long COVID Signature (LCS) score revealing multi-compartment immune activation.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Meta-analysis of publicly available Olink® data from Long COVID cohorts identified a conserved 60-protein Long COVID Signature (LCS) score revealing multi-compartment immune activation involving monocyte, neutrophil, and T/NK cell modules.",
+        "finding_direction": "supports",
+        "population": "adults with Long COVID",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/ed405791d9196a23f4be29623d907ce524520b97",
+        "title": "Virus reactivation in acute and long COVID-19",
+        "source_type": "semantic_scholar",
+        "snippet": "Chronic viral infections are ubiquitous in humans, with individuals carrying multiple viruses that can reactivate during physiological stress, including severe illness1. Notably, SARS-CoV-2 infection has been shown to reactivate chronic viruses such as Epstein–Barr virus and cytomegalovirus, yet the",
+        "full_summary": "This study found significant reactivation of Herpesviridae and Anelloviridae during acute COVID-19 and persistence of viral reactivation in convalescence, with an association of Anelloviridae with Long COVID.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2026",
+        "citation_count": 2,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Additionally, we demonstrate persistence of viral reactivation in convalescence, and report an association of Anelloviridae with long COVID.",
+        "finding_direction": "strongly_supports",
+        "population": "hospitalized patients with COVID-19",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37748514/",
+        "title": "Distinguishing features of long COVID identified through immune profiling.",
+        "source_type": "pubmed",
+        "snippet": "Klein J, Wood J, Jaycox JR, Dhodapkar RM, Lu P, Gehlhausen JR et al. | Nature | 2023-Nov | Journal Article; Research Support, N.I.H., Extramural; Research Support, Non-U.S. Gov't",
+        "full_summary": "This cross-sectional study identified immune system differences in individuals with Long COVID, including exaggerated humoral responses to SARS-CoV-2 and other viruses like Epstein-Barr virus, and lower cortisol levels.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2023-Nov",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "cross-sectional study",
+        "evidence_level": 0.42,
+        "key_finding": "Marked differences were noted in circulating myeloid and lymphocyte populations relative to the matched controls, as well as evidence of exaggerated humoral responses directed against SARS-CoV-2 among participants with long COVID.",
+        "finding_direction": "supports",
+        "population": "275 individuals with or without Long COVID",
+        "directness": "direct"
+      },
+      {
+        "url": "https://www.semanticscholar.org/paper/881b0c0b9042b89be35bc5aaa703f6fdd02c8e0e",
+        "title": "Persistent Presence of Spike protein and Viral RNA in the Circulation of Individuals with Post-Acute Sequelae of COVID-19",
+        "source_type": "semantic_scholar",
+        "snippet": "SARS-CoV-2, the causative agent of COVID-19 disease has resulted in the death of millions worldwide since the beginning of the pandemic in December 2019. While much progress has been made to understand acute manifestations of SARS-CoV-2 infection, less is known about post-acute sequelae of COVID-19 ",
+        "full_summary": "This study found that SARS-CoV-2 Spike protein and viral RNA persist in the circulation of individuals with PASC, suggesting a role for viral persistence in Long COVID pathophysiology.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2022",
+        "citation_count": 11,
+        "domain": "medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Our findings suggest that Spike protein and/or viral RNA fragments persist in the recovered COVID-19 patients with PASC, independent of their presence or absence during the acute COVID-19 phase.",
+        "finding_direction": "supports",
+        "population": "patients with acute COVID-19 and PASC",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41235245/",
+        "title": "T-cell exhaustion in COVID-19: what do we know?",
+        "source_type": "pubmed",
+        "snippet": "Chen-Camaño R, DeAntonio R, López-Vergès S | Frontiers in immunology | 2025 | Journal Article; Review",
+        "full_summary": "This review discusses T-cell exhaustion in COVID-19, linking it to poor clinical outcomes and persistent symptoms in Long COVID, and explores potential therapeutic strategies.",
+        "relevance_score": 0.8,
+        "reliability_tier": 2,
+        "publication_date": "2025",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "In coronavirus disease 2019 (COVID-19), increasing evidence links exhausted T-cell phenotypes with poor clinical outcomes, including severe disease, delayed viral clearance, and persistent symptoms associated with Long COVID.",
+        "finding_direction": "supports",
+        "population": "patients with COVID-19 and Long COVID",
+        "directness": "direct"
+      }
+    ],
+    "global_summary": "The pathophysiology of Long COVID, also known as post-acute sequelae of SARS-CoV-2 infection (PASC), is complex and is largely understood to involve both viral persistence and immune dysregulation [0][1][4][7][13][14][19]. These two mechanisms are often seen as interconnected, with viral persistence potentially triggering or sustaining a dysregulated immune response [2][6][24].\n\nEvidence for viral persistence includes the detection of SARS-CoV-2 components in tissues long after acute infection. A cohort study identified intracellular SARS-CoV-2 spike protein-encoding RNA in rectosigmoid lamina propria tissue in all five participants with Long COVID symptoms up to **676 days** after initial infection [3]. Another cross-sectional study in China found that the detection of viral RNA in recovered patients was significantly associated with the development of Long COVID symptoms, with an **odds ratio of 5.17** (95% CI 2.64-10.13, p<0.0001) [23]. Viral RNA or antigens have been reported to persist in various organs [6][11][24], and one preclinical study detected SARS-CoV-2 S1 protein in CD16+ monocytes in patients with severe COVID-19 and PASC up to **15 months** post-infection [16]. The persistence of viral reactivation, including Anelloviridae, has also been associated with Long COVID [26]. These persistent viral reservoirs are hypothesized to drive chronic inflammation and contribute to multi-organ damage [24].\n\nImmune dysregulation is also widely recognized as a central mechanism [0][1][4][7][14][15][18][19]. This includes persistent low-grade inflammation [1][2][22], T- and B-cell dysregulation [1][15], and prolonged adaptive immune activation [1]. Specific immune profiles observed in Long COVID patients include increased mast cell activity and elevated zonulin levels, indicating compromised gut barrier function, alongside elevated SARS-CoV-2 nucleocapsid protein expression in the terminal ileum [5]. A cross-sectional study involving 275 individuals noted marked differences in circulating myeloid and lymphocyte populations and exaggerated humoral responses against SARS-CoV-2 in those with Long COVID [27]. Chronic macrophage activation is proposed as a fundamental underlying pathophysiology [8]. Immune dysregulation can manifest as sustained activation of immune cells, T cell exhaustion, skewed B cell profiles, and disrupted immune communication, potentially leading to autoimmune complications [15][29]. Several reviews also highlight the role of autoimmunity, with evidence of *de novo* autoantibody production after SARS-CoV-2 infection, though their persistent role in causing Long COVID is debated [12][13]. A meta-analysis of RNA-seq studies identified a conserved **60-protein Long COVID Signature (LCS) score** revealing multi-compartment immune activation involving monocyte, neutrophil, and T/NK cell modules [25]. This meta-analysis also reported **unexpectedly low levels of intracellular viral RNA** in the peripheral immune system of people with Long COVID, suggesting a complex interplay where immune changes might not always directly correlate with high viral load in all compartments [10].\n\n**Contrasting results** regarding viral persistence have been observed in some studies. While many sources support the presence of viral components [3][5][11][16][23][24][28], a case-control study from the RECOVER study found that SARS-CoV-2 viral RNA was **not detectable** in subcutaneous adipose tissue biopsies of adults with high or low symptom burden [20]. Despite this, the overall consensus from multiple reviews and studies points to both viral persistence and immune dysregulation as key, often intertwined, factors in Long COVID pathophysiology [0][1][2][4][7][13][14][17][19][21].",
+    "total_sources_consulted": 381,
+    "duration_seconds": 120.61,
+    "job_stats": {
+      "total_cost_usd": 0.107351,
+      "llm": {
+        "total_calls": 85,
+        "total_input_tokens": 138314,
+        "total_output_tokens": 20022,
+        "total_tokens": 158336,
+        "total_cost_usd": 0.09236915,
+        "by_purpose": {
+          "related_articles_domain": {
+            "count": 1,
+            "input_tokens": 736,
+            "output_tokens": 264,
+            "cost_usd": 0.0001792,
+            "total_latency_ms": 1009.4
+          },
+          "related_articles_brief": {
+            "count": 2,
+            "input_tokens": 3172,
+            "output_tokens": 423,
+            "cost_usd": 0.002855,
+            "total_latency_ms": 3561.6
+          },
+          "related_articles_decompose": {
+            "count": 1,
+            "input_tokens": 573,
+            "output_tokens": 279,
+            "cost_usd": 0.0001689,
+            "total_latency_ms": 942.2
+          },
+          "related_articles_reformulate": {
+            "count": 7,
+            "input_tokens": 18815,
+            "output_tokens": 874,
+            "cost_usd": 0.0120295,
+            "total_latency_ms": 10236.2
+          },
+          "related_articles_rerank": {
+            "count": 4,
+            "input_tokens": 24101,
+            "output_tokens": 1396,
+            "cost_usd": 0.0107203,
+            "total_latency_ms": 8047.5
+          },
+          "related_articles_design_grade": {
+            "count": 1,
+            "input_tokens": 2795,
+            "output_tokens": 120,
+            "cost_usd": 0.0003275,
+            "total_latency_ms": 662.1
+          },
+          "related_articles_summarize": {
+            "count": 14,
+            "input_tokens": 51364,
+            "output_tokens": 10843,
+            "cost_usd": 0.04050385,
+            "total_latency_ms": 58092.3
+          },
+          "related_articles_stance": {
+            "count": 54,
+            "input_tokens": 32194,
+            "output_tokens": 3940,
+            "cost_usd": 0.0195082,
+            "total_latency_ms": 154933.0
+          },
+          "related_articles_synthesis": {
+            "count": 1,
+            "input_tokens": 4564,
+            "output_tokens": 1883,
+            "cost_usd": 0.0060767,
+            "total_latency_ms": 8485.7
+          }
+        }
+      },
+      "embeddings": {
+        "total_calls": 529,
+        "total_tokens": 115243,
+        "total_cost_usd": 0.01498159,
+        "by_model": {
+          "openai/text-embedding-3-large": {
+            "calls": 529,
+            "tokens": 115243,
+            "cost_usd": 0.01498159
+          }
+        }
+      },
+      "tools": {
+        "calls": {
+          "search_guidelines": 1,
+          "probe_pubmed": 22,
+          "submit_brief": 1,
+          "submit_queries": 2,
+          "submit_appraisals": 12
+        },
+        "total_calls": 38
+      },
+      "providers": {
+        "calls": {
+          "clinicaltrials": 16,
+          "biorxiv": 16,
+          "pubmed": 16,
+          "europe_pmc": 16
+        },
+        "cache_hits": {},
+        "errors": {},
+        "total_calls": 64,
+        "total_cache_hits": 0
+      },
+      "pipeline": {
+        "evidence_total": 0,
+        "evidence_after_relevance": 0,
+        "retries": 0
+      },
+      "stage_timings_ms": {
+        "domain_detection": 1009.5,
+        "brief": 4612.6,
+        "pro_decomposition": 942.2,
+        "pro_round1": 10181.8,
+        "pro_expansion": 11607.1,
+        "pro_round2": 14847.6,
+        "pro_round3": 15547.2,
+        "rerank": 13436.9,
+        "content_enrichment": 0.0,
+        "summarization": 11677.5,
+        "stance": 19931.6,
+        "global_synthesis": 8485.9
+      }
+    },
+    "key_findings": [
+      {
+        "text": "Long COVID is characterized by persistent low-grade inflammation, T- and B-cell dysregulation, and prolonged adaptive immune activation.",
+        "source_indices": [
+          1,
+          15,
+          22
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Viral persistence, including the presence of SARS-CoV-2 RNA or antigens, occurs in various tissues and organs for months to years after acute infection in Long COVID patients.",
+        "source_indices": [
+          3,
+          6,
+          11,
+          16,
+          23,
+          24,
+          28
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "The persistence of SARS-CoV-2 is hypothesized to trigger a dysregulated immune system, leading to chronic low-grade inflammation and multi-organ symptoms.",
+        "source_indices": [
+          2,
+          6,
+          24
+        ],
+        "strength": "moderate"
+      },
+      {
+        "text": "Immune dysregulation in Long COVID involves sustained activation of immune cells, T cell exhaustion, skewed B cell profiles, and disrupted immune communication.",
+        "source_indices": [
+          15,
+          29
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Specific immune profiles in Long COVID patients include increased mast cell activity, elevated zonulin levels indicating compromised gut barrier function, and elevated SARS-CoV-2 nucleocapsid protein expression in the terminal ileum.",
+        "source_indices": [
+          5
+        ],
+        "strength": "moderate"
+      },
+      {
+        "text": "Chronic macrophage activation is proposed as a fundamental underlying pathophysiology in Long COVID.",
+        "source_indices": [
+          8
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Detection of viral RNA in recovered patients is significantly associated with the development of Long COVID symptoms, with an odds ratio of 5.17.",
+        "source_indices": [
+          23
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "A meta-analysis identified a conserved 60-protein Long COVID Signature (LCS) score indicating multi-compartment immune activation.",
+        "source_indices": [
+          25
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "In children and adolescents with pediatric post-COVID condition, critical hypotheses include a dysregulated immune response, persistent SARS-CoV-2 viral reservoirs, and the reactivation of latent viruses.",
+        "source_indices": [
+          21
+        ],
+        "strength": "weak"
+      }
+    ],
+    "disagreements": [
+      {
+        "issue": "The detectability of SARS-CoV-2 viral RNA in specific tissues of Long COVID patients.",
+        "positions": [
+          "SARS-CoV-2 viral RNA or proteins persist in various tissues such as rectosigmoid lamina propria, CD16+ monocytes, and can be detected in circulation for extended periods after acute infection [3][5][16][23][24][28].",
+          "SARS-CoV-2 viral RNA was not detectable in subcutaneous adipose tissue biopsies of adults with Long COVID [20]."
+        ],
+        "source_indices": [
+          3,
+          5,
+          16,
+          20,
+          23,
+          24,
+          28
+        ]
+      },
+      {
+        "issue": "The levels of intracellular viral RNA in the peripheral immune system of people with Long COVID.",
+        "positions": [
+          "Many studies suggest viral persistence as a key mechanism, implying detectable viral components [3][5][11][16][23][24][28].",
+          "A meta-analysis of RNA-seq studies reported unexpectedly low levels of intracellular viral RNA in the peripheral immune system of people with Long COVID, despite significant mitochondrial transcript changes [10]."
+        ],
+        "source_indices": [
+          3,
+          5,
+          10,
+          11,
+          16,
+          23,
+          24,
+          28
+        ]
+      }
+    ],
+    "evidence_profile": {
+      "designs": {
+        "review": 18,
+        "cohort study": 4,
+        "cross-sectional study": 3,
+        "systematic review": 2,
+        "meta-analysis": 1,
+        "preclinical study": 1,
+        "case-control study": 1
+      },
+      "high_tier_share": 0.1,
+      "preprint_share": 0.03
+    },
+    "pico": {
+      "population": "patients with Long COVID",
+      "intervention": "viral persistence",
+      "comparison": "immune dysregulation",
+      "outcome": "pathophysiology",
+      "study_designs": [
+        "review",
+        "observational study"
+      ]
+    },
+    "evidence_gaps": [
+      "The precise mechanisms by which persistent SARS-CoV-2 RNA or antigens lead to pathogenic immune responses are not fully clear [6].",
+      "The persistence of autoantibodies and their definitive role in causing Long COVID is debated and requires further clarification [12].",
+      "The direct causal link between specific viral persistence sites and the diverse range of Long COVID symptoms is not fully elucidated.",
+      "The effectiveness of therapeutic agents targeting either viral persistence or immune dysregulation in Long COVID has not been proven [4]."
+    ]
+  }
+}

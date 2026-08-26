@@ -1,0 +1,493 @@
+{
+  "id": "nsaid-dog-gi",
+  "topic": "NSAID-associated gastrointestinal toxicity in dogs",
+  "max_sources": 10,
+  "summary_language": "en",
+  "recorded_at": "2026-08-26",
+  "events": [
+    {
+      "stage": "domain",
+      "message": "Analysing the topic…",
+      "at_ms": 0
+    },
+    {
+      "stage": "domain",
+      "message": "Domain detected: veterinary_medicine",
+      "at_ms": 910
+    },
+    {
+      "stage": "brief",
+      "message": "Research brief ready: 5 query variants, providers: pubmed, clinicaltrials, europe_pmc, dailymed",
+      "at_ms": 4478
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 1: 84 candidates from 7 queries",
+      "at_ms": 12164
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: refining queries…",
+      "at_ms": 15259
+    },
+    {
+      "stage": "discovery",
+      "message": "Citation graph expansion: +36 candidates from 4 seeds",
+      "at_ms": 26596
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: 17 candidates from 3 queries (13 new relevant)",
+      "at_ms": 28818
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: refining queries…",
+      "at_ms": 28818
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: 13 candidates from 3 queries (12 new relevant)",
+      "at_ms": 39430
+    },
+    {
+      "stage": "discovery",
+      "message": "Discovery complete: 144 unique candidates after dedup",
+      "at_ms": 39431
+    },
+    {
+      "stage": "rerank",
+      "message": "Scoring and reranking 144 candidates…",
+      "at_ms": 39431
+    },
+    {
+      "stage": "rerank",
+      "message": "Shortlisted 26 sources to read in full",
+      "at_ms": 51952
+    },
+    {
+      "stage": "read",
+      "message": "Fetching and summarising 26 sources…",
+      "at_ms": 51952
+    },
+    {
+      "stage": "read",
+      "message": "Summarised 26 sources",
+      "at_ms": 63342
+    },
+    {
+      "stage": "select",
+      "message": "Selecting the final set…",
+      "at_ms": 63342
+    },
+    {
+      "stage": "select",
+      "message": "10 articles selected",
+      "at_ms": 64339
+    },
+    {
+      "stage": "synthesis",
+      "message": "Writing the synthesis…",
+      "at_ms": 64339
+    },
+    {
+      "stage": "synthesis",
+      "message": "Synthesis complete: 5 findings, 1 conflicts",
+      "at_ms": 69844
+    }
+  ],
+  "response": {
+    "status": "completed",
+    "topic": "NSAID-associated gastrointestinal toxicity in dogs",
+    "domain_detected": "veterinary_medicine",
+    "articles": [
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/33534961/",
+        "title": "Prevalence of gastrointestinal lesions in dogs chronically treated with nonsteroidal anti-inflammatory drugs.",
+        "source_type": "pubmed",
+        "snippet": "Mabry K, Hill T, Tolbert MK | Journal of veterinary internal medicine | 2021-Mar | Journal Article",
+        "full_summary": "Chronic NSAID use in dogs is associated with a higher prevalence of subclinical gastrointestinal erosions compared to control dogs.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2021-Mar",
+        "citation_count": 0,
+        "domain": "veterinary_medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Subclinical GI erosions are more common in dogs receiving chronic treatment with NSAIDs than in control dogs with chronic GI disease.",
+        "finding_direction": "strongly_supports",
+        "population": "client-owned medium- and large-breed dogs",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39426398/",
+        "title": "Dogs receiving cyclooxygenase-2-sparing nonsteroidal anti-inflammatory drugs and/or nonphysiologic steroids are at risk of severe gastrointestinal ulceration.",
+        "source_type": "pubmed",
+        "snippet": "Hillier TN, Watt MM, Grimes JA, Berg AN, Heinz JA, Dickerson VM | Journal of the American Veterinary Medical Association | 2025-Mar-01 | Journal Article",
+        "full_summary": "Dogs receiving COX-2 sparing NSAIDs, even at recommended doses, are at risk of severe gastrointestinal ulceration, with carprofen being the most common NSAID associated with ulceration.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2025-Mar-01",
+        "citation_count": 0,
+        "domain": "veterinary_medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Dogs receiving COX-2 sparing NSAIDs at recommended doses are at risk of severe GI ulceration.",
+        "finding_direction": "strongly_supports",
+        "population": "dogs with gastrointestinal ulceration receiving NSAIDs and/or corticosteroids",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/7891360/",
+        "title": "The effect of misoprostol on aspirin-induced gastroduodenal lesions in dogs.",
+        "source_type": "pubmed",
+        "snippet": "Johnston SA, Leib MS, Forrester SD, Marini M | Journal of veterinary internal medicine | 1995 | Journal Article; Research Support, Non-U.S. Gov't",
+        "full_summary": "Misoprostol effectively reduced aspirin-induced gastroduodenal lesions in dogs, with significant differences in lesion scores observed between aspirin-only and misoprostol-treated groups.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "1995",
+        "citation_count": 0,
+        "domain": "veterinary_medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "It was concluded that misoprostol effectively decreased endoscopically detectable mucosal lesions in dogs given aspirin.",
+        "finding_direction": "strongly_supports",
+        "population": "adult mixed breed dogs",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/35708902/",
+        "title": "Gastric or duodenal perforation and secondary septic peritonitis following therapeutic nonsteroidal anti-inflammatory drug administration.",
+        "source_type": "pubmed",
+        "snippet": "Pfeifer JM, Levy NA, Carter DL, Beal MW | Journal of veterinary emergency and critical care (San Antonio, Tex. : 2001) | 2022-Nov | Journal Article",
+        "full_summary": "NSAID administration, even at labeled doses, appears to be a precipitating factor for gastric or duodenal perforation in dogs.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2022-Nov",
+        "citation_count": 0,
+        "domain": "veterinary_medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "NSAID administration, even at labeled doses, appears to be a precipitating factor for GDP.",
+        "finding_direction": "strongly_supports",
+        "population": "dogs presented to a university teaching hospital with gastric or duodenal perforation",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/23782347/",
+        "title": "Systematic review of nonsteroidal anti-inflammatory drug-induced adverse effects in dogs.",
+        "source_type": "pubmed",
+        "snippet": "Monteiro-Steagall BP, Steagall PV, Lascelles BD | Journal of veterinary internal medicine | 2013 | Journal Article; Systematic Review",
+        "full_summary": "A systematic review of NSAID safety in dogs found that adverse effects, including vomiting, diarrhea, and anorexia, were detected in 55% of studies, but often not statistically different from controls in blinded studies.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2013",
+        "citation_count": 0,
+        "domain": "veterinary_medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "Adverse effects were detected in 35 studies (55%) and commonly included vomiting, diarrhea, and anorexia.",
+        "finding_direction": "strongly_supports",
+        "population": "dogs",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/34337965/",
+        "title": "A prospective, randomized, placebo-controlled, double-blinded clinical trial comparing the incidence and severity of gastrointestinal adverse events in dogs with cancer treated with piroxicam alone or in combination with omeprazole or famotidine.",
+        "source_type": "pubmed",
+        "snippet": "Shaevitz MH, Moore GE, Fulkerson CM | Journal of the American Veterinary Medical Association | 2021-Aug-15 | Journal Article; Randomized Controlled Trial, Veterinary",
+        "full_summary": "This randomized controlled trial investigated the impact of omeprazole and famotidine on GI adverse events in dogs with cancer treated with piroxicam, finding that omeprazole and famotidine were associated with more frequent and severe GI adverse events.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2021-Aug-15",
+        "citation_count": 0,
+        "domain": "veterinary_medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Omeprazole was not helpful in reducing the frequency or severity of GI AEs and was associated with more frequent and severer GI AEs in dogs with cancer treated with single agent piroxicam.",
+        "finding_direction": "strongly_contradicts",
+        "population": "dogs with cancer",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/17014336/",
+        "title": "Effect of short-term sequential administration of nonsteroidal anti-inflammatory drugs on the stomach and proximal portion of the duodenum in healthy dogs.",
+        "source_type": "pubmed",
+        "snippet": "Dowers KL, Uhrig SR, Mama KR, Gaynor JS, Hellyer PW | American journal of veterinary research | 2006-Oct | Journal Article; Randomized Controlled Trial; Research Support, Non-U.S. Gov't",
+        "full_summary": "Short-term sequential administration of NSAIDs (carprofen followed by deracoxib) in healthy dogs did not result in clinically important gastroduodenal ulcers, although gastric lesions worsened initially before improving.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2006-Oct",
+        "citation_count": 0,
+        "domain": "veterinary_medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Sequential administration of NSAIDs in this experiment did not result in clinically important gastroduodenal ulcers.",
+        "finding_direction": "strongly_contradicts",
+        "population": "healthy Walker Hounds",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37659073/",
+        "title": "Retrospective evaluation of the incidence of gastrointestinal bleeding in dogs receiving ophthalmic nonsteroidal anti-inflammatory drugs.",
+        "source_type": "pubmed",
+        "snippet": "Van Vertloo LR, Terhaar HM, Viall AK, Allbaugh RA | Veterinary ophthalmology | 2023-Nov | Journal Article",
+        "full_summary": "Dogs treated with ophthalmic NSAIDs showed a comparable incidence of gastrointestinal bleeding to those receiving systemic NSAIDs or glucocorticoids, suggesting a potential increased risk of GI bleeding with ophthalmic NSAID use.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2023-Nov",
+        "citation_count": 0,
+        "domain": "veterinary_medicine",
+        "study_design": "case-control study",
+        "evidence_level": 0.52,
+        "key_finding": "Dogs treated with ophthalmic NSAIDs developed GI bleeding at a frequency comparable to dogs receiving systemic NSAIDs or systemic glucocorticoids alone, suggesting that dogs receiving ophthalmic NSAIDs may be at increased risk of GI bleeding.",
+        "finding_direction": "strongly_supports",
+        "population": "dogs",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/10499732/",
+        "title": "The gastroduodenal effects of buffered aspirin, carprofen, and etodolac in healthy dogs.",
+        "source_type": "pubmed",
+        "snippet": "Reimer ME, Johnston SA, Leib MS, Duncan RB, Reimer DC, Marini M et al. | Journal of veterinary internal medicine | 1999 | Clinical Trial; Journal Article; Randomized Controlled Trial",
+        "full_summary": "Aspirin caused significant gastroduodenal lesions in healthy dogs, while carprofen and etodolac resulted in significantly less lesion development, comparable to placebo.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "1999",
+        "citation_count": 0,
+        "domain": "veterinary_medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "The administration of carprofen, etodolac, or placebo to healthy dogs resulted in significantly less gastroduodenal lesion development than in dogs receiving buffered aspirin.",
+        "finding_direction": "supports",
+        "population": "healthy mixed-breed dogs",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/35866930/",
+        "title": "Primary repair of nonsteroidal anti-inflammatory drug-associated full thickness gastrointestinal ulcers in 11 dogs.",
+        "source_type": "pubmed",
+        "snippet": "Dobberstein REA, Oblak ML, Brisson BA, Singh A, Moens NMM, Ayoub S | Veterinary surgery : VS | 2022-Oct | Journal Article",
+        "full_summary": "This retrospective study reports outcomes of surgical repair for NSAID-associated gastroduodenal perforations in 11 dogs, finding that most survived and perforations were often linked to higher NSAID doses or concurrent corticosteroid use.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2022-Oct",
+        "citation_count": 0,
+        "domain": "veterinary_medicine",
+        "study_design": "cohort study",
+        "evidence_level": 0.62,
+        "key_finding": "Most dogs who underwent primary repair of complete gastroduodenal ulcers survived.",
+        "finding_direction": "weakly_contradicts",
+        "population": "dogs with NSAID-associated gastroduodenal perforations",
+        "directness": "direct"
+      }
+    ],
+    "global_summary": "Nonsteroidal anti-inflammatory drugs (NSAIDs) are associated with various gastrointestinal (GI) toxicities in dogs, ranging from subclinical lesions to severe ulceration and perforation [0][1][3]. A 2013 systematic review of adverse effects in dogs found that GI issues such as vomiting, diarrhea, and anorexia were commonly detected in **55% of the 35 studies** included [4].\n\nSubclinical GI erosions are more prevalent in client-owned medium- and large-breed dogs receiving chronic NSAID treatment compared to control dogs with chronic GI disease [0]. Even at recommended doses, NSAID administration, including cyclooxygenase-2 (COX-2) sparing NSAIDs, has been identified as a precipitating factor for severe GI ulceration and gastric or duodenal perforation (GDP) [1][3]. A 2022 cohort study of dogs presenting with GDP to a university teaching hospital indicated that NSAID use was a contributing factor [3]. Another cohort study from 2025 specifically noted that dogs receiving COX-2 sparing NSAIDs at recommended doses were at risk of severe GI ulceration [1].\n\nInterestingly, a 2023 case-control study found that dogs treated with ophthalmic NSAIDs developed GI bleeding at a frequency comparable to those receiving systemic NSAIDs or systemic glucocorticoids alone, suggesting an increased risk even with non-oral routes of administration [7].\n\nRegarding specific NSAIDs, a 1999 randomized controlled trial in healthy mixed-breed dogs showed that carprofen and etodolac resulted in **significantly less gastroduodenal lesion development** compared to buffered aspirin [8]. However, a 2006 randomized controlled trial in healthy Walker Hounds found that short-term sequential administration of NSAIDs did not lead to clinically important gastroduodenal ulcers [6].\n\nMisoprostol has shown promise in mitigating NSAID-induced GI damage. A 1995 randomized controlled trial concluded that misoprostol effectively decreased endoscopically detectable mucosal lesions in adult mixed-breed dogs given aspirin [2]. In contrast, a 2021 randomized controlled trial in dogs with cancer treated with piroxicam found that omeprazole was **not helpful in reducing the frequency or severity of GI adverse events** and was, in fact, associated with more frequent and severe GI adverse events [5].\n\nFor severe outcomes, most dogs who underwent primary repair of complete gastroduodenal ulcers associated with NSAID use survived, according to a 2022 cohort study of 11 dogs [9].",
+    "total_sources_consulted": 144,
+    "duration_seconds": 69.84,
+    "job_stats": {
+      "total_cost_usd": 0.06249,
+      "llm": {
+        "total_calls": 50,
+        "total_input_tokens": 93917,
+        "total_output_tokens": 10132,
+        "total_tokens": 104049,
+        "total_cost_usd": 0.05505036,
+        "by_purpose": {
+          "related_articles_domain": {
+            "count": 1,
+            "input_tokens": 735,
+            "output_tokens": 263,
+            "cost_usd": 0.0001787,
+            "total_latency_ms": 910.0
+          },
+          "related_articles_brief": {
+            "count": 2,
+            "input_tokens": 2990,
+            "output_tokens": 354,
+            "cost_usd": 0.002557,
+            "total_latency_ms": 2924.5
+          },
+          "related_articles_decompose": {
+            "count": 1,
+            "input_tokens": 574,
+            "output_tokens": 200,
+            "cost_usd": 0.0001374,
+            "total_latency_ms": 854.8
+          },
+          "related_articles_reformulate": {
+            "count": 7,
+            "input_tokens": 19058,
+            "output_tokens": 799,
+            "cost_usd": 0.011926,
+            "total_latency_ms": 9493.1
+          },
+          "related_articles_rerank": {
+            "count": 4,
+            "input_tokens": 25795,
+            "output_tokens": 1388,
+            "cost_usd": 0.0112085,
+            "total_latency_ms": 7445.6
+          },
+          "related_articles_design_grade": {
+            "count": 1,
+            "input_tokens": 4542,
+            "output_tokens": 240,
+            "cost_usd": 0.0005502,
+            "total_latency_ms": 996.1
+          },
+          "related_articles_summarize": {
+            "count": 9,
+            "input_tokens": 23905,
+            "output_tokens": 4065,
+            "cost_usd": 0.01653966,
+            "total_latency_ms": 32220.4
+          },
+          "related_articles_stance": {
+            "count": 24,
+            "input_tokens": 13831,
+            "output_tokens": 1701,
+            "cost_usd": 0.0084018,
+            "total_latency_ms": 19804.3
+          },
+          "related_articles_synthesis": {
+            "count": 1,
+            "input_tokens": 2487,
+            "output_tokens": 1122,
+            "cost_usd": 0.0035511,
+            "total_latency_ms": 5504.2
+          }
+        }
+      },
+      "embeddings": {
+        "total_calls": 262,
+        "total_tokens": 57225,
+        "total_cost_usd": 0.00743925,
+        "by_model": {
+          "openai/text-embedding-3-large": {
+            "calls": 262,
+            "tokens": 57225,
+            "cost_usd": 0.00743925
+          }
+        }
+      },
+      "tools": {
+        "calls": {
+          "search_guidelines": 1,
+          "probe_pubmed": 21,
+          "submit_brief": 1,
+          "submit_queries": 2,
+          "submit_appraisals": 6
+        },
+        "total_calls": 31
+      },
+      "providers": {
+        "calls": {
+          "clinicaltrials": 13,
+          "dailymed": 13,
+          "pubmed": 13,
+          "europe_pmc": 13
+        },
+        "cache_hits": {},
+        "errors": {},
+        "total_calls": 52,
+        "total_cache_hits": 0
+      },
+      "pipeline": {
+        "evidence_total": 0,
+        "evidence_after_relevance": 0,
+        "retries": 0
+      },
+      "stage_timings_ms": {
+        "domain_detection": 910.0,
+        "brief": 3567.5,
+        "pro_decomposition": 854.8,
+        "pro_round1": 6831.8,
+        "pro_expansion": 11338.0,
+        "pro_round2": 13559.6,
+        "pro_round3": 10611.4,
+        "rerank": 12521.5,
+        "content_enrichment": 0.0,
+        "summarization": 8497.1,
+        "stance": 2890.0,
+        "global_synthesis": 5504.5
+      }
+    },
+    "key_findings": [
+      {
+        "text": "NSAID administration in dogs, even at recommended doses, is associated with an increased risk of gastrointestinal lesions, ulceration, and perforation.",
+        "source_indices": [
+          0,
+          1,
+          3,
+          4
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Ophthalmic NSAID administration may carry a similar risk of gastrointestinal bleeding as systemic NSAIDs or glucocorticoids.",
+        "source_indices": [
+          7
+        ],
+        "strength": "moderate"
+      },
+      {
+        "text": "Misoprostol can effectively reduce endoscopically detectable mucosal lesions in dogs treated with aspirin.",
+        "source_indices": [
+          2
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Carprofen and etodolac cause significantly fewer gastroduodenal lesions compared to buffered aspirin in healthy dogs.",
+        "source_indices": [
+          8
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Most dogs undergoing primary repair for NSAID-associated full-thickness gastroduodenal ulcers survive.",
+        "source_indices": [
+          9
+        ],
+        "strength": "moderate"
+      }
+    ],
+    "disagreements": [
+      {
+        "issue": "Effectiveness of gastroprotectants in reducing NSAID-induced GI adverse events",
+        "positions": [
+          "Misoprostol is effective in decreasing NSAID-induced gastroduodenal lesions [2].",
+          "Omeprazole is not helpful and may be associated with more frequent and severe GI adverse events in dogs with cancer treated with piroxicam [5]."
+        ],
+        "source_indices": [
+          2,
+          5
+        ]
+      }
+    ],
+    "evidence_profile": {
+      "designs": {
+        "cohort study": 4,
+        "randomised controlled trial": 4,
+        "systematic review": 1,
+        "case-control study": 1
+      },
+      "high_tier_share": 0.5,
+      "preprint_share": 0.0
+    },
+    "pico": {
+      "population": "dogs",
+      "intervention": "NSAIDs",
+      "comparison": "",
+      "outcome": "gastrointestinal toxicity",
+      "study_designs": []
+    },
+    "evidence_gaps": [
+      "The sources do not provide a comprehensive comparison of the GI toxicity profiles across a wider range of commonly used NSAIDs in dogs.",
+      "The long-term efficacy and safety of gastroprotectants other than misoprostol and omeprazole in preventing NSAID-associated GI toxicity are not established by these sources.",
+      "The specific mechanisms by which ophthalmic NSAIDs contribute to systemic GI bleeding are not detailed.",
+      "The sources do not extensively cover the impact of various dosing regimens (e.g., intermittent vs. continuous) or patient comorbidities (other than cancer) on the risk of NSAID-associated GI toxicity."
+    ]
+  }
+}

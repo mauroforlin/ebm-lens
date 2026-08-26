@@ -58,8 +58,9 @@ h1 {
 }
 .tagline { color: var(--text-soft); font-size: 0.88rem; margin: 0; }
 
-.header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-.header-actions { display: flex; align-items: center; gap: 8px; }
+.header-row { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.header-title { min-width: 0; }
+.header-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px; }
 
 /* ── Legend Popover (Hover/Focus) ── */
 .legend-dropdown { position: relative; }
@@ -187,6 +188,7 @@ h1 {
   top: 0; right: 0;
   width: min(392px, 100vw);
   height: 100vh;
+  height: 100dvh;
   z-index: 41;
   background: var(--surface);
   border-left: 1px solid var(--border-strong);
@@ -213,7 +215,7 @@ h1 {
 }
 .history-close {
   flex: none;
-  width: 26px; height: 26px;
+  width: 32px; height: 32px;
   display: inline-flex; align-items: center; justify-content: center;
   font: inherit; font-size: 1.05rem; line-height: 1;
   color: var(--text-faint);
@@ -283,7 +285,7 @@ h1 {
 .history-delete {
   flex: none;
   align-self: center;
-  width: 26px; height: 26px;
+  width: 32px; height: 32px;
   display: inline-flex; align-items: center; justify-content: center;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
@@ -298,6 +300,10 @@ h1 {
 .history-item:hover .history-delete,
 .history-item:focus-within .history-delete { opacity: 1; }
 .history-delete:hover { color: var(--danger); border-color: #f2cecb; background: var(--danger-bg); }
+/* No hover on touch: the delete control has to be reachable without one. */
+@media (hover: none) {
+  .history-delete { opacity: 1; }
+}
 
 .history-drawer-foot {
   flex: none;
@@ -600,6 +606,11 @@ article h3 a:hover { color: var(--accent); text-decoration: underline; }
 .relevance-fill.r-low   { background: #c6531e; }
 .relevance-fill.r-vlow  { background: #6b7280; }
 .relevance-num { font-family: var(--mono); font-size: 0.71rem; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+@media (max-width: 420px) {
+  /* Below this width .meta wraps, and margin-left: auto would strand the
+     relevance meter alone on its own line at the far right. */
+  .relevance { margin-left: 0; }
+}
 
 article p { margin: 0; color: var(--text-soft); font-size: 0.9rem; }
 /* Claim-level attribution: every finding points at the sources under it. */
@@ -715,6 +726,9 @@ details.stats[open] > summary::before { transform: rotate(90deg); }
   color: var(--text-faint);
   margin: 0 0 7px;
 }
+/* Stat tables run four numeric columns wide - on a phone that's wider than
+   the viewport, so the table scrolls in its own box instead of the page. */
+.stats-section { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
 th, td { text-align: left; padding: 4px 8px 4px 0; border-bottom: 1px solid var(--border); }
 th { font-weight: 550; color: var(--text-faint); font-size: 0.75rem; }

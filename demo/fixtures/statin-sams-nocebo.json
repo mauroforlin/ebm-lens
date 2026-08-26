@@ -1,0 +1,495 @@
+{
+  "id": "statin-sams-nocebo",
+  "topic": "Statin-associated muscle symptoms and the nocebo effect in n-of-1 trials",
+  "max_sources": 10,
+  "summary_language": "en",
+  "recorded_at": "2026-08-26",
+  "events": [
+    {
+      "stage": "domain",
+      "message": "Analysing the topic…",
+      "at_ms": 0
+    },
+    {
+      "stage": "domain",
+      "message": "Domain detected: medicine",
+      "at_ms": 1143
+    },
+    {
+      "stage": "brief",
+      "message": "Research brief ready: 5 query variants, providers: pubmed, clinicaltrials, europe_pmc, dailymed",
+      "at_ms": 7127
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 1: 26 candidates from 7 queries",
+      "at_ms": 19001
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: refining queries…",
+      "at_ms": 20460
+    },
+    {
+      "stage": "discovery",
+      "message": "Citation graph expansion: +54 candidates from 4 seeds",
+      "at_ms": 32743
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 2: 6 candidates from 3 queries (5 new relevant)",
+      "at_ms": 33661
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: refining queries…",
+      "at_ms": 33661
+    },
+    {
+      "stage": "discovery",
+      "message": "Round 3: 6 candidates from 3 queries (5 new relevant)",
+      "at_ms": 46717
+    },
+    {
+      "stage": "discovery",
+      "message": "Discovery complete: 86 unique candidates after dedup",
+      "at_ms": 46718
+    },
+    {
+      "stage": "rerank",
+      "message": "Scoring and reranking 86 candidates…",
+      "at_ms": 46718
+    },
+    {
+      "stage": "rerank",
+      "message": "Shortlisted 26 sources to read in full",
+      "at_ms": 57868
+    },
+    {
+      "stage": "read",
+      "message": "Fetching and summarising 26 sources…",
+      "at_ms": 57868
+    },
+    {
+      "stage": "read",
+      "message": "Summarised 26 sources",
+      "at_ms": 73765
+    },
+    {
+      "stage": "select",
+      "message": "Selecting the final set…",
+      "at_ms": 73765
+    },
+    {
+      "stage": "select",
+      "message": "10 articles selected",
+      "at_ms": 74878
+    },
+    {
+      "stage": "synthesis",
+      "message": "Writing the synthesis…",
+      "at_ms": 74878
+    },
+    {
+      "stage": "synthesis",
+      "message": "Synthesis complete: 4 findings, 1 conflicts",
+      "at_ms": 81586
+    }
+  ],
+  "response": {
+    "status": "completed",
+    "topic": "Statin-associated muscle symptoms and the nocebo effect in n-of-1 trials",
+    "domain_detected": "medicine",
+    "articles": [
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/30311434/",
+        "title": "Introducing the 'Drucebo' effect in statin therapy: a systematic review of studies comparing reported rates of statin-associated muscle symptoms, under blinded and open-label conditions.",
+        "source_type": "pubmed",
+        "snippet": "Penson PE, Mancini GBJ, Toth PP, Martin SS, Watts GF, Sahebkar A et al. | Journal of cachexia, sarcopenia and muscle | 2018-Dec | Journal Article; Meta-Analysis; Systematic Review",
+        "full_summary": "This systematic review introduces the concept of 'drucebo' to quantify the contribution of expectation-based effects to statin-associated muscle symptoms, finding that the drucebo effect contributed between 38% and 78% to statin-associated muscle pain.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2018-Dec",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "systematic review",
+        "evidence_level": 0.95,
+        "key_finding": "The contribution of the drucebo effect to statin-associated muscle pain ranged between 38% and 78%.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with statin-associated muscle symptoms",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/33627334/",
+        "title": "Statin treatment and muscle symptoms: series of randomised, placebo controlled n-of-1 trials.",
+        "source_type": "pubmed",
+        "snippet": "Herrett E, Williamson E, Brack K, Beaumont D, Perkins A, Thayne A et al. | BMJ (Clinical research ed.) | 2021-Feb-24 | Journal Article; Randomized Controlled Trial; Research Support, Non-U.S. Gov't",
+        "full_summary": "This N-of-1 trial investigated the effect of atorvastatin on muscle symptoms in patients who previously reported statin-associated muscle symptoms, finding no overall difference between statin and placebo periods.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2021-Feb-24",
+        "citation_count": 146,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "No overall effect of atorvastatin 20 mg on muscle symptoms compared with placebo was found in participants who had previously reported severe muscle symptoms when taking statins.",
+        "finding_direction": "strongly_contradicts",
+        "population": "200 participants who had recently stopped or were considering stopping treatment with statins because of muscle symptoms",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42350009/",
+        "title": "N=1-studies In Statin-intolerance; Objectifying Nocebo Effects (NISONE): a study protocol for a randomised controlled trial assessing the implementability of N=1-studies to promote the use of statins.",
+        "source_type": "pubmed",
+        "snippet": "Mijnster R, Roeters van Lennep J, Rietdijk W, Akgöl K, Kemper M, van den Berg D et al. | BMJ open | 2026-Jun-25 | Journal Article; Clinical Trial Protocol",
+        "full_summary": "This is a protocol for a randomized controlled trial (NISONE) investigating the implementability of N-of-1 studies to distinguish true statin side effects from nocebo-driven symptoms and promote statin use in patients with statin intolerance.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2026-Jun-25",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "The NISONE trial aims to assess if N=1-interventions can help distinguish true side effects from nocebo-driven symptoms and support reinitiation of statin therapy in patients with statin intolerance.",
+        "finding_direction": "weakly_supports",
+        "population": "patients with atherosclerotic cardiovascular disease or familial hypercholesterolaemia who stopped using two or more statins due to perceived symptoms",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/38344133/",
+        "title": "Why Do I Get Side Effects? Personalized (N-of-1) Trials for Statin Intolerance and the Nocebo Effect.",
+        "source_type": "pubmed",
+        "snippet": "Howard JP, Wood FA, Francis DP | Harvard data science review | 2022 | Journal Article",
+        "full_summary": "This article discusses the StatinWise and SAMSON N-of-1 trials, which investigated the nocebo effect in statin-associated muscle symptoms. It highlights how personalized trials can help patients restart statins.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2022",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "",
+        "evidence_level": 0.4,
+        "key_finding": "Two recent randomized placebo-controlled personalized (N-of-1) trials, StatinWise and SAMSON, support the existence of a significant nocebo effect from taking statins and demonstrate the ability of personalized trials to inform and empower patients, with up to half of the patients able to successfully restart statins.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with statin intolerance",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/35969116/",
+        "title": "Step-by-step diagnosis and management of the nocebo/drucebo effect in statin-associated muscle symptoms patients: a position paper from the International Lipid Expert Panel (ILEP).",
+        "source_type": "pubmed",
+        "snippet": "Penson PE, Bruckert E, Marais D, Reiner Ž, Pirro M, Sahebkar A et al. | Journal of cachexia, sarcopenia and muscle | 2022-Jun | Journal Article; Review; Consensus Statement",
+        "full_summary": "This position paper from the International Lipid Expert Panel provides guidance on the diagnosis and management of the nocebo/drucebo effect in patients with statin-associated muscle symptoms.",
+        "relevance_score": 0.9,
+        "reliability_tier": 2,
+        "publication_date": "2022-Jun",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "clinical guideline",
+        "evidence_level": 0.92,
+        "key_finding": "Many perceived AEs are misattributed (e.g. physical musculoskeletal injury and inflammatory myopathies), and subjective symptoms occur as a result of the fact that patients expect them to do so when taking medicines (the nocebo/drucebo effect)-what might be truth even for over 50% of all patients with muscle weakness/pain.",
+        "finding_direction": "strongly_supports",
+        "population": "patients with statin-associated muscle symptoms",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/33709907/",
+        "title": "The effect of statins on muscle symptoms in primary care: the StatinWISE series of 200 N-of-1 RCTs.",
+        "source_type": "pubmed",
+        "snippet": "Herrett E, Williamson E, Brack K, Perkins A, Thayne A, Shakur-Still H et al. | Health technology assessment (Winchester, England) | 2021-Mar | Journal Article; Randomized Controlled Trial; Research Support, Non-U.S. Gov't",
+        "full_summary": "This N-of-1 RCT series, StatinWISE, investigated the effect of atorvastatin on muscle symptoms in patients who previously reported statin-associated muscle symptoms, finding no significant difference between statin and placebo periods.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2021-Mar",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Among people who previously reported severe muscle symptoms while taking statins, this series of randomised N-of-1 trials found no overall effect of statins on muscle symptoms compared with the placebo.",
+        "finding_direction": "strongly_contradicts",
+        "population": "patients who were considering discontinuing statin use and those who had discontinued statin use in the last 3 years because of perceived muscle symptoms",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/34531021/",
+        "title": "Side Effect Patterns in a Crossover Trial of Statin, Placebo, and No Treatment.",
+        "source_type": "pubmed",
+        "snippet": "Howard JP, Wood FA, Finegold JA, Nowbar AN, Thompson DM, Arnold AD et al. | Journal of the American College of Cardiology | 2021-Sep-21 | Journal Article; Randomized Controlled Trial; Research Support, Non-U.S. Gov't",
+        "full_summary": "This randomized controlled trial (SAMSON) investigated daily symptom scores in statin, placebo, and no-treatment periods for patients who had abandoned statins due to side effects, finding that most symptoms were due to the nocebo effect.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2021-Sep-21",
+        "citation_count": 159,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "Mean symptom score was 8.0 (95% CI: 4.7-11.3) in no-tablet months. It was higher in statin months (16.3; 95% CI: 13.0-19.6; P < 0.001), but also in placebo months (15.4; 95% CI: 12.1-18.7; P < 0.001), with no difference between the 2 (P = 0.388). The corresponding nocebo ratio was 0.90.",
+        "finding_direction": "strongly_supports",
+        "population": "patients who had abandoned statins due to side effects",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36694885/",
+        "title": "Statin-related Muscle Toxicity: An Evidence-based Review.",
+        "source_type": "pubmed",
+        "snippet": "Jeeyavudeen MS, Pappachan JM, Arunagirinathan G | TouchREVIEWS in endocrinology | 2022-Nov | Journal Article; Review",
+        "full_summary": "This review discusses statin-related muscle toxicity and highlights that N-of-1 trial evidence suggests muscular symptoms attributed to statins are often caused by the nocebo effect.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2022-Nov",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "N-of-1 trial evidence suggests that muscular symptoms attributed to statins are often caused by the nocebo effect.",
+        "finding_direction": "strongly_supports",
+        "population": "patients on statin therapy",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/29197834/",
+        "title": "Study protocol for statin web-based investigation of side effects (StatinWISE): a series of randomised controlled N-of-1 trials comparing atorvastatin and placebo in UK primary care.",
+        "source_type": "pubmed",
+        "snippet": "Herrett E, Williamson E, Beaumont D, Prowse D, Youssouf N, Brack K et al. | BMJ open | 2017-Dec-01 | Journal Article",
+        "full_summary": "This is a study protocol for StatinWISE, a series of N-of-1 trials comparing atorvastatin and placebo in UK primary care to determine if statins cause muscle symptoms in individuals.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2017-Dec-01",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "randomised controlled trial",
+        "evidence_level": 0.82,
+        "key_finding": "This series of 200 randomised, double-blinded N-of-1 trials in primary care will determine the effect of statins on all muscle symptoms and on muscle pain perceived to be statin related.",
+        "finding_direction": "contradicts",
+        "population": "patients considering discontinuing statin use due to muscle symptoms or who have discontinued in the last 3 years due to such symptoms",
+        "directness": "direct"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/31669768/",
+        "title": "New insights into managing symptoms during statin therapy.",
+        "source_type": "pubmed",
+        "snippet": "Robinson JG | Progress in cardiovascular diseases | 2019 | Journal Article; Review",
+        "full_summary": "This review discusses the nocebo effect in statin therapy, noting that muscle symptoms are similar in statin and control groups in blinded trials and that managing patient expectations can minimize the nocebo effect.",
+        "relevance_score": 1.0,
+        "reliability_tier": 2,
+        "publication_date": "2019",
+        "citation_count": 0,
+        "domain": "medicine",
+        "study_design": "review",
+        "evidence_level": 0.48,
+        "key_finding": "Muscle symptoms are similar in statin and control groups in blinded treatment periods of clinical trials.",
+        "finding_direction": "supports",
+        "population": "patients on statin therapy",
+        "directness": "direct"
+      }
+    ],
+    "global_summary": "Statin-associated muscle symptoms (SAMS) are a common reason for discontinuing statin therapy, but evidence suggests that a significant portion of these symptoms may be attributable to the nocebo effect rather than the pharmacological action of the statin itself [0][3][4][6][7]. The nocebo effect refers to adverse effects experienced by patients due to negative expectations or beliefs about a treatment [4].\n\nSeveral studies, including randomized, placebo-controlled N-of-1 trials, have investigated the contribution of the nocebo effect to SAMS. A 2018 systematic review estimated that the 'drucebo' effect, a term encompassing the nocebo effect in drug therapy, contributed between **38% and 78%** of reported statin-associated muscle pain [0]. Similarly, a 2022 clinical guideline from the International Lipid Expert Panel (ILEP) suggests that over **50%** of patients experiencing muscle weakness or pain while on statins may be experiencing symptoms due to the nocebo/drucebo effect [4]. A 2021 crossover trial, which included patients who had previously abandoned statins due to side effects, found that mean symptom scores were significantly higher during both statin months (16.3; 95% CI: 13.0-19.6) and placebo months (15.4; 95% CI: 12.1-18.7) compared to no-tablet months (8.0; 95% CI: 4.7-11.3), with **no significant difference between statin and placebo periods (P = 0.388)**. This trial reported a nocebo ratio of **0.90**, indicating a strong nocebo contribution [6]. Other reviews also support the idea that muscle symptoms are similar in statin and control groups during blinded treatment periods [7][9].\n\nPersonalized N-of-1 trials, which involve individual patients cycling through periods of statin, placebo, and sometimes no treatment, have been highlighted as a valuable tool for distinguishing true side effects from nocebo-driven symptoms [2][3]. These trials can empower patients and have shown success in helping up to half of patients successfully restart statins [3]. The *NISONE* trial, a randomized controlled trial, is specifically designed to assess the implementability of N-of-1 studies to promote statin use by helping to differentiate true side effects from nocebo effects [2].\n\nHowever, **not all N-of-1 trials have found a significant nocebo effect or a lack of statin effect on muscle symptoms**. The *StatinWISE* series of 200 N-of-1 randomized controlled trials, conducted in primary care, found **no overall effect of statins on muscle symptoms compared with placebo** among individuals who had previously reported severe muscle symptoms while taking statins [5]. This finding was consistent across two separate reports from the *StatinWISE* trial [1][5]. The protocol for *StatinWISE* aimed to determine the effect of statins on all muscle symptoms, including those perceived to be statin-related [8]. These results suggest that in some populations, particularly those with a history of severe muscle symptoms attributed to statins, the statin itself may not be the primary driver of muscle symptoms when administered under blinded conditions [1][5].",
+    "total_sources_consulted": 86,
+    "duration_seconds": 81.59,
+    "job_stats": {
+      "total_cost_usd": 0.067129,
+      "llm": {
+        "total_calls": 50,
+        "total_input_tokens": 100152,
+        "total_output_tokens": 12176,
+        "total_tokens": 112328,
+        "total_cost_usd": 0.06424699,
+        "by_purpose": {
+          "related_articles_domain": {
+            "count": 1,
+            "input_tokens": 745,
+            "output_tokens": 314,
+            "cost_usd": 0.0002001,
+            "total_latency_ms": 1142.7
+          },
+          "related_articles_brief": {
+            "count": 3,
+            "input_tokens": 5502,
+            "output_tokens": 446,
+            "cost_usd": 0.004089,
+            "total_latency_ms": 3900.4
+          },
+          "related_articles_decompose": {
+            "count": 1,
+            "input_tokens": 582,
+            "output_tokens": 161,
+            "cost_usd": 0.0001226,
+            "total_latency_ms": 714.9
+          },
+          "related_articles_reformulate": {
+            "count": 8,
+            "input_tokens": 24339,
+            "output_tokens": 957,
+            "cost_usd": 0.0150405,
+            "total_latency_ms": 9852.0
+          },
+          "related_articles_rerank": {
+            "count": 4,
+            "input_tokens": 23847,
+            "output_tokens": 1401,
+            "cost_usd": 0.0106566,
+            "total_latency_ms": 7263.8
+          },
+          "related_articles_design_grade": {
+            "count": 1,
+            "input_tokens": 4143,
+            "output_tokens": 251,
+            "cost_usd": 0.0005147,
+            "total_latency_ms": 891.7
+          },
+          "related_articles_summarize": {
+            "count": 10,
+            "input_tokens": 25074,
+            "output_tokens": 5520,
+            "cost_usd": 0.02103249,
+            "total_latency_ms": 47592.6
+          },
+          "related_articles_stance": {
+            "count": 21,
+            "input_tokens": 13077,
+            "output_tokens": 1743,
+            "cost_usd": 0.0082806,
+            "total_latency_ms": 17280.2
+          },
+          "related_articles_synthesis": {
+            "count": 1,
+            "input_tokens": 2843,
+            "output_tokens": 1383,
+            "cost_usd": 0.0043104,
+            "total_latency_ms": 6707.6
+          }
+        }
+      },
+      "embeddings": {
+        "total_calls": 128,
+        "total_tokens": 22172,
+        "total_cost_usd": 0.00288236,
+        "by_model": {
+          "openai/text-embedding-3-large": {
+            "calls": 128,
+            "tokens": 22172,
+            "cost_usd": 0.00288236
+          }
+        }
+      },
+      "tools": {
+        "calls": {
+          "resolve_drug": 1,
+          "search_guidelines": 1,
+          "probe_pubmed": 27,
+          "submit_brief": 1,
+          "submit_queries": 2,
+          "submit_appraisals": 6
+        },
+        "total_calls": 38
+      },
+      "providers": {
+        "calls": {
+          "clinicaltrials": 13,
+          "dailymed": 13,
+          "pubmed": 13,
+          "europe_pmc": 13
+        },
+        "cache_hits": {},
+        "errors": {
+          "pubmed": 1
+        },
+        "total_calls": 52,
+        "total_cache_hits": 0
+      },
+      "pipeline": {
+        "evidence_total": 0,
+        "evidence_after_relevance": 0,
+        "retries": 0
+      },
+      "stage_timings_ms": {
+        "domain_detection": 1142.7,
+        "brief": 5984.7,
+        "pro_decomposition": 714.9,
+        "pro_round1": 11158.4,
+        "pro_expansion": 12283.2,
+        "pro_round2": 13201.7,
+        "pro_round3": 13056.0,
+        "rerank": 11149.7,
+        "content_enrichment": 0.0,
+        "summarization": 13423.8,
+        "stance": 2472.9,
+        "global_synthesis": 6707.8
+      }
+    },
+    "key_findings": [
+      {
+        "text": "A significant portion of statin-associated muscle symptoms (SAMS) are attributable to the nocebo effect, ranging from 38% to over 50% of cases [0][4][6].",
+        "source_indices": [
+          0,
+          4,
+          6
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "Personalized N-of-1 trials can help distinguish between true statin side effects and nocebo-driven symptoms, potentially enabling up to half of patients to successfully restart statin therapy [2][3].",
+        "source_indices": [
+          2,
+          3
+        ],
+        "strength": "moderate"
+      },
+      {
+        "text": "In blinded conditions, muscle symptom scores are often similar between statin and placebo periods, and significantly higher than periods with no treatment, supporting the nocebo effect [6][9].",
+        "source_indices": [
+          6,
+          9
+        ],
+        "strength": "strong"
+      },
+      {
+        "text": "N-of-1 trial evidence suggests that muscular symptoms attributed to statins are often caused by the nocebo effect [7].",
+        "source_indices": [
+          7
+        ],
+        "strength": "strong"
+      }
+    ],
+    "disagreements": [
+      {
+        "issue": "Whether statins have an overall effect on muscle symptoms compared to placebo in patients with a history of statin-associated muscle symptoms.",
+        "positions": [
+          "Some N-of-1 trials, such as *StatinWISE*, found no overall effect of statins on muscle symptoms compared with placebo in participants who had previously reported severe muscle symptoms when taking statins [1][5].",
+          "Other N-of-1 trials and reviews support the existence of a significant nocebo effect, where muscle symptoms are similar between statin and placebo arms in blinded conditions, implying that the statin itself is not the primary cause of symptoms in many cases [3][6][7][9]."
+        ],
+        "source_indices": [
+          1,
+          3,
+          5,
+          6,
+          7,
+          9
+        ]
+      }
+    ],
+    "evidence_profile": {
+      "designs": {
+        "randomised controlled trial": 5,
+        "review": 3,
+        "systematic review": 1,
+        "clinical guideline": 1
+      },
+      "high_tier_share": 0.7,
+      "preprint_share": 0.0
+    },
+    "pico": {
+      "population": "patients on statins",
+      "intervention": "statin-associated muscle symptoms",
+      "comparison": "nocebo effect",
+      "outcome": "muscle symptoms",
+      "study_designs": [
+        "n-of-1 trials"
+      ]
+    },
+    "evidence_gaps": [
+      "The sources do not provide specific details on the long-term outcomes or adherence rates of patients who successfully reinitiate statin therapy after participating in N-of-1 trials.",
+      "The sources do not extensively detail the specific patient characteristics or subgroups for whom the nocebo effect is most pronounced or for whom N-of-1 trials are most effective.",
+      "The sources do not provide a detailed comparison of the effectiveness of N-of-1 trials versus other strategies for managing statin intolerance and the nocebo effect."
+    ]
+  }
+}
