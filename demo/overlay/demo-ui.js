@@ -70,6 +70,13 @@
     if (toggle) toggle.hidden = true;
   }
 
+  // Matches the <title> swap build.py does for the tab - the on-page
+  // heading should say the same thing.
+  function markHeadingAsDemo() {
+    const h1 = document.querySelector("h1");
+    if (h1) h1.textContent = "EBM Lens - Demo";
+  }
+
   function renderBanner() {
     const banner = document.createElement("div");
     banner.className = "demo-banner";
@@ -201,6 +208,7 @@
   async function init() {
     hideRealSearchBar();
     hideHistoryToggle();
+    markHeadingAsDemo();
     queriesCache = shuffle(await loadQueries());
     refresh();
   }
