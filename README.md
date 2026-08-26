@@ -1,6 +1,11 @@
 # EBM Lens
 
 [![CI](https://github.com/mauroforlin/ebm-lens/actions/workflows/ci.yml/badge.svg)](https://github.com/mauroforlin/ebm-lens/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Live Demo](https://img.shields.io/badge/demo-Live%20Now-success?logo=github)](https://mauroforlin.github.io/ebm-lens/)
+
+[**Try the read-only demo**](https://mauroforlin.github.io/ebm-lens/): fifteen
+recorded runs, no signup, no API key. See `demo/README.md` for how it's built.
 
 Evidence discovery for biomedical questions. Give it a topic and it searches
 twelve public biomedical databases, expands the result set through the
@@ -10,16 +15,26 @@ sources under it.
 
 ![EBM Lens UI](assets/demo.gif)
 
-```
-"GLP-1 agonists and cardiovascular risk reduction"
-   ↓
-PubMed, Europe PMC, ClinicalTrials.gov, OpenFDA, DailyMed, RxNav,
-Open Targets, ChEMBL, WHO GHO, EMA, bioRxiv/medRxiv, Wikipedia
-   ↓  + Semantic Scholar / OpenAlex citation graph
-   ↓
-ranked sources, each appraised (design, population, direction)
-   ↓
-an overview, as claims that cite [0][3], plus the conflicts and the gaps
+```mermaid
+flowchart TD
+    Topic(["Input topic<br/>GLP-1 agonists and cardiovascular risk reduction"])
+
+    Planner{"LLM agentic loop<br/>(query planner)"}
+    Tools[["Available tools<br/>probe_pubmed, resolve_drug, search_guidelines"]]
+    Databases[("12 public databases<br/>PubMed, Europe PMC, ClinicalTrials.gov, OpenFDA, DailyMed, RxNav,<br/>Open Targets, ChEMBL, WHO GHO, EMA, bioRxiv/medRxiv, Wikipedia")]
+    Graph[("Citation graph<br/>Semantic Scholar & OpenAlex")]
+    Scoring["Evidence scoring & reranking<br/>Semantic similarity, BM25, rank fusion, study design"]
+    Synthesis[/"Grounded synthesis<br/>Overview as checkable claims [0][3], conflicts, and gaps"/]
+
+    Topic --> Planner
+    Planner -- "Probes & refines" --> Tools
+    Tools -. "Returns context" .-> Planner
+    Planner -- "Dispatches tailored queries" --> Databases
+    Databases -- "On-topic hits seed" --> Graph
+    Graph -. "Loop repeats with new findings" .-> Planner
+    
+    Graph ===>|"Final candidate pool"| Scoring
+    Scoring -- "Top N ranked sources" --> Synthesis
 ```
 
 Every evidence source is a free public API. The only account you need is for
@@ -27,36 +42,11 @@ the LLM.
 
 ## Example output
 
-One real run against the pipeline's own example topic above.
+The [live demo](https://mauroforlin.github.io/ebm-lens/) has real, full
+responses: ranked sources, the claims that cite them, the conflicts and gaps,
+and the actual cost and timing behind each run.
 
-```
-Topic: "GLP-1 agonists and cardiovascular risk reduction"
-
-Ranked sources (3 of 10)
-[1] Effect of GLP-1 RAs on MACE in T2DM + established ASCVD
-    systematic review & meta-analysis · Europe PMC
-    MACE ↓11% (HR 0.89, 95% CI 0.83-0.96); all-cause mortality ↓11% (HR 0.89)
-
-[2] GLP-1 RA in MI and ASCVD risk reduction: NNT, efficacy and safety
-    meta-analysis · PubMed
-    MACE RR 0.87 (NNTB 67); CV mortality RR 0.87 (NNTB 170); stroke RR 0.88 (NNTB 335)
-
-[3] GLP-1 RAs and CV outcomes across MI-defined populations
-    systematic review · Europe PMC
-    all-cause mortality HR 0.67 (95% CI 0.49-0.90) - flagged exploratory:
-    high heterogeneity, loses significance under sensitivity analysis
-
-Synthesis (2 of 7 claims)
-"GLP-1 receptor agonists significantly reduce major adverse cardiovascular
-events (MACE) in adults with type 2 diabetes and high-risk patients." [1][2][3][4][7][9][10]
-
-"GLP-1 receptor agonists are associated with a reduction in all-cause
-mortality and cardiovascular mortality." [1][2][3][4][7][10]
-```
-
-The full response ranks 10 sources, and also carries any disagreements
-between them, the evidence gaps left unaddressed, and a `job_stats` block
-with real cost and timing.
+## Background
 
 EBM Lens started as a feature inside [Sbobby](https://www.sbobby.com), a
 lecture-transcription product I built. That feature, "Approfondimenti",
@@ -66,6 +56,11 @@ rewrite of it: study-design ranking, citation verification and the
 multi-round search loop are all new.
 
 ## Quick start
+
+Cloning gets the full, live pipeline: free-text questions, any number of
+sources, real-time search. The [hosted demo](https://mauroforlin.github.io/ebm-lens/)
+is read-only, limited to fifteen precomputed questions, and good for a first
+look.
 
 Requires Python 3.10+.
 
@@ -116,136 +111,92 @@ default, see `.env.example`. Worth knowing about:
 ### Twelve databases, one planned query each
 
 Sending the same string to every provider wastes most of the calls: PubMed
-wants MeSH-flavoured English, DailyMed wants a bare drug name and returns
-nothing for a disease, and so on for the rest. An LLM plans the search
-instead, choosing providers and wording each query for the one it is going
-to.
+wants MeSH-flavoured English, DailyMed wants a bare drug name, and so on.
 
-The planner checks its own queries before committing to them. `probe_pubmed`
-runs a candidate query and returns the hit count, PubMed's MeSH translation
-of it, and any phrases PubMed could not match. That last part matters:
-PubMed does not search the words it is given, it expands them, and a term it
-does not recognise expands to nothing while looking exactly like a topic with
-no literature behind it. The planner sees the difference and rewords.
+An LLM **plans the search instead**, wording each query for the provider
+it's going to, and checks its own work first. `probe_pubmed` runs a
+candidate query and returns the hit count and PubMed's MeSH translation,
+since PubMed expands the words it's given rather than searching them; a term
+it doesn't recognise expands to nothing, looking exactly like a topic with no
+literature behind it. If planning fails, a deterministic router picks
+providers from the topic type instead: worse-targeted, but the pipeline
+still answers.
 
-If planning fails for any reason, a deterministic router picks providers from
-the topic type instead. The result is worse-targeted, but the pipeline
-returns an answer either way.
+### PICO, and composite topics searched per axis
 
-### PICO before retrieval
+Before anything is searched, the topic is put into Population, Intervention,
+Comparison, Outcome form. Only the elements it actually states get filled
+in; an invented comparator would send the search after literature nobody
+asked about.
 
-A clinical question has parts, and the databases
-are indexed by them. Before anything is searched, the topic is put into
-Population, Intervention, Comparison, Outcome form, the structure a
-clinician is taught to break a question into. Only the elements the topic
-actually states get filled in; inventing a comparator would send the search
-after literature nobody asked about. The elements steer the plan, sharpen the
-queries and weight the ranking.
-
-### Two retrieval signals, fused
-
-Embeddings read meaning but compress a
-whole paper into one vector, so a rare decisive term (an INN, a trial
-acronym, a gene symbol) counts for about as much as any other word in the
-abstract. BM25 has the opposite blind spot: it cannot read meaning, but it
-weights a term by how rare it is. Both run, and their rankings are fused
-across providers alongside citation authority, recency, provider tier and an
-LLM reranker that reads title and abstract. A candidate has to be wrong along
-several of these dimensions at once to end up ranked low.
-
-### Study design as its own ranking signal
-
-A case report and a Cochrane
-meta-analysis on the same subject are equally on-topic and not equally worth
-believing, so design gets scored separately from relevance. Three sources can
-say what a paper's design is, checked in order of trust: the provider's own
-classification where one exists, the publication types NLM's indexers
-assigned by hand, and only when neither is available, the wording of the
-title and abstract. An unrecognised design scores neutral rather than low, so
-a wrong guess never demotes real evidence. Every source is shown with the
-design it was judged to have, which is what makes the ranking checkable.
-
-### Composite questions searched per axis
-
-"CAR-T therapy, BBB disruption and
-ctDNA monitoring in glioblastoma" sent as one query returns whatever its
-most-published axis happens to be, and does so silently. A topic detected as
-composite gets a query per axis instead, plus one for their intersection, all
-folded into the same discovery run, so the axis with the thinnest literature
-is not starved by the others.
+A topic spanning several axes ("CAR-T therapy, BBB disruption and ctDNA
+monitoring in glioblastoma") gets a **query per axis** instead of one query
+that returns whatever its most-published axis happens to be, so the
+thinnest-literature axis isn't starved by the others.
 
 ### Multi-round discovery
 
-A single query pass fails frontier topics in two
-specific ways: the seminal papers often use vocabulary the user's phrasing
-does not contain, and a highly-cited paper about a different sense of the
-same words can outrank everything actually on-topic. So discovery runs as a
-loop. An LLM first writes a research brief: the disambiguated topic, the
-vocabulary an on-topic paper is likely to use, the terms that mark the wrong
-sense, and several deliberately diverse query variants. Those fan out in
-parallel, and only the papers that clear a relevance gate seed citation-graph
-expansion, since seeding on the most-cited hit expands around the wrong
-paper. An LLM then reads the strongest results, extracts the terms the
-literature actually uses, and issues refined queries, each probed against
-PubMed first so a round is spent on a query with real literature behind it
-rather than a plausible phrasing that expands to nothing. The loop repeats
-while a round still surfaces new on-topic work and stops as soon as one
-doesn't. Final selection applies a relevance floor and can return fewer
-sources than requested: six on-topic papers beat ten padded with four that
-merely share words.
+A single query pass fails frontier topics two ways: seminal papers often use
+vocabulary the phrasing doesn't contain, and a highly-cited paper about a
+different sense of the same words can outrank what's actually on-topic.
 
-### Synthesis you can check
+So discovery runs as a loop: a research brief, several diverse query
+variants, and only papers that clear a relevance gate seed citation-graph
+expansion (seeding on the most-cited hit just expands around the wrong
+paper). The loop reads its strongest results, extracts the vocabulary the
+literature actually uses, and refines, stopping as soon as a round stops
+surfacing new on-topic work.
 
-The overview comes back as claims rather than a
-paragraph of prose. Each claim names the articles it rests on by index, and
-every index is checked against the articles actually being returned; a claim
-citing nothing real is dropped before it reaches the response. Citation
-hallucination is a well-documented failure mode of this kind of system, and a
-better prompt does not fix it on its own. The citations are checked in code.
+### Ranking: relevance and study design, fused
 
-### Where the sources disagree, that disagreement is the finding
+Embeddings read meaning but compress a paper into one vector, so a rare
+decisive term counts for about as much as any other word; BM25 has the
+opposite blind spot. Both run, fused with citation authority, recency,
+provider tier and an LLM reranker.
 
-Roughly half of post-2010 biomedical papers conflict with something else in
-their own literature, and an overview that averages two opposing findings
-reads exactly like settled science. Conflicts come back with the sources on
-each side named, alongside a separate note on what these particular sources
-leave unsettled.
+**Study design is scored separately**, since a case report and a
+meta-analysis on the same subject are equally on-topic and not equally worth
+believing. It's checked against the provider's own classification first,
+then NLM's publication types, and only then the wording of the abstract, so
+an unrecognised design scores neutral rather than low.
 
-### Progress and cost, during and after the run
+### Synthesis you can check, disagreement included
 
-A run takes roughly 60 to 180 seconds: real multi-round search plus several LLM
-calls. The streaming endpoint
-(`/api/related-articles/stream`, Server-Sent Events) emits a frame at each
-stage, so the bundled UI can show what stage is running instead of a bare
-spinner. Every response, streamed or not, also carries a `job_stats`
-breakdown: real USD cost from the provider, token counts, per-stage timing,
-and per-source call and cache counts.
+The overview comes back as claims, not prose: each one names the articles it
+rests on, and a claim citing nothing real is dropped before it reaches the
+response. Citation hallucination doesn't get fixed by a better prompt, so
+it's checked in code instead.
+
+Where sources disagree, **that disagreement is the finding**: conflicts come
+back with the sources on each side named, rather than averaged into
+something that reads like settled science.
+
+### Progress and cost
+
+A run takes 60-180 seconds: real multi-round search plus several LLM calls.
+The streaming endpoint emits a frame per stage so the UI shows what's
+actually running instead of a bare spinner, and every response carries a
+`job_stats` breakdown: real cost, tokens, per-stage timing, per-source calls.
 
 ## What the model is allowed to do
 
-Most of this pipeline is fixed: the stages, the providers, the ranking. Two
-steps are not, because the right move in those two depends on facts nobody
-has looked up yet, like which words a given database indexes or what a brand
-name is actually called. Those two run as tool loops instead of fixed code.
+Most of the pipeline is fixed: the stages, the providers, the ranking. Two
+steps aren't, because the right move depends on facts nobody's looked up
+yet, like which words a database indexes or what a brand name is actually
+called. Those two run as **tool loops** instead of fixed code.
 
 | Tool | Answers |
 |---|---|
-| `probe_pubmed(query)` | Hit count, PubMed's MeSH translation of the query, the phrases it could not match, sample titles. |
+| `probe_pubmed(query)` | Hit count, PubMed's MeSH translation, the phrases it couldn't match. |
 | `resolve_drug(name)` | The active molecule behind a brand name, via RxNorm. |
 | `search_guidelines(topic)` | Real clinical practice guideline titles, via Europe PMC. |
-| `submit_brief(...)` / `submit_queries(queries)` | Terminal tools: the research brief and the query batch, as typed arguments rather than prose to re-parse. |
+| `submit_brief(...)` / `submit_queries(queries)` | Terminal tools: the brief and query batch as typed arguments, not prose to re-parse. |
 
-The loop itself lives in `app/core/llm_client.py` and does three things worth
-naming. Tool calls issued in the same turn run concurrently, so a model
-probing three phrasings at once waits for the slowest one rather than their
-sum. Identical repeated calls are served from a memo, since a model that
-dislikes a result will sometimes re-issue it verbatim. And when the round
-budget is about to run out, the terminal tool is forced through
-`tool_choice`, turning "explored too long, returned nothing" into "submits
-what it has."
-
-Every invocation is counted in `job_stats.tools`, so which lookups a model
-actually reaches for, and how often, is visible in the response.
+Tool calls issued in the same turn run concurrently, and identical repeated
+calls are served from a memo. When the round budget runs low, the terminal
+tool is forced through `tool_choice`: "explored too long" turns into
+"submits what it has." Every call is counted in `job_stats.tools`, so which
+lookups the model actually reaches for is visible in the response.
 
 ## Layout
 
@@ -287,7 +238,7 @@ app/
     synthesis.py     per-source appraisal and the grounded overview
     planner_tools.py the tools the model may call, and their dispatch
 
-frontend/  index.html, app.js, style.css - plain files, no build step
+frontend/  index.html, app.js, style.css: plain files, no build step
 ```
 
 ## Design notes and limits
@@ -319,8 +270,9 @@ frontend/  index.html, app.js, style.css - plain files, no build step
   passes it to an LLM that has tools available. The domain allowlist is the
   only control; nothing sanitises page content. Hardening that path is open
   work.
+
 > [!IMPORTANT]
-> **Citation checking stops at existence (Working on it)**
+> **Citation checking stops at existence (working on it)**
 > A claim citing an article that is not in the response gets dropped before the response is built. Whether a cited article actually supports the sentence citing it is left to the reader; the response links straight to the source for that check.
 
 ## Evaluation
