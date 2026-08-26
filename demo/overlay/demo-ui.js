@@ -20,8 +20,14 @@
         + "generated in real time.",
       bannerCta: "Clone the repo",
       bannerCtaSuffix: "to run your own searches.",
+      steps: [
+        "Pick a question below",
+        "Watch it search 12 medical databases",
+        "Read an answer where every claim links back to a source",
+      ],
       pickerTitle: "Pick a question",
       pickerHint: "sources",
+      showMore: (n) => `Show ${n} more question${n === 1 ? "" : "s"}`,
       discoveryNote: "This is a replay of a real search. The loading time is sped up, "
         + "but all the sources, summaries, and numbers below are exactly what the app "
         + "generated.",
@@ -33,13 +39,24 @@
         + "generati dall'app in tempo reale.",
       bannerCta: "Clona il repo",
       bannerCtaSuffix: "per fare le tue ricerche.",
+      steps: [
+        "Scegli una domanda qui sotto",
+        "Guarda la ricerca su 12 database medici",
+        "Leggi una risposta dove ogni affermazione rimanda a una fonte",
+      ],
       pickerTitle: "Scegli una domanda",
       pickerHint: "fonti",
+      showMore: (n) => `Mostra altr${n === 1 ? "a" : "e"} ${n} domand${n === 1 ? "a" : "e"}`,
       discoveryNote: "Questo è il replay di una ricerca reale. L'attesa è accelerata, "
         + "ma tutte le fonti, i riassunti e i numeri qui sotto sono esattamente quelli "
         + "generati dall'app.",
     },
   };
+
+  // First view shows this many cards - enough to feel like real choice
+  // without forcing a mobile visitor to scroll past all 15 before the
+  // page shows them anything else.
+  const INITIAL_CARDS = 4;
 
   function currentLang() {
     const stored = localStorage.getItem(LANG_KEY);
@@ -94,6 +111,19 @@
     return banner;
   }
 
+  /* Three short steps, always visible (no disclosure): what the picker
+     below actually does, stated once, before the visitor has to guess it
+     from fifteen cards of medical topics. */
+  function renderSteps(lang) {
+    const t = STRINGS[lang];
+    const steps = document.createElement("ol");
+    steps.className = "demo-steps";
+    steps.innerHTML = t.steps
+      .map((text, i) => `<li><span class="demo-step-num">${i + 1}</span>${esc(text)}</li>`)
+      .join("");
+    return steps;
+  }
+
   function cardHtml(query, lang, active) {
     const showcase = lang === "it" ? query.showcases_it : query.showcases_en;
     const t = STRINGS[lang];
@@ -110,10 +140,17 @@
      as a first choice but too heavy to leave standing once one is picked, so
      picking one collapses it to a single summary line (title + the active
      topic) - reopen it the same way the Run Statistics panel below opens,
-     to change the question. */
-  function renderPicker(lang, queries, activeId, onPick, openByDefault) {
+     to change the question.
+
+     The grid itself only ever shows INITIAL_CARDS up front, even while open:
+     fifteen full cards is still a wall of scroll on a phone before anything
+     else on the page is reachable. A "show more" button, not a second
+     details, since the picker is already the disclosure. */
+  function renderPicker(lang, queries, activeId, onPick, openByDefault, showAllCards, onShowAll) {
     const t = STRINGS[lang];
     const active = queries.find((q) => q.id === activeId);
+    const visible = showAllCards ? queries : queries.slice(0, INITIAL_CARDS);
+    const remaining = queries.length - visible.length;
     const details = document.createElement("details");
     details.className = "demo-picker";
     details.open = openByDefault;
@@ -122,15 +159,21 @@
         <span class="demo-picker-summary-label">${esc(t.pickerTitle)}</span>
         ${active ? `<span class="demo-picker-summary-active">${esc(active.topic)}</span>` : ""}
       </summary>
-      <div class="demo-picker-grid">${queries.map((q) => cardHtml(q, lang, q.id === activeId)).join("")}</div>`;
+      <div class="demo-picker-grid">${visible.map((q) => cardHtml(q, lang, q.id === activeId)).join("")}</div>
+      ${remaining > 0
+        ? `<button type="button" class="demo-picker-more">${esc(t.showMore(remaining))}</button>`
+        : ""}`;
     details.querySelectorAll(".demo-picker-card").forEach((card) => {
       card.addEventListener("click", () => onPick(card.dataset.id));
     });
+    const moreBtn = details.querySelector(".demo-picker-more");
+    if (moreBtn) moreBtn.addEventListener("click", onShowAll);
     return details;
   }
 
   let queriesCache = null;
   let activeId = null;
+  let showAllCards = false;
 
   function pickQuery(id) {
     const query = queriesCache.find((q) => q.id === id);
@@ -161,19 +204,38 @@
     if (oldBanner) oldBanner.replaceWith(banner);
     else document.querySelector("header").insertAdjacentElement("afterend", banner);
 
+    const oldSteps = document.querySelector(".demo-steps");
+    const steps = renderSteps(lang);
+    if (oldSteps) oldSteps.replaceWith(steps);
+    else banner.insertAdjacentElement("afterend", steps);
+
     // A language toggle re-renders the picker too (card text is bilingual),
     // so its open/closed state has to survive the rebuild - only pickQuery
     // forces it shut, by setting .open on the element this returns.
     const oldPicker = document.querySelector(".demo-picker");
     const openByDefault = oldPicker ? oldPicker.open : true;
-    const picker = renderPicker(lang, queriesCache, activeId, pickQuery, openByDefault);
+    const picker = renderPicker(lang, queriesCache, activeId, pickQuery, openByDefault, showAllCards, () => {
+      showAllCards = true;
+      refresh();
+    });
     if (oldPicker) oldPicker.replaceWith(picker);
-    else document.querySelector(".panel").insertAdjacentElement("afterend", picker);
+    else steps.insertAdjacentElement("afterend", picker);
+  }
+
+  // Fisher-Yates. Run once at load, not per render: reshuffling on every
+  // pick or language toggle would make the "N more" pile shift under the
+  // visitor's finger.
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
   }
 
   async function init() {
     hideRealSearchBar();
-    queriesCache = await loadQueries();
+    queriesCache = shuffle(await loadQueries());
     refresh();
   }
 

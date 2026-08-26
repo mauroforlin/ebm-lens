@@ -335,9 +335,24 @@ function stopProgress() {
   progress.hidden = true;
 }
 
-function pushProgressEvent(message) {
+/* The headline (what a glancing reader sees) names the stage in plain
+   words; the log line below it (what a curious reader can expand) keeps
+   the pipeline's own message, counts and all. Every stage the backend
+   emits is one of these keys - see app/pipeline/{orchestrator,agentic}.py. */
+const STAGE_LABELS = {
+  domain: "Understanding the topic",
+  brief: "Planning the search",
+  discovery: "Searching the databases",
+  rerank: "Ranking what it found",
+  read: "Reading the sources",
+  select: "Selecting the best sources",
+  synthesis: "Writing the grounded answer",
+};
+
+function pushProgressEvent(stage, message) {
   const seconds = ((performance.now() - progressStarted) / 1000).toFixed(1);
-  progressStage.innerHTML = `<span class="live-dot"></span>${esc(message)}`;
+  const headline = STAGE_LABELS[stage] || message;
+  progressStage.innerHTML = `<span class="live-dot"></span>${esc(headline)}`;
   const li = document.createElement("li");
   li.innerHTML = `<span class="progress-log-time">${seconds}s</span><span>${esc(message)}</span>`;
   progressLog.appendChild(li);
@@ -417,7 +432,7 @@ async function runSearch() {
     let finalData = null;
     let streamError = null;
     await streamEvents(response, (frame) => {
-      if (frame.event === "progress") pushProgressEvent(frame.data.message);
+      if (frame.event === "progress") pushProgressEvent(frame.data.stage, frame.data.message);
       else if (frame.event === "result") finalData = frame.data;
       else if (frame.event === "error") streamError = frame.data.error;
     });

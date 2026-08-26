@@ -51,6 +51,41 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
 }
 
+/* The mechanism, stated once, before the picker below asks the visitor to
+   choose among fifteen medical topics without knowing what choosing one
+   does. Plain list, no card chrome - it's a sentence split in three, not
+   another panel. */
+.demo-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+}
+.demo-steps li {
+  flex: 1 1 200px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.83rem;
+  color: var(--text-soft);
+  line-height: 1.4;
+}
+.demo-step-num {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-top: 1px;
+}
+
 /* A <details> disclosure, styled to match details.stats in frontend/style.css
    (same bordered card, same rotating chevron) so it reads as the same kind
    of component instead of a one-off. Fifteen full cards are the right first
@@ -127,6 +162,23 @@ details.demo-picker[open] > summary::before { transform: rotate(90deg); }
 .demo-picker-topic { font-size: 0.87rem; font-weight: 600; color: var(--text); line-height: 1.35; }
 .demo-picker-showcase { font-size: 0.78rem; color: var(--text-soft); line-height: 1.4; }
 .demo-picker-meta { font-size: 0.72rem; color: var(--text-faint); font-family: var(--mono); }
+
+.demo-picker-more {
+  display: block;
+  width: calc(100% - 32px);
+  margin: 2px 16px 14px;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius);
+  padding: 9px;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+.demo-picker-more:hover { background: var(--surface); border-color: var(--accent); }
 
 @media (max-width: 480px) {
   /* Flipping to a column would otherwise inherit .demo-banner-text's
