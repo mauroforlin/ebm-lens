@@ -9,59 +9,32 @@
    state, because there isn't any to reach into. */
 
 (function () {
-  const LANG_KEY = "ebmlens-demo-lang";
   const REPO_URL = "https://github.com/mauroforlin/ebm-lens";
 
   const STRINGS = {
-    en: {
-      bannerLabel: "Read-only demo",
-      bannerBody: "Explore 15 pre-recorded searches. The loading animation is sped up, "
-        + "but the sources, summaries, costs, and timings are exactly what the app "
-        + "generated in real time.",
-      bannerCta: "Clone the repo",
-      bannerCtaSuffix: "to run your own searches.",
-      steps: [
-        "Pick a question below",
-        "Watch it search 12 medical databases",
-        "Read an answer where every claim links back to a source",
-      ],
-      pickerTitle: "Pick a question",
-      pickerHint: "sources",
-      showMore: (n) => `Show ${n} more question${n === 1 ? "" : "s"}`,
-      discoveryNote: "This is a replay of a real search. The loading time is sped up, "
-        + "but all the sources, summaries, and numbers below are exactly what the app "
-        + "generated.",
-    },
-    it: {
-      bannerLabel: "Demo in sola lettura",
-      bannerBody: "Esplora 15 ricerche pre-registrate. L'animazione di caricamento è accelerata, "
-        + "ma le fonti, i riassunti, i costi e i tempi sono esattamente quelli "
-        + "generati dall'app in tempo reale.",
-      bannerCta: "Clona il repo",
-      bannerCtaSuffix: "per fare le tue ricerche.",
-      steps: [
-        "Scegli una domanda qui sotto",
-        "Guarda la ricerca su 12 database medici",
-        "Leggi una risposta dove ogni affermazione rimanda a una fonte",
-      ],
-      pickerTitle: "Scegli una domanda",
-      pickerHint: "fonti",
-      showMore: (n) => `Mostra altr${n === 1 ? "a" : "e"} ${n} domand${n === 1 ? "a" : "e"}`,
-      discoveryNote: "Questo è il replay di una ricerca reale. L'attesa è accelerata, "
-        + "ma tutte le fonti, i riassunti e i numeri qui sotto sono esattamente quelli "
-        + "generati dall'app.",
-    },
+    bannerLabel: "Read-only demo",
+    bannerBody: "Explore 15 pre-recorded searches. The loading animation is sped up, "
+      + "but the sources, summaries, costs, and timings are exactly what the app "
+      + "generated in real time.",
+    bannerCta: "Clone the repo",
+    bannerCtaSuffix: "to run your own searches.",
+    steps: [
+      "Pick a question below",
+      "Watch it search 12 medical databases",
+      "Read an answer where every claim links back to a source",
+    ],
+    pickerTitle: "Pick a question",
+    pickerHint: "sources",
+    showMore: (n) => `Show ${n} more question${n === 1 ? "" : "s"}`,
+    discoveryNote: "This is a replay of a real search. The loading time is sped up, "
+      + "but all the sources, summaries, and numbers below are exactly what the app "
+      + "generated.",
   };
 
   // First view shows this many cards - enough to feel like real choice
   // without forcing a mobile visitor to scroll past all 15 before the
   // page shows them anything else.
   const INITIAL_CARDS = 4;
-
-  function currentLang() {
-    const stored = localStorage.getItem(LANG_KEY);
-    return stored === "it" ? "it" : "en";
-  }
 
   function esc(value) {
     const node = document.createElement("div");
@@ -88,51 +61,37 @@
     if (hint) hint.hidden = true;
   }
 
-  function renderBanner(lang) {
-    const t = STRINGS[lang];
+  function renderBanner() {
     const banner = document.createElement("div");
     banner.className = "demo-banner";
     banner.innerHTML = `
       <div class="demo-banner-text">
-        <strong>${esc(t.bannerLabel)}.</strong> ${esc(t.bannerBody)}
-        <a href="${esc(REPO_URL)}" target="_blank" rel="noopener noreferrer">${esc(t.bannerCta)}</a>
-        ${esc(t.bannerCtaSuffix)}
-      </div>
-      <div class="demo-lang-toggle" role="group" aria-label="Banner language">
-        <button type="button" data-lang="en" aria-pressed="${lang === "en"}">EN</button>
-        <button type="button" data-lang="it" aria-pressed="${lang === "it"}">IT</button>
+        <strong>${esc(STRINGS.bannerLabel)}.</strong> ${esc(STRINGS.bannerBody)}
+        <a href="${esc(REPO_URL)}" target="_blank" rel="noopener noreferrer">${esc(STRINGS.bannerCta)}</a>
+        ${esc(STRINGS.bannerCtaSuffix)}
       </div>`;
-    banner.querySelectorAll("[data-lang]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        localStorage.setItem(LANG_KEY, btn.dataset.lang);
-        refresh();
-      });
-    });
     return banner;
   }
 
   /* Three short steps, always visible (no disclosure): what the picker
      below actually does, stated once, before the visitor has to guess it
      from fifteen cards of medical topics. */
-  function renderSteps(lang) {
-    const t = STRINGS[lang];
+  function renderSteps() {
     const steps = document.createElement("ol");
     steps.className = "demo-steps";
-    steps.innerHTML = t.steps
+    steps.innerHTML = STRINGS.steps
       .map((text, i) => `<li><span class="demo-step-num">${i + 1}</span>${esc(text)}</li>`)
       .join("");
     return steps;
   }
 
-  function cardHtml(query, lang, active) {
-    const showcase = lang === "it" ? query.showcases_it : query.showcases_en;
-    const t = STRINGS[lang];
+  function cardHtml(query, active) {
     return `
       <button type="button" class="demo-picker-card" data-id="${esc(query.id)}"
         aria-pressed="${active}">
         <span class="demo-picker-topic">${esc(query.topic)}</span>
-        <span class="demo-picker-showcase">${esc(showcase)}</span>
-        <span class="demo-picker-meta">${query.max_sources} ${esc(t.pickerHint)} &middot; ${query.article_count} ${esc(lang === "it" ? "selezionate" : "selected")}</span>
+        <span class="demo-picker-showcase">${esc(query.showcase)}</span>
+        <span class="demo-picker-meta">${query.max_sources} ${esc(STRINGS.pickerHint)} &middot; ${query.article_count} selected</span>
       </button>`;
   }
 
@@ -146,8 +105,7 @@
      fifteen full cards is still a wall of scroll on a phone before anything
      else on the page is reachable. A "show more" button, not a second
      details, since the picker is already the disclosure. */
-  function renderPicker(lang, queries, activeId, onPick, openByDefault, showAllCards, onShowAll) {
-    const t = STRINGS[lang];
+  function renderPicker(queries, activeId, onPick, openByDefault, showAllCards, onShowAll) {
     const active = queries.find((q) => q.id === activeId);
     const visible = showAllCards ? queries : queries.slice(0, INITIAL_CARDS);
     const remaining = queries.length - visible.length;
@@ -156,12 +114,12 @@
     details.open = openByDefault;
     details.innerHTML = `
       <summary>
-        <span class="demo-picker-summary-label">${esc(t.pickerTitle)}</span>
+        <span class="demo-picker-summary-label">${esc(STRINGS.pickerTitle)}</span>
         ${active ? `<span class="demo-picker-summary-active">${esc(active.topic)}</span>` : ""}
       </summary>
-      <div class="demo-picker-grid">${visible.map((q) => cardHtml(q, lang, q.id === activeId)).join("")}</div>
+      <div class="demo-picker-grid">${visible.map((q) => cardHtml(q, q.id === activeId)).join("")}</div>
       ${remaining > 0
-        ? `<button type="button" class="demo-picker-more">${esc(t.showMore(remaining))}</button>`
+        ? `<button type="button" class="demo-picker-more">${esc(STRINGS.showMore(remaining))}</button>`
         : ""}`;
     details.querySelectorAll(".demo-picker-card").forEach((card) => {
       card.addEventListener("click", () => onPick(card.dataset.id));
@@ -192,29 +150,22 @@
   }
 
   function refresh() {
-    const lang = currentLang();
-    document.documentElement.lang = lang;
-    const t = STRINGS[lang];
-
     const note = document.getElementById("discoveryNote");
-    if (note) note.textContent = t.discoveryNote;
+    if (note) note.textContent = STRINGS.discoveryNote;
 
     const oldBanner = document.querySelector(".demo-banner");
-    const banner = renderBanner(lang);
+    const banner = renderBanner();
     if (oldBanner) oldBanner.replaceWith(banner);
     else document.querySelector("header").insertAdjacentElement("afterend", banner);
 
     const oldSteps = document.querySelector(".demo-steps");
-    const steps = renderSteps(lang);
+    const steps = renderSteps();
     if (oldSteps) oldSteps.replaceWith(steps);
     else banner.insertAdjacentElement("afterend", steps);
 
-    // A language toggle re-renders the picker too (card text is bilingual),
-    // so its open/closed state has to survive the rebuild - only pickQuery
-    // forces it shut, by setting .open on the element this returns.
     const oldPicker = document.querySelector(".demo-picker");
     const openByDefault = oldPicker ? oldPicker.open : true;
-    const picker = renderPicker(lang, queriesCache, activeId, pickQuery, openByDefault, showAllCards, () => {
+    const picker = renderPicker(queriesCache, activeId, pickQuery, openByDefault, showAllCards, () => {
       showAllCards = true;
       refresh();
     });
@@ -223,8 +174,7 @@
   }
 
   // Fisher-Yates. Run once at load, not per render: reshuffling on every
-  // pick or language toggle would make the "N more" pile shift under the
-  // visitor's finger.
+  // pick would make the "N more" pile shift under the visitor's finger.
   function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));

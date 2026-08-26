@@ -25,32 +25,6 @@
 .demo-banner-text a { color: var(--accent); font-weight: 600; text-decoration: none; }
 .demo-banner-text a:hover { text-decoration: underline; }
 
-.demo-lang-toggle {
-  flex: none;
-  display: inline-flex;
-  background: var(--accent-soft);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 2px;
-}
-.demo-lang-toggle button {
-  border: none;
-  background: transparent;
-  font: inherit;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--text-soft);
-  padding: 4px 11px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.12s, color 0.12s;
-}
-.demo-lang-toggle button[aria-pressed="true"] {
-  background: var(--surface);
-  color: var(--accent);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
-}
-
 /* The mechanism, stated once, before the picker below asks the visitor to
    choose among fifteen medical topics without knowing what choosing one
    does. Plain list, no card chrome - it's a sentence split in three, not
@@ -180,11 +154,16 @@ details.demo-picker[open] > summary::before { transform: rotate(90deg); }
 }
 .demo-picker-more:hover { background: var(--surface); border-color: var(--accent); }
 
-@media (max-width: 480px) {
-  /* Flipping to a column would otherwise inherit .demo-banner-text's
-     row flex-basis (320px) as a *height*, stranding the toggle below a
-     tall empty gap - reset it to content height in this layout. */
-  .demo-banner { flex-direction: column; }
-  .demo-banner-text { flex: 1 1 auto; }
-  .demo-lang-toggle { align-self: flex-end; }
+@media (max-width: 600px) {
+  .demo-banner { padding: 10px 13px; }
+
+  .demo-steps { gap: 6px 16px; margin-bottom: 14px; }
+  .demo-steps li { font-size: 0.79rem; }
+
+  /* The title alone is enough to pick from on a phone; the one-line
+     showcase blurb would turn four cards into a long scroll here. */
+  .demo-picker-card { padding: 9px 12px; }
+  .demo-picker-showcase { display: none; }
+
+  .discovery-note { font-size: 0.78rem; padding: 7px 11px; }
 }

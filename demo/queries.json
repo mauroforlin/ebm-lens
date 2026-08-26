@@ -3,105 +3,90 @@
     "id": "glp1-cv-risk",
     "topic": "GLP-1 receptor agonists and cardiovascular risk reduction in type 2 diabetes",
     "max_sources": 10,
-    "showcases_en": "The pipeline's own README example: drug efficacy against a hard outcome.",
-    "showcases_it": "L'esempio del README: efficacia di un farmaco su un esito clinico duro."
+    "showcase": "The pipeline's own README example: drug efficacy against a hard outcome."
   },
   {
     "id": "sglt2-hfpef",
     "topic": "SGLT2 inhibitors in heart failure with preserved ejection fraction",
     "max_sources": 20,
-    "showcases_en": "A dense, RCT-heavy literature with several large trials to rank.",
-    "showcases_it": "Letteratura densa di trial randomizzati da classificare."
+    "showcase": "A dense, RCT-heavy literature with several large trials to rank."
   },
   {
     "id": "lecanemab-aria",
     "topic": "Lecanemab efficacy and ARIA risk in early Alzheimer's disease",
     "max_sources": 20,
-    "showcases_en": "A recent drug: trial evidence next to regulatory sources.",
-    "showcases_it": "Un farmaco recente: evidenza da trial insieme a fonti regolatorie."
+    "showcase": "A recent drug: trial evidence next to regulatory sources."
   },
   {
     "id": "tranexamic-tbi",
     "topic": "Tranexamic acid in traumatic brain injury: mortality outcomes",
     "max_sources": 10,
-    "showcases_en": "A single mega-trial dominating the evidence base.",
-    "showcases_it": "Un mega-trial che domina la base di evidenza."
+    "showcase": "A single mega-trial dominating the evidence base."
   },
   {
     "id": "fmt-cdiff",
     "topic": "Faecal microbiota transplantation for recurrent C. difficile infection",
     "max_sources": 10,
-    "showcases_en": "Clinical guidelines next to an approved product record.",
-    "showcases_it": "Linee guida cliniche accanto a un prodotto approvato."
+    "showcase": "Clinical guidelines next to an approved product record."
   },
   {
     "id": "vitd-respiratory",
     "topic": "Vitamin D supplementation and prevention of acute respiratory infections",
     "max_sources": 30,
-    "showcases_en": "A genuinely contested question: watch the disagreements section.",
-    "showcases_it": "Una domanda davvero contesa: da guardare la sezione dei disaccordi."
+    "showcase": "A genuinely contested question: watch the disagreements section."
   },
   {
     "id": "metformin-cancer",
     "topic": "Metformin and cancer incidence in type 2 diabetes: immortal time bias",
     "max_sources": 20,
-    "showcases_en": "Observational evidence undercut by a known methodological bias.",
-    "showcases_it": "Evidenza osservazionale minata da un bias metodologico noto."
+    "showcase": "Observational evidence undercut by a known methodological bias."
   },
   {
     "id": "psilocybin-trd",
     "topic": "Psilocybin-assisted therapy for treatment-resistant depression",
     "max_sources": 10,
-    "showcases_en": "An emerging field: small trials, early-stage evidence.",
-    "showcases_it": "Un campo emergente: trial piccoli, evidenza preliminare."
+    "showcase": "An emerging field: small trials, early-stage evidence."
   },
   {
     "id": "car-t-gbm",
     "topic": "CAR-T therapy, BBB disruption and ctDNA monitoring in glioblastoma",
     "max_sources": 30,
-    "showcases_en": "A composite question, decomposed and searched per axis.",
-    "showcases_it": "Una domanda composita, scomposta e cercata per asse."
+    "showcase": "A composite question, decomposed and searched per axis."
   },
   {
     "id": "long-covid-mechanism",
     "topic": "Long COVID pathophysiology: viral persistence versus immune dysregulation",
     "max_sources": 30,
-    "showcases_en": "Competing mechanistic hypotheses, with preprints in the mix.",
-    "showcases_it": "Ipotesi meccanicistiche in competizione, con preprint nel mix."
+    "showcase": "Competing mechanistic hypotheses, with preprints in the mix."
   },
   {
     "id": "clozapine-anc",
     "topic": "Clozapine-induced agranulocytosis and ANC monitoring requirements",
     "max_sources": 10,
-    "showcases_en": "Regulatory-tier sources: drug label, safety monitoring rules.",
-    "showcases_it": "Fonti di livello regolatorio: scheda tecnica, regole di monitoraggio."
+    "showcase": "Regulatory-tier sources: drug label, safety monitoring rules."
   },
   {
     "id": "statin-sams-nocebo",
     "topic": "Statin-associated muscle symptoms and the nocebo effect in n-of-1 trials",
     "max_sources": 10,
-    "showcases_en": "An unusual study design read correctly by the design ranker.",
-    "showcases_it": "Un design di studio insolito, letto correttamente dal ranking."
+    "showcase": "An unusual study design read correctly by the design ranker."
   },
   {
     "id": "tb-drug-resistance",
     "topic": "Global tuberculosis incidence trends and the burden of MDR-TB",
     "max_sources": 20,
-    "showcases_en": "Epidemiology, drawing on WHO surveillance data.",
-    "showcases_it": "Epidemiologia, con dati di sorveglianza WHO."
+    "showcase": "Epidemiology, drawing on WHO surveillance data."
   },
   {
     "id": "nsaid-dog-gi",
     "topic": "NSAID-associated gastrointestinal toxicity in dogs",
     "max_sources": 10,
-    "showcases_en": "Veterinary domain detection, a distinct mode from human medicine.",
-    "showcases_it": "Rilevamento del dominio veterinario, distinto dalla medicina umana."
+    "showcase": "Veterinary domain detection, a distinct mode from human medicine."
   },
   {
     "id": "dr-ai-screening",
     "topic": "Autonomous AI screening for diabetic retinopathy: sensitivity vs expert graders",
     "max_sources": 20,
-    "showcases_en": "AI-as-medical-device literature, mixed source types.",
-    "showcases_it": "Letteratura su IA come dispositivo medico, fonti eterogenee."
+    "showcase": "AI-as-medical-device literature, mixed source types."
   }
 ]
