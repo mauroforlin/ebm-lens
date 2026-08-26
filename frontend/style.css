@@ -629,13 +629,18 @@ article p { margin: 0; color: var(--text-soft); font-size: 0.9rem; }
 .strength.weak     { background: var(--tier3-bg); color: var(--tier3); }
 
 /* A citation is a checkable reference, not decoration: a plain mono
-   index, no chip, no background: it reads like a register lookup. */
+   index, no chip, no background: it reads like a register lookup.
+   Superscript and muted at rest so a run of [0][1][4][6][7][9] doesn't
+   outweigh the sentence it's attached to; full accent color on hover/focus
+   is what says "this is actually clickable". */
 .cite {
-  font-family: var(--mono); font-size: 0.76rem; font-weight: 600; text-decoration: none;
-  color: var(--accent);
-  padding: 0; margin-left: 2px;
+  font-family: var(--mono); font-size: 0.66rem; font-weight: 600; text-decoration: none;
+  color: var(--text-faint);
+  vertical-align: super;
+  line-height: 0;
+  padding: 0; margin-left: 1px;
 }
-.cite:hover { text-decoration: underline; text-underline-offset: 2px; }
+.cite:hover, .cite:focus-visible { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
 
 /* Conflicts are reported, not resolved: the sources on each side are named. */
 .conflicts { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); }
