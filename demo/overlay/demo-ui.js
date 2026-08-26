@@ -61,6 +61,16 @@
     if (hint) hint.hidden = true;
   }
 
+  /* A register of the visitor's own past runs makes no sense here: the
+     fifteen entries are fixed and already sit in the picker. app.js still
+     writes each pick to IndexedDB underneath - harmless, just pointless -
+     this only removes the button that would open the (empty-of-purpose)
+     drawer. */
+  function hideHistoryToggle() {
+    const toggle = document.getElementById("historyToggle");
+    if (toggle) toggle.hidden = true;
+  }
+
   function renderBanner() {
     const banner = document.createElement("div");
     banner.className = "demo-banner";
@@ -185,6 +195,7 @@
 
   async function init() {
     hideRealSearchBar();
+    hideHistoryToggle();
     queriesCache = shuffle(await loadQueries());
     refresh();
   }
