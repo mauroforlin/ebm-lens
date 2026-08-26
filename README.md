@@ -26,12 +26,6 @@ flowchart LR
 Every evidence source is a free public API. The only account you need is for
 the LLM.
 
-## Example output
-
-The [live demo](https://mauroforlin.github.io/ebm-lens/) has real, full
-responses: ranked sources, the claims that cite them, the conflicts and gaps,
-and the actual cost and timing behind each run.
-
 ## Background
 
 EBM Lens started as a feature inside [Sbobby](https://www.sbobby.com), a
