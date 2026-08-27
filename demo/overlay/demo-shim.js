@@ -18,8 +18,8 @@
   // The real run took anywhere from ~60s to ~180s; compressing every replay
   // toward this budget keeps the demo watchable while preserving the
   // relative pacing between stages recorded in the fixture.
-  const REPLAY_BUDGET_MS = 9000;
-  const MIN_FRAME_GAP_MS = 120;
+  const REPLAY_BUDGET_MS = 2500;
+  const MIN_FRAME_GAP_MS = 50;
 
   const realFetch = window.fetch.bind(window);
   let indexPromise = null;
