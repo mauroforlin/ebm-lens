@@ -67,7 +67,8 @@ _LITERATURE_PROVIDERS = frozenset({"pubmed", "europe_pmc", "biorxiv", "clinicalt
 _MEDICAL_TOPIC_TYPES = frozenset({
     "drug", "dosage", "drug_classification", "mechanism_of_action",
     "contraindication", "drug_interaction", "adverse_effect",
-    "diagnostic_criteria", "reference_value", "epidemiology",
+    "diagnostic_criteria", "clinical_guideline", "reference_value",
+    "epidemiology",
     "statistic",  # anatomical/physiological statistics are medical
 })
 _MEDICAL_DOMAINS = frozenset({"medicine", "veterinary_medicine"})

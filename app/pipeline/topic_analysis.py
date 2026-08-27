@@ -48,7 +48,7 @@ Given a topic or claim, analyse it and return a JSON object:
   "conceptual_query": "<BROADER English fallback query, 3-5 words>",
   "conceptual_query_it": "<Italian equivalent of conceptual_query>",
   "subject": "<main entity or concept>",
-  "topic_type": "<assertion, definition, statistic, dosage, drug, drug_classification, contraindication, drug_interaction, adverse_effect, diagnostic_criteria, epidemiology, reference_value>",
+  "topic_type": "<assertion, definition, statistic, dosage, drug, drug_classification, contraindication, drug_interaction, adverse_effect, diagnostic_criteria, clinical_guideline, epidemiology, reference_value>",
   "pico": {
     "population": "<who/what the question is about, '' if not specified>",
     "intervention": "<the drug, exposure, test or procedure, '' if none>",
@@ -78,6 +78,10 @@ Rules:
   anatomy question) leave every element empty.
 - Use the field's standard terminology in the pico elements, not the user's
   wording: "myocardial infarction", not "heart attack".
+- Use "clinical_guideline" when the topic asks what the recommended/standard
+  management is, or explicitly asks what guidelines say - this biases the
+  literature search toward guideline-tagged publications instead of generic
+  reviews.
 """
 
 
