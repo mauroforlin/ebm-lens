@@ -335,10 +335,11 @@ def _pubmed_kwargs(spec: TopicSpec) -> dict:
 
 
 def _europe_pmc_kwargs(pubmed_kwargs: dict) -> dict:
-    """Europe PMC shares PubMed's review/recency preference, nothing else."""
+    """Europe PMC shares PubMed's review/recency/evidence-type preference."""
     return {
         "prefer_reviews": pubmed_kwargs.get("prefer_reviews", False),
         "recent_only": pubmed_kwargs.get("recent_only", False),
+        "evidence_type": pubmed_kwargs.get("evidence_type"),
     }
 
 

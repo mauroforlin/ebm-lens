@@ -31,6 +31,10 @@ _GUIDELINE_PUB_TYPES = (
     'PUB_TYPE:"guideline" OR PUB_TYPE:"practice guideline" '
     'OR PUB_TYPE:"consensus development conference"'
 )
+# Cochrane reviews are MEDLINE-indexed (SRC:MED already covers them) but rank
+# on keyword relevance like everything else; naming the journal directly is
+# what pubmed.py does for the same reason - mirrored here.
+_COCHRANE_FILTER = 'JOURNAL:"Cochrane Database Syst Rev"'
 
 # Rate limiter: ~6 req/s to respect EBI fair-use policy
 _rate_lock = threading.Lock()
@@ -83,9 +87,11 @@ class EuropePMCProvider(SourceProvider):
         *,
         prefer_reviews: bool = False,
         recent_only: bool = False,
+        evidence_type: str | None = None,
     ):
         self._prefer_reviews = prefer_reviews
         self._recent_only = recent_only
+        self._evidence_type = evidence_type
 
     @retry(
         wait=wait_exponential(multiplier=1, min=1, max=10),
@@ -118,24 +124,67 @@ class EuropePMCProvider(SourceProvider):
             f"({simplified}) AND {' AND '.join(adv_parts)}" if adv_parts else simplified
         )
 
-        results = self._search_relevance_and_citations(enhanced, max_results)
+        priority = self._priority_results(simplified, max_results)
+
+        results = self._search_relevance_and_citations(enhanced, max_results, priority=priority)
 
         # Fallback: drop filters if no results
         if not results:
-            results = self._search_relevance_and_citations(simplified, max_results)
+            results = self._search_relevance_and_citations(simplified, max_results, priority=priority)
 
         # Fallback: broaden query if still no results
         if not results and len(simplified.split()) > 3:
             shorter = " ".join(simplified.split()[:4])
-            results = self._search_relevance_and_citations(shorter, max_results)
+            results = self._search_relevance_and_citations(shorter, max_results, priority=priority)
 
         return results[:max_results]
 
+    def _priority_results(self, simplified: str, max_results: int) -> list[SourceResult]:
+        """Documents fetched ahead of the relevance pass because their type,
+        not their keyword match, is what makes them the right answer.
+
+        Mirrors pubmed.py's identical Cochrane-first / guideline[pt] fan-out:
+        a Cochrane review or a practice guideline can rank behind a dozen
+        keyword-relevant primary studies under plain relevance sort, so it is
+        fetched by publication type first and given priority slots in the
+        merge rather than left to compete on relevance alone.
+        """
+        if not simplified:
+            return []
+
+        priority: list[SourceResult] = []
+        seen: set[str] = set()
+
+        def _extend(filter_clause: str, budget: int) -> None:
+            if budget <= 0:
+                return
+            try:
+                hits = self._search_core(
+                    f"({simplified}) AND ({filter_clause})", budget, use_synonyms=True,
+                )
+            except Exception as exc:
+                logger.debug("Europe PMC priority search failed: %s", exc)
+                return
+            for r in hits:
+                key = r.url.rstrip("/").lower()
+                if key and key not in seen:
+                    seen.add(key)
+                    priority.append(r)
+
+        if self._prefer_reviews or self._evidence_type in ("systematic_review", "review"):
+            _extend(_COCHRANE_FILTER, max_results)
+
+        if self._evidence_type == "guideline":
+            _extend(_GUIDELINE_PUB_TYPES, max_results - len(priority))
+
+        return priority
+
     def _search_relevance_and_citations(
-        self, query: str, max_results: int,
+        self, query: str, max_results: int, *, priority: list[SourceResult] | None = None,
     ) -> list[SourceResult]:
-        """Fill the result set by relevance first, citation authority second -
-        or, on a review/foundational query, a guaranteed share of both.
+        """Fill the result set by priority first, relevance second, citation
+        authority third - or, on a review/foundational query, a guaranteed
+        share of the latter two.
 
         On a broad, high-volume query Europe PMC's default relevance sort
         skews toward the newest papers, so a landmark paper - or the paper the
@@ -155,15 +204,25 @@ class EuropePMCProvider(SourceProvider):
         filled the page - trimming its weakest matches to make room rather
         than never trying citation authority at all.
         """
-        by_relevance = self._search_core(query, max_results, use_synonyms=True)
-
         merged: list[SourceResult] = []
         seen: set[str] = set()
-        for r in by_relevance:
+        for r in (priority or []):
+            if len(merged) >= max_results:
+                break
             key = r.url.rstrip("/").lower()
             if key and key not in seen:
                 seen.add(key)
                 merged.append(r)
+
+        if len(merged) < max_results:
+            by_relevance = self._search_core(query, max_results, use_synonyms=True)
+            for r in by_relevance:
+                if len(merged) >= max_results:
+                    break
+                key = r.url.rstrip("/").lower()
+                if key and key not in seen:
+                    seen.add(key)
+                    merged.append(r)
 
         reserved = max(1, max_results // 3) if self._prefer_reviews else 0
         slots_open = max_results - len(merged)
