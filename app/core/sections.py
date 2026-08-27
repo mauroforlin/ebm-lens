@@ -54,6 +54,16 @@ BIOMED_SKIP: tuple[str, ...] = (
     "funding", "author contribution", "supplementary", "data availability",
 )
 
+# Priority order for a clinical practice guideline. A guideline's substance -
+# what to do, and how strongly the evidence backs it - lives under headings
+# like these, not under BIOMED_PRIORITY's Results/Methods: a guideline's own
+# "abstract" is typically a scope-and-purpose preamble, so ranking by
+# BIOMED_PRIORITY would push the actual recommendations to the back of the
+# fair-share fill (unmatched headings rank last) instead of to the front.
+GUIDELINE_PRIORITY: tuple[str, ...] = (
+    "recommendation", "evidence to decision", "rationale", "implementation",
+)
+
 
 def split_sections(
     text: str, marker: re.Pattern[str] | str = DEFAULT_MARKER,

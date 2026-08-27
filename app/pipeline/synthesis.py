@@ -62,7 +62,13 @@ from app.config import Settings
 from app.core.job_stats import JobStats
 from app.core.llm_client import generate_json, generate_with_tools
 from app.core.parallel import run_parallel
-from app.core.sections import BIOMED_PRIORITY, BIOMED_SKIP, split_sections, trim_by_priority
+from app.core.sections import (
+    BIOMED_PRIORITY,
+    BIOMED_SKIP,
+    GUIDELINE_PRIORITY,
+    split_sections,
+    trim_by_priority,
+)
 from app.pipeline import evidence_grade
 from app.schemas import PICO, ArticleSummary, Claim, Disagreement
 from app.sources.base import SourceResult
@@ -83,13 +89,15 @@ _MAX_SOURCE_CHARS = 4000
 
 # Chars returned by a read_full_text call, once the model has decided the
 # excerpt above isn't enough. Larger than _MAX_SOURCE_CHARS because this is
-# meant to actually reach the sections the excerpt couldn't, and capped at
-# 6000 to match generate_with_tools' own _MAX_TOOL_RESULT_CHARS backstop in
+# meant to actually reach the sections the excerpt couldn't, and capped to
+# match generate_with_tools' own _MAX_TOOL_RESULT_CHARS backstop in
 # llm_client.py - going higher would just have that backstop re-truncate it
-# blindly. Filled by section priority (see trim_by_priority) rather than a
-# raw prefix, so the budget goes to Results/Discussion instead of whichever
-# section the source happens to put first.
-_MAX_FULL_TEXT_CHARS = 6000
+# blindly, the two must move together. Filled by section priority (see
+# trim_by_priority) rather than a raw prefix, so the budget goes to
+# Results/Discussion (or, for a guideline, Recommendations - see
+# content_extractor.py's own priority choice at fetch time) instead of
+# whichever section the source happens to put first.
+_MAX_FULL_TEXT_CHARS = 12000
 
 # Upper bound on distinct sources actually fetched (network I/O) within one
 # appraisal batch - read_full_text and read_section share this budget and
@@ -208,6 +216,12 @@ reflexively for every source, and do not call one for a source whose excerpt \
 already gives you what you need. When you are done reading whatever you \
 needed to read, call submit_appraisals once with every source's appraisal.
 
+A source INDEXED AS guideline is a special case: its starting excerpt is \
+usually just a scope-and-purpose preamble, not a summary of what it actually \
+recommends - unlike a study abstract, a thin excerpt there does NOT mean the \
+source has nothing to report. Read further before scoring it low or leaving \
+key_finding empty.
+
 Each item in the appraisals array has:
 {{
   "index": <int, matching the source index>,
@@ -277,6 +291,23 @@ low relevance_score and a very short summary noting limited utility.
 """
 
 
+# Publication types (see europe_pmc.py's PUB_TYPE query and pubmed.py's
+# guideline[pt] filter) that mark a record as a clinical practice guideline
+# rather than a primary study - the provider's own fact, not a text guess.
+# Used to pick read_full_text's section-priority list: a guideline's
+# recommendations live under headings BIOMED_PRIORITY doesn't recognise.
+_GUIDELINE_PUB_TYPES = frozenset({
+    "guideline", "practice guideline", "consensus development conference",
+})
+
+
+def _is_guideline(result: SourceResult) -> bool:
+    return any(
+        isinstance(t, str) and t.strip().lower() in _GUIDELINE_PUB_TYPES
+        for t in result.publication_types
+    )
+
+
 def _pico_block(pico: PICO | None) -> str:
     """Render the PICO as the directness yardstick, when the topic has one.
 
@@ -333,9 +364,11 @@ _READ_SECTION_TOOL = {
         "description": (
             "Fetch the complete, untrimmed text of one or more named "
             "sections from a source (e.g. \"results\", \"discussion\", "
-            "\"methods\") - matched case-insensitively as a substring of the "
-            "source's own section headings, so \"results\" also matches "
-            "\"Results and Discussion\". Use this instead of read_full_text "
+            "\"methods\" for a study; \"recommendation\", \"evidence to "
+            "decision\", \"rationale\" for a clinical guideline - check the "
+            "source's INDEXED AS line) - matched case-insensitively as a "
+            "substring of the source's own section headings, so \"results\" "
+            "also matches \"Results and Discussion\". Use this instead of read_full_text "
             "when you already know exactly what you need: the precise "
             "numbers, subgroup results or stated direction of an effect "
             "usually live entirely in Results or Discussion, and this "
@@ -546,9 +579,10 @@ def _summarise_batch(
                     "excerpt you already have."
                 )
             return "read budget exhausted for this run - appraise from the excerpt"
+        priority = GUIDELINE_PRIORITY if _is_guideline(results[index]) else BIOMED_PRIORITY
         return trim_by_priority(
             text, _MAX_FULL_TEXT_CHARS,
-            priority=BIOMED_PRIORITY, skip=BIOMED_SKIP,
+            priority=priority, skip=BIOMED_SKIP,
         )
 
     def _read_section(args: dict) -> str:

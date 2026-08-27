@@ -10,8 +10,18 @@ is deliberately fenced in:
 - **Allowlist only** - fetches are limited to ``_FETCHABLE_DOMAINS``. Anything
   else keeps whatever the provider gave us. No open-ended crawling.
 - **Budget** - at most ``max_fetches`` URLs per run.
-- **Size cap** - ``_MAX_CONTENT_CHARS`` per page, so one enormous page cannot
-  dominate the summariser's context window.
+- **Size cap** - ``_MAX_CONTENT_CHARS`` per page, a flat safety ceiling against
+  a pathologically large page, not a content decision. Deciding which part of
+  the text matters (see :data:`app.core.sections.BIOMED_PRIORITY` and
+  :data:`app.core.sections.GUIDELINE_PRIORITY`) is synthesis.py's
+  ``read_full_text``/``read_section`` job, done once the model has said what
+  it's looking for - this module hands over the real, complete page text so
+  that decision has something real to work with. A NICE guideline's
+  recommendations sit under numbered headings ("1.2.7") with no descriptive
+  keyword a fixed priority list could recognise, so pre-trimming here (as this
+  module briefly did) meant a ``read_section`` call for the exact right
+  heading would still come back empty - the section was already gone by the
+  time synthesis.py could ask for it by name.
 - **Timeout** - ``_FETCH_TIMEOUT`` seconds per request, fetched in parallel.
 
 None of this makes the fetched text trustworthy. It is untrusted input: the
@@ -36,14 +46,17 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 if TYPE_CHECKING:
     from app.config import Settings
 
-from app.core.sections import BIOMED_PRIORITY, BIOMED_SKIP, trim_by_priority
 from app.sources.base import SourceResult, build_headers
 
 logger = logging.getLogger(__name__)
 
 
 _MAX_FETCHES_PER_RUN = 3       # max URLs the blind pre-pass fetches per run
-_MAX_CONTENT_CHARS = 6000      # max chars extracted per page
+# Flat safety ceiling on extracted text, well above any real page seen so far
+# (a 174-section NICE guideline chapter measured at ~65k chars) - a backstop
+# against a pathological page, not a budget. The budget the model actually
+# reads under is synthesis.py's _MAX_FULL_TEXT_CHARS, applied later.
+_MAX_CONTENT_CHARS = 150_000
 _FETCH_TIMEOUT = 6             # seconds per HTTP request
 _MIN_USEFUL_CONTENT = 150      # skip pages shorter than this
 
@@ -122,7 +135,13 @@ def _restore_heading_markers(text: str) -> str:
 
 
 def _extract_text_from_html(html: str, url: str = "") -> str:
-    """Extract readable text from HTML, preferring BeautifulSoup4."""
+    """Extract readable text from HTML, preferring BeautifulSoup4.
+
+    Returns the real, complete page text (headings marked, only the flat
+    ``_MAX_CONTENT_CHARS`` safety ceiling applied) - no section-priority
+    trimming here. That decision needs to know what the model is looking
+    for, which this module doesn't; see synthesis.py's read_full_text.
+    """
     try:
         from bs4 import BeautifulSoup
         soup = BeautifulSoup(html, "html.parser")
@@ -132,10 +151,7 @@ def _extract_text_from_html(html: str, url: str = "") -> str:
         text = soup.get_text(separator=" ", strip=True)
         text = _restore_heading_markers(re.sub(r"\s+", " ", text)).strip()
         if text and len(text) >= _MIN_USEFUL_CONTENT:
-            return trim_by_priority(
-                text, _MAX_CONTENT_CHARS,
-                priority=BIOMED_PRIORITY, skip=BIOMED_SKIP,
-            )
+            return text[:_MAX_CONTENT_CHARS]
     except ImportError:
         pass
     except Exception as exc:
@@ -155,7 +171,7 @@ def _extract_text_from_html(html: str, url: str = "") -> str:
 
     if len(text) < _MIN_USEFUL_CONTENT:
         return ""
-    return trim_by_priority(text, _MAX_CONTENT_CHARS, priority=BIOMED_PRIORITY, skip=BIOMED_SKIP)
+    return text[:_MAX_CONTENT_CHARS]
 
 
 @retry(wait=wait_exponential(multiplier=1, min=1, max=4), stop=stop_after_attempt(3), reraise=True)

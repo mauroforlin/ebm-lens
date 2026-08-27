@@ -228,8 +228,10 @@ class ToolInvocation:
 # A tool result is context the model pays for on every subsequent round of the
 # loop, so a provider that answers with a hundred records would crowd out the
 # conversation it was meant to inform. Handlers are expected to summarise;
-# this is the backstop.
-_MAX_TOOL_RESULT_CHARS = 6000
+# this is the backstop. Must stay >= synthesis.py's _MAX_FULL_TEXT_CHARS - a
+# lower value here would silently re-truncate that tool's own section-priority
+# fill from the front, undoing the point of trimming by section at all.
+_MAX_TOOL_RESULT_CHARS = 12000
 
 # Tool calls run concurrently within a round. The handlers are HTTP lookups
 # against different services, so a model that asks for three at once should
