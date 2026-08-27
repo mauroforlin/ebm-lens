@@ -1,7 +1,7 @@
 # EBM Lens
 
 [![CI](https://github.com/mauroforlin/ebm-lens/actions/workflows/ci.yml/badge.svg)](https://github.com/mauroforlin/ebm-lens/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Live Demo](https://img.shields.io/badge/demo-Live%20Now-success?logo=github)](https://mauroforlin.github.io/ebm-lens/)
 
 [**Try the read-only demo**](https://mauroforlin.github.io/ebm-lens/): fifteen
@@ -275,3 +275,8 @@ Each script writes a resumable run to `eval/results/` and appends a row to
 against the run before it. See `eval/README.md` for dataset provenance,
 licensing and the caveats specific to each benchmark.
 
+## License
+
+Copyright (C) 2026 Mauro Forlin
+
+This project is licensed under the GNU Affero General Public License v3.0 - see the [LICENSE](LICENSE) file for details.

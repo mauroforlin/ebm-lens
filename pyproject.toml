@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Evidence discovery for medical and clinical topics: searches twelve public biomedical databases, expands through the citation graph, then ranks and synthesises the results."
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "MIT" }
+license = { text = "AGPL-3.0-or-later" }
 dependencies = [
     "fastapi==0.110.2",
     "uvicorn[standard]==0.30.1",
