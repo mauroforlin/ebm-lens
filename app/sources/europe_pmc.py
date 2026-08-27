@@ -327,6 +327,14 @@ class EuropePMCProvider(SourceProvider):
         pub_date = hit.get("firstPublicationDate", "") or ""
         cited_by = hit.get("citedByCount", 0) or 0
         is_oa = hit.get("isOpenAccess", "N") == "Y"
+        # Same field PUB_TYPE:"..." already filters on in query() - reading it
+        # back here gives downstream design detection (evidence_grade.py) and
+        # content extraction (content_extractor.py) the provider's own fact
+        # instead of leaving them to infer the design from the abstract text.
+        pub_types = [
+            t.strip() for t in (hit.get("pubTypeList", {}) or {}).get("pubType", []) or []
+            if isinstance(t, str) and t.strip()
+        ]
 
         snippet_parts: list[str] = []
         if authors:
@@ -356,4 +364,5 @@ class EuropePMCProvider(SourceProvider):
             publication_date=pub_date,
             citation_count=int(cited_by or 0),
             language="en",
+            publication_types=pub_types,
         )
