@@ -250,6 +250,7 @@ frontend/  index.html, app.js, style.css: plain files, no build step
   passes it to an LLM that has tools available. The domain allowlist is the
   only control; nothing sanitises page content. Hardening that path is open
   work.
+- **Limited full-text retrieval.** Being a standalone local tool, it lacks a proper embedding-based chunking pipeline, and full-text retrieval only exists as a lightweight tool the synthesis model can optionally call (working on this as well).
 
 > [!IMPORTANT]
 > **Citation checking stops at existence (working on it)**
