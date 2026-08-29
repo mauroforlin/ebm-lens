@@ -7,21 +7,29 @@ evidence is worse than no summary:
 
 * :func:`summarise_sources` reads each shortlisted source and returns a short
   summary, a relevance score, and an appraisal - what design the study used,
-  who it studied, and the specific finding (if any) that bears on the topic,
-  quoted verbatim as ``evidence_quote``. The relevance score is the
-  pipeline's only judgement made after actually reading the content, and the
-  final ranking leans on it; the design is a reading of the full text, so it
-  overrides the pool-wide heuristic in :mod:`app.pipeline.evidence_grade`.
-* :func:`judge_directions` decides, separately and per source, whether that
+  who it studied, and the distinct findings (if any, up to
+  ``MAX_FINDINGS_PER_SOURCE``) that bear on the topic, each quoted verbatim
+  as its own ``evidence_quote``. Most sources yield one finding; a source
+  reporting more than one result bearing on the topic (an efficacy outcome
+  and a separate safety outcome, say) is not forced to pick just one. The
+  relevance score is the pipeline's only judgement made after actually
+  reading the content, and the final ranking leans on it; the design is a
+  reading of the full text, so it overrides the pool-wide heuristic in
+  :mod:`app.pipeline.evidence_grade`.
+* :func:`judge_directions` decides, separately and per finding, whether that
   finding supports or contradicts the topic's claim - graded
   ``strongly_contradicts`` through ``strongly_supports``, plus ``mixed`` and
-  a deterministic ``no_evidence`` for sources with nothing to judge. Splitting
-  this out of ``summarise_sources`` and grading it on a scale rather than a
-  flat supports/contradicts/neutral label follows paper-qa's ``contracrow``
+  a deterministic ``no_evidence`` for findings with nothing to judge (this
+  includes every finding of a source with nothing worth reporting, since such
+  a source yields no findings at all). Splitting this out of
+  ``summarise_sources`` and grading it on a scale rather than a flat
+  supports/contradicts/neutral label follows paper-qa's ``contracrow``
   setting (github.com/Future-House/paper-qa): evidence-gathering and verdict
   are different tasks, and "the source doesn't address this" deserves its own
   bucket rather than being folded into whichever label a forced choice
-  reaches for.
+  reaches for. Judging per finding rather than per source also means a
+  source with one supporting and one contradicting result doesn't get
+  smoothed into a single, wrong-either-way verdict.
 * :func:`synthesise` writes the overview, using **only** sources that cleared
   the relevance bar. Feeding it everything retrieved would let marginal
   sources contribute claims to a text the user reads as a conclusion.
@@ -82,6 +90,12 @@ logger = logging.getLogger(__name__)
 # actually testing or reporting anything - see relevance_score's rule in
 # _SUMMARISE_SYSTEM for that distinction.
 MIN_SYNTHESIS_RELEVANCE = 0.65
+
+# Distinct findings a single source may contribute. Most sources yield one;
+# this exists for the source that genuinely tests more than one outcome
+# bearing on the topic (efficacy and safety, two subgroups, ...) - not to
+# invite exhaustive extraction of everything a paper reports.
+MAX_FINDINGS_PER_SOURCE = 3
 
 # Chars of each source shown to the summariser up front, before any
 # read_full_text call.
@@ -196,12 +210,12 @@ def _no_direct_evidence_prefix(summary_language: str = "it") -> str:
 _SUMMARISE_SYSTEM = """\
 You are a research assistant appraising source articles for a user \
 investigating a specific medical/clinical topic. For each source you produce \
-a concise summary, a relevance score, and a short critical appraisal, and \
-where the source reports a result bearing on the topic, the exact sentence \
-that reports it. You do NOT decide whether that result supports or \
-contradicts the topic's claim - a separate pass does that from the quote you \
-give it, so your job is to find and quote the evidence precisely, not to \
-render a verdict on it.
+a concise summary, a relevance score, a short critical appraisal, and the \
+distinct findings - up to {max_findings} - that source itself reports bearing \
+on the topic, each with the exact sentence that reports it. You do NOT decide \
+whether a finding supports or contradicts the topic's claim - a separate pass \
+does that from the quote you give it, so your job is to find and quote the \
+evidence precisely, not to render a verdict on it.
 
 Each source starts with an excerpt - an abstract, a label section, a search \
 snippet. That is enough for most sources. When it is not, two tools can read \
@@ -220,7 +234,7 @@ A source INDEXED AS guideline is a special case: its starting excerpt is \
 usually just a scope-and-purpose preamble, not a summary of what it actually \
 recommends - unlike a study abstract, a thin excerpt there does NOT mean the \
 source has nothing to report. Read further before scoring it low or leaving \
-key_finding empty.
+findings empty.
 
 Each item in the appraisals array has:
 {{
@@ -235,13 +249,15 @@ narrative_review, preclinical, drug_label, trial_registry, surveillance, \
 commentary, encyclopedic, unknown>",
   "population": "<who or what was studied, in {language}, a few words; \
 empty string if the source does not say>",
-  "key_finding": "<the ONE claim this source itself reports data or a result \
-for, in {language}, one sentence; empty string if the source reports nothing \
-that bears on the topic - discussing the same drug, disease or general \
-subject is not enough on its own, see rules below>",
-  "evidence_quote": "<the exact sentence(s) from the source's own text that \
-report key_finding, copied VERBATIM - not paraphrased, not translated, not \
-summarised. Empty string whenever key_finding is empty.>",
+  "findings": [
+    {{
+      "text": "<ONE claim this source itself reports data or a result for, \
+in {language}, one sentence>",
+      "evidence_quote": "<the exact sentence(s) from the source's own text \
+that report this finding, copied VERBATIM - not paraphrased, not translated, \
+not summarised>"
+    }}
+  ],
   "directness": "<one of: direct, adjacent, unclear - judged against the \
 PICO given below, when one is given>"
 }}
@@ -264,23 +280,32 @@ and being evidence are different questions; this field grades the second one.
 - study_design: report what the source ACTUALLY IS, not what it discusses. A \
 review of randomised trials is narrative_review or systematic_review, not rct. \
 Use "unknown" when the source does not make its design clear - do not guess.
-- key_finding must be a claim the source itself makes, backed by data or a \
-result it actually reports - not an inference from the source merely \
-discussing the same drug, disease or subject area. When a source is topically \
-on-topic but never tests or reports anything that speaks to the topic, leave \
-BOTH key_finding and evidence_quote EMPTY - do not fill them in just because \
-the source is relevant reading. Only mark key_finding non-empty when you can \
-point evidence_quote at the specific sentence that makes the claim; a \
-key_finding without a matching evidence_quote is treated downstream as if \
-neither had been given, so an approximate quote is worse than an empty one.
+- findings is EMPTY (not an item with empty strings) when the source is \
+topically on-topic but never tests or reports anything that speaks to it - do \
+not add an entry just because the source is relevant reading. Most sources \
+yield exactly ONE finding: add a second or third ONLY when the source reports \
+genuinely distinct results bearing on the topic (e.g. an efficacy outcome AND \
+a separate safety outcome, or results in two different subgroups) - never by \
+splitting one result into several entries, and never to pad the list. Each \
+finding must be backed by data or a result the source actually reports, not \
+an inference from it merely discussing the same drug, disease or subject area.
+- List findings in DESCENDING order of importance to the topic - the result \
+that most directly and decisively bears on the topic's claim goes first. If \
+the source genuinely reports more than {max_findings} distinct results \
+bearing on the topic, keep only the {max_findings} most important and drop \
+the rest - never truncate by whichever order they happened to come to mind; \
+decide importance first, then list only that many.
+- Every finding needs its own evidence_quote pointing at the specific sentence \
+that makes it; a finding without a matching quote is treated downstream as if \
+neither had been given, so an approximate quote is worse than an empty finding.
 - evidence_quote is read by a separate pass with no access to the source \
 itself, only to what you copy here - if you paraphrase, summarise, or \
 translate it instead of quoting exactly, that pass is judging words the \
 source never wrote. When you are unsure whether a sentence counts as \
-"the" result, quote it anyway rather than smoothing it into key_finding's \
-paraphrase; a slightly-too-generous quote costs nothing, a missing one \
-means the source's own result never gets judged at all.
-- directness is about the SAME facts as key_finding, judged more strictly: a \
+"the" result, quote it anyway rather than smoothing it into the finding's \
+paraphrase; a slightly-too-generous quote costs nothing, a missing one means \
+the source's own result never gets judged at all.
+- directness is about the SAME facts as the findings, judged more strictly: a \
 source that treats a different population, a different disease mechanism, or \
 a different formulation than the one asked about is "adjacent" even when it \
 shares a drug, organ or keyword with the topic - do not mark a source \
@@ -424,8 +449,18 @@ _SUBMIT_APPRAISALS_TOOL = {
                             "relevance_score": {"type": "number"},
                             "study_design": {"type": "string"},
                             "population": {"type": "string"},
-                            "key_finding": {"type": "string"},
-                            "evidence_quote": {"type": "string"},
+                            "findings": {
+                                "type": "array",
+                                "maxItems": MAX_FINDINGS_PER_SOURCE,
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "text": {"type": "string"},
+                                        "evidence_quote": {"type": "string"},
+                                    },
+                                    "required": ["text", "evidence_quote"],
+                                },
+                            },
                             "directness": {"type": "string"},
                         },
                         "required": ["index", "summary", "relevance_score"],
@@ -631,6 +666,7 @@ def _summarise_batch(
             prompt=prompt,
             system_instruction=_SUMMARISE_SYSTEM.format(
                 language=_language_instruction(summary_language),
+                max_findings=MAX_FINDINGS_PER_SOURCE,
             ),
             tools=[_READ_FULL_TEXT_TOOL, _READ_SECTION_TOOL, _SUBMIT_APPRAISALS_TOOL],
             tool_handlers=handlers,
@@ -661,6 +697,16 @@ def _summarise_batch(
             continue
         index = item.get("index")
         if isinstance(index, int) and index in allowed:
+            # Enforced here, not just on read in the orchestrator: judge_directions
+            # runs one stance call per finding on whatever this dict holds, so a
+            # model that ignores the "up to MAX_FINDINGS_PER_SOURCE" instruction
+            # would otherwise burn calls on findings no caller ever keeps. Keeps
+            # the prefix, not a random subset, because _SUMMARISE_SYSTEM asks for
+            # findings in descending importance order - truncating the tail is
+            # meant to drop the least important ones, not an arbitrary slice.
+            findings = item.get("findings")
+            if isinstance(findings, list) and len(findings) > MAX_FINDINGS_PER_SOURCE:
+                item["findings"] = findings[:MAX_FINDINGS_PER_SOURCE]
             summaries[index] = item
     return summaries
 
@@ -698,6 +744,20 @@ def collapse_direction(direction: str) -> str:
 def read_directness(value: object) -> str:
     candidate = value.strip().lower() if isinstance(value, str) else ""
     return candidate if candidate in _DIRECTNESS else "unclear"
+
+
+def is_quote_grounded(quote: str, content: str) -> bool:
+    """Whether *quote* appears verbatim (whitespace/case folded) in *content*.
+
+    The one mechanical check standing between an ``evidence_quote`` the model
+    claims to have copied and one it actually did - anything downstream that
+    treats a quote as trustworthy (stance judgment, and the synthesis prompt
+    via :func:`_source_lines`) must pass through this first.
+    """
+    if not quote or not content:
+        return False
+    norm = lambda s: " ".join(s.lower().split())  # noqa: E731
+    return norm(quote) in norm(content)
 
 
 def appraise_design(
@@ -766,8 +826,8 @@ def judge_directions(
     appraisals: dict[int, dict],
     settings: Settings,
     job_stats: JobStats | None = None,
-) -> dict[int, str]:
-    """Judge each appraised source's finding_direction, one call per source.
+) -> dict[int, list[str]]:
+    """Judge each appraised finding's direction, one call per finding.
 
     Split out of :func:`summarise_sources` and graded on the scale
     :data:`_STANCE_LABELS` rather than a flat supports/contradicts/neutral
@@ -777,54 +837,63 @@ def judge_directions(
     nothing" its own place on the scale instead of forcing it into whichever
     of three labels a forced choice reaches for.
 
-    Two gates skip the LLM call entirely and assign ``"no_evidence"``
+    A source can report more than one finding (see ``MAX_FINDINGS_PER_SOURCE``),
+    so this judges each finding on its own - a source with an efficacy result
+    and a safety result can have one supporting and one contradicting, and
+    collapsing that into a single source-level verdict would lose exactly the
+    distinction the multi-finding schema exists to keep.
+
+    Two gates skip the LLM call entirely and assign a finding ``"no_evidence"``
     directly, judge-free:
 
-    - An empty ``key_finding`` - ``_SUMMARISE_SYSTEM`` already declines to
-      fill one in when the source doesn't test the topic's claim, so there is
-      nothing here to judge a direction on.
+    - An empty ``text`` - ``_SUMMARISE_SYSTEM`` already declines to fill one
+      in when the source doesn't test the topic's claim, so there is nothing
+      here to judge a direction on.
     - A quote that doesn't check out: ``evidence_quote`` not appearing
       (loosely - whitespace/case folded) in the source's own fetched content,
       or missing outright. ``_SUMMARISE_SYSTEM`` asks for it verbatim so it
       can be verified; a quote that fails that check might as well not have
       been given, since trusting it would mean judging words the source may
       never have written.
-    - A ``relevance_score`` at or below ``MIN_SYNTHESIS_RELEVANCE`` - such a
-      source never reaches :func:`synthesise` anyway.
 
-    Every source that clears both gates gets its own call, run in parallel.
+    A third gate applies at the source level - a ``relevance_score`` at or
+    below ``MIN_SYNTHESIS_RELEVANCE`` marks every one of that source's
+    findings ``"no_evidence"``, since such a source never reaches
+    :func:`synthesise` anyway.
+
+    Every finding that clears all gates gets its own call, run in parallel.
+    Returns ``{source_index: [direction, ...]}``, one entry per finding in
+    that source's ``findings`` list, same order.
     """
     content_by_index = {index: result.content or "" for index, result in enumerate(results)}
 
-    def _is_grounded(quote: str, content: str) -> bool:
-        if not quote or not content:
-            return False
-        norm = lambda s: " ".join(s.lower().split())  # noqa: E731
-        return norm(quote) in norm(content)
-
-    to_judge: dict[int, dict] = {}
-    directions: dict[int, str] = {}
+    to_judge: dict[tuple[int, int], dict] = {}
+    directions: dict[int, list[str]] = {}
     for index, appraisal in appraisals.items():
-        quote = appraisal.get("evidence_quote")
-        quote = quote.strip() if isinstance(quote, str) else ""
-        if (
-            appraisal.get("key_finding")
-            and clamp_relevance(appraisal.get("relevance_score")) > MIN_SYNTHESIS_RELEVANCE
-            and _is_grounded(quote, content_by_index.get(index, ""))
-        ):
-            to_judge[index] = appraisal
-        else:
-            directions[index] = "no_evidence"
+        findings = appraisal.get("findings")
+        findings = findings if isinstance(findings, list) else []
+        relevant_enough = clamp_relevance(appraisal.get("relevance_score")) > MIN_SYNTHESIS_RELEVANCE
+        content = content_by_index.get(index, "")
+
+        slots: list[str] = ["no_evidence"] * len(findings)
+        for f_index, finding in enumerate(findings):
+            if not isinstance(finding, dict):
+                continue
+            quote = finding.get("evidence_quote")
+            quote = quote.strip() if isinstance(quote, str) else ""
+            if finding.get("text") and relevant_enough and is_quote_grounded(quote, content):
+                to_judge[(index, f_index)] = finding
+        directions[index] = slots
 
     if not to_judge:
         return directions
 
-    def _judge_one(index: int) -> tuple[int, str]:
-        appraisal = to_judge[index]
+    def _judge_one(key: tuple[int, int]) -> tuple[tuple[int, int], str]:
+        finding = to_judge[key]
         prompt = (
             f"TOPIC: {topic}\n\n"
-            f"SOURCE'S KEY FINDING: {appraisal.get('key_finding', '')}\n"
-            f"EVIDENCE QUOTE: {appraisal.get('evidence_quote', '')}\n"
+            f"SOURCE'S FINDING: {finding.get('text', '')}\n"
+            f"EVIDENCE QUOTE: {finding.get('evidence_quote', '')}\n"
         )
         try:
             raw = generate_json(
@@ -832,19 +901,31 @@ def judge_directions(
                 temperature=0.1, purpose="related_articles_stance", job_stats=job_stats,
             )
         except Exception as exc:
-            logger.warning("Stance judgment failed for source %d: %s", index, exc)
-            return index, "no_evidence"
+            logger.warning("Stance judgment failed for source %d finding %d: %s", key[0], key[1], exc)
+            return key, "no_evidence"
         direction = raw.get("direction") if isinstance(raw, dict) else None
-        return index, direction if direction in _STANCE_LABELS else "no_evidence"
+        return key, direction if direction in _STANCE_LABELS else "no_evidence"
 
-    for index, direction in run_parallel(_judge_one, list(to_judge), _STANCE_MAX_WORKERS):
-        directions[index] = direction
+    for (index, f_index), direction in run_parallel(_judge_one, list(to_judge), _STANCE_MAX_WORKERS):
+        directions[index][f_index] = direction
     return directions
 
 
 _SYNTHESIS_SYSTEM = """\
 You are an evidence synthesis writer working from a set of numbered,
 titled sources. Every statement you make must be traceable to them.
+
+A source may list more than one "finding:" line - genuinely distinct results
+it reports (e.g. an efficacy finding and a separate safety finding), each
+possibly pointing the same or a different direction. Treat them as separate
+facts about that source, not as one blurred claim. Each finding may carry its
+own "quote:" line beneath it - the source's own sentence(s), copied verbatim,
+verified to actually appear in that source's text. Where present, it is
+ground truth for what that specific finding says, tighter than the finding's
+own paraphrase. When you write a claim citing a source for one of its
+findings, what you write must be something that finding's quote itself
+supports - do not go beyond what the quote states, and if the finding text
+and its quote seem to say different things, trust the quote.
 
 Given a topic and the appraised sources, produce ONE thorough, well-organized
 overview plus the claims and conflicts behind it.
@@ -975,17 +1056,31 @@ def _source_lines(
             attributes.append(article.study_design)
         if article.publication_date:
             attributes.append(article.publication_date[:7])
-        if article.finding_direction and article.finding_direction != "no_evidence":
-            attributes.append(f"direction: {article.finding_direction}")
         if article.directness in ("direct", "adjacent"):
             attributes.append(article.directness)
 
-        body = article.key_finding or article.full_summary
         title = article.title.strip() if article.title else ""
         title_part = f' "{title}"' if title else ""
-        lines.append(f"[{index}]{title_part} ({', '.join(attributes)}) {body}")
+        header = f"[{index}]{title_part} ({', '.join(attributes)})"
+
+        if not article.findings:
+            # No finding cleared the bar for this source - fall back to the
+            # scan summary so the source is still readable, unattributable to
+            # any specific claim.
+            lines.append(f"{header} {article.full_summary}")
+            if article.population:
+                lines.append(f"      population: {article.population}")
+            continue
+
+        lines.append(header)
         if article.population:
             lines.append(f"      population: {article.population}")
+        for finding in article.findings:
+            direction = finding.finding_direction
+            direction_part = f" (direction: {direction})" if direction and direction != "no_evidence" else ""
+            lines.append(f"      finding: {finding.text}{direction_part}")
+            if finding.evidence_quote:
+                lines.append(f'      quote: "{finding.evidence_quote}"')
     return "\n".join(lines)
 
 

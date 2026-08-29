@@ -48,8 +48,10 @@ from app.pipeline.relevance import (
 )
 from app.pipeline.selection import SignalMaps
 from app.pipeline.synthesis import (
+    MAX_FINDINGS_PER_SOURCE,
     appraise_design,
     clamp_relevance,
+    is_quote_grounded,
     judge_directions,
     read_direction,
     read_directness,
@@ -60,6 +62,7 @@ from app.schemas import (
     PICO,
     ArticleSummary,
     DomainContext,
+    Finding,
     RelatedArticlesResponse,
     TopicSpec,
 )
@@ -282,8 +285,7 @@ def _summarise_shortlist(
             domain=domain,
             study_design=design,
             evidence_level=level,
-            key_finding=_text_field(summary, "key_finding"),
-            finding_direction=read_direction(directions.get(index)),
+            findings=_build_findings(summary, result.content or "", directions.get(index) or []),
             population=_text_field(summary, "population"),
             directness=read_directness(summary.get("directness")),
         ))
@@ -293,6 +295,48 @@ def _summarise_shortlist(
 def _text_field(summary: dict, key: str, limit: int = 400) -> str:
     value = summary.get(key)
     return value.strip()[:limit] if isinstance(value, str) else ""
+
+
+def _build_findings(summary: dict, content: str, directions: list[str]) -> list[Finding]:
+    """Turn one source's raw appraisal findings into verified `Finding`s.
+
+    *directions* is judge_directions' per-finding output for this source,
+    aligned by position with `summary["findings"]` since both are read from
+    the same appraisal dict - capping the findings list here only ever
+    truncates the tail, so the pairing by index stays valid. The real cap
+    already happened in `_summarise_batch` (before judge_directions even
+    runs, so it never pays for findings past the limit); this slice is a
+    harmless backstop, not the primary enforcement.
+    """
+    raw = summary.get("findings")
+    raw = raw if isinstance(raw, list) else []
+
+    findings: list[Finding] = []
+    for f_index, item in enumerate(raw[:MAX_FINDINGS_PER_SOURCE]):
+        if not isinstance(item, dict):
+            continue
+        text = item.get("text")
+        text = text.strip()[:400] if isinstance(text, str) else ""
+        if not text:
+            continue
+
+        # Same gate judge_directions applies before trusting a quote for its
+        # own stance call: keep it only when it actually appears, verbatim,
+        # in this source's own fetched content. An ungrounded quote is worse
+        # than no quote, since downstream (_source_lines) treats it as
+        # ground truth over the finding's own paraphrase.
+        quote = item.get("evidence_quote")
+        quote = quote.strip()[:500] if isinstance(quote, str) else ""
+        if not is_quote_grounded(quote, content):
+            quote = ""
+
+        direction = directions[f_index] if f_index < len(directions) else "no_evidence"
+        findings.append(Finding(
+            text=text,
+            evidence_quote=quote,
+            finding_direction=read_direction(direction),
+        ))
+    return findings
 
 
 def _as_results(articles: list[ArticleSummary]) -> list[SourceResult]:

@@ -121,6 +121,31 @@ class RelatedArticlesRequest(BaseModel):
     summary_language: str = Field("it", description="Language for the generated summaries: 'it' or 'en'. Search is always conducted in English.")
 
 
+class Finding(BaseModel):
+    """One distinct result a source itself reports that bears on the topic.
+
+    Most sources yield exactly one; a source testing more than one outcome
+    relevant to the topic (e.g. an efficacy result and a safety result) can
+    yield up to a few, rather than forcing the appraiser to keep only its
+    single best pick and silently drop the rest.
+    """
+
+    text: str = Field(..., description="The finding, in the requested summary language")
+    evidence_quote: str = Field(
+        "",
+        description="Verbatim sentence(s) backing text, in the source's own "
+                    "original language and wording. Empty when the quote could "
+                    "not be verified against the source's own fetched content.",
+    )
+    finding_direction: str = Field(
+        "",
+        description="Graded direction of THIS finding against the topic's claim: "
+                    "strongly_contradicts, contradicts, weakly_contradicts, "
+                    "no_evidence, weakly_supports, supports, strongly_supports, "
+                    "or mixed",
+    )
+
+
 class ArticleSummary(BaseModel):
     """A single related article with LLM-generated summary."""
 
@@ -143,16 +168,11 @@ class ArticleSummary(BaseModel):
         0.0, ge=0.0, le=1.0,
         description="Position of the study design on the evidence hierarchy (0-1)",
     )
-    key_finding: str = Field(
-        "",
-        description="The single claim this source supports, as the summariser read it",
-    )
-    finding_direction: str = Field(
-        "",
-        description="Graded direction of the finding against the topic's claim: "
-                    "strongly_contradicts, contradicts, weakly_contradicts, "
-                    "no_evidence, weakly_supports, supports, strongly_supports, "
-                    "or mixed",
+    findings: list[Finding] = Field(
+        default_factory=list,
+        description="Distinct results this source reports bearing on the topic, "
+                    "each with its own verbatim quote and stance. Empty when the "
+                    "source reports nothing that bears on the topic.",
     )
     population: str = Field("", description="Who the source studied, if stated")
     directness: str = Field(

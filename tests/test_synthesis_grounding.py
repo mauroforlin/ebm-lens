@@ -21,13 +21,13 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from app.pipeline import synthesis
-from app.schemas import ArticleSummary
+from app.schemas import ArticleSummary, Finding
 
 
 def _article(relevance_score: float, directness: str = "unclear", key_finding: str = "finding") -> ArticleSummary:
     return ArticleSummary(
         url="https://example.invalid/doc", title="t", relevance_score=relevance_score,
-        directness=directness, key_finding=key_finding,
+        directness=directness, findings=[Finding(text=key_finding)] if key_finding else [],
     )
 
 

@@ -251,6 +251,16 @@ frontend/  index.html, app.js, style.css: plain files, no build step
   only control; nothing sanitises page content. Hardening that path is open
   work.
 - **Limited full-text retrieval.** Being a standalone local tool, it lacks a proper embedding-based chunking pipeline, and full-text retrieval only exists as a lightweight tool the synthesis model can optionally call (working on this as well).
+- **Per-source findings are capped at `MAX_FINDINGS_PER_SOURCE` (3).** A
+  source can report more than one distinct result bearing on the topic
+  instead of being forced to keep just one, but not an unbounded number. The
+  model is asked to list them in descending importance and, past the cap, to
+  keep only the most important ones - so a source with more to say than the
+  cap allows loses its least important result, not a random one - but that
+  ordering is a prompt instruction, not something checked in code; nothing
+  here verifies the model actually ranked them correctly. The cap itself is
+  also a guess, not calibrated against data; `eval/stance_eval.py` records
+  `n_findings` per document so it can be checked.
 
 > [!IMPORTANT]
 > **Citation checking stops at existence (working on it)**

@@ -63,20 +63,34 @@ def test_collapse_direction_maps_unknown_to_noinfo():
 
 
 # ── judge_directions ──────────────────────────────────────────
+#
+# appraisals[i]["findings"] is a list - most tests here use a single-item
+# list, since judge_directions grades one finding at a time and the
+# single-vs-multi-finding distinction is exercised separately below.
 
 
 def _source(content: str = "") -> SourceResult:
     return SourceResult(title="t", url="https://example.invalid/doc", snippet="", content=content)
 
 
-def test_judge_directions_empty_key_finding_skips_the_call_entirely(monkeypatch):
+def test_judge_directions_no_findings_skips_the_call_entirely(monkeypatch):
     def boom(**_kwargs):
         raise AssertionError("generate_json should not be called")
     monkeypatch.setattr(synthesis, "generate_json", boom)
 
-    appraisals = {0: {"key_finding": "", "evidence_quote": "", "relevance_score": 0.9}}
+    appraisals = {0: {"findings": [], "relevance_score": 0.9}}
     out = judge_directions("topic", [_source()], appraisals, settings=None)
-    assert out == {0: "no_evidence"}
+    assert out == {0: []}
+
+
+def test_judge_directions_empty_finding_text_skips_the_call(monkeypatch):
+    def boom(**_kwargs):
+        raise AssertionError("generate_json should not be called")
+    monkeypatch.setattr(synthesis, "generate_json", boom)
+
+    appraisals = {0: {"findings": [{"text": "", "evidence_quote": ""}], "relevance_score": 0.9}}
+    out = judge_directions("topic", [_source()], appraisals, settings=None)
+    assert out == {0: ["no_evidence"]}
 
 
 def test_judge_directions_low_relevance_skips_the_call(monkeypatch):
@@ -85,13 +99,13 @@ def test_judge_directions_low_relevance_skips_the_call(monkeypatch):
     monkeypatch.setattr(synthesis, "generate_json", boom)
 
     appraisals = {0: {
-        "key_finding": "drug reduces risk", "evidence_quote": "risk was reduced",
+        "findings": [{"text": "drug reduces risk", "evidence_quote": "risk was reduced"}],
         "relevance_score": 0.5,  # at/below MIN_SYNTHESIS_RELEVANCE
     }}
     out = judge_directions(
         "topic", [_source(content="risk was reduced")], appraisals, settings=None,
     )
-    assert out == {0: "no_evidence"}
+    assert out == {0: ["no_evidence"]}
 
 
 def test_judge_directions_ungrounded_quote_skips_the_call(monkeypatch):
@@ -100,14 +114,16 @@ def test_judge_directions_ungrounded_quote_skips_the_call(monkeypatch):
     monkeypatch.setattr(synthesis, "generate_json", boom)
 
     appraisals = {0: {
-        "key_finding": "drug reduces risk",
-        "evidence_quote": "a sentence never actually in the source",
+        "findings": [{
+            "text": "drug reduces risk",
+            "evidence_quote": "a sentence never actually in the source",
+        }],
         "relevance_score": 0.9,
     }}
     out = judge_directions(
         "topic", [_source(content="totally unrelated source text")], appraisals, settings=None,
     )
-    assert out == {0: "no_evidence"}
+    assert out == {0: ["no_evidence"]}
 
 
 def test_judge_directions_grounded_quote_reaches_the_llm_and_returns_its_direction(monkeypatch):
@@ -119,14 +135,14 @@ def test_judge_directions_grounded_quote_reaches_the_llm_and_returns_its_directi
     monkeypatch.setattr(synthesis, "generate_json", fake_generate_json)
 
     appraisals = {0: {
-        "key_finding": "drug reduces risk", "evidence_quote": "risk was reduced by 40%",
+        "findings": [{"text": "drug reduces risk", "evidence_quote": "risk was reduced by 40%"}],
         "relevance_score": 0.9,
     }}
     out = judge_directions(
         "topic", [_source(content="Methods... risk was reduced by 40% in the trial.")],
         appraisals, settings=None,
     )
-    assert out == {0: "strongly_supports"}
+    assert out == {0: ["strongly_supports"]}
     assert "risk was reduced by 40%" in captured["prompt"]
 
 
@@ -136,13 +152,14 @@ def test_judge_directions_grounding_check_is_whitespace_and_case_insensitive(mon
         lambda **_kwargs: {"reasoning": "ok", "direction": "supports"},
     )
     appraisals = {0: {
-        "key_finding": "x", "evidence_quote": "Risk   Was\nReduced", "relevance_score": 0.9,
+        "findings": [{"text": "x", "evidence_quote": "Risk   Was\nReduced"}],
+        "relevance_score": 0.9,
     }}
     out = judge_directions(
         "topic", [_source(content="...risk was reduced significantly...")],
         appraisals, settings=None,
     )
-    assert out == {0: "supports"}
+    assert out == {0: ["supports"]}
 
 
 def test_judge_directions_rejects_a_label_outside_the_stance_vocabulary(monkeypatch):
@@ -150,11 +167,9 @@ def test_judge_directions_rejects_a_label_outside_the_stance_vocabulary(monkeypa
         synthesis, "generate_json",
         lambda **_kwargs: {"reasoning": "ok", "direction": "neutral"},  # the old 4-way label
     )
-    appraisals = {0: {
-        "key_finding": "x", "evidence_quote": "y", "relevance_score": 0.9,
-    }}
+    appraisals = {0: {"findings": [{"text": "x", "evidence_quote": "y"}], "relevance_score": 0.9}}
     out = judge_directions("topic", [_source(content="y")], appraisals, settings=None)
-    assert out == {0: "no_evidence"}
+    assert out == {0: ["no_evidence"]}
 
 
 def test_judge_directions_llm_failure_falls_back_to_no_evidence(monkeypatch):
@@ -162,11 +177,9 @@ def test_judge_directions_llm_failure_falls_back_to_no_evidence(monkeypatch):
         raise RuntimeError("upstream is down")
     monkeypatch.setattr(synthesis, "generate_json", boom)
 
-    appraisals = {0: {
-        "key_finding": "x", "evidence_quote": "y", "relevance_score": 0.9,
-    }}
+    appraisals = {0: {"findings": [{"text": "x", "evidence_quote": "y"}], "relevance_score": 0.9}}
     out = judge_directions("topic", [_source(content="y")], appraisals, settings=None)
-    assert out == {0: "no_evidence"}
+    assert out == {0: ["no_evidence"]}
 
 
 def test_judge_directions_handles_a_mix_of_gated_and_judged_sources(monkeypatch):
@@ -175,12 +188,37 @@ def test_judge_directions_handles_a_mix_of_gated_and_judged_sources(monkeypatch)
         lambda **_kwargs: {"reasoning": "ok", "direction": "contradicts"},
     )
     appraisals = {
-        0: {"key_finding": "", "evidence_quote": "", "relevance_score": 0.9},  # gated
-        1: {"key_finding": "x", "evidence_quote": "the result", "relevance_score": 0.9},  # judged
+        0: {"findings": [], "relevance_score": 0.9},  # gated: no findings at all
+        1: {"findings": [{"text": "x", "evidence_quote": "the result"}], "relevance_score": 0.9},
     }
     results = [_source(), _source(content="the result was negative")]
     out = judge_directions("topic", results, appraisals, settings=None)
-    assert out == {0: "no_evidence", 1: "contradicts"}
+    assert out == {0: [], 1: ["contradicts"]}
+
+
+def test_judge_directions_judges_each_finding_of_a_source_independently(monkeypatch):
+    # A source reporting two distinct results (efficacy, safety) must get two
+    # independent verdicts, not one blurred together - this is the entire
+    # point of findings being a list rather than a single key_finding.
+    def fake_generate_json(*, prompt, **_kwargs):
+        if "efficacy" in prompt:
+            return {"reasoning": "ok", "direction": "supports"}
+        return {"reasoning": "ok", "direction": "contradicts"}
+    monkeypatch.setattr(synthesis, "generate_json", fake_generate_json)
+
+    appraisals = {0: {
+        "findings": [
+            {"text": "efficacy improved", "evidence_quote": "efficacy improved by 30%"},
+            {"text": "safety worsened", "evidence_quote": "safety worsened in the treatment arm"},
+        ],
+        "relevance_score": 0.9,
+    }}
+    out = judge_directions(
+        "topic",
+        [_source(content="efficacy improved by 30%. safety worsened in the treatment arm.")],
+        appraisals, settings=None,
+    )
+    assert out == {0: ["supports", "contradicts"]}
 
 
 def test_judge_directions_empty_appraisals_returns_empty():
