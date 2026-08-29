@@ -132,11 +132,11 @@ the full reasoning.
 Grounding is measured one stage upstream instead, where it's judge-free:
 `hallucinated_finding_rate` is the share of NOINFO pairs - a document the
 claim's own authors cited, that SciFact's annotators found no evidence for -
-where `summarise_sources` nonetheless returns a non-empty `key_finding` and a
+where `summarise_sources` nonetheless returns at least one finding and a
 `relevance_score` above the synthesis gate, *and* the separate
 `judge_directions` call - graded `strongly_contradicts` through
 `strongly_supports`, plus `mixed` and a deterministic `no_evidence` - returns
-anything other than `no_evidence`. `strong_hallucination_rate` narrows that to
+anything other than `no_evidence` for that finding. `strong_hallucination_rate` narrows that to
 non-`weakly_*` assertions, isolating the cases the graded scale can't excuse
 as "a real but small effect". What *is* directly verifiable about
 `synthesise` (bounds-checked citations, the strength clamp, the low-evidence

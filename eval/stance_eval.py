@@ -25,18 +25,29 @@ substitute either: no SciFact claim has both SUPPORT and CONTRADICT evidence
 docs, so the corpus has no within-claim disagreement case to test against.)
 
 Grounding is measured one stage upstream instead, where it's judge-free and
-sound: `_source_lines` renders `key_finding or full_summary` as the entire
-evidentiary substrate every downstream claim is built from, so if
-`judge_directions` attributes a supporting/contradicting finding to a NOINFO
-document - one the claim's own authors cited but that SciFact's annotators
-found no evidence in - every claim built on it downstream would be
-ungrounded. That's `hallucinated_finding_rate`, this eval's headline number:
-judge-free, and it uses SciFact's NOINFO pairs as the hard negatives their
-designers intended. `judge_directions` also carries its own judge-free
-grounding gate (an `evidence_quote` that doesn't verify against the source's
-own content is treated as no evidence, never reaching the stance call at
-all) - this eval exercises that gate exactly as production does, since it
-calls the real function rather than reimplementing its logic.
+sound: `_source_lines` renders each source's `findings` (or `full_summary`
+when it has none) as the entire evidentiary substrate every downstream claim
+is built from, so if `judge_directions` attributes a supporting/contradicting
+finding to a NOINFO document - one the claim's own authors cited but that
+SciFact's annotators found no evidence in - every claim built on it
+downstream would be ungrounded. That's `hallucinated_finding_rate`, this
+eval's headline number: judge-free, and it uses SciFact's NOINFO pairs as the
+hard negatives their designers intended. `judge_directions` also carries its
+own judge-free grounding gate (an `evidence_quote` that doesn't verify
+against the source's own content is treated as no evidence, never reaching
+the stance call at all) - this eval exercises that gate exactly as production
+does, since it calls the real function rather than reimplementing its logic.
+
+`summarise_sources` can return more than one finding per document (see
+`synthesis.MAX_FINDINGS_PER_SOURCE`); `judge_directions` grades each one
+independently, but SciFact's gold label is per document, not per finding. A
+multi-finding document is collapsed to a single prediction by
+`_aggregate_direction`: the first finding whose direction isn't `no_evidence`
+wins, since a document that supports OR contradicts the claim anywhere in it
+is not a NOINFO document. This almost never actually triggers here - each
+row scopes the claim tightly enough that a document yields 0 or 1 relevant
+findings in practice - but the policy is applied uniformly rather than
+assumed away.
 
 What's actually verifiable about `synthesise` itself (bounds-checking on
 cited indices, the strength clamp, the low-evidence fallback) is covered in
@@ -72,7 +83,6 @@ from app.pipeline.synthesis import (
     clamp_relevance,
     collapse_direction,
     judge_directions,
-    read_direction,
     summarise_sources,
 )
 from app.sources.base import SourceResult
@@ -98,6 +108,20 @@ def _build_source(doc: dict) -> SourceResult:
     )
 
 
+def _aggregate_direction(directions: list[str]) -> str:
+    """Collapse one document's per-finding directions to a single prediction.
+
+    SciFact grades a document as a whole against one claim; where a document
+    yielded more than one finding, the first decisive one (not
+    `no_evidence`) wins - a document that supports or contradicts the claim
+    anywhere in it is not a NOINFO document. Ties keep extraction order.
+    """
+    for direction in directions:
+        if direction != "no_evidence":
+            return direction
+    return "no_evidence"
+
+
 def _evaluate(row: dict) -> dict:
     settings = get_settings()
     stats = JobStats()
@@ -110,14 +134,20 @@ def _evaluate(row: dict) -> dict:
     for i, doc in enumerate(row["docs"]):
         appraisal = raw.get(i, {})
         relevance = clamp_relevance(appraisal.get("relevance_score"))
-        predicted = read_direction(directions.get(i))
+        predicted = _aggregate_direction(directions.get(i, []))
+        findings = appraisal.get("findings")
+        findings = findings if isinstance(findings, list) else []
+        key_finding = "; ".join(
+            f["text"] for f in findings if isinstance(f, dict) and f.get("text")
+        )
         pairs.append({
             "doc_id": doc["doc_id"],
             "gold": doc["label"],
             "predicted": predicted,                             # graded scale, for distribution
             "predicted_collapsed": collapse_direction(predicted),  # SciFact's 3-way, for grading
             "relevance_score": relevance,
-            "key_finding": appraisal.get("key_finding", ""),
+            "key_finding": key_finding,                         # joined, for debugging only
+            "n_findings": len(findings),
             "directness": appraisal.get("directness", ""),
         })
 
