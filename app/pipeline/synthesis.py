@@ -123,16 +123,27 @@ _MAX_FULL_TEXT_CHARS = 12000
 # as the real ceiling should that constant grow.
 _MAX_FULL_TEXT_READS = 12
 
-_MAX_APPRAISAL_TOOL_ROUNDS = 6
+# Per single-source call (batch=1, see _SUMMARISE_BATCH_SIZE below), not
+# shared across the shortlist. The typical case is 2-3 rounds - excerpt
+# insufficient, one or two targeted read_section/read_full_text calls, then
+# submit - so this covers a source needing a correction (e.g. a first
+# read_section guess that misses) with room to spare, without letting one
+# unusually stubborn source chain through many round trips before
+# generate_with_tools' final-round force_submit kicks in.
+_MAX_APPRAISAL_TOOL_ROUNDS = 5
 
 # Sources appraised per summarise_sources call, and how many such calls run
-# at once. Smaller batches mean each evidence_quote/directness judgment - see
-# _SUMMARISE_SYSTEM's rules on both - competes with fewer other sources'
-# content for the model's attention than one call covering the whole
-# shortlist would; running batches concurrently keeps wall-clock latency
-# close to the single-call version despite the extra round trips.
-_SUMMARISE_BATCH_SIZE = 5
-_SUMMARISE_MAX_WORKERS = 6
+# at once. One source per call: no other source's content competes for the
+# model's attention on a given evidence_quote/directness judgment, and - since
+# results[index].content enters the tool loop as untrusted fetched web text
+# (see content_extractor.py) - a source carrying a prompt-injection attempt
+# can no longer taint a neighbour's appraisal by sharing its context and its
+# one submit_appraisals call. Parallelism absorbs the extra round trips this
+# costs versus batching; it is bounded by the shared OpenRouter rate limiter
+# (reserve_tokens in ratelimiter.py), not by anything here, so raising it
+# only shifts where calls queue rather than risking going over the real limit.
+_SUMMARISE_BATCH_SIZE = 1
+_SUMMARISE_MAX_WORKERS = 20
 
 _TIER_LABELS = {1: "institutional", 2: "curated", 3: "general"}
 
@@ -481,21 +492,22 @@ def summarise_sources(
     job_stats: JobStats | None = None,
     pico: PICO | None = None,
 ) -> dict[int, dict]:
-    """Summarise and appraise every shortlisted source, in parallel batches.
+    """Summarise and appraise every shortlisted source, in parallel calls.
 
     Returns ``{source_index: {...}}``. A source missing from the result
-    simply gets no summary - the same is true of every source in a batch
-    whose call failed outright, since one batch's failure must not cost the
-    others theirs.
+    simply gets no summary - the same is true of a source whose call failed
+    outright, since one source's failure must not cost the others theirs.
 
-    Batching keeps each judgment's context narrow: with
-    ``_SUMMARISE_BATCH_SIZE`` sources per call rather than the whole
-    shortlist, reading source 12 doesn't compete against nineteen others'
-    content for the model's attention. Running batches concurrently keeps
-    wall-clock latency close to a single call covering the whole shortlist
-    despite the extra round trips. See :func:`_summarise_batch` for the
-    per-batch mechanics - excerpt-first reading, the bounded
-    ``read_full_text``/``read_section`` tools.
+    ``_SUMMARISE_BATCH_SIZE`` sources go into each call (one, by default):
+    reading source 12 doesn't compete against nineteen others' content for
+    the model's attention, and an untrusted source (see content_extractor.py)
+    cannot taint a neighbour's appraisal through shared context. Running
+    calls concurrently up to ``_SUMMARISE_MAX_WORKERS`` keeps wall-clock
+    latency close to a single call covering the whole shortlist despite the
+    extra round trips - bounded by the shared rate limiter, not by anything
+    here. See :func:`_summarise_batch` for the per-call mechanics -
+    excerpt-first reading, the bounded ``read_full_text``/``read_section``
+    tools.
 
     This appraises each source's own evidence but does not judge whether it
     supports or contradicts the topic - see :func:`judge_directions` for
