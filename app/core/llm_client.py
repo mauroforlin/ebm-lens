@@ -58,6 +58,44 @@ def get_openrouter_client(settings: Settings):
     return _client
 
 
+def _cached_system_message(text: str) -> dict:
+    """System message with an explicit prompt-caching breakpoint.
+
+    Every system_instruction in this pipeline (see synthesis.py's
+    _SUMMARISE_SYSTEM, _STANCE_SYSTEM, _SYNTHESIS_SYSTEM and friends
+    elsewhere) is a large, byte-identical string reused across every call of
+    a given purpose - across the concurrent workers fanned out within one
+    job, and across every job that follows. Anthropic and Gemini both need
+    this cache_control block to opt in (OpenAI/DeepSeek/Grok/etc cache
+    automatically and just ignore the extra field per OpenRouter's prompt-
+    caching docs); the "1h" TTL trades a higher cache-write cost for a hit
+    rate that survives well past a single run, which is the point since nothing
+    here is priced for.
+    """
+    return {
+        "role": "system",
+        "content": [
+            {"type": "text", "text": text, "cache_control": {"type": "ephemeral", "ttl": "1h"}},
+        ],
+    }
+
+
+def _content_len(content: Any) -> int:
+    """Char length of a message's content, whichever shape it's in.
+
+    Most messages carry a plain string; a cached system message (see
+    _cached_system_message) carries a list of text blocks instead - both
+    need to feed the same token estimate below.
+    """
+    if isinstance(content, str):
+        return len(content)
+    if isinstance(content, list):
+        return sum(
+            len(block.get("text", "")) for block in content if isinstance(block, dict)
+        )
+    return 0
+
+
 def extract_cost(usage: Any) -> float:
     """OpenRouter returns usage.cost; the SDK may not surface it as an
     attribute, so fall back to model_extra."""
@@ -144,7 +182,7 @@ def _chat_completion(
     JSON object (the plain structured-output path).
     """
     client = get_openrouter_client(settings)
-    est = sum(max(1, len(m.get("content") or "") // 4) for m in messages)
+    est = sum(max(1, _content_len(m.get("content")) // 4) for m in messages)
 
     kwargs: dict[str, Any] = {
         "model": model, "messages": messages, "temperature": temperature,
@@ -199,7 +237,7 @@ def generate_json(
     model = resolve_model(settings, purpose, model_override)
     messages: list[dict] = []
     if system_instruction:
-        messages.append({"role": "system", "content": system_instruction})
+        messages.append(_cached_system_message(system_instruction))
     messages.append({"role": "user", "content": prompt})
 
     t0 = time.monotonic()
@@ -342,7 +380,7 @@ def generate_with_tools(
     model = resolve_model(settings, purpose, model_override)
     messages: list[dict] = []
     if system_instruction:
-        messages.append({"role": "system", "content": system_instruction})
+        messages.append(_cached_system_message(system_instruction))
     messages.append({"role": "user", "content": prompt})
 
     invocations: list[ToolInvocation] = []
