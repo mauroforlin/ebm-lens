@@ -300,6 +300,19 @@ a separate safety outcome, or results in two different subgroups) - never by \
 splitting one result into several entries, and never to pad the list. Each \
 finding must be backed by data or a result the source actually reports, not \
 an inference from it merely discussing the same drug, disease or subject area.
+- A finding must bear on the topic's OWN question, not merely live in a source \
+that also happens to report it. A source can state a real, data-backed result \
+about a related-but-different question (a different outcome than the one \
+asked about, a subgroup or timepoint the topic doesn't ask about, a \
+methodological caveat, background the paper cites without testing it itself) \
+- that result is true and quotable, but it is not a finding for THIS topic \
+unless it actually moves the topic's own claim one way or the other. Ask: if \
+this result is true, does it support, weaken or test the SPECIFIC thing the \
+topic asks - or does it just sit in the same paper, same drug, same disease? \
+Only the former counts; the latter is the same case as "topically relevant \
+but reports nothing that speaks to it" above, and belongs in a low \
+relevance_score with empty findings, not a finding that happens to be \
+verifiable.
 - List findings in DESCENDING order of importance to the topic - the result \
 that most directly and decisively bears on the topic's claim goes first. If \
 the source genuinely reports more than {max_findings} distinct results \
