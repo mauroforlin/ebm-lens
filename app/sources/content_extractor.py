@@ -160,7 +160,7 @@ def _extract_text_from_html(html: str, url: str = "") -> str:
     # Fallback: basic HTML tag stripping, headings marked before the generic
     # strip removes the tags that would otherwise identify them.
     text = re.sub(r"<script[^>]*>.*?</script>", " ", html, flags=re.DOTALL | re.IGNORECASE)
-    text = re.sub(r"<style[^>]*>.*?</style>", " ", html, flags=re.DOTALL | re.IGNORECASE)
+    text = re.sub(r"<style[^>]*>.*?</style>", " ", text, flags=re.DOTALL | re.IGNORECASE)
     text = re.sub(
         r"<(h[1-6])[^>]*>(.*?)</\1>",
         lambda m: f"{_HEADING_SENTINEL}{re.sub(r'<[^>]+>', '', m.group(2))}{_HEADING_SENTINEL}",
