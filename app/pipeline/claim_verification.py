@@ -33,12 +33,16 @@ verdict for the claim as a whole: a claim can rest on one source that
 supports it and another that says nothing, and collapsing that before it is
 even inspected would hide exactly the case this module exists to catch.
 
+`app/pipeline/orchestrator.py` runs `verify_claims` right after `synthesise`
+returns, then folds the verdicts back into `key_findings` with
+`apply_verdicts` before the response is built - gated on `settings.
+typesafe_key` being set, since this stays optional (see typesafe_client.py).
+
 Usage (run directly, e.g. against synthesise's own output):
 
-    from app.pipeline.claim_verification import verify_claims
+    from app.pipeline.claim_verification import apply_verdicts, verify_claims
     verdicts = verify_claims(claims, articles, settings)
-    for v in verdicts:
-        print(claims[v.claim_index].text, "<-", v.source_index, v.relation, v.confidence)
+    claims = apply_verdicts(claims, verdicts)
 """
 from __future__ import annotations
 
@@ -153,3 +157,87 @@ def verify_claims(
         return ClaimVerdict(c_index, s_index, answer.choice, answer.confidence, answer.probabilities)
 
     return run_parallel(_check, pairs, _VERIFY_MAX_WORKERS)
+
+
+# Confidence a verdict needs before it acts on its own, rather than just
+# nudging strength - mirrors TypeSafe's own citation_check cookbook
+# (AUTO_ACCEPT = 0.8), set a little higher because the action here is
+# dropping a claim outright rather than flagging it for review. A verdict
+# below this (the compound-claim case this was tuned against returned 0.46)
+# is exactly the kind of genuinely ambiguous case apply_verdicts is meant to
+# demote, not act on as if it were a clean answer.
+REJECT_CONFIDENCE = 0.85
+
+
+def apply_verdicts(claims: list[Claim], verdicts: list[ClaimVerdict]) -> list[Claim]:
+    """Fold verify_claims' verdicts back into *claims*.
+
+    A claim a cited source actively contradicts, confidently, is dropped -
+    worse to show than one with no citation at all. A claim none of whose
+    cited sources actually address (again, confidently) is dropped the same
+    way _valid_indices already drops a claim citing nothing real, just
+    caught one level deeper. A claim citing several sources where only some
+    verify as "supports" keeps only those - the same claim, minus the
+    citation that didn't hold up. Anything left over (an ambiguous verdict
+    below REJECT_CONFIDENCE, or nothing verified as an outright "supports")
+    is kept but not trusted at face value: its stated strength is clamped to
+    "weak", the same mechanism _read_claims already applies for a claim
+    resting only on non-direct sources.
+
+    `relation == "error"` - the TypeSafe call itself failed - counts as
+    neither a support nor a rejection anywhere in this function, so a
+    TypeSafe outage degrades verification (nothing gets clamped or dropped
+    on its account) rather than deleting otherwise-good claims.
+    """
+    by_claim: dict[int, list[ClaimVerdict]] = {}
+    for verdict in verdicts:
+        by_claim.setdefault(verdict.claim_index, []).append(verdict)
+
+    kept: list[Claim] = []
+    for c_index, claim in enumerate(claims):
+        claim_verdicts = by_claim.get(c_index)
+        if not claim_verdicts:
+            kept.append(claim)
+            continue
+
+        # Verdicts TypeSafe actually returned, as opposed to a failed call -
+        # every decision below reads only this list, so a claim whose sources
+        # all errored falls through untouched rather than being clamped on
+        # the strength of zero real information.
+        real = [v for v in claim_verdicts if v.relation != "error"]
+        if not real:
+            kept.append(claim)
+            continue
+
+        if any(
+            v.relation == "contradicts" and (v.confidence or 0.0) >= REJECT_CONFIDENCE
+            for v in real
+        ):
+            logger.info("Dropping claim contradicted by its own cited source: %s", claim.text[:80])
+            continue
+
+        if all(
+            v.relation == "says_nothing" and (v.confidence or 0.0) >= REJECT_CONFIDENCE
+            for v in real
+        ):
+            logger.info("Dropping claim none of its cited sources actually address: %s", claim.text[:80])
+            continue
+
+        # A source with no real verdict (its call errored) is kept rather
+        # than dropped from the citation list - unverified is not the same
+        # as refuted, and an infra failure should not cost a claim a
+        # citation that may well be good.
+        supporting = {v.source_index for v in real if v.relation == "supports"}
+        unverified = {v.source_index for v in claim_verdicts if v.relation == "error"}
+        keep_indices = supporting | unverified
+        if supporting and keep_indices != set(claim.source_indices):
+            claim = Claim(
+                text=claim.text,
+                source_indices=[i for i in claim.source_indices if i in keep_indices],
+                strength=claim.strength,
+            )
+        elif not supporting and claim.strength != "weak":
+            claim = Claim(text=claim.text, source_indices=claim.source_indices, strength="weak")
+
+        kept.append(claim)
+    return kept

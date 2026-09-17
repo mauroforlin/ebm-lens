@@ -20,6 +20,8 @@ The shape of the run:
 5. **Select** the final set under the ranking policy.
 6. **Synthesise** an overview from the sources that cleared the relevance bar,
    as claims that each cite the articles they rest on.
+7. **Verify** each claim against its own cited sources, when TypeSafe is
+   configured (optional) - see app/pipeline/claim_verification.py.
 
 Every stage records its own timing and cost in :class:`JobStats`, returned to
 the caller as ``job_stats``, and reports its progress through an optional
@@ -38,7 +40,7 @@ from dataclasses import dataclass, field
 from app.config import Settings, get_settings
 from app.core.events import NULL_EMITTER, Emitter
 from app.core.job_stats import JobStats
-from app.pipeline import evidence_grade, lexical, ranking, selection, topic_analysis
+from app.pipeline import claim_verification, evidence_grade, lexical, ranking, selection, topic_analysis
 from app.pipeline.dedup import dedup_key, deduplicate
 from app.pipeline.ranking import citation_score, tier_score
 from app.pipeline.relevance import (
@@ -460,6 +462,21 @@ def run_related_articles(
             "synthesis",
             f"Synthesis complete: {len(key_findings)} findings, {len(disagreements)} conflicts",
         )
+
+        # 7. Verify each claim against its own cited sources, when TypeSafe is
+        # configured - optional, see app/core/typesafe_client.py. Checks what
+        # _valid_indices (synthesis.py) does not: not just that a cited index
+        # exists, but that the source it points to actually backs the claim.
+        if settings.typesafe_key:
+            emitter.emit("verification", "Verifying claims against their cited sources…")
+            with _stage(stats, "claim_verification"):
+                verdicts = claim_verification.verify_claims(
+                    key_findings, articles, settings, job_stats=stats,
+                )
+                key_findings = claim_verification.apply_verdicts(key_findings, verdicts)
+            emitter.emit(
+                "verification", f"Verification complete: {len(key_findings)} findings retained",
+            )
 
         logger.info(
             "done: %d articles in %.1fs (domain=%s, %d claims, %d conflicts)",

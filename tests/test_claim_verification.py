@@ -10,7 +10,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from app.core.typesafe_client import ChoiceAnswer
 from app.pipeline import claim_verification
-from app.pipeline.claim_verification import ClaimVerdict, _evidence_block, verify_claims
+from app.pipeline.claim_verification import (
+    ClaimVerdict,
+    _evidence_block,
+    apply_verdicts,
+    verify_claims,
+)
 from app.schemas import ArticleSummary, Claim, Finding
 
 
@@ -125,3 +130,81 @@ def test_verify_claims_one_verdict_per_cited_source_not_per_claim(monkeypatch):
         ClaimVerdict(0, 0, "supports", 0.9, {}),
         ClaimVerdict(0, 1, "says_nothing", 0.8, {}),
     ]
+
+
+# ── apply_verdicts ──────────────────────────────────────────────
+
+
+def test_apply_verdicts_claim_with_no_verdicts_is_kept_unchanged():
+    claim = Claim(text="x", source_indices=[0], strength="strong")
+    assert apply_verdicts([claim], []) == [claim]
+
+
+def test_apply_verdicts_drops_claim_confidently_contradicted():
+    claim = Claim(text="x", source_indices=[0], strength="strong")
+    verdicts = [ClaimVerdict(0, 0, "contradicts", 0.95, {})]
+    assert apply_verdicts([claim], verdicts) == []
+
+
+def test_apply_verdicts_keeps_claim_weakly_contradicted_but_downgrades_strength():
+    claim = Claim(text="x", source_indices=[0], strength="strong")
+    verdicts = [ClaimVerdict(0, 0, "contradicts", 0.46, {})]
+    out = apply_verdicts([claim], verdicts)
+    assert out == [Claim(text="x", source_indices=[0], strength="weak")]
+
+
+def test_apply_verdicts_drops_claim_all_sources_say_nothing_confidently():
+    claim = Claim(text="x", source_indices=[0, 1], strength="moderate")
+    verdicts = [
+        ClaimVerdict(0, 0, "says_nothing", 0.99, {}),
+        ClaimVerdict(0, 1, "says_nothing", 0.9, {}),
+    ]
+    assert apply_verdicts([claim], verdicts) == []
+
+
+def test_apply_verdicts_narrows_to_the_source_that_actually_supports():
+    claim = Claim(text="x", source_indices=[0, 1], strength="strong")
+    verdicts = [
+        ClaimVerdict(0, 0, "supports", 0.95, {}),
+        ClaimVerdict(0, 1, "says_nothing", 0.6, {}),
+    ]
+    out = apply_verdicts([claim], verdicts)
+    assert out == [Claim(text="x", source_indices=[0], strength="strong")]
+
+
+def test_apply_verdicts_fully_supported_claim_is_untouched():
+    claim = Claim(text="x", source_indices=[0, 1], strength="strong")
+    verdicts = [
+        ClaimVerdict(0, 0, "supports", 0.95, {}),
+        ClaimVerdict(0, 1, "supports", 0.99, {}),
+    ]
+    assert apply_verdicts([claim], verdicts) == [claim]
+
+
+def test_apply_verdicts_error_only_claim_is_kept_untouched():
+    claim = Claim(text="x", source_indices=[0], strength="strong")
+    verdicts = [ClaimVerdict(0, 0, "error", None, {})]
+    assert apply_verdicts([claim], verdicts) == [claim]
+
+
+def test_apply_verdicts_keeps_unverified_source_alongside_a_supported_one():
+    # source 1's TypeSafe call failed (error) - unverified, not refuted, so
+    # it should survive the narrowing that drops a confirmed non-support.
+    claim = Claim(text="x", source_indices=[0, 1], strength="strong")
+    verdicts = [
+        ClaimVerdict(0, 0, "supports", 0.95, {}),
+        ClaimVerdict(0, 1, "error", None, {}),
+    ]
+    assert apply_verdicts([claim], verdicts) == [claim]
+
+
+def test_apply_verdicts_operates_per_claim_independently():
+    claims = [
+        Claim(text="good", source_indices=[0], strength="strong"),
+        Claim(text="bad", source_indices=[1], strength="strong"),
+    ]
+    verdicts = [
+        ClaimVerdict(0, 0, "supports", 0.95, {}),
+        ClaimVerdict(1, 1, "contradicts", 0.95, {}),
+    ]
+    assert apply_verdicts(claims, verdicts) == [claims[0]]

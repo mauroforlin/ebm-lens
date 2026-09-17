@@ -9,16 +9,16 @@ probability distribution over the given criteria, not self-reported by the
 model in the same completion the way `judge_directions`' `_STANCE_SYSTEM`
 prompt currently asks for a "reasoning" field - see docs.typesafe.ai/confidence.
 
-No pipeline stage calls this - app/pipeline/claim_verification.py is the one
-caller, itself a standalone building block with no caller of its own.
-`typesafe_key` is optional in Settings for exactly that reason: nothing here
-is required to run the tool (see app/config.py).
+app/pipeline/claim_verification.py is the one caller, itself called from
+app/pipeline/orchestrator.py's stage 7 only when `settings.typesafe_key` is
+set - `typesafe_key` is optional in Settings for exactly that reason: nothing
+here is required to run the tool (see app/config.py).
 
 No rate limiter, unlike llm_client.py's OpenRouter calls (see reserve_tokens
-in ratelimiter.py) - TypeSafe's own published limits aren't known, and the
-one caller today runs a handful of calls by hand, not a production fan-out.
-Add one here, sized to TypeSafe's real limits, before any pipeline stage
-that runs unattended starts calling this.
+in ratelimiter.py) - TypeSafe's own published limits aren't known. The
+pipeline caller now runs unattended, bounded only by claim_verification.py's
+own `_VERIFY_MAX_WORKERS`; add a real limiter here, sized to TypeSafe's
+actual limits, if that concurrency ever needs to grow.
 """
 from __future__ import annotations
 
