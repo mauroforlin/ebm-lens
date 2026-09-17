@@ -40,7 +40,15 @@ from dataclasses import dataclass, field
 from app.config import Settings, get_settings
 from app.core.events import NULL_EMITTER, Emitter
 from app.core.job_stats import JobStats
-from app.pipeline import claim_verification, evidence_grade, lexical, ranking, selection, topic_analysis
+from app.pipeline import (
+    claim_verification,
+    evidence_grade,
+    lexical,
+    ranking,
+    selection,
+    summary_verification,
+    topic_analysis,
+)
 from app.pipeline.dedup import dedup_key, deduplicate
 from app.pipeline.ranking import citation_score, tier_score
 from app.pipeline.relevance import (
@@ -467,6 +475,12 @@ def run_related_articles(
         # configured - optional, see app/core/typesafe_client.py. Checks what
         # _valid_indices (synthesis.py) does not: not just that a cited index
         # exists, but that the source it points to actually backs the claim.
+        # 8. Same idea, one level up: global_summary and key_findings are
+        # sibling outputs of the same synthesise call, not parent and child,
+        # so verifying key_findings says nothing about whether the prose
+        # overview itself stays within what its own citations back - see
+        # app/pipeline/summary_verification.py.
+        summary_flags: list[str] = []
         if settings.typesafe_key:
             emitter.emit("verification", "Verifying claims against their cited sources…")
             with _stage(stats, "claim_verification"):
@@ -474,8 +488,15 @@ def run_related_articles(
                     key_findings, articles, settings, job_stats=stats,
                 )
                 key_findings = claim_verification.apply_verdicts(key_findings, verdicts)
+            with _stage(stats, "summary_verification"):
+                summary_flags = summary_verification.verify_summary(
+                    global_summary, articles, settings,
+                    summary_language=summary_language, job_stats=stats,
+                )
             emitter.emit(
-                "verification", f"Verification complete: {len(key_findings)} findings retained",
+                "verification",
+                f"Verification complete: {len(key_findings)} findings retained, "
+                f"{len(summary_flags)} passages flagged",
             )
 
         logger.info(
@@ -496,6 +517,7 @@ def run_related_articles(
             key_findings=key_findings,
             disagreements=disagreements,
             evidence_gaps=evidence_gaps,
+            summary_flags=summary_flags,
             evidence_profile=evidence_grade.evidence_profile(
                 _as_results(articles),
             ),

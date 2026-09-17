@@ -254,3 +254,9 @@ class RelatedArticlesResponse(BaseModel):
         default_factory=list,
         description="What the retrieved evidence does not cover, stated plainly",
     )
+    summary_flags: list[str] = Field(
+        default_factory=list,
+        description="Passages in global_summary that carry no source citation, or whose "
+                    "citation does not hold up under verification. Empty when TypeSafe is "
+                    "not configured, not just when nothing was flagged.",
+    )
