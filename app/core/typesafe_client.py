@@ -33,9 +33,10 @@ if TYPE_CHECKING:
     from app.core.job_stats import JobStats
 
 # jev-latest always resolves to TypeSafe's current flagship model - fine for
-# an experimental single-caller integration; pin an explicit version (as the
-# citation_check cookbook does with jev-1.12) once this is trusted enough to
-# want stable, reproducible verdicts across a TypeSafe-side model upgrade.
+# a single-caller integration where nothing depends on reproducing an exact
+# verdict across a TypeSafe-side model upgrade; a caller that does needs that
+# stability should pin an explicit version instead, as the citation_check
+# cookbook does with jev-1.12.
 DEFAULT_MODEL = "jev-latest"
 
 _client = None
@@ -86,11 +87,10 @@ def ask_choice(
 
     One question per call, unlike TypeSafe's own "ask several questions
     together" guidance (see docs.typesafe.ai/primitives#ask-multiple-
-    questions-together) - the one caller today (claim_verification.py) has
-    exactly one judgment per (claim, source) pair, so there is nothing else
-    to batch into the same request yet. A second question type used the same
-    way would belong here as its own ask_noul/ask_score, not folded into this
-    one function's signature.
+    questions-together) - claim_verification.py's judgment is exactly one
+    Choice per (claim, source) pair, with nothing else to batch into the same
+    request. A second question type used the same way belongs here as its
+    own ask_noul/ask_score, not folded into this one function's signature.
     """
     from typesafe_sdk import Choice
 

@@ -33,7 +33,7 @@ verdict for the claim as a whole: a claim can rest on one source that
 supports it and another that says nothing, and collapsing that before it is
 even inspected would hide exactly the case this module exists to catch.
 
-Usage (manual, ahead of any pipeline wiring):
+Usage (run directly, e.g. against synthesise's own output):
 
     from app.pipeline.claim_verification import verify_claims
     verdicts = verify_claims(claims, articles, settings)

@@ -64,7 +64,7 @@ class Settings(BaseSettings):
     # IP; with a free key (https://open.fda.gov/apis/authentication/) it's 120,000/day.
     openfda_api_key: str | None = Field(None, alias="OPENFDA_API_KEY")
 
-    # ── TypeSafe (experimental) ──
+    # ── TypeSafe ──
     # Optional, and not required to run the tool. Powers
     # app/core/typesafe_client.py's Choice-based claim verification
     # (app/pipeline/claim_verification.py) - a typed judgment, not another
