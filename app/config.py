@@ -64,6 +64,15 @@ class Settings(BaseSettings):
     # IP; with a free key (https://open.fda.gov/apis/authentication/) it's 120,000/day.
     openfda_api_key: str | None = Field(None, alias="OPENFDA_API_KEY")
 
+    # ── TypeSafe (experimental) ──
+    # Optional, and not required to run the tool. Powers
+    # app/core/typesafe_client.py's Choice-based claim verification
+    # (app/pipeline/claim_verification.py) - a typed judgment, not another
+    # text-generation call, so it is a separate vendor from openrouter_api_key
+    # above rather than another OPENROUTER_* model. Get a key at
+    # https://console.typesafe.ai/.
+    typesafe_key: str | None = Field(None, alias="TYPESAFE_KEY")
+
     # ── Search engine tunables ──
     search_timeout_seconds: int = Field(45, alias="SEARCH_TIMEOUT_SECONDS")
 
