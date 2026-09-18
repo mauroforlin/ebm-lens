@@ -122,3 +122,113 @@ def ask_choice(
         confidence=answer.confidence,
         probabilities=dict(answer.probabilities),
     )
+
+
+@dataclass
+class ScoreAnswer:
+    """One Score question's answer.
+
+    `score` is the probability-weighted mean over the *criteria* list's
+    indices (0-based) - e.g. a 5-point legend answered mostly at index 0 with
+    a little mass on index 1 comes back as ~0.2, not a bucketed integer. Same
+    computed (not self-reported) confidence as Choice - see ChoiceAnswer.
+    """
+
+    score: float
+    legend: dict[int, str]
+    confidence: float
+    probabilities: dict[int, float] = field(default_factory=dict)
+
+
+def ask_score(
+    *,
+    settings: Settings,
+    state: Any,
+    instructions: str,
+    criteria: list[str],
+    purpose: str = "",
+    job_stats: JobStats | None = None,
+    model: str = DEFAULT_MODEL,
+) -> ScoreAnswer:
+    """Ask one Score question against *state* - an ordinal judgment (*criteria*
+    given low-to-high) rather than Choice's unordered categories.
+    """
+    from typesafe_sdk import Score
+
+    client = get_typesafe_client(settings)
+    t0 = time.monotonic()
+    response = client.system_one(
+        state=state,
+        questions={"answer": Score(instructions=instructions, criteria=criteria)},
+        model=model,
+    )
+    if job_stats:
+        usage = getattr(response, "usage", None)
+        job_stats.record_llm_call(
+            purpose or "typesafe_score",
+            input_tokens=getattr(usage, "input_tokens", 0) or 0,
+            output_tokens=getattr(usage, "output_tokens", 0) or 0,
+            model=f"typesafe/{model}",
+            cost_usd=0.0,
+            latency_ms=(time.monotonic() - t0) * 1000,
+        )
+
+    answer = response.answers["answer"]
+    return ScoreAnswer(
+        score=answer.score,
+        legend=dict(answer.legend),
+        confidence=answer.confidence,
+        probabilities=dict(answer.probabilities),
+    )
+
+
+@dataclass
+class NoulAnswer:
+    """One Noul question's answer - a bare 0-1 truth value, nothing else.
+
+    Unlike Choice/Score, the SDK's own `NoulAnswer` has no `confidence` field
+    at all (verified directly against the installed SDK's response types,
+    not just its docs) - there is no separate calibrated-confidence number to
+    read here the way there is for the other two primitives.
+    """
+
+    noul: float
+
+
+def ask_noul(
+    *,
+    settings: Settings,
+    state: Any,
+    instructions: str,
+    criteria: dict[str, str | None] | None = None,
+    purpose: str = "",
+    job_stats: JobStats | None = None,
+    model: str = DEFAULT_MODEL,
+) -> NoulAnswer:
+    """Ask one Noul question against *state* - a single yes/no proposition,
+    answered as a truth value rather than picked from criteria. *criteria*
+    optionally describes the true/false outcomes (`{"true": ..., "false":
+    ...}`); pass None to leave them undescribed.
+    """
+    from typesafe_sdk import Noul
+
+    client = get_typesafe_client(settings)
+    t0 = time.monotonic()
+    response = client.system_one(
+        state=state,
+        questions={"answer": Noul(instructions=instructions, criteria=criteria)},
+        model=model,
+    )
+    if job_stats:
+        usage = getattr(response, "usage", None)
+        job_stats.record_llm_call(
+            purpose or "typesafe_noul",
+            input_tokens=getattr(usage, "input_tokens", 0) or 0,
+            output_tokens=getattr(usage, "output_tokens", 0) or 0,
+            model=f"typesafe/{model}",
+            cost_usd=0.0,
+            latency_ms=(time.monotonic() - t0) * 1000,
+        )
+
+    answer = response.answers["answer"]
+    return NoulAnswer(noul=answer.noul)
