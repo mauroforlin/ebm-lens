@@ -65,12 +65,14 @@ class Settings(BaseSettings):
     openfda_api_key: str | None = Field(None, alias="OPENFDA_API_KEY")
 
     # ── TypeSafe ──
-    # Optional, and not required to run the tool. Powers
-    # app/core/typesafe_client.py's Choice-based claim verification
-    # (app/pipeline/claim_verification.py) - a typed judgment, not another
-    # text-generation call, so it is a separate vendor from openrouter_api_key
-    # above rather than another OPENROUTER_* model. Get a key at
-    # https://console.typesafe.ai/.
+    # Optional, and not required to run the tool - claim verification
+    # (app/pipeline/claim_verification.py) runs either way, and this only
+    # selects which judge answers it (see select_backend there). Set: the
+    # Choice primitive in app/core/typesafe_client.py, a typed judgment
+    # rather than another text-generation call, which is why it is a separate
+    # vendor from openrouter_api_key above rather than another OPENROUTER_*
+    # model. Unset: the same question through that OpenRouter model, on its
+    # own thresholds. Get a key at https://console.typesafe.ai/.
     typesafe_key: str | None = Field(None, alias="TYPESAFE_KEY")
 
     # ── Search engine tunables ──

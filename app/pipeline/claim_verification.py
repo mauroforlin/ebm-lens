@@ -51,6 +51,7 @@ from dataclasses import dataclass
 
 from app.config import Settings
 from app.core.job_stats import JobStats
+from app.core.llm_client import generate_json
 from app.core.parallel import run_parallel
 from app.core.typesafe_client import ask_choice
 from app.schemas import ArticleSummary, Claim
@@ -75,13 +76,23 @@ _INSTRUCTIONS = "How does the source's evidence relate to the claim?"
 _VERIFY_MAX_WORKERS = 5
 
 
+TYPESAFE_BACKEND = "typesafe"
+LLM_BACKEND = "llm"
+
+
 @dataclass
 class ClaimVerdict:
     """One (claim, cited source) pair's verification result.
 
-    *relation* is "error" when the TypeSafe call itself failed (network,
+    *relation* is "error" when the judging call itself failed (network,
     auth, ...) - distinct from "says_nothing", which is a real answer the
     model gave, not a failure to get one.
+
+    *backend* names which judge produced this, and is not decoration: the
+    thresholds every rule in apply_verdicts compares against are per-backend
+    (see _THRESHOLDS), and carrying the origin on the verdict is what makes
+    it impossible to grade one backend's answers against the other's bars.
+    Defaulted so verdicts built by hand still read as TypeSafe's.
     """
 
     claim_index: int
@@ -89,6 +100,7 @@ class ClaimVerdict:
     relation: str
     confidence: float | None
     probabilities: dict[str, float]
+    backend: str = TYPESAFE_BACKEND
 
 
 def _evidence_block(article: ArticleSummary) -> str:
@@ -106,6 +118,74 @@ def _evidence_block(article: ArticleSummary) -> str:
         if finding.evidence_quote:
             lines.append(f'quote: "{finding.evidence_quote}"')
     return "\n".join(lines)
+
+
+_LLM_SYSTEM = (
+    "You judge how a piece of scientific evidence relates to a claim. "
+    'Answer with only a JSON object: {"relation": "supports" | "contradicts" '
+    '| "says_nothing", "confidence": <float 0 to 1>}. "supports" means the '
+    'evidence states the claim or directly implies it is true. "contradicts" '
+    "means the evidence states the opposite of the claim or implies it is "
+    'false. "says_nothing" means the evidence does not address the claim '
+    "either way. confidence is your own honest estimate that your relation "
+    "judgment is correct."
+)
+
+
+def _judge_typesafe(
+    claim_text: str, evidence: str, settings: Settings, job_stats: JobStats | None,
+) -> tuple[str, float, dict[str, float]]:
+    answer = ask_choice(
+        settings=settings,
+        state={"claim": claim_text, "source_evidence": evidence},
+        instructions=_INSTRUCTIONS,
+        criteria=_RELATION_CRITERIA,
+        purpose="claim_verification",
+        job_stats=job_stats,
+    )
+    return answer.choice, answer.confidence, dict(answer.probabilities)
+
+
+def _judge_llm(
+    claim_text: str, evidence: str, settings: Settings, job_stats: JobStats | None,
+) -> tuple[str, float, dict[str, float]]:
+    """Ask the same question through the model the pipeline already uses.
+
+    Word for word the prompt `eval/openrouter_stance_eval.py` graded, because
+    _LLM_THRESHOLDS' numbers were measured through it - reworded prompt,
+    invalidated thresholds.
+
+    Returns no distribution: a prompted model reports one confidence and
+    nothing about where the rest of its belief sits. `_mass` falls back to
+    reading that scalar, which is exactly the shape this returns.
+    """
+    result = generate_json(
+        settings=settings,
+        prompt=f"Claim: {claim_text}\n\nEvidence: {evidence}",
+        system_instruction=_LLM_SYSTEM,
+        purpose="claim_verification_llm",
+        job_stats=job_stats,
+    )
+    relation = str(result.get("relation", "")).strip().lower()
+    if relation not in _RELATION_CRITERIA:
+        raise ValueError(f"unexpected relation from the judge: {relation!r}")
+    return relation, float(result.get("confidence", 0.0)), {}
+
+
+def select_backend(settings: Settings) -> str:
+    """Which judge this instance verifies with.
+
+    TypeSafe when a key is configured, otherwise the OpenRouter model the
+    pipeline already requires. Verification is therefore no longer optional:
+    before this, an instance without a TypeSafe key ran no check at all and
+    the two stages were dead code for anyone who cloned the repo. The two
+    backends are not interchangeable at equal settings, which is why the
+    thresholds travel with the verdict - see _THRESHOLDS.
+    """
+    return TYPESAFE_BACKEND if settings.typesafe_key else LLM_BACKEND
+
+
+_JUDGES = {TYPESAFE_BACKEND: _judge_typesafe, LLM_BACKEND: _judge_llm}
 
 
 def verify_claims(
@@ -130,6 +210,9 @@ def verify_claims(
     if not pairs:
         return []
 
+    backend = select_backend(settings)
+    judge = _JUDGES[backend]
+
     def _check(pair: tuple[int, int]) -> ClaimVerdict:
         c_index, s_index = pair
         claim = claims[c_index]
@@ -138,23 +221,18 @@ def verify_claims(
             # Nothing was ever shown to the synthesiser for this source - no
             # call needed, and no basis for a "supports" or "contradicts"
             # verdict either.
-            return ClaimVerdict(c_index, s_index, "says_nothing", None, {})
+            return ClaimVerdict(c_index, s_index, "says_nothing", None, {}, backend)
         try:
-            answer = ask_choice(
-                settings=settings,
-                state={"claim": claim.text, "source_evidence": evidence},
-                instructions=_INSTRUCTIONS,
-                criteria=_RELATION_CRITERIA,
-                purpose="claim_verification",
-                job_stats=job_stats,
+            relation, confidence, probabilities = judge(
+                claim.text, evidence, settings, job_stats,
             )
         except Exception as exc:
             logger.warning(
-                "Claim verification failed for claim %d / source %d: %s",
-                c_index, s_index, exc,
+                "Claim verification failed for claim %d / source %d (%s): %s",
+                c_index, s_index, backend, exc,
             )
-            return ClaimVerdict(c_index, s_index, "error", None, {})
-        return ClaimVerdict(c_index, s_index, answer.choice, answer.confidence, answer.probabilities)
+            return ClaimVerdict(c_index, s_index, "error", None, {}, backend)
+        return ClaimVerdict(c_index, s_index, relation, confidence, probabilities, backend)
 
     return run_parallel(_check, pairs, _VERIFY_MAX_WORKERS)
 
@@ -225,6 +303,86 @@ SUPPORT_KEEP_PROBABILITY = 0.50
 # not measured - this buys specificity for a still-irreversible action, it
 # does not certify it.
 UNSUPPORTED_REJECT_PROBABILITY = 0.95
+
+
+@dataclass(frozen=True)
+class Thresholds:
+    """One backend's bars. Every rule reads these through _over, never a bare
+    module constant, because the two backends are not comparable at equal
+    numbers - see _LLM_THRESHOLDS.
+    """
+
+    contradict_flag: float
+    unsupported_reject: float
+    support_keep: float
+    summary_flag: float
+
+
+_TYPESAFE_THRESHOLDS = Thresholds(
+    contradict_flag=CONTRADICT_FLAG_PROBABILITY,
+    unsupported_reject=UNSUPPORTED_REJECT_PROBABILITY,
+    support_keep=SUPPORT_KEEP_PROBABILITY,
+    summary_flag=0.6,
+)
+
+# Measured on the same 1,259 SciFact pairs, through the exact prompt in
+# _judge_llm against the heavy model - not transplanted from TypeSafe's bars,
+# which would have been the easy mistake and a bad one.
+#
+# The reason the numbers differ so much is not that a prompted model is worse
+# at judging. It is that its self-reported confidence has three settings: it
+# answers 0.8 on 6.6% of pairs, 0.9 on 74.4%, and 1.0 on 16.6%. A bar at 0.85
+# therefore admits three quarters of everything and filters almost nothing,
+# which is why at *equal numbers* this backend looks badly calibrated
+# (contradicts 75.2% against TypeSafe's 84.3%). Move the bar to where its
+# distribution actually separates and it is the more precise of the two:
+#
+#   contradicts   @0.95: 92.8% precision, 29.1% recall  (TypeSafe 85.8/77.7)
+#   says_nothing  @0.95: 100%   precision, 18.1% recall  (TypeSafe 94.4/41.6)
+#   supports      @0.90: 95.4% precision, 77.8% recall  (TypeSafe 93.9/70.3)
+#
+# So this backend is not a degraded fallback on precision; it is a quieter
+# one. It catches roughly a third as many contradictions, and cries wolf less
+# when it does. That is the right trade for the instance that has no TypeSafe
+# key: fewer findings questioned, and the ones that are, worth reading.
+#
+# The two contradiction bars are deliberately not the same number, and the
+# asymmetry is the whole design principle here: unsupported_reject deletes a
+# claim, contradict_flag only annotates one. A deletion buys its 0.95 with
+# recall it cannot afford to spend. A flag should be generous, the same
+# reasoning that puts summary_flag below both.
+#
+# contradict_flag is 0.90, not 0.95, because at 0.95 this backend misses
+# almost everything: 92.8% precision but 29.1% recall, against 75.2%/87.2% at
+# 0.90. Roughly four times the flags to catch three times the real
+# contradictions - worth it for a reversible annotation in a tool whose
+# entire purpose is catching claims their sources do not support. A missed
+# contradiction is the failure this feature exists to prevent; a false one
+# costs a reader a second look. 0.90 is also the only bar below 0.95 this
+# backend can express at all.
+_LLM_THRESHOLDS = Thresholds(
+    contradict_flag=0.90,
+    unsupported_reject=0.95,
+    support_keep=0.90,
+    summary_flag=0.90,
+)
+
+_THRESHOLDS = {
+    TYPESAFE_BACKEND: _TYPESAFE_THRESHOLDS,
+    LLM_BACKEND: _LLM_THRESHOLDS,
+}
+
+
+def thresholds_for(backend: str) -> Thresholds:
+    return _THRESHOLDS.get(backend, _TYPESAFE_THRESHOLDS)
+
+
+def _over(verdict: ClaimVerdict, relation: str, bar: str) -> bool:
+    """Does *verdict* put enough mass on *relation* to trip its own backend's
+    *bar*? The verdict picks the thresholds, not the caller - a verdict can
+    never be graded against a backend it did not come from.
+    """
+    return _mass(verdict, relation) >= getattr(thresholds_for(verdict.backend), bar)
 
 
 def _mass(verdict: ClaimVerdict, relation: str) -> float:
@@ -323,7 +481,7 @@ def apply_verdicts(
             kept.append(claim)
             continue
 
-        if all(_mass(v, "says_nothing") >= UNSUPPORTED_REJECT_PROBABILITY for v in real):
+        if all(_over(v, "says_nothing", "unsupported_reject") for v in real):
             logger.info("Dropping claim none of its cited sources actually address: %s", claim.text[:80])
             flags.append(_claim_removed_flag(claim.text, summary_language))
             continue
@@ -331,8 +489,7 @@ def apply_verdicts(
         # The single most contradicting source decides, not the average: one
         # source refuting a claim is the finding, however many others stay
         # quiet about it.
-        contradiction = max(_mass(v, "contradicts") for v in real)
-        if contradiction >= CONTRADICT_FLAG_PROBABILITY:
+        if any(_over(v, "contradicts", "contradict_flag") for v in real):
             logger.info("Flagging claim contradicted by its own cited source: %s", claim.text[:80])
             flags.append(_claim_contradicted_flag(claim.text, summary_language))
             if claim.strength != "weak":
@@ -347,8 +504,7 @@ def apply_verdicts(
         # as refuted, and an infra failure should not cost a claim a
         # citation that may well be good.
         supporting = {
-            v.source_index for v in real
-            if _mass(v, "supports") >= SUPPORT_KEEP_PROBABILITY
+            v.source_index for v in real if _over(v, "supports", "support_keep")
         }
         unverified = {v.source_index for v in claim_verdicts if v.relation == "error"}
         keep_indices = supporting | unverified

@@ -124,6 +124,11 @@ _PURPOSE_MODEL_FIELD: dict[str, str] = {
     # being a small, narrow judgment - an unmapped purpose would otherwise
     # fall back to the cheap default here.
     "related_articles_stance": "llm_heavy_model",
+    # The LLM half of claim_verification's two backends. Pinned to the heavy
+    # model for the same reason as the stance call above, and because the
+    # thresholds claim_verification applies to this backend's answers were
+    # measured against this exact model - see _LLM_THRESHOLDS there.
+    "claim_verification_llm": "llm_heavy_model",
 }
 
 

@@ -41,6 +41,24 @@ def _article(findings: list[Finding] | None = None, full_summary: str = "") -> A
     )
 
 
+
+class _Settings:
+    """Just enough Settings for select_backend to pick a judge.
+
+    verify_claims used to never touch `settings` when the judge was
+    monkeypatched, so these tests passed None. It reads it now, to choose
+    between the TypeSafe and LLM backends - so which backend a test runs
+    under has to be stated rather than left to chance.
+    """
+
+    def __init__(self, typesafe_key: str | None = "test-key"):
+        self.typesafe_key = typesafe_key
+
+
+_TYPESAFE = _Settings()
+_LLM_ONLY = _Settings(typesafe_key=None)
+
+
 # ── _evidence_block ─────────────────────────────────────────────
 
 
@@ -75,7 +93,7 @@ def test_evidence_block_renders_every_finding_of_a_multi_finding_source():
 
 
 def test_verify_claims_empty_claims_returns_empty():
-    assert verify_claims([], [_article(full_summary="x")], settings=None) == []
+    assert verify_claims([], [_article(full_summary="x")], settings=_TYPESAFE) == []
 
 
 def test_verify_claims_skips_out_of_range_indices_without_calling_typesafe(monkeypatch):
@@ -84,7 +102,7 @@ def test_verify_claims_skips_out_of_range_indices_without_calling_typesafe(monke
     monkeypatch.setattr(claim_verification, "ask_choice", boom)
 
     claims = [Claim(text="some claim", source_indices=[5])]  # no article at index 5
-    assert verify_claims(claims, [_article(full_summary="x")], settings=None) == []
+    assert verify_claims(claims, [_article(full_summary="x")], settings=_TYPESAFE) == []
 
 
 def test_verify_claims_skips_the_call_when_source_has_no_evidence(monkeypatch):
@@ -94,7 +112,7 @@ def test_verify_claims_skips_the_call_when_source_has_no_evidence(monkeypatch):
 
     claims = [Claim(text="some claim", source_indices=[0])]
     articles = [_article(full_summary="")]  # no findings, empty full_summary
-    out = verify_claims(claims, articles, settings=None)
+    out = verify_claims(claims, articles, settings=_TYPESAFE)
     assert out == [ClaimVerdict(0, 0, "says_nothing", None, {})]
 
 
@@ -108,7 +126,7 @@ def test_verify_claims_reaches_typesafe_and_returns_its_verdict(monkeypatch):
 
     claims = [Claim(text="the drug reduces risk", source_indices=[0])]
     articles = [_article(findings=[Finding(text="risk reduced", evidence_quote="risk was reduced by 40%")])]
-    out = verify_claims(claims, articles, settings=None)
+    out = verify_claims(claims, articles, settings=_TYPESAFE)
 
     assert out == [ClaimVerdict(0, 0, "supports", 0.93, {"supports": 0.93})]
     assert captured["state"]["claim"] == "the drug reduces risk"
@@ -122,7 +140,7 @@ def test_verify_claims_typesafe_failure_yields_error_verdict(monkeypatch):
 
     claims = [Claim(text="x", source_indices=[0])]
     articles = [_article(findings=[Finding(text="x", evidence_quote="y")])]
-    out = verify_claims(claims, articles, settings=None)
+    out = verify_claims(claims, articles, settings=_TYPESAFE)
     assert out == [ClaimVerdict(0, 0, "error", None, {})]
 
 
@@ -140,7 +158,7 @@ def test_verify_claims_one_verdict_per_cited_source_not_per_claim(monkeypatch):
         _article(findings=[Finding(text="supports it", evidence_quote="q1")]),
         _article(findings=[Finding(text="unrelated", evidence_quote="q2")]),
     ]
-    out = sorted(verify_claims(claims, articles, settings=None), key=lambda v: v.source_index)
+    out = sorted(verify_claims(claims, articles, settings=_TYPESAFE), key=lambda v: v.source_index)
     assert out == [
         ClaimVerdict(0, 0, "supports", 0.9, {}),
         ClaimVerdict(0, 1, "says_nothing", 0.8, {}),
@@ -428,3 +446,88 @@ def test_an_errored_source_never_contributes_mass_to_any_rule():
         ClaimVerdict(0, 1, "error", None, {}),
     ]
     assert apply_verdicts([claim], verdicts) == ([claim], [])
+
+
+# ── backend selection and per-backend thresholds ────────────────
+
+
+def test_select_backend_prefers_typesafe_when_a_key_is_set():
+    assert claim_verification.select_backend(_TYPESAFE) == "typesafe"
+
+
+def test_select_backend_falls_back_to_the_llm_without_a_key():
+    # The point of the fallback: verification is no longer a stage that does
+    # nothing on an instance that never bought a second vendor.
+    assert claim_verification.select_backend(_LLM_ONLY) == "llm"
+
+
+def test_verdicts_carry_the_backend_that_produced_them(monkeypatch):
+    monkeypatch.setattr(
+        claim_verification, "generate_json",
+        lambda **_kw: {"relation": "supports", "confidence": 0.9},
+    )
+    claims = [Claim(text="x", source_indices=[0])]
+    articles = [_article(findings=[Finding(text="x", evidence_quote="q")])]
+    out = verify_claims(claims, articles, settings=_LLM_ONLY)
+    assert [v.backend for v in out] == ["llm"]
+    assert out[0].relation == "supports"
+
+
+def test_llm_backend_rejects_a_relation_outside_the_criteria(monkeypatch):
+    # A prompted model can answer anything; an unknown label must degrade to
+    # an "error" verdict, which touches no claim, not slip through as a
+    # relation no rule matches.
+    monkeypatch.setattr(
+        claim_verification, "generate_json",
+        lambda **_kw: {"relation": "probably", "confidence": 0.99},
+    )
+    claims = [Claim(text="x", source_indices=[0])]
+    articles = [_article(findings=[Finding(text="x", evidence_quote="q")])]
+    out = verify_claims(claims, articles, settings=_LLM_ONLY)
+    assert out[0].relation == "error"
+
+
+def test_the_same_confidence_decides_differently_per_backend():
+    # 0.87 on `contradicts` clears TypeSafe's 0.85 flag bar and not the LLM
+    # backend's 0.90 - the whole reason thresholds travel with the verdict.
+    # Grading the LLM's answers on TypeSafe's bars is the specific bug this
+    # arrangement makes unrepresentable.
+    claim = Claim(text="x", source_indices=[0], strength="strong")
+    ts = [ClaimVerdict(0, 0, "contradicts", 0.87, {}, "typesafe")]
+    llm = [ClaimVerdict(0, 0, "contradicts", 0.87, {}, "llm")]
+
+    ts_out, ts_flags = apply_verdicts([claim], ts)
+    llm_out, llm_flags = apply_verdicts([claim], llm)
+
+    assert len(ts_flags) == 1
+    assert llm_flags == []
+    assert ts_out[0].strength == "weak" and llm_out[0].strength == "weak"
+
+
+def test_llm_support_bar_is_higher_than_typesafes():
+    # 0.8 is real support for TypeSafe (bar 0.50) and not for the LLM backend
+    # (bar 0.90), because the LLM answers 0.9 on three quarters of everything.
+    claim = Claim(text="x", source_indices=[0], strength="strong")
+    ts_out, _ = apply_verdicts([claim], [ClaimVerdict(0, 0, "supports", 0.8, {}, "typesafe")])
+    llm_out, _ = apply_verdicts([claim], [ClaimVerdict(0, 0, "supports", 0.8, {}, "llm")])
+    assert ts_out[0].strength == "strong"
+    assert llm_out[0].strength == "weak"
+
+
+def test_an_unknown_backend_falls_back_to_the_typesafe_bars():
+    claim = Claim(text="x", source_indices=[0], strength="strong")
+    out, flags = apply_verdicts([claim], [ClaimVerdict(0, 0, "contradicts", 0.9, {}, "nonesuch")])
+    assert len(flags) == 1
+    assert out[0].strength == "weak"
+
+
+def test_thresholds_for_every_backend_are_defined():
+    for backend in ("typesafe", "llm"):
+        bars = claim_verification.thresholds_for(backend)
+        assert 0.0 < bars.contradict_flag <= 1.0
+        assert 0.0 < bars.unsupported_reject <= 1.0
+        assert 0.0 < bars.support_keep <= 1.0
+        assert 0.0 < bars.summary_flag <= 1.0
+        # The summary flag is the cheapest action anywhere in verification -
+        # it must never be stricter than the claim-level bar.
+        assert bars.summary_flag <= bars.contradict_flag

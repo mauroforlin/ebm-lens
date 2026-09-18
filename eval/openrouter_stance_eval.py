@@ -38,10 +38,7 @@ import eval._harness as harness
 from app.config import get_settings
 from app.core.job_stats import JobStats
 from app.core.llm_client import generate_json
-from app.pipeline.claim_verification import (
-    CONTRADICT_FLAG_PROBABILITY,
-    UNSUPPORTED_REJECT_PROBABILITY,
-)
+from app.pipeline.claim_verification import _LLM_SYSTEM, LLM_BACKEND, thresholds_for
 from eval._scifact_rows import build_article, load_rows
 
 _GOLD_LABELS = ("SUPPORT", "CONTRADICT", "NOINFO")
@@ -53,16 +50,15 @@ _RELATION_TO_GOLD = {"supports": "SUPPORT", "contradicts": "CONTRADICT", "says_n
 # judged fit for a stance call like this", not "the cheapest model available".
 _MODEL = "google/gemini-2.5-flash"
 
-_SYSTEM = (
-    "You judge how a piece of scientific evidence relates to a claim. "
-    'Answer with only a JSON object: {"relation": "supports" | "contradicts" '
-    '| "says_nothing", "confidence": <float 0 to 1>}. "supports" means the '
-    "evidence states the claim or directly implies it is true. \"contradicts\" "
-    "means the evidence states the opposite of the claim or implies it is "
-    'false. "says_nothing" means the evidence does not address the claim '
-    "either way. confidence is your own honest estimate that your relation "
-    "judgment is correct."
-)
+# The backend under test owns the prompt: _LLM_THRESHOLDS was measured
+# through this exact wording, so a copy here that drifted would silently
+# stop grading the thing production runs.
+_SYSTEM = _LLM_SYSTEM
+
+# This script grades the LLM backend, so it reads the LLM backend's bars -
+# not TypeSafe's, which is the exact mix-up the per-backend split exists
+# to prevent.
+_BARS = thresholds_for(LLM_BACKEND)
 
 _CONFIDENCE_BUCKETS = [(0.0, 0.5), (0.5, 0.7), (0.7, 0.85), (0.85, 0.95), (0.95, 1.001)]
 
@@ -141,12 +137,14 @@ def _summarise(rows: list[dict]) -> dict:
     # silently stop describing the code it is supposed to be grading.
     #
     # Precision here is base-rate dependent, and SciFact's base rates are not
-    # the pipeline's - see CONTRADICT_FLAG_PROBABILITY's own comment for the
-    # arithmetic and why it stopped justifying a deletion.
+    # the pipeline's - see CONTRADICT_FLAG_PROBABILITY's own comment in
+    # claim_verification.py for that arithmetic, and why it stopped
+    # justifying a deletion.
     high_conf_precision = {}
     thresholds = [
-        ("contradicts", "CONTRADICT", CONTRADICT_FLAG_PROBABILITY),
-        ("says_nothing", "NOINFO", UNSUPPORTED_REJECT_PROBABILITY),
+        ("contradicts", "CONTRADICT", _BARS.contradict_flag),
+        ("says_nothing", "NOINFO", _BARS.unsupported_reject),
+        ("supports", "SUPPORT", _BARS.support_keep),
     ]
     for relation, mapped, threshold in thresholds:
         high = [

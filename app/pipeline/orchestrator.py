@@ -471,36 +471,36 @@ def run_related_articles(
             f"Synthesis complete: {len(key_findings)} findings, {len(disagreements)} conflicts",
         )
 
-        # 7. Verify each claim against its own cited sources, when TypeSafe is
-        # configured - optional, see app/core/typesafe_client.py. Checks what
+        # 7. Verify each claim against its own cited sources. Checks what
         # _valid_indices (synthesis.py) does not: not just that a cited index
         # exists, but that the source it points to actually backs the claim.
+        # Runs unconditionally - claim_verification.select_backend uses
+        # TypeSafe when a key is configured and the OpenRouter model this
+        # pipeline already requires otherwise, so this is no longer a stage
+        # that silently does nothing on an instance without a second vendor.
         # 8. Same idea, one level up: global_summary and key_findings are
         # sibling outputs of the same synthesise call, not parent and child,
         # so verifying key_findings says nothing about whether the prose
         # overview itself stays within what its own citations back - see
         # app/pipeline/summary_verification.py.
-        summary_flags: list[str] = []
-        claim_flags: list[str] = []
-        if settings.typesafe_key:
-            emitter.emit("verification", "Verifying claims against their cited sources…")
-            with _stage(stats, "claim_verification"):
-                verdicts = claim_verification.verify_claims(
-                    key_findings, articles, settings, job_stats=stats,
-                )
-                key_findings, claim_flags = claim_verification.apply_verdicts(
-                    key_findings, verdicts, summary_language=summary_language,
-                )
-            with _stage(stats, "summary_verification"):
-                summary_flags = summary_verification.verify_summary(
-                    global_summary, articles, settings,
-                    summary_language=summary_language, job_stats=stats,
-                )
-            emitter.emit(
-                "verification",
-                f"Verification complete: {len(key_findings)} findings retained, "
-                f"{len(claim_flags) + len(summary_flags)} flagged",
+        emitter.emit("verification", "Verifying claims against their cited sources…")
+        with _stage(stats, "claim_verification"):
+            verdicts = claim_verification.verify_claims(
+                key_findings, articles, settings, job_stats=stats,
             )
+            key_findings, claim_flags = claim_verification.apply_verdicts(
+                key_findings, verdicts, summary_language=summary_language,
+            )
+        with _stage(stats, "summary_verification"):
+            summary_flags = summary_verification.verify_summary(
+                global_summary, articles, settings,
+                summary_language=summary_language, job_stats=stats,
+            )
+        emitter.emit(
+            "verification",
+            f"Verification complete: {len(key_findings)} findings retained, "
+            f"{len(claim_flags) + len(summary_flags)} flagged",
+        )
 
         logger.info(
             "done: %d articles in %.1fs (domain=%s, %d claims, %d conflicts)",

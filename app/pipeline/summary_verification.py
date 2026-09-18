@@ -40,7 +40,7 @@ from dataclasses import dataclass
 from app.config import Settings
 from app.core.job_stats import JobStats
 from app.pipeline import claim_verification
-from app.pipeline.claim_verification import ClaimVerdict, _mass, _snippet
+from app.pipeline.claim_verification import ClaimVerdict, _over, _snippet
 from app.schemas import ArticleSummary, Claim
 
 logger = logging.getLogger(__name__)
@@ -61,22 +61,20 @@ _CITATION_CLUSTER_RE = re.compile(r"(?:\[\d+\]\s*)+[.,;:!?]?")
 # Flagging every short fragment would bury the real findings in noise.
 _MIN_FLAG_WORDS = 6
 
-# Probability mass a relation needs before it flags a passage - read out of
-# the verdict's own distribution, the same way claim_verification's bars are
-# (see _mass there for why, and for what happens without a distribution).
+# The bar this module flags at lives on each backend's own Thresholds as
+# `summary_flag` (claim_verification.py), read through `_over` so a verdict
+# is never graded against a backend it did not come from.
 #
-# Deliberately lower than claim_verification.CONTRADICT_FLAG_PROBABILITY
-# (0.85): both gate a flag rather than a deletion, but a flag on the prose
-# overview is cheaper still - it names a passage to re-read, where a flag on
-# a claim also clamps that claim's stated strength. Tuned against a real
-# TypeSafe run (see ts_test5 in the working notes), not guessed: two genuine
-# overreaches - a claim generalising past what its source established, and a
-# claim citing a source addressing a different aspect entirely - verified as
-# "says_nothing" at 0.75-0.76, well below claim_verification's 0.85 bar,
-# while the two genuinely well-cited chunks in the same run scored 0.99-1.0.
-# Reusing 0.85 here would have silently let both real overreaches through
-# unflagged.
-FLAG_PROBABILITY = 0.6
+# It is deliberately the lowest bar either backend applies: both flag rather
+# than delete, but a flag on the prose overview is cheaper still - it names a
+# passage to re-read, where a flag on a claim also clamps that claim's stated
+# strength. TypeSafe's 0.6 was tuned against a real run (see ts_test5 in the
+# working notes), not guessed: two genuine overreaches - a claim generalising
+# past what its source established, and a claim citing a source addressing a
+# different aspect entirely - verified as "says_nothing" at 0.75-0.76, well
+# below claim_verification's 0.85 claim bar, while the two genuinely
+# well-cited chunks in the same run scored 0.99-1.0. Reusing the claim bar
+# here would have let both real overreaches through unflagged.
 
 
 @dataclass
@@ -198,9 +196,9 @@ def verify_summary(
         real = [v for v in by_chunk.get(c_index, []) if v.relation != "error"]
         if not real:
             continue
-        if any(_mass(v, "contradicts") >= FLAG_PROBABILITY for v in real):
+        if any(_over(v, "contradicts", "summary_flag") for v in real):
             flags.append(_contradicted_flag(text, summary_language))
-        elif all(_mass(v, "says_nothing") >= FLAG_PROBABILITY for v in real):
+        elif all(_over(v, "says_nothing", "summary_flag") for v in real):
             flags.append(_unsupported_flag(text, summary_language))
 
     return flags
