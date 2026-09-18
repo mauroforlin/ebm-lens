@@ -33,9 +33,9 @@ because judge_directions never had a comparable confidence field to begin
 with (see typesafe_client.py, claim_verification.py's module docstrings) -
 this is the first time this codebase can check, against real outside labels,
 whether a TypeSafe confidence bucket's accuracy actually tracks its number.
-apply_verdicts' thresholds (CONTRADICT_FLAG_CONFIDENCE 0.85,
-UNSUPPORTED_REJECT_CONFIDENCE 0.95) and summary_verification's
-FLAG_CONFIDENCE (0.6) started out chosen from a handful of hand-run
+apply_verdicts' thresholds (CONTRADICT_FLAG_PROBABILITY 0.85,
+UNSUPPORTED_REJECT_PROBABILITY 0.95) and summary_verification's
+FLAG_PROBABILITY (0.6) started out chosen from a handful of hand-run
 examples, not from anything like this; the per-bucket accuracy below, and
 the per-relation precision at the bar each threshold actually sits at, are
 what they should be argued from instead.
@@ -56,6 +56,12 @@ import eval._harness as harness
 from app.config import get_settings
 from app.core.job_stats import JobStats
 from app.pipeline import claim_verification
+from app.pipeline.claim_verification import (
+    CONTRADICT_DOUBT_PROBABILITY,
+    CONTRADICT_FLAG_PROBABILITY,
+    SUPPORT_KEEP_PROBABILITY,
+    UNSUPPORTED_REJECT_PROBABILITY,
+)
 from app.schemas import Claim
 from eval._scifact_rows import build_article, load_rows
 
@@ -82,6 +88,10 @@ def _evaluate(row: dict) -> dict:
             "predicted": v.relation,
             "predicted_mapped": _RELATION_TO_GOLD.get(v.relation, "ERROR"),
             "confidence": v.confidence,
+            # apply_verdicts decides on this, not on the argmax above - so a
+            # run that does not record it cannot grade the rule the pipeline
+            # actually applies. See _summarise's rule_precision.
+            "probabilities": dict(v.probabilities),
         })
     return {"pairs": pairs, "cost_usd": round(stats.to_dict()["total_cost_usd"], 8)}
 
@@ -94,6 +104,83 @@ def _precision_recall_f1(confusion: dict[str, dict[str, int]], label: str) -> tu
     recall = tp / actual if actual else 0.0
     f1 = 2 * precision * recall / (precision + recall) if (precision + recall) else 0.0
     return precision, recall, f1
+
+
+def _mass(pair: dict, relation: str) -> float:
+    """The eval-side mirror of claim_verification._mass, over a stored pair.
+
+    Same fallback, and the same guard against a `probabilities` dict that is
+    not keyed by relation name - so this grades what apply_verdicts would
+    actually have done with the verdict, including on progress files written
+    before probabilities were recorded at all.
+    """
+    probabilities = pair.get("probabilities") or {}
+    if probabilities and pair["predicted"] in probabilities:
+        return probabilities.get(relation, 0.0)
+    return (pair["confidence"] or 0.0) if pair["predicted"] == relation else 0.0
+
+
+def _precision_at(pairs: list[dict], relation: str, gold: str, threshold: float) -> dict:
+    hits = [p for p in pairs if _mass(p, relation) >= threshold]
+    correct = sum(1 for p in hits if p["gold"] == gold)
+    return {
+        "n": len(hits),
+        "threshold": threshold,
+        "precision": correct / len(hits) if hits else None,
+    }
+
+
+def _rule_precision(pairs: list[dict]) -> dict:
+    """Grade the rules apply_verdicts actually applies, at their own bars.
+
+    `per_class` above grades the argmax, which is not what the pipeline acts
+    on: every bar in claim_verification is a probability mass on one named
+    relation. These are the numbers its thresholds should be argued from.
+
+    `contradicts_doubt_band` is the one with no counterpart in the old rules
+    - pairs where enough mass sits on "contradicts" to stop calling a claim
+    strong, while some other relation still wins the argmax. If the gold
+    label there is CONTRADICT far more often than the base rate, the band is
+    catching something the argmax throws away; if it is not, the band is
+    only costing claims their strength for nothing.
+    """
+    doubt = [
+        p for p in pairs
+        if CONTRADICT_DOUBT_PROBABILITY <= _mass(p, "contradicts") < CONTRADICT_FLAG_PROBABILITY
+    ]
+    base_rate = (
+        sum(1 for p in pairs if p["gold"] == "CONTRADICT") / len(pairs) if pairs else None
+    )
+    return {
+        "contradicts_flag": _precision_at(
+            pairs, "contradicts", "CONTRADICT", CONTRADICT_FLAG_PROBABILITY,
+        ),
+        "says_nothing_drop": _precision_at(
+            pairs, "says_nothing", "NOINFO", UNSUPPORTED_REJECT_PROBABILITY,
+        ),
+        "supports_keep": _precision_at(
+            pairs, "supports", "SUPPORT", SUPPORT_KEEP_PROBABILITY,
+        ),
+        "contradicts_doubt_band": {
+            "n": len(doubt),
+            "range": [CONTRADICT_DOUBT_PROBABILITY, CONTRADICT_FLAG_PROBABILITY],
+            "share_truly_contradicted": (
+                sum(1 for p in doubt if p["gold"] == "CONTRADICT") / len(doubt) if doubt else None
+            ),
+            "corpus_base_rate": base_rate,
+        },
+        # What the old rule would have kept as support: argmax alone, no bar.
+        # The gap between this and supports_keep is what SUPPORT_KEEP_
+        # PROBABILITY bought.
+        "supports_argmax_only": {
+            "n": sum(1 for p in pairs if p["predicted"] == "supports"),
+            "precision": (
+                sum(1 for p in pairs if p["predicted"] == "supports" and p["gold"] == "SUPPORT")
+                / sum(1 for p in pairs if p["predicted"] == "supports")
+                if any(p["predicted"] == "supports" for p in pairs) else None
+            ),
+        },
+    }
 
 
 def _summarise(rows: list[dict]) -> dict:
@@ -132,6 +219,7 @@ def _summarise(rows: list[dict]) -> dict:
         "per_class": per_class,
         "confusion": confusion,
         "calibration_by_confidence": calibration,
+        "rule_precision": _rule_precision(pairs),
         "mean_cost_usd": statistics.mean(r["cost_usd"] for r in ok) if ok else 0.0,
         "total_cost_usd": sum(r.get("cost_usd", 0.0) for r in rows),
     }

@@ -525,6 +525,7 @@ function render(data) {
           — the summary below is extrapolated from related evidence.</p>` : ""}
         <div class="overview-text">${renderOverviewMarkdown(esc(rest))}</div>
         ${renderFindings(data.key_findings)}
+        ${renderVerificationFlags(data)}
         ${renderProfile(data.evidence_profile)}
         ${renderConflicts(data.disagreements)}
         ${renderGaps(data.evidence_gaps)}
@@ -599,6 +600,23 @@ function renderFindings(findings) {
     </li>`;
   }).join("");
   return `<ul class="findings">${items}</ul>`;
+}
+
+/* What the claim/summary verification stages changed or could not confirm
+   (app/pipeline/claim_verification.py and summary_verification.py). Both
+   arrays are empty when TypeSafe is not configured, so this renders nothing
+   at all on an instance without a key - not an empty "all clear" box, which
+   would claim a check that never ran.
+
+   Claim flags come first: those name a statement the reader can see right
+   above, in the findings list. Summary flags point back into the prose. */
+function renderVerificationFlags(data) {
+  const flags = [...(data.claim_flags || []), ...(data.summary_flags || [])];
+  if (!flags.length) return "";
+  return `<div class="verification-flags">
+    <h3>Checked against the cited sources</h3>
+    <ul>${flags.map((flag) => `<li>${esc(flag)}</li>`).join("")}</ul>
+  </div>`;
 }
 
 /* Where the sources disagree, the disagreement is the finding. */

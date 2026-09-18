@@ -32,12 +32,18 @@ from app.config import Settings
 if TYPE_CHECKING:
     from app.core.job_stats import JobStats
 
-# jev-latest always resolves to TypeSafe's current flagship model - fine for
-# a single-caller integration where nothing depends on reproducing an exact
-# verdict across a TypeSafe-side model upgrade; a caller that does needs that
-# stability should pin an explicit version instead, as the citation_check
-# cookbook does with jev-1.12.
-DEFAULT_MODEL = "jev-latest"
+# Pinned, not jev-latest. eval/typesafe_stance_eval.py grades this exact
+# call and claim_verification.py's thresholds are argued from those numbers,
+# so a TypeSafe-side model upgrade under `jev-latest` would silently
+# invalidate the evidence for every threshold in that module while the code
+# kept reporting the old figures. TypeSafe's own citation_check cookbook
+# pins for the same reason. The failure mode of a pin - the version is
+# eventually retired and calls start erroring - is the safe one here:
+# verify_claims turns an exception into an "error" verdict, which
+# apply_verdicts treats as neither support nor rejection, so verification
+# degrades to a no-op instead of degrading quietly into different answers.
+# Re-run the eval before moving this.
+DEFAULT_MODEL = "jev-1.13.0"
 
 _client = None
 _client_lock = threading.Lock()

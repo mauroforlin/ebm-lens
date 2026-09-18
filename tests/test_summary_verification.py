@@ -139,6 +139,49 @@ def test_verify_summary_does_not_flag_ambiguous_low_confidence_verdict(monkeypat
     assert flags == []
 
 
+def _dist(**masses: float) -> ClaimVerdict:
+    relation = max(masses, key=lambda k: masses[k])
+    return ClaimVerdict(0, 0, relation, masses[relation], dict(masses))
+
+
+def test_verify_summary_flags_on_contradiction_mass_the_argmax_hides(monkeypatch):
+    # {says_nothing .35, contradicts .62}: argmax is contradicts here, but the
+    # point is the bar is read off the mass, so a distribution whose winner
+    # sits below FLAG_PROBABILITY does not flag while this one does.
+    def fake_verify_claims(claims, articles, settings, job_stats=None):
+        return [_dist(supports=0.03, contradicts=0.62, says_nothing=0.35)]
+    monkeypatch.setattr(claim_verification, "verify_claims", fake_verify_claims)
+
+    flags = verify_summary(
+        "The drug reduced symptoms [0].", [_article()], settings=None, summary_language="en",
+    )
+    assert len(flags) == 1
+    assert "contradict" in flags[0]
+
+
+def test_verify_summary_does_not_flag_a_spread_distribution(monkeypatch):
+    # No relation holds enough mass to clear FLAG_PROBABILITY - the passage is
+    # genuinely undecided, which is not the same as being contradicted.
+    def fake_verify_claims(claims, articles, settings, job_stats=None):
+        return [_dist(supports=0.40, contradicts=0.35, says_nothing=0.25)]
+    monkeypatch.setattr(claim_verification, "verify_claims", fake_verify_claims)
+
+    flags = verify_summary("The drug reduced symptoms [0].", [_article()], settings=None)
+    assert flags == []
+
+
+def test_verify_summary_unsupported_flag_reads_says_nothing_mass(monkeypatch):
+    def fake_verify_claims(claims, articles, settings, job_stats=None):
+        return [_dist(supports=0.15, contradicts=0.05, says_nothing=0.80)]
+    monkeypatch.setattr(claim_verification, "verify_claims", fake_verify_claims)
+
+    flags = verify_summary(
+        "The drug reduced symptoms [0].", [_article()], settings=None, summary_language="en",
+    )
+    assert len(flags) == 1
+    assert "does not appear to address" in flags[0]
+
+
 def test_verify_summary_error_verdict_is_not_flagged(monkeypatch):
     def fake_verify_claims(claims, articles, settings, job_stats=None):
         return [ClaimVerdict(0, 0, "error", None, {})]

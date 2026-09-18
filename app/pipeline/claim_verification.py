@@ -159,14 +159,21 @@ def verify_claims(
     return run_parallel(_check, pairs, _VERIFY_MAX_WORKERS)
 
 
-# Confidence a "contradicts" verdict needs before it demotes a claim and
-# surfaces a flag - mirrors TypeSafe's own citation_check cookbook
-# (AUTO_ACCEPT = 0.8), a little higher because a flag still costs a reader
-# attention. A verdict below this (the compound-claim case this was tuned
-# against returned 0.46) is the genuinely ambiguous case: it clamps strength
-# without raising a flag anyone has to read.
+# Every threshold below reads a *probability mass* out of the verdict's own
+# distribution, not `confidence`. `confidence` is one number describing how
+# concentrated the distribution is; it cannot say where the remaining mass
+# went, and every decision here turns on exactly that. "contradicts at 0.7"
+# is {contradicts .55, supports .40, says_nothing .05} - the model cannot
+# tell which way the source points - or {contradicts .55, says_nothing .42,
+# supports .03}, which is far milder. Reading p(contradicts) directly tells
+# the two apart; reading `relation` plus `confidence` cannot. See _mass for
+# what happens when a verdict carries no distribution at all.
 #
-# This deliberately no longer gates *dropping* a claim. Measured against
+# Mass a "contradicts" needs before it demotes a claim and surfaces a flag -
+# mirrors TypeSafe's own citation_check cookbook (AUTO_ACCEPT = 0.8), a
+# little higher because a flag still costs a reader attention.
+#
+# This deliberately does not gate *dropping* a claim. Measured against
 # SciFact, `contradicts` at >= 0.85 is 84.3% precise (226/268) - but that
 # number is a function of SciFact's 21% CONTRADICT base rate, not a property
 # of the model. Holding the measured sensitivity (85.3%) and false-positive
@@ -175,18 +182,63 @@ def verify_claims(
 # pipeline actually showed. Silently deleting a correct claim is the worse
 # failure for an evidence tool than showing a suspect one next to a warning,
 # and at those precisions dropping loses in both directions. So a confident
-# contradiction now demotes and flags; it never deletes.
-CONTRADICT_FLAG_CONFIDENCE = 0.85
+# contradiction demotes and flags; it never deletes.
+CONTRADICT_FLAG_PROBABILITY = 0.85
 
-# The one remaining destructive path, and a narrower claim than "a source
-# disagrees": *nothing* a claim cites addresses it at all, which is what
-# `_valid_indices` (synthesis.py) already drops one level up when an index
-# points at no real article. Raised from the 0.85 the contradicts branch
-# used to share because the same base-rate argument above applies here too
-# (measured 92.6% precision at 0.85, but again at SciFact's 38.6% NOINFO
-# base rate). The exact precision at 0.95 is not measured - this buys
-# specificity for a still-irreversible action, it does not certify it.
-UNSUPPORTED_REJECT_CONFIDENCE = 0.95
+# Below the flag bar but too much mass on "this source refutes the claim" to
+# present the claim at full strength. This is the band an argmax cannot
+# express: a verdict of {says_nothing .47, contradicts .45} answers
+# "says_nothing" and looks unremarkable, while the model is in fact giving
+# near-even odds that a claim's own cited source refutes it. Demoting
+# without flagging keeps that out of the reader's face while refusing to
+# call the claim strong. Reasoned from what the distribution means, not
+# measured - unlike the two bars above, no run has graded this band.
+CONTRADICT_DOUBT_PROBABILITY = 0.40
+
+# Mass a "supports" needs before it counts as support - before it keeps its
+# citation on the claim through the narrowing below, and before it saves the
+# claim from being clamped to "weak". Previously there was no bar here at
+# all: `relation == "supports"` was enough, so a bare plurality
+# ({supports .34, contradicts .33, says_nothing .33}) - a verdict that is
+# closer to "the model cannot tell" than to "the source backs this" - was
+# treated exactly like {supports .99}. Requiring an outright majority is the
+# weakest bar that still means the answer beat the alternatives combined.
+SUPPORT_KEEP_PROBABILITY = 0.50
+
+# The one destructive path, and a narrower claim than "a source disagrees":
+# *nothing* a claim cites addresses it at all, which is what `_valid_indices`
+# (synthesis.py) already drops one level up when an index points at no real
+# article. Higher than the contradicts bar because the same base-rate
+# argument above applies here too (measured 92.6% precision at 0.85, but
+# again at SciFact's 38.6% NOINFO base rate). The exact precision at 0.95 is
+# not measured - this buys specificity for a still-irreversible action, it
+# does not certify it.
+UNSUPPORTED_REJECT_PROBABILITY = 0.95
+
+
+def _mass(verdict: ClaimVerdict, relation: str) -> float:
+    """How much probability *verdict* put on *relation*.
+
+    Falls back to the scalar reading - `confidence` if *relation* is the one
+    the verdict chose, 0.0 otherwise - whenever no usable distribution is
+    attached, which is what the old `relation == X and confidence >= T`
+    rules computed. That keeps three cases working: the no-evidence
+    short-circuit in verify_claims (which fabricates a verdict without
+    calling TypeSafe), a caller constructing verdicts by hand, and any
+    future backend that returns a label and a confidence but no distribution
+    at all - an LLM judge, say.
+
+    The `verdict.relation in probabilities` guard is deliberate. If TypeSafe
+    ever keys `probabilities` by something other than the criteria names,
+    a plain `.get(relation, 0.0)` would silently return 0.0 for every
+    relation and quietly switch the whole module off; this notices that the
+    dict does not even contain the answer it came with, and reverts to the
+    reading that cannot fail that way.
+    """
+    probabilities = verdict.probabilities
+    if probabilities and verdict.relation in probabilities:
+        return probabilities.get(relation, 0.0)
+    return (verdict.confidence or 0.0) if verdict.relation == relation else 0.0
 
 
 def _snippet(text: str, limit: int = 140) -> str:
@@ -221,19 +273,19 @@ def apply_verdicts(
     reader being told, which a `logger.info` on the server does not achieve.
 
     A claim a cited source confidently contradicts is kept, clamped to
-    "weak", and flagged - see CONTRADICT_FLAG_CONFIDENCE for why this stops
+    "weak", and flagged - see CONTRADICT_FLAG_PROBABILITY for why this stops
     short of deleting it, and why its contradicting citation stays on the
     claim rather than being narrowed away (a flag pointing at a source the
     reader can no longer see is not checkable). A claim none of whose cited
-    sources address at all is still dropped, at the higher
-    UNSUPPORTED_REJECT_CONFIDENCE, and the removal is reported rather than
-    just logged. A claim citing several sources where only some verify as
-    "supports" keeps only those - the same claim, minus the citation that
-    didn't hold up. Anything left over (an ambiguous verdict below the flag
-    bar, or nothing verified as an outright "supports") is kept but not
-    trusted at face value: its stated strength is clamped to "weak", the same
-    mechanism _read_claims already applies for a claim resting only on
-    non-direct sources.
+    sources address at all is dropped, at the higher
+    UNSUPPORTED_REJECT_PROBABILITY, and the removal is reported rather than
+    just logged. A claim citing several sources where only some carry real
+    support keeps only those - the same claim, minus the citation that
+    didn't hold up. Anything left over is kept but not trusted at face
+    value: its stated strength is clamped to "weak" when nothing actually
+    supports it, or when some source puts real mass on contradicting it
+    without clearing the flag bar, the same mechanism _read_claims already
+    applies for a claim resting only on non-direct sources.
 
     `relation == "error"` - the TypeSafe call itself failed - counts as
     neither a support nor a rejection anywhere in this function, so a
@@ -261,19 +313,16 @@ def apply_verdicts(
             kept.append(claim)
             continue
 
-        if all(
-            v.relation == "says_nothing"
-            and (v.confidence or 0.0) >= UNSUPPORTED_REJECT_CONFIDENCE
-            for v in real
-        ):
+        if all(_mass(v, "says_nothing") >= UNSUPPORTED_REJECT_PROBABILITY for v in real):
             logger.info("Dropping claim none of its cited sources actually address: %s", claim.text[:80])
             flags.append(_claim_removed_flag(claim.text, summary_language))
             continue
 
-        if any(
-            v.relation == "contradicts" and (v.confidence or 0.0) >= CONTRADICT_FLAG_CONFIDENCE
-            for v in real
-        ):
+        # The single most contradicting source decides, not the average: one
+        # source refuting a claim is the finding, however many others stay
+        # quiet about it.
+        contradiction = max(_mass(v, "contradicts") for v in real)
+        if contradiction >= CONTRADICT_FLAG_PROBABILITY:
             logger.info("Flagging claim contradicted by its own cited source: %s", claim.text[:80])
             flags.append(_claim_contradicted_flag(claim.text, summary_language))
             if claim.strength != "weak":
@@ -287,17 +336,21 @@ def apply_verdicts(
         # than dropped from the citation list - unverified is not the same
         # as refuted, and an infra failure should not cost a claim a
         # citation that may well be good.
-        supporting = {v.source_index for v in real if v.relation == "supports"}
+        supporting = {
+            v.source_index for v in real
+            if _mass(v, "supports") >= SUPPORT_KEEP_PROBABILITY
+        }
         unverified = {v.source_index for v in claim_verdicts if v.relation == "error"}
         keep_indices = supporting | unverified
-        if supporting and keep_indices != set(claim.source_indices):
-            claim = Claim(
-                text=claim.text,
-                source_indices=[i for i in claim.source_indices if i in keep_indices],
-                strength=claim.strength,
-            )
-        elif not supporting and claim.strength != "weak":
-            claim = Claim(text=claim.text, source_indices=claim.source_indices, strength="weak")
+
+        indices = claim.source_indices
+        if supporting and keep_indices != set(indices):
+            indices = [i for i in indices if i in keep_indices]
+        demote = not supporting or contradiction >= CONTRADICT_DOUBT_PROBABILITY
+        strength = "weak" if demote else claim.strength
+
+        if indices != claim.source_indices or strength != claim.strength:
+            claim = Claim(text=claim.text, source_indices=indices, strength=strength)
 
         kept.append(claim)
     return kept, flags

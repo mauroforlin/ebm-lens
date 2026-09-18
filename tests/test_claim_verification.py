@@ -13,10 +13,25 @@ from app.pipeline import claim_verification
 from app.pipeline.claim_verification import (
     ClaimVerdict,
     _evidence_block,
+    _mass,
     apply_verdicts,
     verify_claims,
 )
 from app.schemas import ArticleSummary, Claim, Finding
+
+
+def _dist(claim_index: int, source_index: int, **masses: float) -> ClaimVerdict:
+    """A verdict carrying a real distribution, argmax derived from it.
+
+    Most tests below are about a rule reading one relation's mass, so naming
+    the masses and letting the argmax fall out is closer to what TypeSafe
+    actually returns than picking a label by hand and hoping it matches.
+    """
+    relation = max(masses, key=lambda k: masses[k])
+    return ClaimVerdict(
+        claim_index=claim_index, source_index=source_index, relation=relation,
+        confidence=masses[relation], probabilities=dict(masses),
+    )
 
 
 def _article(findings: list[Finding] | None = None, full_summary: str = "") -> ArticleSummary:
@@ -141,7 +156,7 @@ def test_apply_verdicts_claim_with_no_verdicts_is_kept_unchanged():
 
 
 def test_apply_verdicts_keeps_and_flags_claim_confidently_contradicted():
-    # Never dropped, however confident: see CONTRADICT_FLAG_CONFIDENCE for the
+    # Never dropped, however confident: see CONTRADICT_FLAG_PROBABILITY for the
     # base-rate reasoning. Demoted to weak, flagged, citations left intact so
     # the reader can check the source the flag is about.
     claim = Claim(text="x", source_indices=[0], strength="strong")
@@ -185,7 +200,7 @@ def test_apply_verdicts_drops_claim_all_sources_say_nothing_confidently():
 
 def test_apply_verdicts_says_nothing_below_the_raised_bar_is_kept():
     # 0.9 cleared the old 0.85 reject bar and would have deleted this claim;
-    # UNSUPPORTED_REJECT_CONFIDENCE is 0.95, so it now survives as weak.
+    # UNSUPPORTED_REJECT_PROBABILITY is 0.95, so it now survives as weak.
     claim = Claim(text="x", source_indices=[0], strength="moderate")
     verdicts = [ClaimVerdict(0, 0, "says_nothing", 0.9, {})]
     out, flags = apply_verdicts([claim], verdicts)
@@ -251,3 +266,159 @@ def test_apply_verdicts_flags_follow_the_summary_language():
     _, en_flags = apply_verdicts([claim], verdicts, summary_language="en")
     assert it_flags != en_flags
     assert "contradict" in en_flags[0]
+
+
+# ── _mass ───────────────────────────────────────────────────────
+
+
+def test_mass_reads_the_distribution_not_the_argmax():
+    verdict = _dist(0, 0, supports=0.2, contradicts=0.3, says_nothing=0.5)
+    assert verdict.relation == "says_nothing"
+    assert _mass(verdict, "contradicts") == 0.3
+    assert _mass(verdict, "supports") == 0.2
+
+
+def test_mass_falls_back_to_confidence_without_a_distribution():
+    # What every rule computed before there was a distribution to read, and
+    # what a backend returning only a label and a confidence would give.
+    verdict = ClaimVerdict(0, 0, "contradicts", 0.9, {})
+    assert _mass(verdict, "contradicts") == 0.9
+    assert _mass(verdict, "supports") == 0.0
+    assert _mass(verdict, "says_nothing") == 0.0
+
+
+def test_mass_falls_back_when_the_distribution_is_keyed_unexpectedly():
+    # If probabilities ever came back keyed by something other than the
+    # criteria names, a plain .get() would read 0.0 for every relation and
+    # silently switch every rule off. The guard notices the dict does not
+    # contain the verdict's own answer and reverts to the scalar reading.
+    verdict = ClaimVerdict(0, 0, "contradicts", 0.9, {"0": 0.9, "1": 0.05, "2": 0.05})
+    assert _mass(verdict, "contradicts") == 0.9
+
+
+def test_mass_of_an_errored_verdict_is_zero_everywhere():
+    verdict = ClaimVerdict(0, 0, "error", None, {})
+    assert _mass(verdict, "contradicts") == 0.0
+    assert _mass(verdict, "supports") == 0.0
+    assert _mass(verdict, "says_nothing") == 0.0
+
+
+def test_mass_of_the_no_evidence_shortcircuit_is_zero():
+    # verify_claims fabricates this without calling TypeSafe: a says_nothing
+    # with no confidence and no distribution. It must not count toward the
+    # drop rule on the strength of a label alone.
+    verdict = ClaimVerdict(0, 0, "says_nothing", None, {})
+    assert _mass(verdict, "says_nothing") == 0.0
+
+
+# ── apply_verdicts, reading the distribution ────────────────────
+
+
+def test_bare_plurality_support_no_longer_counts_as_support():
+    # The latent bug this fixes: `relation == "supports"` with no bar meant
+    # {supports .34, contradicts .33, says_nothing .33} - a verdict closer to
+    # "cannot tell" than to "the source backs this" - kept full strength.
+    claim = Claim(text="x", source_indices=[0], strength="strong")
+    verdicts = [_dist(0, 0, supports=0.34, contradicts=0.33, says_nothing=0.33)]
+    out, flags = apply_verdicts([claim], verdicts)
+    assert out == [Claim(text="x", source_indices=[0], strength="weak")]
+    assert flags == []
+
+
+def test_majority_support_still_counts_as_support():
+    claim = Claim(text="x", source_indices=[0], strength="strong")
+    verdicts = [_dist(0, 0, supports=0.6, contradicts=0.1, says_nothing=0.3)]
+    assert apply_verdicts([claim], verdicts) == ([claim], [])
+
+
+def test_split_direction_demotes_even_though_argmax_is_supports():
+    # The model cannot tell whether the source backs or refutes the claim.
+    # Under the old rule this was "supports" and sailed through untouched.
+    claim = Claim(text="x", source_indices=[0], strength="strong")
+    verdicts = [_dist(0, 0, supports=0.46, contradicts=0.45, says_nothing=0.09)]
+    out, flags = apply_verdicts([claim], verdicts)
+    assert out == [Claim(text="x", source_indices=[0], strength="weak")]
+    assert flags == []
+
+
+def test_doubt_band_demotes_when_another_relation_wins_the_argmax():
+    # {says_nothing .47, contradicts .45}: unremarkable by argmax, while the
+    # model gives near-even odds that the claim's own source refutes it.
+    # Not expressible at all through relation + confidence.
+    claim = Claim(text="x", source_indices=[0], strength="moderate")
+    verdicts = [_dist(0, 0, supports=0.08, contradicts=0.45, says_nothing=0.47)]
+    out, flags = apply_verdicts([claim], verdicts)
+    assert out == [Claim(text="x", source_indices=[0], strength="weak")]
+    assert flags == []
+
+
+def test_contradiction_below_the_doubt_band_leaves_a_supported_claim_alone():
+    claim = Claim(text="x", source_indices=[0], strength="strong")
+    verdicts = [_dist(0, 0, supports=0.7, contradicts=0.1, says_nothing=0.2)]
+    assert apply_verdicts([claim], verdicts) == ([claim], [])
+
+
+def test_doubt_band_demotes_a_claim_that_is_otherwise_well_supported():
+    # One source backs it outright, another puts real mass on refuting it.
+    # The citation stays (the support is real), the strength does not.
+    claim = Claim(text="x", source_indices=[0, 1], strength="strong")
+    verdicts = [
+        _dist(0, 0, supports=0.95, contradicts=0.02, says_nothing=0.03),
+        _dist(0, 1, supports=0.10, contradicts=0.50, says_nothing=0.40),
+    ]
+    out, flags = apply_verdicts([claim], verdicts)
+    assert out == [Claim(text="x", source_indices=[0], strength="weak")]
+    assert flags == []
+
+
+def test_the_most_contradicting_source_decides_not_the_average():
+    # Two quiet sources must not dilute one that refutes the claim outright.
+    claim = Claim(text="x", source_indices=[0, 1, 2], strength="strong")
+    verdicts = [
+        _dist(0, 0, supports=0.05, contradicts=0.02, says_nothing=0.93),
+        _dist(0, 1, supports=0.05, contradicts=0.03, says_nothing=0.92),
+        _dist(0, 2, supports=0.03, contradicts=0.90, says_nothing=0.07),
+    ]
+    out, flags = apply_verdicts([claim], verdicts)
+    assert out == [Claim(text="x", source_indices=[0, 1, 2], strength="weak")]
+    assert len(flags) == 1
+
+
+def test_narrowing_drops_a_source_whose_support_is_only_a_plurality():
+    claim = Claim(text="x", source_indices=[0, 1], strength="strong")
+    verdicts = [
+        _dist(0, 0, supports=0.90, contradicts=0.02, says_nothing=0.08),
+        _dist(0, 1, supports=0.40, contradicts=0.25, says_nothing=0.35),
+    ]
+    out, flags = apply_verdicts([claim], verdicts)
+    assert out == [Claim(text="x", source_indices=[0], strength="strong")]
+    assert flags == []
+
+
+def test_drop_rule_needs_mass_on_says_nothing_from_every_source():
+    claim = Claim(text="x", source_indices=[0, 1], strength="moderate")
+    verdicts = [
+        _dist(0, 0, supports=0.01, contradicts=0.01, says_nothing=0.98),
+        _dist(0, 1, supports=0.30, contradicts=0.10, says_nothing=0.60),
+    ]
+    out, flags = apply_verdicts([claim], verdicts)
+    assert out == [Claim(text="x", source_indices=[0, 1], strength="weak")]
+    assert flags == []
+
+
+def test_flag_rule_still_fires_on_an_overwhelming_contradiction():
+    claim = Claim(text="x", source_indices=[0], strength="strong")
+    verdicts = [_dist(0, 0, supports=0.02, contradicts=0.95, says_nothing=0.03)]
+    out, flags = apply_verdicts([claim], verdicts)
+    assert out == [Claim(text="x", source_indices=[0], strength="weak")]
+    assert len(flags) == 1
+
+
+def test_an_errored_source_never_contributes_mass_to_any_rule():
+    # All three rules read only `real`; the error keeps its citation.
+    claim = Claim(text="x", source_indices=[0, 1], strength="strong")
+    verdicts = [
+        _dist(0, 0, supports=0.9, contradicts=0.05, says_nothing=0.05),
+        ClaimVerdict(0, 1, "error", None, {}),
+    ]
+    assert apply_verdicts([claim], verdicts) == ([claim], [])

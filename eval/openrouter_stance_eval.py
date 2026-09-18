@@ -39,8 +39,8 @@ from app.config import get_settings
 from app.core.job_stats import JobStats
 from app.core.llm_client import generate_json
 from app.pipeline.claim_verification import (
-    CONTRADICT_FLAG_CONFIDENCE,
-    UNSUPPORTED_REJECT_CONFIDENCE,
+    CONTRADICT_FLAG_PROBABILITY,
+    UNSUPPORTED_REJECT_PROBABILITY,
 )
 from eval._scifact_rows import build_article, load_rows
 
@@ -141,12 +141,12 @@ def _summarise(rows: list[dict]) -> dict:
     # silently stop describing the code it is supposed to be grading.
     #
     # Precision here is base-rate dependent, and SciFact's base rates are not
-    # the pipeline's - see CONTRADICT_FLAG_CONFIDENCE's own comment for the
+    # the pipeline's - see CONTRADICT_FLAG_PROBABILITY's own comment for the
     # arithmetic and why it stopped justifying a deletion.
     high_conf_precision = {}
     thresholds = [
-        ("contradicts", "CONTRADICT", CONTRADICT_FLAG_CONFIDENCE),
-        ("says_nothing", "NOINFO", UNSUPPORTED_REJECT_CONFIDENCE),
+        ("contradicts", "CONTRADICT", CONTRADICT_FLAG_PROBABILITY),
+        ("says_nothing", "NOINFO", UNSUPPORTED_REJECT_PROBABILITY),
     ]
     for relation, mapped, threshold in thresholds:
         high = [

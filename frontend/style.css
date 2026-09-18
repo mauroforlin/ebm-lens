@@ -654,6 +654,24 @@ article p { margin: 0; color: var(--text-soft); font-size: 0.9rem; }
 .gaps { margin-top: 16px; }
 .gaps ul { margin: 0; padding-left: 18px; font-size: 0.88rem; color: var(--text-soft); }
 
+/* What verification changed or could not confirm. Shares .gaps' quiet
+   heading but carries tier2's caution colour on the items themselves: these
+   are not "things the evidence does not cover", they are statements above
+   that did not hold up against their own citation. Absent entirely when the
+   verification stages did not run. */
+.verification-flags { margin-top: 16px; }
+.verification-flags h3 {
+  margin: 0 0 8px; font-size: 0.72rem; text-transform: uppercase;
+  letter-spacing: 0.07em; color: var(--text-faint); font-weight: 650;
+}
+.verification-flags ul { margin: 0; padding: 0; list-style: none; }
+.verification-flags li {
+  background: var(--tier2-bg); color: var(--tier2);
+  border-radius: var(--radius-sm); padding: 7px 10px;
+  font-size: 0.82rem; line-height: 1.45; margin-bottom: 6px;
+}
+.verification-flags li:last-child { margin-bottom: 0; }
+
 /* Shown when every source behind the overview is adjacent at best - so the
    prose below is never mistaken for a direct answer to the question asked. */
 .no-direct-flag {
