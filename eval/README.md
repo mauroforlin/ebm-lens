@@ -46,15 +46,28 @@ eval/
     curate_bioasq.py         draws eval/fixtures/bioasq_retrieval.jsonl from eval/data/bioasq/
     curate_ebm_nlp.py        draws eval/fixtures/ebm_nlp_pico.jsonl from eval/data/ebm-nlp/
     curate_scifact.py        draws eval/fixtures/scifact_stance.jsonl from eval/data/scifact/
-  _harness.py                shared resumable-progress/summary/CLI scaffolding for the four eval scripts below
+  _harness.py                shared resumable-progress/summary/CLI scaffolding for the eval scripts below
   retrieval_eval.py          retrieval + rerank, against a fixture (default bioasq_retrieval.jsonl)
   pool_relevance_eval.py     is the discovery pool topically relevant, source-type by source-type
   pico_eval.py               PICO extraction, against ebm_nlp_pico.jsonl
   stance_eval.py             stance + grounding, against scifact_stance.jsonl
+  _scifact_rows.py           shared (claim, cited doc) row loading for the four claim-verification
+                               evals below, read from the raw SciFact release rather than the fixture
+  typesafe_stance_eval.py    claim_verification's own TypeSafe Choice call, graded on full SciFact
+  typesafe_stance_eval_score.py  same rows via the Score primitive — is an ordinal scale a better signal
+  typesafe_stance_eval_noul.py   same rows via Noul — and does its bare 0-1 value carry calibration
+  openrouter_stance_eval.py  same rows, same question, through the OpenRouter model the pipeline
+                               already uses — the "was a new vendor necessary" control. Costs money
   calibrate_ranking_weights.py  fits ranking.PRIOR_WEIGHTS against retrieval_eval's own ndcg_at_10_pool
                                  metric instead of hand-picked constants (coordinate ascent, cross-validated)
   results/                   eval run output (gitignored — regenerated, not a fixture)
 ```
+
+The four claim-verification evals read `eval/data/scifact/` directly instead
+of `fixtures/scifact_stance.jsonl`: they grade a decision the pipeline makes
+per (claim, cited source) pair, so they want every pair in train+dev, not the
+curated sample sized for `stance_eval.py`. Nothing there writes a fixture
+back — redistributing the full set is not this project's call to make.
 
 ## Running
 
@@ -71,6 +84,14 @@ python eval/retrieval_eval.py [--limit N]
 python eval/pool_relevance_eval.py [--limit N]
 python eval/pico_eval.py [--limit N]
 python eval/stance_eval.py [--limit N]
+
+# claim verification, against the raw SciFact release (no fixture, no curate step).
+# the three TypeSafe ones need TYPESAFE_KEY; the OpenRouter control is the
+# only one here with a real per-call cost.
+python eval/typesafe_stance_eval.py [--limit N] [--fresh]
+python eval/typesafe_stance_eval_score.py [--limit N] [--fresh]
+python eval/typesafe_stance_eval_noul.py [--limit N] [--fresh]
+python eval/openrouter_stance_eval.py [--limit N] [--fresh]
 
 # calibrate PRIOR_WEIGHTS: dump costs API calls, search is pure arithmetic
 python eval/calibrate_ranking_weights.py --dump [--limit N]
