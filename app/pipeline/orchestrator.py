@@ -481,13 +481,16 @@ def run_related_articles(
         # overview itself stays within what its own citations back - see
         # app/pipeline/summary_verification.py.
         summary_flags: list[str] = []
+        claim_flags: list[str] = []
         if settings.typesafe_key:
             emitter.emit("verification", "Verifying claims against their cited sources…")
             with _stage(stats, "claim_verification"):
                 verdicts = claim_verification.verify_claims(
                     key_findings, articles, settings, job_stats=stats,
                 )
-                key_findings = claim_verification.apply_verdicts(key_findings, verdicts)
+                key_findings, claim_flags = claim_verification.apply_verdicts(
+                    key_findings, verdicts, summary_language=summary_language,
+                )
             with _stage(stats, "summary_verification"):
                 summary_flags = summary_verification.verify_summary(
                     global_summary, articles, settings,
@@ -496,7 +499,7 @@ def run_related_articles(
             emitter.emit(
                 "verification",
                 f"Verification complete: {len(key_findings)} findings retained, "
-                f"{len(summary_flags)} passages flagged",
+                f"{len(claim_flags) + len(summary_flags)} flagged",
             )
 
         logger.info(
@@ -518,6 +521,7 @@ def run_related_articles(
             disagreements=disagreements,
             evidence_gaps=evidence_gaps,
             summary_flags=summary_flags,
+            claim_flags=claim_flags,
             evidence_profile=evidence_grade.evidence_profile(
                 _as_results(articles),
             ),

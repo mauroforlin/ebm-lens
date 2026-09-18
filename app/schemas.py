@@ -260,3 +260,10 @@ class RelatedArticlesResponse(BaseModel):
                     "citation does not hold up under verification. Empty when TypeSafe is "
                     "not configured, not just when nothing was flagged.",
     )
+    claim_flags: list[str] = Field(
+        default_factory=list,
+        description="What verification changed about key_findings: a claim one of its own "
+                    "cited sources contradicts (kept, clamped to weak), or one dropped "
+                    "because no cited source addressed it. Empty when TypeSafe is not "
+                    "configured, not just when nothing was flagged.",
+    )

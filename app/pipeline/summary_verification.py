@@ -40,7 +40,7 @@ from dataclasses import dataclass
 from app.config import Settings
 from app.core.job_stats import JobStats
 from app.pipeline import claim_verification
-from app.pipeline.claim_verification import ClaimVerdict
+from app.pipeline.claim_verification import ClaimVerdict, _snippet
 from app.schemas import ArticleSummary, Claim
 
 logger = logging.getLogger(__name__)
@@ -61,10 +61,10 @@ _CITATION_CLUSTER_RE = re.compile(r"(?:\[\d+\]\s*)+[.,;:!?]?")
 # Flagging every short fragment would bury the real findings in noise.
 _MIN_FLAG_WORDS = 6
 
-# Deliberately lower than claim_verification.REJECT_CONFIDENCE (0.85): that
-# constant gates dropping a claim outright, a hard-to-reverse action: this
-# one only gates surfacing a flag for a human to look at, which is cheap to
-# get wrong in the direction of a false positive. Tuned against a real
+# Deliberately lower than claim_verification.CONTRADICT_FLAG_CONFIDENCE
+# (0.85): both gate a flag rather than a deletion now, but a flag on the
+# prose overview is cheaper still - it names a passage to re-read, where a
+# flag on a claim also clamps that claim's stated strength. Tuned against a real
 # TypeSafe run (see ts_test5 in the working notes), not guessed: two genuine
 # overreaches - a claim generalising past what its source established, and a
 # claim citing a source addressing a different aspect entirely - verified as
@@ -124,10 +124,6 @@ def split_into_chunks(global_summary: str) -> list[SummaryChunk]:
 
 def _is_substantive(text: str) -> bool:
     return len(re.sub(r"[*_]", "", text).split()) >= _MIN_FLAG_WORDS
-
-
-def _snippet(text: str, limit: int = 140) -> str:
-    return text if len(text) <= limit else text[:limit].rstrip() + "…"
 
 
 def _uncited_flag(text: str, language: str) -> str:

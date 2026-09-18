@@ -137,29 +137,60 @@ def test_verify_claims_one_verdict_per_cited_source_not_per_claim(monkeypatch):
 
 def test_apply_verdicts_claim_with_no_verdicts_is_kept_unchanged():
     claim = Claim(text="x", source_indices=[0], strength="strong")
-    assert apply_verdicts([claim], []) == [claim]
+    assert apply_verdicts([claim], []) == ([claim], [])
 
 
-def test_apply_verdicts_drops_claim_confidently_contradicted():
+def test_apply_verdicts_keeps_and_flags_claim_confidently_contradicted():
+    # Never dropped, however confident: see CONTRADICT_FLAG_CONFIDENCE for the
+    # base-rate reasoning. Demoted to weak, flagged, citations left intact so
+    # the reader can check the source the flag is about.
     claim = Claim(text="x", source_indices=[0], strength="strong")
     verdicts = [ClaimVerdict(0, 0, "contradicts", 0.95, {})]
-    assert apply_verdicts([claim], verdicts) == []
+    out, flags = apply_verdicts([claim], verdicts)
+    assert out == [Claim(text="x", source_indices=[0], strength="weak")]
+    assert len(flags) == 1 and "x" in flags[0]
 
 
-def test_apply_verdicts_keeps_claim_weakly_contradicted_but_downgrades_strength():
+def test_apply_verdicts_contradicted_claim_keeps_the_contradicting_citation():
+    claim = Claim(text="x", source_indices=[0, 1], strength="strong")
+    verdicts = [
+        ClaimVerdict(0, 0, "supports", 0.99, {}),
+        ClaimVerdict(0, 1, "contradicts", 0.95, {}),
+    ]
+    out, flags = apply_verdicts([claim], verdicts)
+    assert out == [Claim(text="x", source_indices=[0, 1], strength="weak")]
+    assert len(flags) == 1
+
+
+def test_apply_verdicts_keeps_claim_weakly_contradicted_without_flagging():
     claim = Claim(text="x", source_indices=[0], strength="strong")
     verdicts = [ClaimVerdict(0, 0, "contradicts", 0.46, {})]
-    out = apply_verdicts([claim], verdicts)
+    out, flags = apply_verdicts([claim], verdicts)
     assert out == [Claim(text="x", source_indices=[0], strength="weak")]
+    assert flags == []
 
 
 def test_apply_verdicts_drops_claim_all_sources_say_nothing_confidently():
     claim = Claim(text="x", source_indices=[0, 1], strength="moderate")
     verdicts = [
         ClaimVerdict(0, 0, "says_nothing", 0.99, {}),
-        ClaimVerdict(0, 1, "says_nothing", 0.9, {}),
+        ClaimVerdict(0, 1, "says_nothing", 0.97, {}),
     ]
-    assert apply_verdicts([claim], verdicts) == []
+    out, flags = apply_verdicts([claim], verdicts)
+    assert out == []
+    # The removal is reported, not just logged - nothing leaves the response
+    # silently.
+    assert len(flags) == 1 and "x" in flags[0]
+
+
+def test_apply_verdicts_says_nothing_below_the_raised_bar_is_kept():
+    # 0.9 cleared the old 0.85 reject bar and would have deleted this claim;
+    # UNSUPPORTED_REJECT_CONFIDENCE is 0.95, so it now survives as weak.
+    claim = Claim(text="x", source_indices=[0], strength="moderate")
+    verdicts = [ClaimVerdict(0, 0, "says_nothing", 0.9, {})]
+    out, flags = apply_verdicts([claim], verdicts)
+    assert out == [Claim(text="x", source_indices=[0], strength="weak")]
+    assert flags == []
 
 
 def test_apply_verdicts_narrows_to_the_source_that_actually_supports():
@@ -168,8 +199,9 @@ def test_apply_verdicts_narrows_to_the_source_that_actually_supports():
         ClaimVerdict(0, 0, "supports", 0.95, {}),
         ClaimVerdict(0, 1, "says_nothing", 0.6, {}),
     ]
-    out = apply_verdicts([claim], verdicts)
+    out, flags = apply_verdicts([claim], verdicts)
     assert out == [Claim(text="x", source_indices=[0], strength="strong")]
+    assert flags == []
 
 
 def test_apply_verdicts_fully_supported_claim_is_untouched():
@@ -178,13 +210,13 @@ def test_apply_verdicts_fully_supported_claim_is_untouched():
         ClaimVerdict(0, 0, "supports", 0.95, {}),
         ClaimVerdict(0, 1, "supports", 0.99, {}),
     ]
-    assert apply_verdicts([claim], verdicts) == [claim]
+    assert apply_verdicts([claim], verdicts) == ([claim], [])
 
 
 def test_apply_verdicts_error_only_claim_is_kept_untouched():
     claim = Claim(text="x", source_indices=[0], strength="strong")
     verdicts = [ClaimVerdict(0, 0, "error", None, {})]
-    assert apply_verdicts([claim], verdicts) == [claim]
+    assert apply_verdicts([claim], verdicts) == ([claim], [])
 
 
 def test_apply_verdicts_keeps_unverified_source_alongside_a_supported_one():
@@ -195,7 +227,7 @@ def test_apply_verdicts_keeps_unverified_source_alongside_a_supported_one():
         ClaimVerdict(0, 0, "supports", 0.95, {}),
         ClaimVerdict(0, 1, "error", None, {}),
     ]
-    assert apply_verdicts([claim], verdicts) == [claim]
+    assert apply_verdicts([claim], verdicts) == ([claim], [])
 
 
 def test_apply_verdicts_operates_per_claim_independently():
@@ -205,6 +237,17 @@ def test_apply_verdicts_operates_per_claim_independently():
     ]
     verdicts = [
         ClaimVerdict(0, 0, "supports", 0.95, {}),
-        ClaimVerdict(1, 1, "contradicts", 0.95, {}),
+        ClaimVerdict(1, 1, "says_nothing", 0.99, {}),
     ]
-    assert apply_verdicts(claims, verdicts) == [claims[0]]
+    out, flags = apply_verdicts(claims, verdicts)
+    assert out == [claims[0]]
+    assert len(flags) == 1
+
+
+def test_apply_verdicts_flags_follow_the_summary_language():
+    claim = Claim(text="x", source_indices=[0], strength="strong")
+    verdicts = [ClaimVerdict(0, 0, "contradicts", 0.95, {})]
+    _, it_flags = apply_verdicts([claim], verdicts, summary_language="it")
+    _, en_flags = apply_verdicts([claim], verdicts, summary_language="en")
+    assert it_flags != en_flags
+    assert "contradict" in en_flags[0]
