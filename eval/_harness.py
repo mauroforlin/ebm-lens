@@ -15,12 +15,24 @@ this module is imported after that line, so it must not depend on it.
 from __future__ import annotations
 
 import argparse
+import contextlib
 import datetime
 import json
 import subprocess
+import sys
 import time
 from collections.abc import Callable
 from pathlib import Path
+
+# Progress lines echo the row's own text, and scientific claims carry Greek
+# letters, dashes and degree signs freely. On Windows a redirected stdout
+# defaults to cp1252, where the first such character raises UnicodeEncodeError
+# mid-run and takes the whole eval down - hundreds of graded rows in, for a
+# print. Anything already written to the progress file survives and the run
+# resumes, but the crash itself is pure noise. Degrade the character instead.
+if hasattr(sys.stdout, "reconfigure"):  # pragma: no cover - stream plumbing
+    with contextlib.suppress(OSError, ValueError):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 _RESULTS_DIR = Path(__file__).resolve().parent / "results"
 _HISTORY_PATH = _RESULTS_DIR / "history.jsonl"

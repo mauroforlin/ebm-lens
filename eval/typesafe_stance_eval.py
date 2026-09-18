@@ -57,7 +57,6 @@ from app.config import get_settings
 from app.core.job_stats import JobStats
 from app.pipeline import claim_verification
 from app.pipeline.claim_verification import (
-    CONTRADICT_DOUBT_PROBABILITY,
     CONTRADICT_FLAG_PROBABILITY,
     SUPPORT_KEEP_PROBABILITY,
     UNSUPPORTED_REJECT_PROBABILITY,
@@ -69,6 +68,10 @@ _GOLD_LABELS = ("SUPPORT", "CONTRADICT", "NOINFO")
 _RELATION_TO_GOLD = {"supports": "SUPPORT", "contradicts": "CONTRADICT", "says_nothing": "NOINFO"}
 
 _CONFIDENCE_BUCKETS = [(0.0, 0.5), (0.5, 0.7), (0.7, 0.85), (0.85, 0.95), (0.95, 1.001)]
+
+# Lower bound of the removed doubt band, kept only so _rule_precision can
+# keep reporting why it was removed. See that function.
+_DOUBT_BAND_FLOOR = 0.40
 
 
 def _evaluate(row: dict) -> dict:
@@ -137,16 +140,18 @@ def _rule_precision(pairs: list[dict]) -> dict:
     on: every bar in claim_verification is a probability mass on one named
     relation. These are the numbers its thresholds should be argued from.
 
-    `contradicts_doubt_band` is the one with no counterpart in the old rules
-    - pairs where enough mass sits on "contradicts" to stop calling a claim
-    strong, while some other relation still wins the argmax. If the gold
-    label there is CONTRADICT far more often than the base rate, the band is
-    catching something the argmax throws away; if it is not, the band is
-    only costing claims their strength for nothing.
+    `contradicts_doubt_band` grades a rule that no longer exists, and stays
+    because it is the measurement that killed it. claim_verification briefly
+    demoted a claim when this much mass sat on "contradicts" below the flag
+    bar, on the theory that a hidden near-even chance of refutation is worth
+    acting on. It is not: the band's share of genuinely contradicted pairs
+    sits on the corpus base rate (`corpus_base_rate` here for comparison),
+    and no lower bound between 0.15 and 0.70 lifted it above 1.19x. Anyone
+    tempted to re-add the rule should read these two numbers first.
     """
     doubt = [
         p for p in pairs
-        if CONTRADICT_DOUBT_PROBABILITY <= _mass(p, "contradicts") < CONTRADICT_FLAG_PROBABILITY
+        if _DOUBT_BAND_FLOOR <= _mass(p, "contradicts") < CONTRADICT_FLAG_PROBABILITY
     ]
     base_rate = (
         sum(1 for p in pairs if p["gold"] == "CONTRADICT") / len(pairs) if pairs else None
@@ -163,7 +168,7 @@ def _rule_precision(pairs: list[dict]) -> dict:
         ),
         "contradicts_doubt_band": {
             "n": len(doubt),
-            "range": [CONTRADICT_DOUBT_PROBABILITY, CONTRADICT_FLAG_PROBABILITY],
+            "range": [_DOUBT_BAND_FLOOR, CONTRADICT_FLAG_PROBABILITY],
             "share_truly_contradicted": (
                 sum(1 for p in doubt if p["gold"] == "CONTRADICT") / len(doubt) if doubt else None
             ),

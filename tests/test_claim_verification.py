@@ -341,33 +341,39 @@ def test_split_direction_demotes_even_though_argmax_is_supports():
     assert flags == []
 
 
-def test_doubt_band_demotes_when_another_relation_wins_the_argmax():
-    # {says_nothing .47, contradicts .45}: unremarkable by argmax, while the
-    # model gives near-even odds that the claim's own source refutes it.
-    # Not expressible at all through relation + confidence.
-    claim = Claim(text="x", source_indices=[0], strength="moderate")
-    verdicts = [_dist(0, 0, supports=0.08, contradicts=0.45, says_nothing=0.47)]
+def test_unremarkable_argmax_with_hidden_contradiction_mass_is_left_alone():
+    # {says_nothing .47, contradicts .45} used to be demoted by a "doubt
+    # band". SciFact says that band's hit rate sits on the corpus base rate
+    # at every bound tried, so it was removed: sub-threshold contradiction
+    # mass is not evidence. The claim keeps its strength.
+    claim = Claim(text="x", source_indices=[0, 1], strength="moderate")
+    verdicts = [
+        _dist(0, 0, supports=0.08, contradicts=0.45, says_nothing=0.47),
+        _dist(0, 1, supports=0.90, contradicts=0.05, says_nothing=0.05),
+    ]
     out, flags = apply_verdicts([claim], verdicts)
-    assert out == [Claim(text="x", source_indices=[0], strength="weak")]
+    assert out == [Claim(text="x", source_indices=[1], strength="moderate")]
     assert flags == []
 
 
-def test_contradiction_below_the_doubt_band_leaves_a_supported_claim_alone():
+def test_contradiction_below_the_flag_bar_leaves_a_supported_claim_alone():
     claim = Claim(text="x", source_indices=[0], strength="strong")
     verdicts = [_dist(0, 0, supports=0.7, contradicts=0.1, says_nothing=0.2)]
     assert apply_verdicts([claim], verdicts) == ([claim], [])
 
 
-def test_doubt_band_demotes_a_claim_that_is_otherwise_well_supported():
-    # One source backs it outright, another puts real mass on refuting it.
-    # The citation stays (the support is real), the strength does not.
+def test_a_well_supported_claim_keeps_its_strength_despite_a_quiet_dissenter():
+    # One source backs it outright, another leans toward refuting it without
+    # clearing the flag bar. The dissenting citation is narrowed away as
+    # unsupported; the claim's strength survives, because the only rule that
+    # would have taken it was the band the eval retired.
     claim = Claim(text="x", source_indices=[0, 1], strength="strong")
     verdicts = [
         _dist(0, 0, supports=0.95, contradicts=0.02, says_nothing=0.03),
         _dist(0, 1, supports=0.10, contradicts=0.50, says_nothing=0.40),
     ]
     out, flags = apply_verdicts([claim], verdicts)
-    assert out == [Claim(text="x", source_indices=[0], strength="weak")]
+    assert out == [Claim(text="x", source_indices=[0], strength="strong")]
     assert flags == []
 
 

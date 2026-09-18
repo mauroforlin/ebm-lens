@@ -185,15 +185,16 @@ def verify_claims(
 # contradiction demotes and flags; it never deletes.
 CONTRADICT_FLAG_PROBABILITY = 0.85
 
-# Below the flag bar but too much mass on "this source refutes the claim" to
-# present the claim at full strength. This is the band an argmax cannot
-# express: a verdict of {says_nothing .47, contradicts .45} answers
-# "says_nothing" and looks unremarkable, while the model is in fact giving
-# near-even odds that a claim's own cited source refutes it. Demoting
-# without flagging keeps that out of the reader's face while refusing to
-# call the claim strong. Reasoned from what the distribution means, not
-# measured - unlike the two bars above, no run has graded this band.
-CONTRADICT_DOUBT_PROBABILITY = 0.40
+# There was a third bar here - a "doubt band" demoting a claim when enough
+# mass sat on `contradicts` without clearing the flag bar, on the theory that
+# {says_nothing .47, contradicts .45} is a claim in real trouble that the
+# argmax hides. SciFact says it is not. Over 1,259 pairs the band's share of
+# genuinely contradicted claims tracks the corpus base rate almost exactly
+# (23.1% against 21.0%), and sweeping its lower bound from 0.15 to 0.70 never
+# gets the lift above 1.19x. Sub-threshold contradiction mass carries close to
+# no information about whether a claim is actually refuted, so the band only
+# cost well-supported claims their stated strength. Removed rather than
+# retuned: no bound made it work.
 
 # Mass a "supports" needs before it counts as support - before it keeps its
 # citation on the claim through the narrowing below, and before it saves the
@@ -203,6 +204,16 @@ CONTRADICT_DOUBT_PROBABILITY = 0.40
 # closer to "the model cannot tell" than to "the source backs this" - was
 # treated exactly like {supports .99}. Requiring an outright majority is the
 # weakest bar that still means the answer beat the alternatives combined.
+#
+# Honest size of the effect: against the old argmax-only rule this changes 5
+# of 526 pairs on SciFact (85.7% -> 86.0% precision). Jev's distributions are
+# concentrated enough that a bare plurality is rare. It is kept because it is
+# the correct reading and costs nothing, not because it bought much - and
+# because a backend with a flatter distribution would hit it far more often.
+# The bar is a real dial, unlike the removed band: measured precision/recall
+# runs 83.7%/91.1% at 0.34, 86.0%/88.2% here, 92.7%/75.2% at 0.90. Raising it
+# trades recall for precision by taking citations away from claims, which is
+# the direction this module has deliberately been moving away from.
 SUPPORT_KEEP_PROBABILITY = 0.50
 
 # The one destructive path, and a narrower claim than "a source disagrees":
@@ -283,9 +294,8 @@ def apply_verdicts(
     support keeps only those - the same claim, minus the citation that
     didn't hold up. Anything left over is kept but not trusted at face
     value: its stated strength is clamped to "weak" when nothing actually
-    supports it, or when some source puts real mass on contradicting it
-    without clearing the flag bar, the same mechanism _read_claims already
-    applies for a claim resting only on non-direct sources.
+    supports it, the same mechanism _read_claims already applies for a claim
+    resting only on non-direct sources.
 
     `relation == "error"` - the TypeSafe call itself failed - counts as
     neither a support nor a rejection anywhere in this function, so a
@@ -346,8 +356,7 @@ def apply_verdicts(
         indices = claim.source_indices
         if supporting and keep_indices != set(indices):
             indices = [i for i in indices if i in keep_indices]
-        demote = not supporting or contradiction >= CONTRADICT_DOUBT_PROBABILITY
-        strength = "weak" if demote else claim.strength
+        strength = claim.strength if supporting else "weak"
 
         if indices != claim.source_indices or strength != claim.strength:
             claim = Claim(text=claim.text, source_indices=indices, strength=strength)
