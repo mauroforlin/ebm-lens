@@ -83,6 +83,7 @@ default, see `.env.example`. Worth knowing about:
 | `CONTACT_EMAIL` | Goes in the `User-Agent`. NCBI, Crossref and OpenAlex give identified clients a more generous rate limit. |
 | `NCBI_API_KEY` | Free, raises PubMed from 3 to 10 req/s. |
 | `OPENFDA_API_KEY` | Free, raises openFDA from 1,000 to 120,000 requests/day. |
+| `TYPESAFE_KEY` | Claim verification (below) always runs; this only picks the judge: [TypeSafe](https://typesafe.ai)'s Jev when set, otherwise the OpenRouter model above. |
 | `API_KEY` | If set, clients must send a matching `X-API-Key`. Set it before exposing the service beyond localhost. |
 | `CORS_ALLOW_ORIGINS` | Only needed for a frontend on another origin. The bundled UI is same-origin. |
 
@@ -151,6 +152,25 @@ Where sources disagree, **that disagreement is the finding**: conflicts come
 back with the sources on each side named, rather than averaged into
 something that reads like settled science.
 
+### Claim verification: existence isn't support
+
+A claim citing no real article is dropped before the response is built, but
+that only catches a broken citation, not a lazy one: it says nothing about
+whether the article a claim *does* cite actually backs what it says.
+`claim_verification.py` checks that too, one typed judgment per (claim,
+cited source) pair: does the source's evidence support the claim,
+contradict it, or say nothing about it? The same check runs a second time
+over the free-text overview (`summary_verification.py`), split at its own
+citation markers.
+
+A confidently contradicted claim is kept, clamped to weak and flagged
+rather than deleted; a claim none of whose citations address it is dropped
+outright. The judgment runs through [TypeSafe](https://typesafe.ai)'s Jev
+models when `TYPESAFE_KEY` is set, a typed Choice question answered from
+the model's own probability distribution, or through the OpenRouter model
+the pipeline already requires otherwise. It always runs, and each backend
+carries its own thresholds, measured against SciFact.
+
 ### Progress and cost
 
 A run takes 60-180 seconds: real multi-round search plus several LLM calls.
@@ -195,6 +215,7 @@ app/
     cache.py         in-process TTL cache, LRU-bounded
     ratelimiter.py   in-process token/request limiter
     job_stats.py     per-run cost, token and timing accounting
+    typesafe_client.py  Jev (TypeSafe) typed-judgment client: Choice/Score/Noul
 
   sources/         everything that talks to the outside world
     base.py          SourceProvider / SourceResult contract
@@ -216,6 +237,8 @@ app/
     evidence_cache.py  whole-topic result cache, keyed on the normalised query
     selection.py     final ranking and selection policy
     synthesis.py     per-source appraisal and the grounded overview
+    claim_verification.py   does a claim's cited source actually back it
+    summary_verification.py   the same check, over the free-text overview
     planner_tools.py the tools the model may call, and their dispatch
 
 frontend/  index.html, app.js, style.css: plain files, no build step
@@ -263,8 +286,11 @@ frontend/  index.html, app.js, style.css: plain files, no build step
   `n_findings` per document so it can be checked.
 
 > [!IMPORTANT]
-> **Citation checking stops at existence (working on it)**
-> A claim citing an article that is not in the response gets dropped before the response is built. Whether a cited article actually supports the sentence citing it is left to the reader; the response links straight to the source for that check.
+> **Claim verification only sees what the synthesiser saw (working on it)**
+> A verdict is judged against the same findings and quotes shown to the
+> synthesiser (`claim_verification.py`'s `_evidence_block`), not the
+> source's full fetched text. That answers "was the synthesiser's input
+> enough to write this claim", not "does the source support it".
 
 ## Evaluation
 
@@ -279,6 +305,19 @@ python eval/retrieval_eval.py
 python eval/pool_relevance_eval.py
 python eval/pico_eval.py
 python eval/stance_eval.py
+```
+
+`claim_verification.py`'s own judgment is graded separately, against every
+claim/document pair in the full SciFact release, once per candidate judge:
+TypeSafe's Choice, Score and Noul primitives, and an OpenRouter control
+through the same prompt. That comparison set the per-backend thresholds in
+`claim_verification.py`.
+
+```bash
+python eval/typesafe_stance_eval.py
+python eval/typesafe_stance_eval_score.py
+python eval/typesafe_stance_eval_noul.py
+python eval/openrouter_stance_eval.py
 ```
 
 Each script writes a resumable run to `eval/results/` and appends a row to
