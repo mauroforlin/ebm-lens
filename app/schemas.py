@@ -257,13 +257,12 @@ class RelatedArticlesResponse(BaseModel):
     summary_flags: list[str] = Field(
         default_factory=list,
         description="Passages in global_summary that carry no source citation, or whose "
-                    "citation does not hold up under verification. Empty when TypeSafe is "
-                    "not configured, not just when nothing was flagged.",
+                    "citation does not hold up under verification.",
     )
     claim_flags: list[str] = Field(
         default_factory=list,
         description="What verification changed about key_findings: a claim one of its own "
-                    "cited sources contradicts (kept, clamped to weak), or one dropped "
-                    "because no cited source addressed it. Empty when TypeSafe is not "
-                    "configured, not just when nothing was flagged.",
+                    "cited sources contradicts, or one none of its cited sources address. "
+                    "Both are kept with their citations and clamped to weak; verification "
+                    "never removes a claim.",
     )

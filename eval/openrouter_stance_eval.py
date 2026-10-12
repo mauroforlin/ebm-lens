@@ -143,7 +143,7 @@ def _summarise(rows: list[dict]) -> dict:
     high_conf_precision = {}
     thresholds = [
         ("contradicts", "CONTRADICT", _BARS.contradict_flag),
-        ("says_nothing", "NOINFO", _BARS.unsupported_reject),
+        ("says_nothing", "NOINFO", _BARS.unsupported_flag),
         ("supports", "SUPPORT", _BARS.support_keep),
     ]
     for relation, mapped, threshold in thresholds:

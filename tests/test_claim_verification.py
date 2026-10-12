@@ -203,22 +203,43 @@ def test_apply_verdicts_keeps_claim_weakly_contradicted_without_flagging():
     assert flags == []
 
 
-def test_apply_verdicts_drops_claim_all_sources_say_nothing_confidently():
+def test_apply_verdicts_flags_claim_all_sources_say_nothing_confidently():
+    # Kept, not dropped: verification flags, it never removes. The citations
+    # stay so the reader can check the sources the flag is about.
     claim = Claim(text="x", source_indices=[0, 1], strength="moderate")
     verdicts = [
         ClaimVerdict(0, 0, "says_nothing", 0.99, {}),
         ClaimVerdict(0, 1, "says_nothing", 0.97, {}),
     ]
     out, flags = apply_verdicts([claim], verdicts)
-    assert out == []
-    # The removal is reported, not just logged - nothing leaves the response
-    # silently.
+    assert out == [Claim(text="x", source_indices=[0, 1], strength="weak")]
     assert len(flags) == 1 and "x" in flags[0]
 
 
-def test_apply_verdicts_says_nothing_below_the_raised_bar_is_kept():
-    # 0.9 cleared the old 0.85 reject bar and would have deleted this claim;
-    # UNSUPPORTED_REJECT_PROBABILITY is 0.95, so it now survives as weak.
+def test_apply_verdicts_unaddressed_flag_follows_the_summary_language():
+    claim = Claim(text="x", source_indices=[0], strength="strong")
+    verdicts = [ClaimVerdict(0, 0, "says_nothing", 0.99, {})]
+    _, it_flags = apply_verdicts([claim], verdicts, summary_language="it")
+    _, en_flags = apply_verdicts([claim], verdicts, summary_language="en")
+    assert "address" in en_flags[0] and it_flags != en_flags
+
+
+def test_apply_verdicts_never_removes_a_claim():
+    # Every rule at its most confident: the output keeps one claim per input.
+    claims = [Claim(text=t, source_indices=[0], strength="strong") for t in "abc"]
+    verdicts = [
+        ClaimVerdict(0, 0, "says_nothing", 1.0, {}),
+        ClaimVerdict(1, 0, "contradicts", 1.0, {}),
+        ClaimVerdict(2, 0, "supports", 1.0, {}),
+    ]
+    out, flags = apply_verdicts(claims, verdicts)
+    assert [c.text for c in out] == ["a", "b", "c"]
+    assert len(flags) == 2
+
+
+def test_apply_verdicts_says_nothing_below_the_flag_bar_is_kept_quietly():
+    # 0.9 is under UNSUPPORTED_FLAG_PROBABILITY (0.95): no flag, but with no
+    # real support the claim's strength is still clamped to weak.
     claim = Claim(text="x", source_indices=[0], strength="moderate")
     verdicts = [ClaimVerdict(0, 0, "says_nothing", 0.9, {})]
     out, flags = apply_verdicts([claim], verdicts)
@@ -273,8 +294,8 @@ def test_apply_verdicts_operates_per_claim_independently():
         ClaimVerdict(1, 1, "says_nothing", 0.99, {}),
     ]
     out, flags = apply_verdicts(claims, verdicts)
-    assert out == [claims[0]]
-    assert len(flags) == 1
+    assert out == [claims[0], Claim(text="bad", source_indices=[1], strength="weak")]
+    assert len(flags) == 1 and "bad" in flags[0]
 
 
 def test_apply_verdicts_flags_follow_the_summary_language():
@@ -525,7 +546,7 @@ def test_thresholds_for_every_backend_are_defined():
     for backend in ("typesafe", "llm"):
         bars = claim_verification.thresholds_for(backend)
         assert 0.0 < bars.contradict_flag <= 1.0
-        assert 0.0 < bars.unsupported_reject <= 1.0
+        assert 0.0 < bars.unsupported_flag <= 1.0
         assert 0.0 < bars.support_keep <= 1.0
         assert 0.0 < bars.summary_flag <= 1.0
         # The summary flag is the cheapest action anywhere in verification -

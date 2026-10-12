@@ -163,9 +163,12 @@ contradict it, or say nothing about it? The same check runs a second time
 over the free-text overview (`summary_verification.py`), split at its own
 citation markers.
 
-A confidently contradicted claim is kept, clamped to weak and flagged
-rather than deleted; a claim none of whose citations address it is dropped
-outright. The judgment runs through [TypeSafe](https://typesafe.ai)'s Jev
+Verification flags and never deletes. A confidently contradicted claim, or
+one none of whose citations address it, is kept with its citations, clamped
+to weak, and flagged for the reader. A confident "this is wrong" is right
+far less often than a confident "this is fine" once real error rates are
+low, so a verdict lets claims through and puts a warning in front of the
+reader, but does not remove what the reader would never see. The judgment runs through [TypeSafe](https://typesafe.ai)'s Jev
 models when `TYPESAFE_KEY` is set, a typed Choice question answered from
 the model's own probability distribution, or through the OpenRouter model
 the pipeline already requires otherwise. It always runs, and each backend

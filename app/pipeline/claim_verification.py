@@ -294,15 +294,21 @@ CONTRADICT_FLAG_PROBABILITY = 0.85
 # the direction this module has deliberately been moving away from.
 SUPPORT_KEEP_PROBABILITY = 0.50
 
-# The one destructive path, and a narrower claim than "a source disagrees":
-# *nothing* a claim cites addresses it at all, which is what `_valid_indices`
-# (synthesis.py) already drops one level up when an index points at no real
-# article. Higher than the contradicts bar because the same base-rate
-# argument above applies here too (measured 92.6% precision at 0.85, but
-# again at SciFact's 38.6% NOINFO base rate). The exact precision at 0.95 is
-# not measured - this buys specificity for a still-irreversible action, it
-# does not certify it.
-UNSUPPORTED_REJECT_PROBABILITY = 0.95
+# A narrower claim than "a source disagrees": *nothing* a claim cites
+# addresses it at all. This used to be the one rule that deleted a claim. It
+# now flags it, kept and clamped to "weak" with its citations intact, for the
+# same reason a contradiction only flags: precision at a high bar is a
+# function of the base rate, and the rate at which real pipeline claims are
+# unaddressed is far below SciFact's 38.6% NOINFO. The rag-hallu-bench
+# comparison on ~5,000 medical RAG answers showed the same thing for every
+# verifier tested, Jev included: at a realistic 10% error rate a confident
+# "this is wrong" was right at most three times out of four, while a
+# confident "this is fine" held 98-99% of the time. A verdict is good enough
+# to let a claim through and to put a warning in front of the reader, not
+# to remove a claim the reader then never sees. Kept at 0.95 rather than
+# lowered to the contradiction bar: SciFact measured 92.6% precision at 0.85,
+# and nothing measured says a lower bar would be worth the extra warnings.
+UNSUPPORTED_FLAG_PROBABILITY = 0.95
 
 
 @dataclass(frozen=True)
@@ -313,14 +319,14 @@ class Thresholds:
     """
 
     contradict_flag: float
-    unsupported_reject: float
+    unsupported_flag: float
     support_keep: float
     summary_flag: float
 
 
 _TYPESAFE_THRESHOLDS = Thresholds(
     contradict_flag=CONTRADICT_FLAG_PROBABILITY,
-    unsupported_reject=UNSUPPORTED_REJECT_PROBABILITY,
+    unsupported_flag=UNSUPPORTED_FLAG_PROBABILITY,
     support_keep=SUPPORT_KEEP_PROBABILITY,
     summary_flag=0.6,
 )
@@ -346,11 +352,10 @@ _TYPESAFE_THRESHOLDS = Thresholds(
 # when it does. That is the right trade for the instance that has no TypeSafe
 # key: fewer findings questioned, and the ones that are, worth reading.
 #
-# The two contradiction bars are deliberately not the same number, and the
-# asymmetry is the whole design principle here: unsupported_reject deletes a
-# claim, contradict_flag only annotates one. A deletion buys its 0.95 with
-# recall it cannot afford to spend. A flag should be generous, the same
-# reasoning that puts summary_flag below both.
+# unsupported_flag stays at 0.95 here, as on TypeSafe: it was set when that
+# rule deleted claims, and its precision below 0.95 is not measured for this
+# backend. Now that it only flags, it could come down; that wants a
+# measurement first.
 #
 # contradict_flag is 0.90, not 0.95, because at 0.95 this backend misses
 # almost everything: 92.8% precision but 29.1% recall, against 75.2%/87.2% at
@@ -362,7 +367,7 @@ _TYPESAFE_THRESHOLDS = Thresholds(
 # backend can express at all.
 _LLM_THRESHOLDS = Thresholds(
     contradict_flag=0.90,
-    unsupported_reject=0.95,
+    unsupported_flag=0.95,
     support_keep=0.90,
     summary_flag=0.90,
 )
@@ -421,11 +426,11 @@ def _claim_contradicted_flag(text: str, language: str) -> str:
     return f'One of the cited sources appears to contradict this claim: "{snippet}"'
 
 
-def _claim_removed_flag(text: str, language: str) -> str:
+def _claim_unaddressed_flag(text: str, language: str) -> str:
     snippet = _snippet(text)
     if language == "it":
-        return f'Affermazione rimossa: nessuna delle fonti citate la tratta: "{snippet}"'
-    return f'Claim removed - none of its cited sources address it: "{snippet}"'
+        return f'Nessuna delle fonti citate sembra trattare questa affermazione: "{snippet}"'
+    return f'None of the cited sources appears to address this claim: "{snippet}"'
 
 
 def apply_verdicts(
@@ -435,30 +440,30 @@ def apply_verdicts(
 ) -> tuple[list[Claim], list[str]]:
     """Fold verify_claims' verdicts back into *claims*.
 
-    Returns the surviving claims and human-readable flags in
-    *summary_language*, the same shape `verify_summary` returns for the prose
-    overview. Every verdict that changes a claim produces a flag: the point
-    is that no verification result acts on what the reader sees without the
-    reader being told, which a `logger.info` on the server does not achieve.
+    Returns the claims and human-readable flags in *summary_language*, the
+    same shape `verify_summary` returns for the prose overview. Every
+    verdict that changes a claim produces a flag: the point is that no
+    verification result acts on what the reader sees without the reader
+    being told, which a `logger.info` on the server does not achieve.
 
-    A claim a cited source confidently contradicts is kept, clamped to
-    "weak", and flagged - see CONTRADICT_FLAG_PROBABILITY for why this stops
-    short of deleting it, and why its contradicting citation stays on the
-    claim rather than being narrowed away (a flag pointing at a source the
-    reader can no longer see is not checkable). A claim none of whose cited
-    sources address at all is dropped, at the higher
-    UNSUPPORTED_REJECT_PROBABILITY, and the removal is reported rather than
-    just logged. A claim citing several sources where only some carry real
-    support keeps only those - the same claim, minus the citation that
-    didn't hold up. Anything left over is kept but not trusted at face
+    Verification never removes a claim. A claim a cited source confidently
+    contradicts is kept, clamped to "weak", and flagged - see
+    CONTRADICT_FLAG_PROBABILITY for why, and why its contradicting citation
+    stays on the claim rather than being narrowed away (a flag pointing at a
+    source the reader can no longer see is not checkable). A claim none of
+    whose cited sources address it at all is treated the same way, at the
+    higher UNSUPPORTED_FLAG_PROBABILITY, with its citations left in place so
+    the reader can check them. A claim citing several sources where only
+    some carry real support keeps only those - the same claim, minus the
+    citation that didn't hold up. Anything left over is kept but not trusted at face
     value: its stated strength is clamped to "weak" when nothing actually
     supports it, the same mechanism _read_claims already applies for a claim
     resting only on non-direct sources.
 
     `relation == "error"` - the TypeSafe call itself failed - counts as
     neither a support nor a rejection anywhere in this function, so a
-    TypeSafe outage degrades verification (nothing gets clamped, flagged or
-    dropped on its account) rather than deleting otherwise-good claims.
+    TypeSafe outage degrades verification (nothing gets clamped or flagged
+    on its account) rather than marking down otherwise-good claims.
     """
     by_claim: dict[int, list[ClaimVerdict]] = {}
     for verdict in verdicts:
@@ -481,9 +486,14 @@ def apply_verdicts(
             kept.append(claim)
             continue
 
-        if all(_over(v, "says_nothing", "unsupported_reject") for v in real):
-            logger.info("Dropping claim none of its cited sources actually address: %s", claim.text[:80])
-            flags.append(_claim_removed_flag(claim.text, summary_language))
+        if all(_over(v, "says_nothing", "unsupported_flag") for v in real):
+            logger.info("Flagging claim none of its cited sources address: %s", claim.text[:80])
+            flags.append(_claim_unaddressed_flag(claim.text, summary_language))
+            if claim.strength != "weak":
+                claim = Claim(
+                    text=claim.text, source_indices=claim.source_indices, strength="weak",
+                )
+            kept.append(claim)
             continue
 
         # The single most contradicting source decides, not the average: one

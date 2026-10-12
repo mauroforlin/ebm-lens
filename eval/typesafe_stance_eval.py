@@ -34,7 +34,7 @@ with (see typesafe_client.py, claim_verification.py's module docstrings) -
 this is the first time this codebase can check, against real outside labels,
 whether a TypeSafe confidence bucket's accuracy actually tracks its number.
 apply_verdicts' thresholds (CONTRADICT_FLAG_PROBABILITY 0.85,
-UNSUPPORTED_REJECT_PROBABILITY 0.95) and summary_verification's
+UNSUPPORTED_FLAG_PROBABILITY 0.95) and summary_verification's
 FLAG_PROBABILITY (0.6) started out chosen from a handful of hand-run
 examples, not from anything like this; the per-bucket accuracy below, and
 the per-relation precision at the bar each threshold actually sits at, are
@@ -59,7 +59,7 @@ from app.pipeline import claim_verification
 from app.pipeline.claim_verification import (
     CONTRADICT_FLAG_PROBABILITY,
     SUPPORT_KEEP_PROBABILITY,
-    UNSUPPORTED_REJECT_PROBABILITY,
+    UNSUPPORTED_FLAG_PROBABILITY,
 )
 from app.schemas import Claim
 from eval._scifact_rows import build_article, load_rows
@@ -161,7 +161,7 @@ def _rule_precision(pairs: list[dict]) -> dict:
             pairs, "contradicts", "CONTRADICT", CONTRADICT_FLAG_PROBABILITY,
         ),
         "says_nothing_drop": _precision_at(
-            pairs, "says_nothing", "NOINFO", UNSUPPORTED_REJECT_PROBABILITY,
+            pairs, "says_nothing", "NOINFO", UNSUPPORTED_FLAG_PROBABILITY,
         ),
         "supports_keep": _precision_at(
             pairs, "supports", "SUPPORT", SUPPORT_KEEP_PROBABILITY,
